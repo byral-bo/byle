@@ -1,7 +1,7 @@
 # MIR Optimizer
 
 > Optimizacionis a nivel MIR: constant folding, dead code elimination, simplificaciones.
-> Crate: `kyc_mir/src/optimize.rs` (888 lines).
+> Crate: `byc_mir/src/optimize.rs` (888 lines).
 
 ## Responsabilidad
 
@@ -29,7 +29,7 @@ fn constant_fold(&self, func: &mut MirFunction) {
 }
 ```
 
-```ky
+```by
 # Antes
 x = 2 + 3 * 4
 
@@ -55,7 +55,7 @@ fn dead_code_elim(&self, func: &mut MirFunction, move_locals: &HashSet<usize>) {
 }
 ```
 
-```ky
+```by
 # Antes
 x = expensive_function() # resultado nunca usado
 println("hello")

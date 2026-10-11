@@ -1,0 +1,17 @@
+[package]
+name = "byc_driver"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[dependencies]
+byc_core = { path = "../byc_core" }
+byc_frontend = { path = "../byc_frontend" }
+byc_hir = { path = "../byc_hir" }
+byc_semantic = { path = "../byc_semantic" }
+byc_mir = { path = "../byc_mir" }
+byc_backend = { path = "../byc_backend" }
+byc_ui = { path = "../byc_ui" }
+byc_tools = { path = "../byc_tools" }
+inkwell = { version = "0.9", features = ["llvm18-1"] }

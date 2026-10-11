@@ -5,9 +5,9 @@
 
 ---
 
-## Tipo Kyle
+## Tipo Byle
 
-```kyle
+```byle
 final class checkbox:
     # Valor
     bind: ^bool?                    # Binding bidireccional
@@ -32,7 +32,7 @@ final class checkbox:
 
 ### Checkbox simple
 
-```kyx
+```byx
 <view>
     @(
         accept_terms: ^bool = false
@@ -44,7 +44,7 @@ final class checkbox:
 
 ### Con modelo
 
-```kyx
+```byx
 <form model=@form>
     <checkbox field="is_active" label="Usuario activo" />
     <checkbox field="receive_emails" label="Recibir emails" />
@@ -71,7 +71,7 @@ final class checkbox:
 
 ### Grupo de checkboxes
 
-```kyx
+```byx
 <view>
     @(
         selected_options: ^{str} = {}
@@ -97,7 +97,7 @@ final class checkbox:
 
 ### Select all / Deselect all
 
-```kyx
+```byx
 <view>
     @(
         items: ^{Item} = {}

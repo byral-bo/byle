@@ -5,9 +5,9 @@
 
 ---
 
-## Filosofía de Kyle UI
+## Filosofía de Byle UI
 
-Kyle UI aprende de los errores de otros frameworks para ofrecer una experiencia superior:
+Byle UI aprende de los errores de otros frameworks para ofrecer una experiencia superior:
 
 1. **Menos es más** — 30 componentes nativos, no 200
 2. **Tipado fuerte** — Todo verificado en compilación
@@ -38,8 +38,8 @@ Container(
 )
 ```
 
-**Solución Kyle:**
-```kyx
+**Solución Byle:**
+```byx
 <vstack spacing=16>
     <text value="Hola" />
     <button text="Click" click=@handler />
@@ -64,8 +64,8 @@ Container(
 </GrandParent>
 ```
 
-**Solución Kyle:**
-```kyx
+**Solución Byle:**
+```byx
 <view>
     @(
         context UserContext:
@@ -92,8 +92,8 @@ Container(
 </script>
 ```
 
-**Solución Kyle:**
-```kyx
+**Solución Byle:**
+```byx
 <text_field type=input_type.email bind=@email />
 ```
 
@@ -116,8 +116,8 @@ export class UserComponent {
 }
 ```
 
-**Solución Kyle:**
-```kyx
+**Solución Byle:**
+```byx
 <view>
     @(
         user: User  # Prop automática
@@ -143,8 +143,8 @@ var body: some View {
 }
 ```
 
-**Solución Kyle:**
-```kyx
+**Solución Byle:**
+```byx
 <view>
     @(
         items: ^{Item} = {}  # ^ = mutable, reactivo
@@ -173,14 +173,14 @@ var body: some View {
 /* ¿Qué color gana? Depende del orden y especificidad */
 ```
 
-**Solución Kyle:**
-```kyle
+**Solución Byle:**
+```byle
 style<button> Primary:
     background = color("#0066FF")
     color = color("#FFFFFF")
 ```
 
-```kyx
+```byx
 <button style=Primary />
 ```
 
@@ -201,8 +201,8 @@ style<button> Primary:
 </button>
 ```
 
-**Solución Kyle:**
-```kyx
+**Solución Byle:**
+```byx
 <button style=Primary text="Click" />
 ```
 
@@ -218,7 +218,7 @@ style<button> Primary:
 // Renderiza HTML en Chromium, pesado y lento
 ```
 
-**Solución Kyle:**
+**Solución Byle:**
 - Web: HTML/CSS/JS nativo (sin overhead)
 - Desktop: SDL2/Skia (ligero, rápido)
 - Mobile: SwiftUI/Jetpack Compose (nativo)
@@ -227,11 +227,11 @@ style<button> Primary:
 
 ---
 
-## Anti-Patrones a Evitar en Kyle UI
+## Anti-Patrones a Evitar en Byle UI
 
 ### ❌ 1. Lógica de negocio en el markup
 
-```kyx
+```byx
 # Malo
 <button click=@() => {
     if validate_form():
@@ -243,7 +243,7 @@ style<button> Primary:
 
 ### ✅ Solución: Separar lógica
 
-```kyx
+```byx
 <view>
     @(
         fn handle_save():
@@ -261,7 +261,7 @@ style<button> Primary:
 
 ### ❌ 2. Estados inconsistentes
 
-```kyx
+```byx
 # Malo: loading y success pueden ser true al mismo tiempo
 @(
     loading: ^bool = false
@@ -272,7 +272,7 @@ style<button> Primary:
 
 ### ✅ Solución: Enum de estados
 
-```kyx
+```byx
 @(
     state: ^state = state.idle
 )
@@ -292,7 +292,7 @@ style<button> Primary:
 
 ### ❌ 3. Componentes god (hacen todo)
 
-```kyx
+```byx
 # Malo: Componente de 500 líneas que hace todo
 <user_dashboard 
     show_stats=true 
@@ -304,7 +304,7 @@ style<button> Primary:
 
 ### ✅ Solución: Composición
 
-```kyx
+```byx
 <view>
     <user_stats />
     <user_chart />
@@ -317,7 +317,7 @@ style<button> Primary:
 
 ### ❌ 4. Tipado débil
 
-```kyx
+```byx
 # Malo: any, dynamic
 @(
     data: any  # ¿Qué es? ¿Qué campos tiene?
@@ -326,7 +326,7 @@ style<button> Primary:
 
 ### ✅ Solución: Tipos explícitos
 
-```kyx
+```byx
 @(
     user: User  # Tipo específico, autocompletado
 )
@@ -336,7 +336,7 @@ style<button> Primary:
 
 ### ❌ 5. Efectos secundarios en render
 
-```kyx
+```byx
 # Malo: Modificar estado durante render
 <view>
     @(
@@ -348,7 +348,7 @@ style<button> Primary:
 
 ### ✅ Solución: Efectos explícitos
 
-```kyx
+```byx
 <view>
     @(
         count: ^i32 = 0
@@ -363,7 +363,7 @@ style<button> Primary:
 
 ### ❌ 6. No manejar estados de error
 
-```kyx
+```byx
 # Malo: Asumir que todo siempre funciona
 <view>
     @(
@@ -375,7 +375,7 @@ style<button> Primary:
 
 ### ✅ Solución: Manejar errores
 
-```kyx
+```byx
 <view>
     @(
         user: User? = none
@@ -401,14 +401,14 @@ style<button> Primary:
 
 ### ❌ 7. Accesibilidad como afterthought
 
-```kyx
+```byx
 # Malo: No considerar accesibilidad
 <button icon="x" click=@close />
 ```
 
 ### ✅ Solución: Accesibilidad desde el inicio
 
-```kyx
+```byx
 <button icon="x" click=@close aria_label="Cerrar" />
 ```
 
@@ -416,14 +416,14 @@ style<button> Primary:
 
 ### ❌ 8. No considerar multiplataforma
 
-```kyx
+```byx
 # Malo: Asumir solo web
 <button style=style(cursor: cursor.pointer) />
 ```
 
 ### ✅ Solución: Diseño universal
 
-```kyx
+```byx
 <button style=Primary />  # Funciona en todas las plataformas
 ```
 
@@ -433,14 +433,14 @@ style<button> Primary:
 
 ### 1. Explícito sobre implícito
 
-```kyx
+```byx
 # ✅ Claro lo que hace
 <modal open=@show_modal on_close=@close title="Confirmar">
 ```
 
 ### 2. Composición sobre herencia
 
-```kyx
+```byx
 # ✅ Componentes pequeños combinables
 <vstack spacing=16>
     <header />
@@ -451,7 +451,7 @@ style<button> Primary:
 
 ### 3. Tipado sobre strings
 
-```kyx
+```byx
 # ✅ Enum tipado
 <input type=input_type.email />
 
@@ -461,7 +461,7 @@ style<button> Primary:
 
 ### 4. snake_case consistente
 
-```kyx
+```byx
 # ✅ Consistente
 <text_field 
     border_radius=8 

@@ -26,7 +26,7 @@
 
 ## Variables
 
-```ky
+```by
 x = 42 # inmutable (default), COPY (i32)
 s = "hola" # inmutable (default), OWNED (str)
 x: ^i32 = 0 # mutable, COPY
@@ -35,7 +35,7 @@ buf: ^str = "" # mutable, OWNED
 
 ## Parameters
 
-```ky
+```by
 fn f(s: str) # MOVE: caller pierde ownership
 fn f(s: &str) # BORROW: caller presta
 fn f(s: ^&str) # MUT BORROW: caller presta mutable
@@ -43,7 +43,7 @@ fn f(s: ^&str) # MUT BORROW: caller presta mutable
 
 ## Expressions
 
-```ky
+```by
 # Move (default)
 a = "hola"
 b = a # MOVE: a invalido after
@@ -72,7 +72,7 @@ println(x) # ✅ 42
 
 ## Clasis (without `this` obligatorio)
 
-```ky
+```by
 class Point:
  x: ^i32 = 0
  y: ^i32 = 0
@@ -98,7 +98,7 @@ El borrow checker valida:
 
 ## Comparison with Rust
 
-| Concepto | Rust | Kyle |
+| Concepto | Rust | Byle |
 |----------|------|------|
 | Variable inmutable | `let x` | `x = v` |
 | Variable mutable | `let mut x` | `x: ^T = v` |

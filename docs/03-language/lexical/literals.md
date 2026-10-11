@@ -2,13 +2,13 @@
 
 ## Source file format [x]
 
-Kyle source filis use **UTF-8** encoding. file extension: `.ky`.
+Byle source filis use **UTF-8** encoding. file extension: `.by`.
 
 ## Indentation [x]
 
 Indentation definis block structure. **4 spaces** per level.
 
-```ky
+```by
 fn main() i32:
  x = 1
  if x > 0:
@@ -17,7 +17,7 @@ fn main() i32:
 
 ## Comments [x]
 
-```ky
+```by
 # Line comment
 ## Doc comment (appears before declarations)
 ```
@@ -27,7 +27,7 @@ Note: no `/* */` block comments.
 
 Identifiers start with a letter or underscore, followed by letters, digits, or underscores.
 
-```ky
+```by
 name # public
 _name # protected
 __name # private
@@ -62,7 +62,7 @@ from
 
 ## Literals [x]
 
-```ky
+```by
 42 # integer decimal
 0xFF # hexadecimal
 0b1010 # binary
@@ -77,7 +77,7 @@ None # null value (None with mayuscula)
 
 The default type for integer literals is `i32`. Valuis exceeding `i32` range are inferred as `i64`.
 
-```ky
+```by
 x = 42 # i32
 y: i64 = 42 # explicit i64
 ```

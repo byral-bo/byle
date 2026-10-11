@@ -5,9 +5,9 @@
 
 ---
 
-## Tipo Kyle
+## Tipo Byle
 
-```kyle
+```byle
 final class text_area:
     # Valor
     bind: ^str?                     # Binding bidireccional
@@ -37,7 +37,7 @@ final class text_area:
 
 ## Uso Básico
 
-```kyx
+```byx
 <view>
     @(
         description: ^str = ""
@@ -75,7 +75,7 @@ final class text_area:
 
 ### Con contador de caracteres
 
-```kyx
+```byx
 <view>
     @(
         comment: ^str = ""
@@ -95,7 +95,7 @@ final class text_area:
 
 ### Editor de markdown
 
-```kyx
+```byx
 <view>
     @(
         content: ^str = ""

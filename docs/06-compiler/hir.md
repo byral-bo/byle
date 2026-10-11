@@ -1,7 +1,7 @@
 # HIR (High-Level Intermediate Representation)
 
 > AST desugerado. Simplifica construccionis sintacticas before del analysis semantico.
-> Crate: `kyc_hir/src/lib.rs` (422 lines).
+> Crate: `byc_hir/src/lib.rs` (422 lines).
 
 ## Responsabilidad
 

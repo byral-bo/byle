@@ -5,9 +5,9 @@
 
 ---
 
-## Tipo Kyle
+## Tipo Byle
 
-```kyle
+```byle
 final class switch:
     # Valor
     bind: ^bool?                    # Binding bidireccional
@@ -29,7 +29,7 @@ final class switch:
 
 ## Uso Básico
 
-```kyx
+```byx
 <view>
     @(
         dark_mode: ^bool = false
@@ -58,7 +58,7 @@ final class switch:
 
 ### Configuración de notificaciones
 
-```kyx
+```byx
 <view>
     @(
         notifications: ^bool = true

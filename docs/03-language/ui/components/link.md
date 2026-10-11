@@ -5,9 +5,9 @@
 
 ---
 
-## Tipo Kyle
+## Tipo Byle
 
-```kyle
+```byle
 final class link:
     # Navegación
     href: str                       # URL o ruta
@@ -32,19 +32,19 @@ final class link:
 
 ### Enlace interno (navegación de la app)
 
-```kyx
+```byx
 <link href="/about" text="Acerca de" />
 ```
 
 ### Enlace externo
 
-```kyx
-<link href="https://kyle.ai" text="Sitio web" external=true />
+```byx
+<link href="https://byle.ai" text="Sitio web" external=true />
 ```
 
 ### Con contenido personalizado
 
-```kyx
+```byx
 <link href="/profile">
     <hstack spacing=8>
         <img src=@user.avatar width=32 height=32 />
@@ -71,7 +71,7 @@ final class link:
 
 ### link_target
 
-```kyle
+```byle
 enum link_target:
     self            # Misma ventana/pestaña
     blank           # Nueva ventana/pestaña
@@ -85,13 +85,13 @@ enum link_target:
 
 ### Enlace con parámetros
 
-```kyx
+```byx
 <link href=@"/users/" + user.id.to_str() text="Ver perfil" />
 ```
 
 ### Navegación programática
 
-```kyx
+```byx
 <view>
     @(
         fn handle_click(event: click_event):
@@ -107,7 +107,7 @@ enum link_target:
 
 ### Enlace con estilo
 
-```kyx
+```byx
 <link href="/docs" style=style(
     color: color("#0066FF"),
     text_decoration: text_decoration.underline
@@ -122,12 +122,12 @@ enum link_target:
 
 ```html
 <a href="/about">Acerca de</a>
-<a href="https://kyle.ai" target="_blank" rel="noopener">Sitio web</a>
+<a href="https://byle.ai" target="_blank" rel="noopener">Sitio web</a>
 ```
 
 ### Desktop (SDL2)
 
-```kyle
+```byle
 fn render_link(x: f32, y: f32):
     skia_draw_text(x, y, "Acerca de", color("#0066FF"))
     
@@ -142,7 +142,7 @@ NavigationLink(destination: AboutView()) {
     Text("Acerca de")
 }
 
-Link("Sitio web", destination: URL(string: "https://kyle.ai")!)
+Link("Sitio web", destination: URL(string: "https://byle.ai")!)
 ```
 
 ### Android (Jetpack Compose)
@@ -157,7 +157,7 @@ TextButton(onClick = { navController.navigate("about") }) {
 ClickableText(
     text = AnnotatedString("Sitio web"),
     onClick = {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://kyle.ai"))
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://byle.ai"))
         context.startActivity(intent)
     }
 )

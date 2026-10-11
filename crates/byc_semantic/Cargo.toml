@@ -1,0 +1,10 @@
+[package]
+name = "byc_semantic"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[dependencies]
+byc_core = { path = "../byc_core" }
+byc_frontend = { path = "../byc_frontend" }

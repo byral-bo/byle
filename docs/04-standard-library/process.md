@@ -3,11 +3,11 @@
 > Execute commands and interact with the operating system.
 > Import: `use std.process`
 >
-> For environment variables, use the `env` package (`ky add env`).
+> For environment variables, use the `env` package (`by add env`).
 
 ## Executing commands
 
-```ky
+```by
 use std.process
 
 output: str = process.exec("ls -la")!
@@ -19,7 +19,7 @@ output = process.exec_args("echo", ["hello", "world"])!
 
 ## Process control
 
-```ky
+```by
 pid: i64 = process.pid()
 cwd: str = process.cwd()
 process.chdir("/tmp")
@@ -39,7 +39,7 @@ process.exit(0)
 
 ## Example
 
-```ky
+```by
 use std.process
 
 output: str = process.exec("python3 -c 'print(42)'")!

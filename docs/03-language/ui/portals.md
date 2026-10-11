@@ -3,7 +3,7 @@
 **Status:** Draft v1.0
 **Date:** 2026-07-10
 **Documentación relacionada:**
-- [ui-syntax.md](../syntax/ui-syntax.md) — Sintaxis .kyx
+- [ui-syntax.md](../syntax/ui-syntax.md) — Sintaxis .byx
 - [state-events.md](state-events.md) — Estado y eventos
 
 ---
@@ -29,7 +29,7 @@ sigue perteneciendo al componente que lo declara.
 
 ### 2.1 Portal básico
 
-```kyx
+```byx
 <portal target="body">
     <modal>
         <text value="Contenido del modal" />
@@ -39,7 +39,7 @@ sigue perteneciendo al componente que lo declara.
 
 ### 2.2 Portal con target CSS selector
 
-```kyx
+```byx
 <portal target="#app-root">
     <tooltip text="Ayuda" />
 </portal>
@@ -51,8 +51,8 @@ sigue perteneciendo al componente que lo declara.
 
 ### 2.3 Portal a slot del componente
 
-```kyx
-# header.kyx
+```byx
+# header.byx
 <portal target="slot:header-actions">
     <button text="Cerrar Sesión" click=@logout />
 </portal>
@@ -60,14 +60,14 @@ sigue perteneciendo al componente que lo declara.
 
 ### 2.4 Portal con named outlet
 
-```kyx
-# app.kyx — define outlets
+```byx
+# app.byx — define outlets
 <outlet name="modals">
     # los portales con target="outlet:modals" se renderizan aquí
 </outlet>
 <outlet name="tooltips" />
 
-# componente.kyx — usa el outlet
+# componente.byx — usa el outlet
 <portal target="outlet:modals">
     <confirm_dialog message="¿Estás seguro?" />
 </portal>
@@ -79,7 +79,7 @@ sigue perteneciendo al componente que lo declara.
 
 ### 3.1 Modal
 
-```kyx
+```byx
 @(
     show_modal: ^bool = false
     fn open_modal():
@@ -106,7 +106,7 @@ sigue perteneciendo al componente que lo declara.
 
 ### 3.2 Tooltip
 
-```kyx
+```byx
 @(
     show_tooltip: ^bool = false
 )
@@ -125,7 +125,7 @@ sigue perteneciendo al componente que lo declara.
 
 ### 3.3 Dropdown con portal
 
-```kyx
+```byx
 <portal target="body">
     <dropdown
         items=@options
@@ -139,7 +139,7 @@ Sin portal, el dropdown se cortaría si el padre tiene `overflow: hidden`.
 
 ### 3.4 Toast / Notificaciones
 
-```kyx
+```byx
 <portal target="outlet:toasts">
     <toast_container position="top-right">
         @for(msg in @messages):
@@ -159,7 +159,7 @@ Sin portal, el dropdown se cortaría si el padre tiene `overflow: hidden`.
 
 ### 4.1 Posición relativa al origen
 
-```kyx
+```byx
 <portal target="body" position=@element_pos>
     <tooltip text="Tooltip contextual" />
 </portal>
@@ -167,7 +167,7 @@ Sin portal, el dropdown se cortaría si el padre tiene `overflow: hidden`.
 
 ### 4.2 Estrategias de posición
 
-```kyle
+```byle
 enum PortalPosition:
     Absolute(x: f32, y: f32)
     RelativeTo(element_id: str, offset_x: f32, offset_y: f32)
@@ -178,7 +178,7 @@ enum PortalPosition:
 
 ### 4.3 Auto-posicionamiento
 
-```kyx
+```byx
 <portal target="body" position=PortalPosition.Auto(
     anchor: "button-ref",
     preferred: Direction.Bottom,
@@ -195,15 +195,15 @@ enum PortalPosition:
 
 El portal puede exponer datos al outlet:
 
-```kyx
-# provider.kyx
+```byx
+# provider.byx
 <portal target="outlet:sidebar" data=@sidebar_data>
     <slot />
 </portal>
 ```
 
-```kyx
-# app.kyx — outlet recibe data del portal
+```byx
+# app.byx — outlet recibe data del portal
 <outlet name="sidebar">
     @(sidebar_data = outlet_data())
     <sidebar items=@sidebar_data.menu_items />
@@ -237,7 +237,7 @@ Portal limpia el contenido del target
 
 Para animaciones de salida, el portal puede retrasar el desmontaje:
 
-```kyx
+```byx
 <portal target="body" unmount_delay=300>
     @if show_modal:
         <dialog animation=ScaleOut>
@@ -276,7 +276,7 @@ function createPortal(content, targetSelector) {
 
 ### 7.2 Desktop (Skia)
 
-```kyle
+```byle
 # Generado automáticamente
 fn create_portal(content, target_id: str):
     match target_id:
@@ -305,6 +305,6 @@ fn create_portal(content, target_id: str):
 
 ## 9. Referencias
 
-- [ui-syntax.md](../syntax/ui-syntax.md) — Sintaxis .kyx
+- [ui-syntax.md](../syntax/ui-syntax.md) — Sintaxis .byx
 - [state-events.md](state-events.md) — Estado y eventos
 - [animation.md](animation.md) — Animaciones de entrada/salida

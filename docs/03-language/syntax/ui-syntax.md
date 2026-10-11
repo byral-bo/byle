@@ -1,4 +1,4 @@
-# Kyle UI Syntax Specification
+# Byle UI Syntax Specification
 
 **Version:** 2.0
 **Status:** Specification
@@ -13,38 +13,38 @@
 
 ## 1. Philosophy
 
-Kyle UI es un sistema de UI declarativo construido sobre el lenguaje Kyle.
+Byle UI es un sistema de UI declarativo construido sobre el lenguaje Byle.
 
-Un archivo `.kyx` representa un **componente**. Se importa explícitamente con `use X.Y` y se usa como `<Y />` en templates.
+Un archivo `.byx` representa un **componente**. Se importa explícitamente con `use X.Y` y se usa como `<Y />` en templates.
 
-No existe JavaScript, HTML ni CSS. Todo es Kyle tipado.
+No existe JavaScript, HTML ni CSS. Todo es Byle tipado.
 
 ### 1.1 Estructura de proyecto
 
 ```
 mi-app/
-├── app.kyx              ← Entry point (solo esto en raíz)
+├── app.byx              ← Entry point (solo esto en raíz)
 ├── src/
 │   ├── views/           ← Vistas (páginas con ruta)
-│   │   ├── home.kyx
-│   │   └── not_found.kyx
+│   │   ├── home.byx
+│   │   └── not_found.byx
 │   ├── layouts/         ← Layouts persistentes
-│   │   └── main.kyx
+│   │   └── main.byx
 │   ├── components/      ← Componentes reutilizables
-│   │   └── counter.kyx
-│   └── lib.ky           ← Lógica de negocio
-└── ky.toml
+│   │   └── counter.byx
+│   └── lib.by           ← Lógica de negocio
+└── by.toml
 ```
 
 ---
 
 ## 2. Componentes nativos = Tipos
 
-Cada componente nativo es un **tipo** (`final class`). Se usa tanto en markup (`.kyx`) como programáticamente (`.ky`). El backend traduce cada tipo a su equivalente nativo — eso es interno, no parte del lenguaje.
+Cada componente nativo es un **tipo** (`final class`). Se usa tanto en markup (`.byx`) como programáticamente (`.by`). El backend traduce cada tipo a su equivalente nativo — eso es interno, no parte del lenguaje.
 
 ### 2.1 Tipos nativos (built-in)
 
-```kyle
+```byle
 # Contenedores
 final class app        # raíz de la aplicación (1 por app)
 final class router     # navegador de rutas
@@ -92,10 +92,10 @@ final class footer     # pie de página
 
 ### 2.2 Imports: `use X.Y`
 
-Los componentes se importan explícitamente con la misma sintaxis que Kyle:
+Los componentes se importan explícitamente con la misma sintaxis que Byle:
 
-```kyx
-# app.kyx
+```byx
+# app.byx
 use views.home
 use layouts.main
 use components.header
@@ -103,13 +103,13 @@ use components.footer
 ```
 
 La resolución busca en este orden:
-1. `./views/home.kyx` (relativo al archivo actual)
-2. `src/views/home.kyx` (proyecto estándar)
-3. `views/home.kyx` (raíz del proyecto, legacy)
+1. `./views/home.byx` (relativo al archivo actual)
+2. `src/views/home.byx` (proyecto estándar)
+3. `views/home.byx` (raíz del proyecto, legacy)
 
 Una vez importado, se usa como tag nativo:
 
-```kyx
+```byx
 <app>
     <header />
     <router>
@@ -125,8 +125,8 @@ Los componentes nativos (`view`, `vstack`, `text`, etc.) NO requieren import —
 
 Un archivo con solo declaraciones `style<>` se importa igual y sus estilos se mezclan automáticamente:
 
-```kyx
-# src/components/theme.kyx — solo estilos, sin markup
+```byx
+# src/components/theme.byx — solo estilos, sin markup
 style<button> Primary:
     background = color("#0066FF")
     color = color("#FFFFFF")
@@ -137,8 +137,8 @@ style<text> Title:
     font_weight = font_weight.bold
 ```
 
-```kyx
-# app.kyx
+```byx
+# app.byx
 use components.theme
 
 <app title="App">
@@ -150,9 +150,9 @@ use components.theme
 
 El nombre `theme` queda disponible como referencia (aunque no tenga body). Los estilos `Primary` y `Title` se pueden usar en cualquier vista del proyecto.
 
-### 2.3 Uso declarativo (`.kyx`)
+### 2.3 Uso declarativo (`.byx`)
 
-```kyx
+```byx
 <view>
     <vstack>
         <text value="Hola Mundo" />
@@ -161,11 +161,11 @@ El nombre `theme` queda disponible como referencia (aunque no tenga body). Los e
 </view>
 ```
 
-### 2.4 Uso programático (`.ky`)
+### 2.4 Uso programático (`.by`)
 
-Como son tipos, se pueden instanciar desde código Kyle:
+Como son tipos, se pueden instanciar desde código Byle:
 
-```kyle
+```byle
 fn build_dynamic_view(items: {str}) view:
     container = view()
     stack = vstack()
@@ -176,7 +176,7 @@ fn build_dynamic_view(items: {str}) view:
     container
 ```
 
-```kyle
+```byle
 fn show_loading():
     modal(
         content: vstack(
@@ -189,7 +189,7 @@ fn show_loading():
 
 Son los tres tipos de layout. Cada uno organiza hijos en una dirección:
 
-```kyle
+```byle
 # vstack: vertical (columna) — hijos de arriba a abajo
 final class vstack:
     alignment: alignment           # cómo alinear horizontalmente
@@ -216,7 +216,7 @@ final class scroll:
 
 Ejemplos:
 
-```kyx
+```byx
 # vstack — columna, centrada, con gap de 12px
 <vstack alignment=alignment.center spacing=12>
     <text value="Uno" />
@@ -245,7 +245,7 @@ Ejemplos:
 
 Los stacks se adaptan al contenido (fit content). Para scroll:
 
-```kyx
+```byx
 # Opción recomendada: scroll=true en el stack
 <vstack scroll=true spacing=8>
     @for(item in items):
@@ -273,7 +273,7 @@ Los stacks se adaptan al contenido (fit content). Para scroll:
 3. El `slot` es donde el router inyecta el contenido de la ruta activa
 4. Los hijos del layout NO se re-renderizan al cambiar de ruta
 
-```kyx
+```byx
 <layout>
     <navbar title="Mi App" />
     <hstack>
@@ -287,14 +287,14 @@ Los stacks se adaptan al contenido (fit content). Para scroll:
 
 ---
 
-## 3. El bloque `@(...)` — Todo el código Kyle
+## 3. El bloque `@(...)` — Todo el código Byle
 
-El bloque `@(...)` es donde va TODO el código Kyle: variables, props, funciones, estado, contexto.
+El bloque `@(...)` es donde va TODO el código Byle: variables, props, funciones, estado, contexto.
 Separa el código de la marcación (markup).
 
 ### 3.1 Sintaxis
 
-```kyx
+```byx
 <view>
     @(
         # ── Variables / Props ──
@@ -320,13 +320,13 @@ Separa el código de la marcación (markup).
 ```
 
 Uso:
-```kyx
+```byx
 <counter count=@mi_var label="Clicks" on_click=@mi_callback color="#FF0000" />
 ```
 
 ### 3.2 Props via Visibilidad
 
-Dentro de `@(...)`, lo que es prop se determina por **visibilidad** (convención Kyle):
+Dentro de `@(...)`, lo que es prop se determina por **visibilidad** (convención Byle):
 
 | Declaración dentro de `@(...)` | ¿Es prop? | Visible desde fuera |
 |-------------------------------|-----------|-------------------|
@@ -339,7 +339,7 @@ Dentro de `@(...)`, lo que es prop se determina por **visibilidad** (convención
 
 ### 3.3 Props con default (opcional)
 
-```kyx
+```byx
 @(
     name: str = "Invitado"         # opcional — default "Invitado"
     age: i32 = 18                  # opcional — default 18
@@ -351,7 +351,7 @@ Dentro de `@(...)`, lo que es prop se determina por **visibilidad** (convención
 
 Para expresiones pequeñas dentro del markup:
 
-```kyx
+```byx
 <text value=@user.name />
 <button click=@fn (): navigate("/login") />
 ```
@@ -362,7 +362,7 @@ Para expresiones pequeñas dentro del markup:
 
 ### 5.1 Variables normales (no reactivas)
 
-```kyx
+```byx
 <view>
     @(
         total = products.count     # variable normal dentro de @(...)
@@ -373,20 +373,20 @@ Para expresiones pequeñas dentro del markup:
 
 ### 5.2 Binding bidireccional
 
-```kyx
+```byx
 <text_field bind=@email />
 <checkbox bind=@accept_terms />
 ```
 
 ### 5.3 Binding one-way (estado → UI)
 
-```kyx
+```byx
 <text value=@user.name />          # se actualiza cuando user.name cambia
 ```
 
 ### 5.4 Binding a props
 
-```kyx
+```byx
 <child_component prop=@parent_var />
 ```
 
@@ -394,7 +394,7 @@ Para expresiones pequeñas dentro del markup:
 
 ## 5. Condicionales
 
-```kyx
+```byx
 @if(user.is_admin):
     <button text="Delete" />
 
@@ -408,7 +408,7 @@ Para expresiones pequeñas dentro del markup:
 
 ## 6. Match
 
-```kyx
+```byx
 @match(state):
     Loading:
         <spinner />
@@ -422,7 +422,7 @@ Para expresiones pequeñas dentro del markup:
 
 ## 7. For
 
-```kyx
+```byx
 @for(product in products):
     <product_card product=@product />
 ```
@@ -431,7 +431,7 @@ Para expresiones pequeñas dentro del markup:
 
 ## 8. Eventos
 
-```kyx
+```byx
 <button click=@login />
 <text_field change=@on_change />
 <text_field input=@on_input />
@@ -446,7 +446,7 @@ Para expresiones pequeñas dentro del markup:
 
 ## 9. Ciclo de Vida
 
-```kyle
+```byle
 fn on_created(this):
     # Una vez, después del constructor
 
@@ -469,7 +469,7 @@ fn on_error(this, error: str):
 
 ### 11.1 Estilos declarados
 
-```kyle
+```byle
 style<button> Primary:
     background = color("#0066FF")
     color = color("#FFFFFF")
@@ -484,7 +484,7 @@ style<button> Secondary:
 
 ### 11.2 Aplicar estilo
 
-```kyx
+```byx
 <button style=Primary text="Ingresar" />
 <button tpl=Elevated>
     <text value="Contenido" />
@@ -493,7 +493,7 @@ style<button> Secondary:
 
 ### 11.3 Inline
 
-```kyx
+```byx
 <text style=style(color: color("#FF0000"), font_size: 16) value="Error" />
 ```
 
@@ -503,7 +503,7 @@ style<button> Secondary:
 
 ### 12.1 Themes
 
-```kyle
+```byle
 theme LightTheme:
     primary = color("#0066FF")
     background = color("#FFFFFF")
@@ -514,7 +514,7 @@ theme DarkTheme: LightTheme:
     background = color("#121212")
 ```
 
-```kyx
+```byx
 <app theme=@LightTheme>
     ...
 </app>
@@ -524,8 +524,8 @@ theme DarkTheme: LightTheme:
 
 ## 12. Ejemplo completo: Login
 
-```kyx
-# app.kyx
+```byx
+# app.byx
 use views.home
 use views.login
 use views.not_found
@@ -540,8 +540,8 @@ use layouts.main
 </app>
 ```
 
-```kyx
-# src/views/login.kyx
+```byx
+# src/views/login.byx
 <view>
     @(
         email: ^str = ""
@@ -562,8 +562,8 @@ use layouts.main
 </view>
 ```
 
-```kyx
-# src/layouts/main.kyx
+```byx
+# src/layouts/main.byx
 <layout>
     <navbar title="Mi App" />
     <hstack>

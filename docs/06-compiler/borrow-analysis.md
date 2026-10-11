@@ -1,13 +1,13 @@
 # Borrow Analysis
 
-> Analysis de ownership: verifica use-after-move, one-mut-XOR-many-immut, e inserta `ky_free`.
-> Crate: `kyc_mir/src/borrow_analysis.rs` (900 lines).
+> Analysis de ownership: verifica use-after-move, one-mut-XOR-many-immut, e inserta `by_free`.
+> Crate: `byc_mir/src/borrow_analysis.rs` (900 lines).
 
 ## Responsabilidad
 
 El borrow analysis opera about MIR para:
 
-1. **Insertar `ky_free`** for valueis Move (str, list, dict, array) al final de cada scope
+1. **Insertar `by_free`** for valueis Move (str, list, dict, array) al final de cada scope
 2. **Detectar use-after-move**: `y = x; println(x)` → error
 3. **Validar aliasing**: `r1 = ^&x; r2 = &x` → error (one mut XOR many immut)
 4. **Rastrear borrows**: mantener consistencia between referencias
@@ -84,17 +84,17 @@ fn process_inst(&mut self, inst: &MirInst, alive, ...) {
 }
 ```
 
-### 3. Insert ky_free
+### 3. Insert by_free
 
-Al finalizar analysis, se insertan llamadas a `ky_free` for valueis Move
+Al finalizar analysis, se insertan llamadas a `by_free` for valueis Move
 que salen de scope:
 
 ```rust
 for local in &locals_to_free {
  match local_types.get(local) {
- Some(List(_)) => "ky_list_free",
- Some(Dict(_, _)) => "ky_dict_free",
- _ => "ky_free",
+ Some(List(_)) => "by_list_free",
+ Some(Dict(_, _)) => "by_dict_free",
+ _ => "by_free",
  };
  block.insts.push(Call { name: free_name, args: [local] });
 }
@@ -108,7 +108,7 @@ El analysis manhas un conjunto `alive` de localis Move que aun conhave valuees
 validos. Cuando un value se mueve (Store, Call with Move param), se elimina del conjunto.
 Cualquier Load posterior from ese local disfor un error.
 
-```ky
+```by
 s = "hola" # s is alive
 t = s # Store: s se mueve → s eliminado de alive
 println(s) # Load: s no is en alive → ERROR
@@ -125,7 +125,7 @@ enum BorrowState {
 }
 ```
 
-```ky
+```by
 read(&x) # ImmBorrowed(1)
 read(&x) # ImmBorrowed(2)
 append(^&x) # ImmBorrowed → MutBorrowed → ERROR

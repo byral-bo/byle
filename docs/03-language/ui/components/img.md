@@ -5,9 +5,9 @@
 
 ---
 
-## Tipo Kyle
+## Tipo Byle
 
-```kyle
+```byle
 final class img:
     # Contenido
     src: str                          # URL o ruta local
@@ -40,19 +40,19 @@ final class img:
 
 ### URL externa
 
-```kyx
+```byx
 <img src="https://example.com/photo.jpg" alt="Foto de perfil" width=200 height=150 />
 ```
 
 ### Archivo local
 
-```kyx
+```byx
 <img src="./assets/logo.png" alt="Logo" />
 ```
 
 ### Desde state (reactivo)
 
-```kyx
+```byx
 <view>
     @(
         user: ^User = User()
@@ -85,7 +85,7 @@ final class img:
 
 ### object_fit
 
-```kyle
+```byle
 enum object_fit:
     cover       # Llena el contenedor, puede recortar
     contain     # Muestra completa, puede haber espacio
@@ -96,7 +96,7 @@ enum object_fit:
 
 ### placeholder_type
 
-```kyle
+```byle
 enum placeholder_type:
     skeleton                    # Skeleton loader (animado)
     color(c: color)             # Color sólido
@@ -106,7 +106,7 @@ enum placeholder_type:
 
 ### length
 
-```kyle
+```byle
 enum length:
     px(f32)                     # Píxeles
     percent(f32)                # Porcentaje del contenedor
@@ -120,7 +120,7 @@ enum length:
 
 ### Lazy loading con skeleton
 
-```kyx
+```byx
 <img 
     src=@user.avatar 
     lazy=true 
@@ -132,7 +132,7 @@ enum length:
 
 ### Con fallback
 
-```kyx
+```byx
 <img 
     src=@photo_url 
     fallback="./assets/default-avatar.png" 
@@ -142,7 +142,7 @@ enum length:
 
 ### Galería de imágenes
 
-```kyx
+```byx
 <view>
     @(
         images: ^{str} = {"./assets/1.jpg", "./assets/2.jpg", "./assets/3.jpg"}
@@ -157,7 +157,7 @@ enum length:
 
 ### Imagen con overlay
 
-```kyx
+```byx
 <zstack>
     <img src="./assets/hero.jpg" width=800 height=400 />
     <view style=style(background: color("#000000").with_alpha(0.5))>
@@ -168,7 +168,7 @@ enum length:
 
 ### Responsive
 
-```kyx
+```byx
 <img 
     src="./assets/banner.jpg" 
     width=length.percent(100) 
@@ -189,7 +189,7 @@ enum length:
 
 ### Desktop (SDL2/Skia)
 
-```kyle
+```byle
 fn render_img(x: f32, y: f32, w: f32, h: f32):
     texture = skia_load_texture("./assets/photo.jpg")
     skia_draw_texture(texture, x, y, w, h)
@@ -223,7 +223,7 @@ AsyncImage(
 
 ### ❌ Malo: No especificar alt
 
-```kyx
+```byx
 <img src="./assets/logo.png" />
 ```
 
@@ -231,13 +231,13 @@ AsyncImage(
 
 ### ✅ Bueno: Siempre especificar alt
 
-```kyx
+```byx
 <img src="./assets/logo.png" alt="Logo de la empresa" />
 ```
 
 ### ❌ Malo: Dimensiones fijas en responsive
 
-```kyx
+```byx
 <img src="./assets/banner.jpg" width=1920 height=1080 />
 ```
 
@@ -245,7 +245,7 @@ AsyncImage(
 
 ### ✅ Bueno: Usar percent o fill
 
-```kyx
+```byx
 <img src="./assets/banner.jpg" width=length.percent(100) height=length.auto />
 ```
 

@@ -1,10 +1,10 @@
 # Installation
 
-> How to install the Kyle compiler on any platform.
+> How to install the Byle compiler on any platform.
 
 ## Requirements
 
-**No external dependencies needed.** The `ky` binary is self-contained — it does NOT require LLVM, Rust, or any runtime libraries to run.
+**No external dependencies needed.** The `by` binary is self-contained — it does NOT require LLVM, Rust, or any runtime libraries to run.
 
 LLVM 18 + Rust are only needed to **build** the compiler from source.
 
@@ -13,20 +13,20 @@ LLVM 18 + Rust are only needed to **build** the compiler from source.
 ### macOS / Linux
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/kyal-tech/kyle/main/scripts/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/kyal-tech/byle/main/scripts/install.sh | sh
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-iwr -Uri "https://raw.githubusercontent.com/kyal-tech/kyle/main/scripts/install.ps1" | iex
+iwr -Uri "https://raw.githubusercontent.com/kyal-tech/byle/main/scripts/install.ps1" | iex
 ```
 
 Both scripts:
 1. Detect OS + architecture automatically
 2. Download the correct bundle from GitHub Releases
 3. Verify SHA-256 checksum
-4. Install `ky` binary
+4. Install `by` binary
 5. Configure PATH automatically
 
 ---
@@ -57,11 +57,11 @@ $env:LLVM_SYS_181_PREFIX = "C:\Program Files\LLVM"
 ### Build
 
 ```bash
-git clone https://github.com/kyal-tech/kyle.git
-cd KYLE
-cargo build --release --bin ky
+git clone https://github.com/kyal-tech/byle.git
+cd byle
+cargo build --release --bin by
 
-# Binary at: target/release/ky (or ky.exe on Windows)
+# Binary at: target/release/by (or by.exe on Windows)
 ```
 
 ---
@@ -69,9 +69,9 @@ cargo build --release --bin ky
 ## Verify Installation
 
 ```bash
-ky --version    # Should show v0.8.9
-ky check --help # Should show help
-ky run examples/hello.ky  # Should print "Hello, World!"
+by --version    # Should show v0.8.9
+by check --help # Should show help
+by run examples/hello.by  # Should print "Hello, World!"
 ```
 
 ---
@@ -81,8 +81,8 @@ ky run examples/hello.ky  # Should print "Hello, World!"
 | Variable | Description |
 |----------|-------------|
 | `LLVM_SYS_181_PREFIX` | Path to LLVM 18 (only for building from source) |
-| `KY_VERSION` | Version to install (for install scripts) |
-| `KY_PREFIX` | Custom install directory |
+| `BY_VERSION` | Version to install (for install scripts) |
+| `BY_PREFIX` | Custom install directory |
 
 ---
 

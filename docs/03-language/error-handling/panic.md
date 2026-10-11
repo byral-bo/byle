@@ -9,14 +9,14 @@
 |-----------|---------|
 | Division by cero | `x = 10 / 0` |
 | Index out of bounds | `arr[100]` cuando `len = 3` |
-| Null pointer | `ky_free(null)` |
+| Null pointer | `by_free(null)` |
 | Assertion failed | `assert.is_true(false)` |
 | Overflow en debug | `i32.MAX + 1` |
 
 ## Salida
 
 ```
-KL PANIC: division by zero
+BYLE PANIC: division by zero
 ```
 
 El program termina with code de error distinto de cero. No there is stack trace
@@ -26,7 +26,7 @@ en implementation current.
 
 Usar `Result` (`T!`) for operacionis que can failsr:
 
-```ky
+```by
 fn divide(a: i32, b: i32) i32!:
  if b == 0:
  return error("division by zero")
@@ -41,7 +41,7 @@ match divide(10, 0):
 
 Para operacionis que can panic pero are verificadas manualmente:
 
-```ky
+```by
 unsafe:
  x = 10 / 0 # panic aqui si b == 0
 ```

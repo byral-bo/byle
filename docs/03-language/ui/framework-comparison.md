@@ -7,15 +7,15 @@
 
 ## Introducción
 
-Este documento compara Kyle UI con los frameworks nativos más populares de cada plataforma, extrayendo lo mejor de cada uno y mostrando cómo Kyle UI implementa o supera estas características.
+Este documento compara Byle UI con los frameworks nativos más populares de cada plataforma, extrayendo lo mejor de cada uno y mostrando cómo Byle UI implementa o supera estas características.
 
 ---
 
 ## Resumen Ejecutivo
 
-| Característica | Kyle UI | React | SwiftUI | Jetpack Compose | Flutter |
+| Característica | Byle UI | React | SwiftUI | Jetpack Compose | Flutter |
 |----------------|---------|-------|---------|-----------------|---------|
-| **Tipado** | ✅ Fuerte (Kyle) | ❌ Débil (JS) | ✅ Fuerte (Swift) | ✅ Fuerte (Kotlin) | ✅ Fuerte (Dart) |
+| **Tipado** | ✅ Fuerte (Byle) | ❌ Débil (JS) | ✅ Fuerte (Swift) | ✅ Fuerte (Kotlin) | ✅ Fuerte (Dart) |
 | **Multiplataforma** | ✅ Nativo | ❌ Web only | ❌ Apple only | ❌ Android only | ✅ Propio |
 | **Curva de aprendizaje** | 🟢 Baja | 🟡 Media | 🟡 Media | 🟡 Media | 🟡 Media |
 | **Rendimiento** | ✅ Nativo | 🟡 Virtual DOM | ✅ Nativo | ✅ Nativo | 🟡 Bridge |
@@ -44,8 +44,8 @@ function Counter() {
 }
 ```
 
-**Kyle UI:**
-```kyx
+**Byle UI:**
+```byx
 <view>
     @(
         count: ^i32 = 0
@@ -59,7 +59,7 @@ function Counter() {
 </view>
 ```
 
-**Ventaja Kyle UI:**
+**Ventaja Byle UI:**
 - ✅ Sin array de dependencias (automático)
 - ✅ Tipado fuerte (no `any`)
 - ✅ Sintaxis más limpia
@@ -87,9 +87,9 @@ function App() {
 }
 ```
 
-**Kyle UI:**
-```kyx
-# layout.kyx
+**Byle UI:**
+```byx
+# layout.byx
 <view>
     <app_bar title="Mi App" />
     <main>
@@ -100,13 +100,13 @@ function App() {
     </footer>
 </view>
 
-# app.kyx
+# app.byx
 <layout>
     <content />
 </layout>
 ```
 
-**Ventaja Kyle UI:**
+**Ventaja Byle UI:**
 - ✅ `<slot />` nativo (no props children)
 - ✅ Separación clara de estructura
 
@@ -131,16 +131,16 @@ const dispatch = useDispatch();
 dispatch(increment());
 ```
 
-**Kyle UI (Context):**
-```kyx
-# counter_context.ky
+**Byle UI (Context):**
+```byx
+# counter_context.by
 context CounterContext:
     count: i32 = 0
     
     fn increment():
         count += 1
 
-# component.kyx
+# component.byx
 <view>
     @(
         counter = use_context(CounterContext)
@@ -151,7 +151,7 @@ context CounterContext:
 </view>
 ```
 
-**Ventaja Kyle UI:**
+**Ventaja Byle UI:**
 - ✅ Sin boilerplate (actions, reducers)
 - ✅ Tipado fuerte
 - ✅ Más intuitivo
@@ -178,8 +178,8 @@ export default {
 </script>
 ```
 
-**Kyle UI:**
-```kyx
+**Byle UI:**
+```byx
 <view>
     @(
         name: ^str = ""
@@ -190,7 +190,7 @@ export default {
 </view>
 ```
 
-**Ventaja Kyle UI:**
+**Ventaja Byle UI:**
 - ✅ Misma sintaxis `bind=`
 - ✅ Tipado fuerte
 - ✅ Sin directivas especiales
@@ -217,8 +217,8 @@ export default {
 </script>
 ```
 
-**Kyle UI:**
-```kyx
+**Byle UI:**
+```byx
 <view>
     @(
         first_name: str = "John"
@@ -232,7 +232,7 @@ export default {
 </view>
 ```
 
-**Ventaja Kyle UI:**
+**Ventaja Byle UI:**
 - ✅ Funciones normales (no magia)
 - ✅ Tipado fuerte
 - ✅ Más explícito
@@ -256,8 +256,8 @@ export default {
 </button>
 ```
 
-**Kyle UI:**
-```kyx
+**Byle UI:**
+```byx
 <view>
     @(
         count: ^i32 = 0
@@ -271,7 +271,7 @@ export default {
 </view>
 ```
 
-**Ventaja Kyle UI:**
+**Ventaja Byle UI:**
 - ✅ Sin sintaxis especial (`$:`)
 - ✅ Funciones normales
 - ✅ Tipado fuerte
@@ -300,8 +300,8 @@ struct ContentView: View {
 }
 ```
 
-**Kyle UI:**
-```kyx
+**Byle UI:**
+```byx
 <view>
     @(
         count: ^i32 = 0
@@ -314,7 +314,7 @@ struct ContentView: View {
 </view>
 ```
 
-**Ventaja Kyle UI:**
+**Ventaja Byle UI:**
 - ✅ Sintaxis más limpia (no `@State`, `some View`)
 - ✅ Multiplataforma (no solo iOS)
 - ✅ Sin type erasure
@@ -335,8 +335,8 @@ struct ProfileView: View {
 }
 ```
 
-**Kyle UI:**
-```kyx
+**Byle UI:**
+```byx
 <view>
     @(
         # Props (equivalente a @Binding)
@@ -358,7 +358,7 @@ struct ProfileView: View {
 </view>
 ```
 
-**Ventaja Kyle UI:**
+**Ventaja Byle UI:**
 - ✅ Sin property wrappers (más simple)
 - ✅ Convención sobre configuración (`_` prefix)
 - ✅ Context explícito
@@ -377,8 +377,8 @@ NavigationView {
 }
 ```
 
-**Kyle UI:**
-```kyx
+**Byle UI:**
+```byx
 <app>
     <router>
         <route path="/" component=ListView />
@@ -386,7 +386,7 @@ NavigationView {
     </router>
 </app>
 
-# ListView.kyx
+# ListView.byx
 <view>
     <app_bar title="Items" />
     <list data=@items>
@@ -399,7 +399,7 @@ NavigationView {
 </view>
 ```
 
-**Ventaja Kyle UI:**
+**Ventaja Byle UI:**
 - ✅ Routing centralizado (no anidado)
 - ✅ URL-based (deep linking nativo)
 - ✅ Multiplataforma
@@ -433,9 +433,9 @@ fun NameInput(name: String, onNameChange: (String) -> Unit) {
 }
 ```
 
-**Kyle UI:**
-```kyx
-# MyScreen.kyx
+**Byle UI:**
+```byx
+# MyScreen.byx
 <view>
     @(
         name: ^str = ""
@@ -444,7 +444,7 @@ fun NameInput(name: String, onNameChange: (String) -> Unit) {
     <name_input bind=@name />
 </view>
 
-# NameInput.kyx
+# NameInput.byx
 <view>
     @(
         # Props con bind
@@ -455,7 +455,7 @@ fun NameInput(name: String, onNameChange: (String) -> Unit) {
 </view>
 ```
 
-**Ventaja Kyle UI:**
+**Ventaja Byle UI:**
 - ✅ `bind=` nativo (no callbacks manuales)
 - ✅ Menos boilerplate
 - ✅ Tipado fuerte
@@ -481,8 +481,8 @@ fun MyScreen() {
 }
 ```
 
-**Kyle UI:**
-```kyx
+**Byle UI:**
+```byx
 <view>
     @(
         data: ^{Item} = {}
@@ -502,7 +502,7 @@ fun MyScreen() {
 </view>
 ```
 
-**Ventaja Kyle UI:**
+**Ventaja Byle UI:**
 - ✅ Hooks con nombres claros (no `LaunchedEffect`)
 - ✅ Más intuitivo
 - ✅ Menos verboso
@@ -521,8 +521,8 @@ Text(
 )
 ```
 
-**Kyle UI:**
-```kyx
+**Byle UI:**
+```byx
 <text 
     value="Hello"
     style=style(
@@ -534,7 +534,7 @@ Text(
 />
 ```
 
-**Ventaja Kyle UI:**
+**Ventaja Byle UI:**
 - ✅ `style=` tipado (no cadena de modifiers)
 - ✅ Reutilizable (style classes)
 - ✅ Más legible
@@ -568,8 +568,8 @@ Widget build(BuildContext context) {
 }
 ```
 
-**Kyle UI:**
-```kyx
+**Byle UI:**
+```byx
 <view>
     @(
         count: ^i32 = 0
@@ -584,7 +584,7 @@ Widget build(BuildContext context) {
 </view>
 ```
 
-**Ventaja Kyle UI:**
+**Ventaja Byle UI:**
 - ✅ Sintaxis declarativa pura (no `build()`, `setState()`)
 - ✅ Componentes nativos (no `Scaffold`, `AppBar`)
 - ✅ Más legible
@@ -614,16 +614,16 @@ class MyWidget extends StatelessWidget {
 }
 ```
 
-**Kyle UI:**
-```kyx
-# counter_context.ky
+**Byle UI:**
+```byx
+# counter_context.by
 context CounterContext:
     count: i32 = 0
     
     fn increment():
         count += 1
 
-# widget.kyx
+# widget.byx
 <view>
     @(
         counter = use_context(CounterContext)
@@ -633,7 +633,7 @@ context CounterContext:
 </view>
 ```
 
-**Ventaja Kyle UI:**
+**Ventaja Byle UI:**
 - ✅ Sin boilerplate (ChangeNotifier, notifyListeners)
 - ✅ Tipado fuerte
 - ✅ Más simple
@@ -647,26 +647,26 @@ flutter run
 # Press 'r' to hot reload
 ```
 
-**Kyle UI:**
+**Byle UI:**
 ```bash
-ky run web
+by run web
 # Edit code
 # Auto-reload en navegador
 ```
 
-**Ventaja Kyle UI:**
+**Ventaja Byle UI:**
 - ✅ Auto-reload (no manual)
 - ✅ Más rápido
 - ✅ Preserva estado
 
 ---
 
-## 5. Características Únicas de Kyle UI
+## 5. Características Únicas de Byle UI
 
 ### 7.1 Multi-Backend Nativo
 
-**Kyle UI:**
-```kyx
+**Byle UI:**
+```byx
 # Mismo código para todas las plataformas
 <view>
     <button text="Click" click=@handler />
@@ -688,8 +688,8 @@ ky run web
 
 ### 7.2 Tipado Fuerte Multiplataforma
 
-**Kyle UI:**
-```kyx
+**Byle UI:**
+```byx
 @(
     user: User  # Tipado fuerte en todas las plataformas
 )
@@ -703,7 +703,7 @@ ky run web
 
 ### 7.3 Tamaño de Bundle
 
-| Plataforma | Kyle UI | Flutter | React Native |
+| Plataforma | Byle UI | Flutter | React Native |
 |------------|---------|---------|--------------|
 | **Web** | <1MB | ~2MB (WASM) | ~500KB |
 | **iOS** | Nativo | ~15MB | ~10MB |
@@ -712,7 +712,7 @@ ky run web
 
 ### 7.4 Rendimiento
 
-**Kyle UI:**
+**Byle UI:**
 - **Web:** DOM directo (no virtual DOM)
 - **iOS:** SwiftUI nativo
 - **Android:** Jetpack Compose nativo
@@ -730,8 +730,8 @@ ky run web
 ### De React
 
 ✅ **Hooks para lógica reutilizable**
-```kyx
-# use_counter.ky
+```byx
+# use_counter.by
 fn use_counter(initial: i32) CounterState:
     count: ^i32 = initial
     
@@ -747,14 +747,14 @@ fn use_counter(initial: i32) CounterState:
 ### De Vue
 
 ✅ **Two-way binding nativo**
-```kyx
+```byx
 <text_field bind=@name />
 ```
 
 ### De SwiftUI
 
 ✅ **Declarative syntax**
-```kyx
+```byx
 <vstack spacing=16>
     <text value="Hello" />
     <button text="Click" />
@@ -764,7 +764,7 @@ fn use_counter(initial: i32) CounterState:
 ### De Jetpack Compose
 
 ✅ **State hoisting**
-```kyx
+```byx
 # Parent
 <child bind=@value />
 
@@ -778,7 +778,7 @@ fn use_counter(initial: i32) CounterState:
 ### De Flutter
 
 ✅ **Widget composition**
-```kyx
+```byx
 <card>
     <vstack>
         <text value="Title" />
@@ -790,7 +790,7 @@ fn use_counter(initial: i32) CounterState:
 ### De Svelte
 
 ✅ **Reactividad automática**
-```kyx
+```byx
 @(
     count: ^i32 = 0
     doubled = count * 2  # Automático
@@ -799,15 +799,15 @@ fn use_counter(initial: i32) CounterState:
 
 ---
 
-## 7. Ventajas Competitivas de Kyle UI
+## 7. Ventajas Competitivas de Byle UI
 
 ### 8.1 Un Solo Lenguaje
 
-**Kyle UI:**
-- Kyle para lógica
-- Kyle para UI (.kyx)
-- Kyle para estilos
-- Kyle para tests
+**Byle UI:**
+- Byle para lógica
+- Byle para UI (.byx)
+- Byle para estilos
+- Byle para tests
 
 **Otros frameworks:**
 - React: JavaScript + CSS + HTML
@@ -817,8 +817,8 @@ fn use_counter(initial: i32) CounterState:
 
 ### 8.2 Tipado Fuerte en Todo
 
-**Kyle UI:**
-```kyx
+**Byle UI:**
+```byx
 @(
     user: User  # Error en compilación si es incorrecto
 )
@@ -831,7 +831,7 @@ fn use_counter(initial: i32) CounterState:
 
 ### 8.3 Multiplataforma Real
 
-**Kyle UI:**
+**Byle UI:**
 - Web: HTML/CSS/JS nativo
 - iOS: SwiftUI nativo
 - Android: Jetpack Compose nativo
@@ -846,7 +846,7 @@ fn use_counter(initial: i32) CounterState:
 
 ### 8.4 Sin Bridge
 
-**Kyle UI:**
+**Byle UI:**
 - Compila a código nativo de cada plataforma
 - No hay bridge JS-Nativo
 - Rendimiento nativo
@@ -860,7 +860,7 @@ fn use_counter(initial: i32) CounterState:
 
 ## 8. Conclusión
 
-Kyle UI toma lo mejor de cada framework:
+Byle UI toma lo mejor de cada framework:
 
 | De | Característica |
 |----|----------------|
@@ -875,7 +875,7 @@ Y agrega características únicas:
 
 ✅ **Multiplataforma real** (no bridge)
 ✅ **Tipado fuerte** en todo
-✅ **Un solo lenguaje** (Kyle)
+✅ **Un solo lenguaje** (Byle)
 ✅ **Rendimiento nativo**
 ✅ **Tamaño mínimo**
 ✅ **KYOS OS** (futuro)

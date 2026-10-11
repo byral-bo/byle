@@ -5,7 +5,7 @@
 
 ## Assertions
 
-```ky
+```by
 use std.testing
 
 #[test]
@@ -25,7 +25,7 @@ fn test_conditions():
 
 ## Comparison
 
-```ky
+```by
 assert.eq(a, b)     # a == b
 assert.ne(a, b)     # a != b
 assert.gt(a, b)     # a > b
@@ -51,12 +51,12 @@ assert.lte(a, b)    # a <= b
 ## Running tests
 
 ```bash
-ky test
+by test
 ```
 
 ## Example
 
-```ky
+```by
 use std.testing
 
 fn sum_list(items: &[i32]) i32:

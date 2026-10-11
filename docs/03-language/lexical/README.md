@@ -1,6 +1,6 @@
 # Lexical
 
-> How Kyle lee code source: tokens, keywords, literales, operadores.
+> How Byle lee code source: tokens, keywords, literales, operadores.
 
 | File | Description |
 |---------|-------------|

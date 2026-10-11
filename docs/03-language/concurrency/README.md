@@ -1,6 +1,6 @@
 # Concurrency
 
-> Concurrency y paralelismo en Kyle.
+> Concurrency y paralelismo en Byle.
 
 | File | Description |
 |---------|-------------|

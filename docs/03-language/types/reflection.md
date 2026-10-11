@@ -5,14 +5,14 @@
 
 ## type()
 
-```ky
+```by
 t: type_info = (42).type()
 println(t.name) # "i32"
 println(t.kind) # "primitive"
 println(t.size) # 4 (bytes)
 ```
 
-```ky
+```by
 t = "hello".type()
 println(t.name) # "str"
 println(t.size) # 8 (bytis del pointer)
@@ -20,7 +20,7 @@ println(t.size) # 8 (bytis del pointer)
 
 ## type_info
 
-```ky
+```by
 class type_info:
  name: str
  kind: str # "primitive", "struct", "enum", "array", "list"

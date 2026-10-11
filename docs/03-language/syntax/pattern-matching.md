@@ -4,7 +4,7 @@
 
 ## Match statement
 
-```ky
+```by
 match value:
  pattern1:
  body1
@@ -16,7 +16,7 @@ match value:
 
 ## Match expression
 
-```ky
+```by
 result = match x:
  1: "one"
  2: "two"
@@ -26,38 +26,38 @@ result = match x:
 ## Patterns
 
 ### Literal
-```ky
+```by
 match x:
  0: println("zero")
 ```
 
 ### Identifier
-```ky
+```by
 match x:
  n: println(n) # binds value to n
 ```
 
 ### Wildcard
-```ky
+```by
 match x:
  _: println("anything")
 ```
 
 ### Or-pattern
-```ky
+```by
 match x:
  1 | 2: println("one or two")
 ```
 
 ### Guard
-```ky
+```by
 match x:
  n if n > 10: println("big")
  n: println(n)
 ```
 
 ### Enum variant
-```ky
+```by
 enum Optional:
  Some(i32)
  None
@@ -70,7 +70,7 @@ match v:
 ```
 
 ### IsType
-```ky
+```by
 match x:
  is str: println("string")
  is i32: println("integer")
@@ -78,14 +78,14 @@ match x:
 
 ## Binding if
 
-```ky
+```by
 if name = optional_value:
  println(name)
 ```
 
 ## Binding while
 
-```ky
+```by
 while line = read_line():
  process(line)
 ```

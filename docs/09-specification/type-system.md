@@ -46,7 +46,7 @@ Todos los modificadores de tipo funcionan en **cualquier** tipo.
 | `T!` | Error/Result | `[str]!`, `^{str: i32}!`, `^queue<i32>!` |
 | `^&T` | Mutable borrow | `^&[i32]`, `^&set<i32>?`, `^&[str]!` |
 
-```ky
+```by
 x: ^[i32]           # lista mutable
 x: &[str]           # borrow de lista
 x: ^&[i32]!         # mutable borrow con error

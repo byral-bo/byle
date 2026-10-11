@@ -1,59 +1,59 @@
-# Kyle Monorepo — AI Agent Context
+# Byle Monorepo — AI Agent Context
 
-> Single entry-point for AI agents and team members working on the Kyle codebase.
+> Single entry-point for AI agents and team members working on the Byle codebase.
 > Current focus: **Backend package ecosystem** (see [`BACKEND_PACKAGES_PLAN.md`](docs/11-project/backend-packages-plan.md))
-> See also: [`BUILD.md`](BUILD.md) · [`BENCHMARKS.md`](BENCHMARKS.md) · [`VSCODE.md`](VSCODE.md) · [`PACKAGES.md`](PACKAGES.md) · [`tests/SYNTAX_CHECKLIST.md`](tests/SYNTAX_CHECKLIST.md)
+> See also: [`BUILD.md`](BUILD.md) · [`docs/11-project/benchmarks.md`](docs/11-project/benchmarks.md) · [`docs/packages/`](docs/packages/) · [`tests/SYNTAX_CHECKLIST.md`](tests/SYNTAX_CHECKLIST.md)
 
 ## Quick Reference
 
 ```bash
 # Build
-cargo build --release --bin ky
+cargo build --release --bin by
 
 # Run
-ky run examples/hello.ky
+by run examples/hello.by
 
 # Test
-cargo test --workspace --exclude kyc_runtime_wasm
-for f in tests/syntax/*.ky; do ky run "$f"; done
-for f in tests/std_*.ky; do ky run "$f"; done
+cargo test --workspace
+for f in tests/syntax/*.by; do by run "$f"; done
+for f in tests/std_*.by; do by run "$f"; done
 
 # Check package
-ky check packages/http/src/lib.ky
+by check packages/http/src/lib.by
 
 # Run package tests
-ky test packages/http/tests/test_http.ky
+by test packages/http/tests/test_http.by
 
 # Install package
-ky add http
+by add http
 
 # Create project
-ky new myapp
+by new myapp
 ```
 
 ## Architecture Overview
 
 ```
-kl/
+by/
 ├── crates/                  ← Rust compiler & tooling
-│   ├── kyc_frontend/        → Lexer + parser
-│   ├── kyc_hir/             → HIR desugaring
-│   ├── kyc_semantic/        → Type checker, borrow analysis
-│   ├── kyc_mir/             → MIR lowering, SSA, optimizations
-│   ├── kyc_backend/         → LLVM codegen, runtime linkage
-│   ├── kyc_driver/          → Compilation pipeline
-│   ├── kyc_cli/             → CLI binary (`ky`)
-│   ├── kyc_runtime/         → Runtime library (Rust) — 190+ extern "C" functions
-│   └── kyc_tools/           → LSP, formatter, package manager
+│   ├── byc_frontend/        → Lexer + parser
+│   ├── byc_hir/             → HIR desugaring
+│   ├── byc_semantic/        → Type checker, borrow analysis
+│   ├── byc_mir/             → MIR lowering, SSA, optimizations
+│   ├── byc_backend/         → LLVM codegen, runtime linkage
+│   ├── byc_driver/          → Compilation pipeline
+│   ├── byc_cli/             → CLI binary (`by`)
+│   ├── byc_runtime/         → Runtime library (Rust) — 190+ extern "C" functions
+│   └── byc_tools/           → LSP, formatter, package manager
 │
-├── packages/                → Kyle installable packages
-├── vscode-extension/        → VS Code extension
+├── packages/                → Byle installable packages
+├── (external) byle-vscode/  → VS Code extension
 ├── docs/                    → Language docs, specs, plans
 │   ├── 04-standard-library/ → 21 std modules (native)
 │   ├── packages/            → 9 package docs
 │   └── 11-project/          → Roadmaps, plans
 ├── tests/                   → Syntax tests, package tests
-├── examples/                → .ky + .kyx example programs
+├── examples/                → .by + .byx example programs
 └── scripts/                 → install.sh, dev-install.sh
 ```
 
@@ -64,28 +64,28 @@ kl/
 | Module | File | Status |
 |--------|------|--------|
 | `result` | `docs/04-standard-library/result.md` | ✅ Runtime (language) |
-| `json` | `docs/04-standard-library/json.md` | ✅ Runtime (`ky_json_*`) |
-| `time` | `docs/04-standard-library/time.md` | ✅ Runtime (`ky_datetime_*`) |
-| `fs` | `docs/04-standard-library/fs.md` | ✅ Runtime (`ky_fs_*`) |
-| `path` | `docs/04-standard-library/path.md` | ✅ Runtime (`ky_path_*`) |
-| `str` | `docs/04-standard-library/str.md` | ✅ Runtime (`ky_str_*`) |
-| `math` | `docs/04-standard-library/math.md` | ✅ Runtime (`ky_pow`, etc.) |
-| `io` | `docs/04-standard-library/io.md` | ✅ Runtime (`ky_print*`) |
-| `net` | `docs/04-standard-library/net.md` | ✅ Runtime (`ky_tcp_*`) |
-| `random` | `docs/04-standard-library/random.md` | ✅ Runtime (`ky_random_bytes`) |
-| `regex` | `docs/04-standard-library/regex.md` | ✅ Runtime (`ky_regex_*`) |
-| `thread` | `docs/04-standard-library/thread.md` | ✅ Runtime (`ky_spawn_thread`) |
-| `sync` | `docs/04-standard-library/sync.md` | ✅ Runtime (`ky_mutex_*`) |
+| `json` | `docs/04-standard-library/json.md` | ✅ Runtime (`by_json_*`) |
+| `time` | `docs/04-standard-library/time.md` | ✅ Runtime (`by_datetime_*`) |
+| `fs` | `docs/04-standard-library/fs.md` | ✅ Runtime (`by_fs_*`) |
+| `path` | `docs/04-standard-library/path.md` | ✅ Runtime (`by_path_*`) |
+| `str` | `docs/04-standard-library/str.md` | ✅ Runtime (`by_str_*`) |
+| `math` | `docs/04-standard-library/math.md` | ✅ Runtime (`by_pow`, etc.) |
+| `io` | `docs/04-standard-library/io.md` | ✅ Runtime (`by_print*`) |
+| `net` | `docs/04-standard-library/net.md` | ✅ Runtime (`by_tcp_*`) |
+| `random` | `docs/04-standard-library/random.md` | ✅ Runtime (`by_random_bytes`) |
+| `regex` | `docs/04-standard-library/regex.md` | ✅ Runtime (`by_regex_*`) |
+| `thread` | `docs/04-standard-library/thread.md` | ✅ Runtime (`by_spawn_thread`) |
+| `sync` | `docs/04-standard-library/sync.md` | ✅ Runtime (`by_mutex_*`) |
 | `crypto` | `docs/04-standard-library/crypto.md` | ✅ Runtime (sha256, base64, uuid) |
-| `process` | `docs/04-standard-library/process.md` | ✅ Runtime (`ky_getenv`, libc) |
-| `testing` | `docs/04-standard-library/testing.md` | ✅ Runtime (`ky_assert*`) |
-| `log` | `docs/04-standard-library/log.md` | ✅ Runtime (`ky_log_*` + wrapper) |
-| `cli` | `docs/04-standard-library/cli.md` | ✅ Runtime (`ky_cli_*`) |
-| `csv` | `docs/04-standard-library/csv.md` | ✅ Runtime (`ky_csv_*`, handle-based) |
+| `process` | `docs/04-standard-library/process.md` | ✅ Runtime (`by_getenv`, libc) |
+| `testing` | `docs/04-standard-library/testing.md` | ✅ Runtime (`by_assert*`) |
+| `log` | `docs/04-standard-library/log.md` | ✅ Runtime (`by_log_*` + wrapper) |
+| `cli` | `docs/04-standard-library/cli.md` | ✅ Runtime (`by_cli_*`) |
+| `csv` | `docs/04-standard-library/csv.md` | ✅ Runtime (`by_csv_*`, handle-based) |
 | `url` | `docs/04-standard-library/url.md` | 🟡 Extend existing runtime |
 | `bytes` | `docs/04-standard-library/bytes.md` | 🟡 Extend existing runtime |
 
-### Packages (installable — `ky add`)
+### Packages (installable — `by add`)
 
 | Package | Doc | Status |
 |---------|-----|--------|
@@ -106,15 +106,15 @@ kl/
 |----------|----------|---------|
 | **AGENTS.md** (this) | `AGENTS.md` | Main entry point |
 | **Build guide** | `BUILD.md` | Build, install, test |
-| **Packages** | `PACKAGES.md` | Library development guide |
+| **Packages** | `docs/packages/` | Package specifications and registry metadata |
 | **Backend plan** | `docs/11-project/backend-packages-plan.md` | Complete implementation plan with tasks |
 | **Std library docs** | `docs/04-standard-library/` | 21 native module docs |
 | **Package docs** | `docs/packages/` | 9 installable package docs |
-| **Syntax reference** | `docs/15-kyle-syntax-reference.md` | .ky language reference |
+| **Syntax reference** | `docs/15-byle-syntax-reference.md` | .by language reference |
 | **Roadmap** | `docs/11-project/roadmap.md` | Overall project state |
 | **Remaining work** | `docs/11-project/remaining-work.md` | Bugs & features |
-| **Runtime functions** | `crates/kyc_runtime/src/` | 190+ `extern "C"` functions |
-| **KYUI docs** | `docs/03-language/ui/` | UI framework (paused) |
+| **Runtime functions** | `crates/byc_runtime/src/` | 190+ `extern "C"` functions |
+| **BYUI docs** | `docs/03-language/ui/` | UI framework (paused) |
 
 ---
 
@@ -132,28 +132,28 @@ kl/
 | Collections: `[T]`, `{K:V}`, `set{T}`, `queue{T}`, `stack{T}`, `deque{T}` | ✅ |
 | Orthogonal types: `^` `&` `?` `!` | ✅ |
 | Module system: `use X.Y` | ✅ |
-| Package manager: `ky add`, `ky.toml` | ✅ |
+| Package manager: `by add`, `by.toml` | ✅ |
 | Syntax tests: 13/13 passing | ✅ |
 | Workspace tests: 117+ | ✅ |
 
 ### 🟢 Runtime — Rich FFI Surface
 
-190+ `extern "C"` functions available in `kyc_runtime/src/`:
-- `ky_tcp_*` — TCP networking
-- `ky_fs_*` — File system
-- `ky_str_*` — String manipulation
-- `ky_list_*`, `ky_dict_*`, `ky_set_*`, `ky_queue_*`, `ky_stack_*`, `ky_deque_*`
-- `ky_json_*` — JSON parse/stringify
-- `ky_datetime_*`, `ky_date_*`, `ky_time_*`, `ky_duration_*`
-- `ky_regex_*` — Regular expressions
-- `ky_sha256`, `ky_base64_encode`, `ky_uuid_v4` — Crypto
-- `ky_mutex_*`, `ky_atomic_*`, `ky_channel_*` — Sync
-- `ky_spawn_thread`, `ky_join_thread` — Threading
-- `ky_ws_*` — WebSocket frames
+190+ `extern "C"` functions available in `byc_runtime/src/`:
+- `by_tcp_*` — TCP networking
+- `by_fs_*` — File system
+- `by_str_*` — String manipulation
+- `by_list_*`, `by_dict_*`, `by_set_*`, `by_queue_*`, `by_stack_*`, `by_deque_*`
+- `by_json_*` — JSON parse/stringify
+- `by_datetime_*`, `by_date_*`, `by_time_*`, `by_duration_*`
+- `by_regex_*` — Regular expressions
+- `by_sha256`, `by_base64_encode`, `by_uuid_v4` — Crypto
+- `by_mutex_*`, `by_atomic_*`, `by_channel_*` — Sync
+- `by_spawn_thread`, `by_join_thread` — Threading
+- `by_ws_*` — WebSocket frames
 
-### ⏸️ KYUI — Paused
+### ⏸️ BYUI — Paused
 
-UI framework development is paused. Existing code at `packages/ui/`, `crates/kyc_ui/`.
+UI framework development is paused. Existing code at `packages/ui/`, `crates/byc_ui/`.
 All 30+ components, web backend, JS runtime are functional but not in active development.
 
 ---
@@ -163,10 +163,10 @@ All 30+ components, web backend, JS runtime are functional but not in active dev
 See [`docs/11-project/backend-packages-plan.md`](docs/11-project/backend-packages-plan.md) for complete task breakdown.
 
 ### Phase 1: Std Core Wrappers (16 modules)
-Create `use std.X` Kyle wrappers for existing runtime functions.
+Create `use std.X` Byle wrappers for existing runtime functions.
 
 ### Phase 2: Std New Runtime (5 modules)
-Implement `ky_log_*`, `ky_cli_*`, `ky_csv_*`, extend `url.rs` and `bytes.rs`.
+Implement `by_log_*`, `by_cli_*`, `by_csv_*`, extend `url.rs` and `bytes.rs`.
 
 ### Phase 3: Package Improvements (4 packages)
 Rewrite `http` (TCP client), improve `postgres`, `sqlite`, `env`.
@@ -180,18 +180,18 @@ Implement `crypto`, `config` (YAML/TOML), `compress` (gzip), `mail` (SMTP).
 
 ### Backend Package Development
 
-1. **Check runtime** — Verify `kyc_runtime/src/` has needed extern fns, or add them
-2. **Register codegen** — Add new extern fns to `kyc_backend/src/codegen/function.rs`
-3. **Create Kyle wrapper** — Write `packages/<name>/src/lib.ky` or `packages/std/<name>.ky`
+1. **Check runtime** — Verify `byc_runtime/src/` has needed extern fns, or add them
+2. **Register codegen** — Add new extern fns to `byc_backend/src/codegen/function.rs`
+3. **Create Byle wrapper** — Write `packages/<name>/src/lib.by` or `packages/std/<name>.by`
 4. **Build** — `./scripts/dev-install.sh`
-5. **Test** — `ky test packages/<name>/tests/`
+5. **Test** — `by test packages/<name>/tests/`
 
 ### Adding a New Runtime Function
 
-1. Add Rust function in `kyc_runtime/src/<module>.rs` with `#[no_mangle] pub extern "C" fn ky_*`
-2. Export it in `kyc_runtime/src/lib.rs`
-3. In Kyle: `@link "c" extern fn ky_*(...) <type>`
-4. Rebuild: `cargo build --release --bin ky`
+1. Add Rust function in `byc_runtime/src/<module>.rs` with `#[no_mangle] pub extern "C" fn by_*`
+2. Export it in `byc_runtime/src/lib.rs`
+3. In Byle: `@link "c" extern fn by_*(...) <type>`
+4. Rebuild: `cargo build --release --bin by`
 
 ---
 
@@ -207,7 +207,7 @@ Implement `crypto`, `config` (YAML/TOML), `compress` (gzip), `mail` (SMTP).
 | String `>=` `<=` `>` `<` comparison wrong | ✅ FIXED |
 | `.find()` → link error | ✅ FIXED |
 | `.split()` returned wrong substrings | ✅ FIXED |
-| `ky_clone_str` → link error crash | ✅ FIXED |
+| `by_clone_str` → link error crash | ✅ FIXED |
 | `_name`/`__name` scope resolver | ✅ FIXED |
 | `&[Token]`/`^[Token]` function params → LLVM type mismatch | ✅ FIXED |
 | `&[T]` slice creation `arr[0..2]` → returns garbage | ✅ FIXED |

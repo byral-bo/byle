@@ -1,6 +1,6 @@
 # ABI
 
-> La documentation del ABI y calling convention de Kyle is en `03-language/ffi/abi.md`.
+> La documentation del ABI y calling convention de Byle is en `03-language/ffi/abi.md`.
 > Also ver `03-language/ffi/c.md` for interoperabilidad with C.
 
 ## See also

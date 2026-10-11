@@ -5,7 +5,7 @@
 
 ## Integers
 
-```ky
+```by
 use std.random
 
 n: i32 = random.int(100)         # 0..99
@@ -14,20 +14,20 @@ n = random.int_range(10, 20)     # 10..19
 
 ## Floating point
 
-```ky
+```by
 x: f64 = random.float()            # 0.0..1.0
 x = random.float_range(0.0, 10.0)  # 0.0..10.0
 ```
 
 ## Booleans
 
-```ky
+```by
 b: bool = random.bool()
 ```
 
 ## Collections
 
-```ky
+```by
 items: [i32] = [1, 2, 3, 4, 5]
 random.shuffle(items)       # shuffle in-place
 item: i32 = random.choice(items)  # pick random element
@@ -47,7 +47,7 @@ item: i32 = random.choice(items)  # pick random element
 
 ## Example
 
-```ky
+```by
 use std.random
 
 # Roll a die

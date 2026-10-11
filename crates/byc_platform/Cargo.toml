@@ -1,0 +1,10 @@
+[package]
+name = "byc_platform"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+description = "Byle Platform API — platform-independent interfaces for file system, networking, time, etc."
+
+[dependencies]
+libc = "0.2"

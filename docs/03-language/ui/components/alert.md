@@ -5,9 +5,9 @@
 
 ---
 
-## Tipo Kyle
+## Tipo Byle
 
-```kyle
+```byle
 final class alert:
     # Estado
     open: ^bool                     # Controla si está abierto
@@ -33,7 +33,7 @@ final class alert:
 
 ### Alerta simple
 
-```kyx
+```byx
 <view>
     @(
         show_alert: ^bool = false
@@ -52,7 +52,7 @@ final class alert:
 
 ### Alerta de confirmación
 
-```kyx
+```byx
 <view>
     @(
         show_confirm: ^bool = false
@@ -102,7 +102,7 @@ final class alert:
 
 ### alert_type
 
-```kyle
+```byle
 enum alert_type:
     info            # Azul, ícono info
     success         # Verde, ícono check
@@ -116,7 +116,7 @@ enum alert_type:
 
 ### Alerta de error
 
-```kyx
+```byx
 <alert 
     open=@show_error 
     title="Error"
@@ -128,7 +128,7 @@ enum alert_type:
 
 ### Alerta de éxito
 
-```kyx
+```byx
 <alert 
     open=@show_success 
     title="¡Éxito!"
@@ -140,7 +140,7 @@ enum alert_type:
 
 ### Función helper para alertas
 
-```kyx
+```byx
 <view>
     @(
         alert_state: ^alert_state = alert_state.hidden

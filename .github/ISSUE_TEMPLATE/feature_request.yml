@@ -1,5 +1,5 @@
 name: Feature request
-description: Propone una nueva funcionalidad para Kyle
+description: Propone una nueva funcionalidad para Byle
 title: "feat: "
 labels: ["enhancement"]
 body:
@@ -14,8 +14,8 @@ body:
     id: proposal
     attributes:
       label: Propuesta
-      description: Cómo debería verse/usarse. Incluye ejemplos de sintaxis .ky si aplica.
-      render: ky
+      description: Cómo debería verse/usarse. Incluye ejemplos de sintaxis .by si aplica.
+      render: by
     validations:
       required: true
   - type: checkboxes
@@ -23,9 +23,9 @@ body:
     attributes:
       label: Áreas afectadas
       options:
-        - label: Compilador (crates/kyc_*)
+        - label: Compilador (crates/byc_*)
         - label: Runtime / std
-        - label: UI (kyc_ui)
+        - label: UI (byc_ui)
         - label: Paquetes (packages/)
         - label: Herramientas (LSP, formatter, CLI)
   - type: textarea

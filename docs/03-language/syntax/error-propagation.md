@@ -11,7 +11,7 @@ El operador `!` (postfijo) propaga errores automáticamente. Es equivalente
 a Rust `?` o Python `raise` implícito. Si la expresión es `T!` (fallible) y
 contiene un error, la función retorna ese error inmediatamente.
 
-```kyle
+```byle
 fn divide(a: i32, b: i32) i32!:
     if b == 0:
         error("division by zero")
@@ -33,7 +33,7 @@ fn main():
 
 Sin el operador `!`, hay que manejar el error manualmente:
 
-```kyle
+```byle
 fn calculate() i32!:
     match divide(10, 2):
         ok(val):
@@ -44,7 +44,7 @@ fn calculate() i32!:
 
 ### 1.2 Con `!` (automático)
 
-```kyle
+```byle
 fn calculate() i32!:
     divide(10, 2) ! * 2   # equivalente al de arriba
 ```
@@ -64,7 +64,7 @@ fn calculate() i32!:
 
 ## 3. Encadenamiento
 
-```kyle
+```byle
 fn process_file(path: str) str!:
     content = read_file(path) !
     parsed = parse_json(content) !
@@ -77,7 +77,7 @@ Cada `!` propaga el error si ocurre, o continúa con el valor.
 
 ## 4. Con `T?` (Optional)
 
-```kyle
+```byle
 fn find_user(id: i32) User?:
     # ...
 
@@ -97,8 +97,8 @@ Si `find_user` retorna `None`, el `!` propaga `None`.
 | `!` (postfijo) | Propagación de error | `expr !` |
 | `not` (prefijo) | Negación lógica | `not flag` |
 
-```kyle
-result = risky_call() !    # propaga error
+```byle
+result = risby_call() !    # propaga error
 visible = not hidden        # negación lógica
 ```
 

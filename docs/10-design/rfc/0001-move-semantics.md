@@ -6,9 +6,9 @@
 
 ## Resumen original (v0.5)
 
-El diseno original de Kyle usaba **borrow by defecto** y `^T` for move explicito.
+El diseno original de Byle usaba **borrow by defecto** y `^T` for move explicito.
 
-```ky
+```by
 fn read(s: str): # borrow (default) ← v0.5
 fn append(s: &str): # mutable borrow ← v0.5
 fn consume(^s: str): # move (explicit) ← v0.5
@@ -16,7 +16,7 @@ fn consume(^s: str): # move (explicit) ← v0.5
 
 ## Cambio en v0.6
 
-A partir de v0.6, Kyle usa **move by defecto**. El cambio fue:
+A partir de v0.6, Byle usa **move by defecto**. El cambio fue:
 
 | Concepto | v0.5 (original) | v0.6 (current) |
 |----------|-----------------|----------------|
@@ -28,7 +28,7 @@ A partir de v0.6, Kyle usa **move by defecto**. El cambio fue:
 
 ### Syntax current (v0.6)
 
-```ky
+```by
 fn read(s: &str): # borrow
 fn append(s: ^&str): # mutable borrow
 fn consume(s: str): # move (default)

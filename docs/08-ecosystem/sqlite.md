@@ -4,7 +4,7 @@
 
 ## API
 
-```ky
+```by
 use sqlite.database
 
 db = database.open("data.db")

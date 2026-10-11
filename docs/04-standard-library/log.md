@@ -5,7 +5,7 @@
 
 ## Basic usage
 
-```ky
+```by
 use std.log
 
 log.info("server started")
@@ -16,7 +16,7 @@ log.error("failed to connect: " + err)
 
 ## Log levels
 
-```ky
+```by
 log.debug("connecting to database")  # development details
 log.info("server started")           # general information
 log.warn("high memory usage")        # warning, not critical
@@ -25,7 +25,7 @@ log.error("connection failed")       # error, needs attention
 
 ## Level filtering
 
-```ky
+```by
 log.set_level(log.warn)  # only warn and error shown
 log.debug("hidden")      # not printed
 log.warn("visible")      # printed
@@ -34,14 +34,14 @@ log.error("visible")     # printed
 
 ## With structured fields
 
-```ky
+```by
 log.with_fields({"user": user_id, "ip": ip}).info("user logged in")
 log.with_fields({"duration_ms": elapsed}).warn("slow request")
 ```
 
 ## Output to file
 
-```ky
+```by
 log.set_output("app.log")!
 log.info("this goes to file")
 
@@ -82,7 +82,7 @@ Default format: `[LEVEL] YYYY-MM-DD HH:MM:SS message`
 
 ## Example
 
-```ky
+```by
 use std.log
 
 log.set_level(log.debug)

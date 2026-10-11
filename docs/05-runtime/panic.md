@@ -1,7 +1,7 @@
 # Panic
 
-> Manejo de panics del runtime de Kyle.
-> Crate: `kyc_runtime/src/panic.rs` (6 lines, funcion: `ky_panic`).
+> Manejo de panics del runtime de Byle.
+> Crate: `byc_runtime/src/panic.rs` (6 lines, funcion: `by_panic`).
 
 ## Responsabilidad
 
@@ -11,8 +11,8 @@ acceso outside de bounds, null pointer dereference, etc.
 ## Implementation
 
 ```rust
- fn ky_panic(message: &str) -> ! {
- eprintln!("KL PANIC: {}", message);
+ fn by_panic(message: &str) -> ! {
+ eprintln!("BYLE PANIC: {}", message);
  std::process::abort();
 }
 ```
@@ -25,17 +25,17 @@ acceso outside de bounds, null pointer dereference, etc.
 
 | Condition | Mensaje |
 |-----------|---------|
-| Division by zero | `KL PANIC: division by zero` |
-| Index out of bounds | `KL PANIC: index out of bounds` |
-| Null pointer dereference | `KL PANIC: attempted to dereference null pointer` |
-| Assertion failed | `KL PANIC: assertion failed` |
-| Overflow | `KL PANIC: arithmetic overflow` |
+| Division by zero | `BYLE PANIC: division by zero` |
+| Index out of bounds | `BYLE PANIC: index out of bounds` |
+| Null pointer dereference | `BYLE PANIC: attempted to dereference null pointer` |
+| Assertion failed | `BYLE PANIC: assertion failed` |
+| Overflow | `BYLE PANIC: arithmetic overflow` |
 
 ## Integration with Result
 
 El sistema `T!` (Result) allows manejar errors without panic:
 
-```ky
+```by
 fn divide(a: i32, b: i32) i32!:
  if b == 0:
  return error("division by zero")

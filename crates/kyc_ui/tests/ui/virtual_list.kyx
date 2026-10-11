@@ -1,8 +1,0 @@
-# Test: Virtual list
-<view>
-    @( items: ^{str} = {"A", "B", "C", "D", "E"})
-    <list virtual=true item_height=48>
-        @for(item in items):
-            <text value=@item />
-    </list>
-</view>

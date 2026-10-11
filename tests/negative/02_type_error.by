@@ -1,0 +1,2 @@
+fn main():
+    value: i32 = "not an integer"

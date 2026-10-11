@@ -1,6 +1,6 @@
 # Vision
 
-Kyle is un language de programacion compilado, staticmente tipado, disenado para
+Byle is un language de programacion compilado, staticmente tipado, disenado para
 sistemas backend, herramientas CLI y desarrollo full-stack with rendimiento nativo,
 legibilidad de Python y seguridad de typis de Rust.
 
@@ -16,7 +16,7 @@ legibilidad de Python y seguridad de typis de Rust.
 
 ## Audiencia
 
-Kyle is disenado para:
+Byle is disenado para:
 
 - **Desarrolladoris backend** — APIs, microservicios, CLIs
 - **Equipos** que valuean legibilidad tanto as rendimiento

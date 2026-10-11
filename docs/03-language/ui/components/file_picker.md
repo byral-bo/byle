@@ -5,9 +5,9 @@
 
 ---
 
-## Tipo Kyle
+## Tipo Byle
 
-```kyle
+```byle
 final class file_picker:
     # Valor
     bind: ^file_data?               # Binding al archivo seleccionado
@@ -32,7 +32,7 @@ final class file_picker:
 
 ### Selector simple
 
-```kyx
+```byx
 <view>
     @(
         selected_file: ^file_data? = none
@@ -47,7 +47,7 @@ final class file_picker:
 
 ### Solo imágenes
 
-```kyx
+```byx
 <file_picker 
     bind=@avatar 
     accept="image/*" 
@@ -57,7 +57,7 @@ final class file_picker:
 
 ### Múltiples archivos
 
-```kyx
+```byx
 <file_picker 
     bind=@documents 
     accept=".pdf,.doc,.docx" 
@@ -86,7 +86,7 @@ final class file_picker:
 
 ### file_data
 
-```kyle
+```byle
 final class file_data:
     name: str                       # Nombre del archivo
     size: i64                       # Tamaño en bytes
@@ -98,7 +98,7 @@ final class file_data:
 
 ### file_change_event
 
-```kyle
+```byle
 final class file_change_event:
     files: {file_data}              # Archivos seleccionados
     target: str                     # ID del elemento
@@ -110,7 +110,7 @@ final class file_change_event:
 
 ### Upload de imagen con preview
 
-```kyx
+```byx
 <view>
     @(
         avatar: ^file_data? = none
@@ -138,7 +138,7 @@ final class file_change_event:
 
 ### Upload con validación
 
-```kyx
+```byx
 <view>
     @(
         document: ^file_data? = none
@@ -175,7 +175,7 @@ final class file_change_event:
 
 ### Con modelo
 
-```kyx
+```byx
 <form model=@profile_form>
     <text_field field="name" label="Nombre" />
     <file_picker field="avatar" accept="image/*" label="Foto de perfil" />
@@ -200,7 +200,7 @@ final class file_change_event:
 
 ### Desktop (SDL2)
 
-```kyle
+```byle
 fn show_file_picker(accept: str?) -> file_data?:
     # Usar diálogo nativo del SO
     result = sdl_show_open_dialog(accept)

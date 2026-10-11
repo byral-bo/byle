@@ -4,14 +4,14 @@
 
 ## Expression statement
 
-```ky
+```by
 x + 1
 println("hello")
 ```
 
 ## Block
 
-```ky
+```by
 :
  statement1
  statement2
@@ -19,7 +19,7 @@ println("hello")
 
 ## If / elif / else
 
-```ky
+```by
 if x > 0:
  println("positive")
 elif x < 0:
@@ -30,7 +30,7 @@ else:
 
 ## While
 
-```ky
+```by
 i: ^i32 = 0
 while i < 10:
  println(i)
@@ -39,7 +39,7 @@ while i < 10:
 
 ## For
 
-```ky
+```by
 # Range — itera por valor (Copy types se copian)
 for i in 0..10:
  println(i)
@@ -82,7 +82,7 @@ else:
 
 ## Match
 
-```ky
+```by
 match x:
  1:
  println("one")
@@ -96,7 +96,7 @@ match x:
 
 ## Return
 
-```ky
+```by
 fn add(a: i32, b: i32) i32:
  return a + b # explicit
  a + b # implicit (last expression)
@@ -104,7 +104,7 @@ fn add(a: i32, b: i32) i32:
 
 ## Break / continue
 
-```ky
+```by
 while true:
  if done:
  break
@@ -115,21 +115,21 @@ while true:
 
 ## Defer
 
-```ky
+```by
 file = open("data.txt")
 defer close(file) # runs when scope exits
 ```
 
 ## Guard
 
-```ky
+```by
 guard value = optional else:
  return
 ```
 
 ## Unsafe
 
-```ky
+```by
 unsafe:
  ptr = as_ptr(variable)
  ptr[0] = 0xFF

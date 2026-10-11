@@ -1,22 +1,22 @@
 # IDE Support
 
-> Support for editoris e IDEs en Kyle.
+> Support for editoris e IDEs en Byle.
 
 ## VS Code
 
-Kyle has una extension oficial for VS Code:
+Byle has una extension oficial for VS Code:
 
 ```bash
 # Instalar from VS Code marketplace
 # O manualmente:
-code --install-extension ky-0.5.3.vsix
+code --install-extension by-0.5.3.vsix
 ```
 
 ### Features
 
 | Feature | Detalle |
 |---------|---------|
-| Syntax highlighting | Resaltado de syntax `.ky` |
+| Syntax highlighting | Resaltado de syntax `.by` |
 | LSP (Language Server) | Diagnostics, completed, hover |
 | Debugging | DAP integration |
 | Test runner | UI for `#[test]` |
@@ -25,8 +25,8 @@ code --install-extension ky-0.5.3.vsix
 
 ```json
 {
- "ky.kycPath": "/usr/local/bin/ky",
- "ky.semanticHighlighting": true
+ "byle.byPath": "/usr/local/bin/by",
+ "by.semanticHighlighting": true
 }
 ```
 
@@ -34,17 +34,17 @@ code --install-extension ky-0.5.3.vsix
 
 | Editor | Support |
 |--------|---------|
-| Vim/Neovim | Syntax highlighting basico via `vim-ky` |
+| Vim/Neovim | Syntax highlighting basico via `vim-by` |
 | Emacs | Syntax highlighting basico |
 | IntelliJ | Plugin comunitario (terceros) |
 
 ## LSP
 
-Kyle implementa Language Server Protocol for integration with cualquier editor
+Byle implementa Language Server Protocol for integration with cualquier editor
 que lo support:
 
 ```bash
-ky lsp # inicia servidor LSP
+by lsp # inicia servidor LSP
 ```
 
 ## See also

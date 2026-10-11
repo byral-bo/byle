@@ -1,7 +1,7 @@
 # LLVM Codegen
 
 > Generation de code LLVM IR from MIR/SSA.
-> Crate: `kyc_backend/src/codegen.rs` (2942 lines).
+> Crate: `byc_backend/src/codegen.rs` (2942 lines).
 
 ## Responsabilidad
 

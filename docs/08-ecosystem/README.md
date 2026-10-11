@@ -1,6 +1,6 @@
 # 08-ecosystem
 
-> Paquetis oficialis del ecosistema Kyle.
+> Paquetis oficialis del ecosistema Byle.
 
 ## Paquetis disponibles
 
@@ -14,8 +14,8 @@
 ## Uso
 
 ```bash
-ky add http # agregar dependency
-ky install # instalar dependencies del proyecto
+by add http # agregar dependency
+by install # instalar dependencies del proyecto
 ```
 
 ## Documentation

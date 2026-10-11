@@ -5,7 +5,7 @@
 
 ## Serialize a class
 
-```ky
+```by
 use std.json
 
 class User:
@@ -13,21 +13,21 @@ class User:
     age: i32
     active: bool
 
-user: User = User { name: "Kyle", age: 30, active: true }
+user: User = User { name: "Byle", age: 30, active: true }
 json_str: str = json.to_str(user)
 println(json_str)
-# {"name":"Kyle","age":30,"active":true}
+# {"name":"Byle","age":30,"active":true}
 ```
 
 ## Deserialize to a class
 
-```ky
+```by
 class User:
     name: str
     age: i32
     active: bool
 
-json_str: str = """{"name": "Kyle", "age": 30, "active": true}"""
+json_str: str = """{"name": "Byle", "age": 30, "active": true}"""
 user: User = json.from_str<User>(json_str)!
 println(user.name)
 println(user.age.to_str())
@@ -35,19 +35,19 @@ println(user.age.to_str())
 
 ## Pretty print
 
-```ky
-user: User = User { name: "Kyle", age: 30 }
+```by
+user: User = User { name: "Byle", age: 30 }
 formatted: str = json.pretty(user)
 println(formatted)
 # {
-#   "name": "Kyle",
+#   "name": "Byle",
 #   "age": 30
 # }
 ```
 
 ## Lists of classes
 
-```ky
+```by
 class User:
     name: str
     age: i32
@@ -67,7 +67,7 @@ for user in parsed:
 
 ## Nested classes
 
-```ky
+```by
 class Address:
     city: str
     country: str
@@ -77,12 +77,12 @@ class User:
     address: Address
 
 user: User = User {
-    name: "Kyle",
+    name: "Byle",
     address: Address { city: "NYC", country: "USA" }
 }
 
 json_str: str = json.to_str(user)
-# {"name":"Kyle","address":{"city":"NYC","country":"USA"}}
+# {"name":"Byle","address":{"city":"NYC","country":"USA"}}
 
 parsed: User = json.from_str<User>(json_str)!
 println(parsed.address.city)
@@ -90,7 +90,7 @@ println(parsed.address.city)
 
 ## Dictionaries in JSON
 
-```ky
+```by
 metadata: {str: str} = {"version": "1.0", "env": "production"}
 json_str: str = json.to_str(metadata)
 # {"version":"1.0","env":"production"}
@@ -106,7 +106,7 @@ json_str: str = json.to_str(metadata)
 
 ## Type mapping
 
-| Kyle | JSON |
+| Byle | JSON |
 |------|------|
 | `str` | string |
 | `i32`, `i64` | number |
@@ -119,7 +119,7 @@ json_str: str = json.to_str(metadata)
 
 ## Example
 
-```ky
+```by
 use std.json
 
 class Config:

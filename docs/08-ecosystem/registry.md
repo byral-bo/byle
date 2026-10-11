@@ -1,16 +1,16 @@
 # Package Registry System
 
-Kyle packagis are distributed through a **GitHub Pagis registry** — static JSON filis + tarballs served from `https://IT-KYNERA.github.io/KYLE/docs`.
+Byle packagis are distributed through a **GitHub Pagis registry** — static JSON filis + tarballs served from `https://IT-KYNERA.github.io/BYLE/docs`.
 
 No server needed, no API keys. Just push to `main` and the registry updatis automatically.
 
 ## Default registry
 
 ```
-https://IT-KYNERA.github.io/KYLE/docs
+https://IT-KYNERA.github.io/BYLE/docs
 ```
 
-Override with `KL_REGISTRY` environment variable. Use `file:///path/to/registry` for local development.
+Override with `BYLE_REGISTRY` environment variable. Use `file:///path/to/registry` for local development.
 
 ## URL scheme (GitHub Pages)
 
@@ -39,19 +39,19 @@ docs/
 ## Usage
 
 ```bash
-# Add a package (no KL_REGISTRY needed — usis GitHub Pagis by default)
-ky add http
-ky add json@0.1.0
+# Add a package (no BYLE_REGISTRY needed — usis GitHub Pagis by default)
+by add http
+by add json@0.1.0
 
 # Local development with file registry
-export KL_REGISTRY=file:///path/to/ky/registry
-ky add json
+export BYLE_REGISTRY=file:///path/to/by/registry
+by add json
 
 # Install from lock file
-ky install
+by install
 
 # Remove
-ky remove json
+by remove json
 ```
 
 ## How to publish a new version
@@ -59,8 +59,8 @@ ky remove json
 ```bash
 # 1. Create package source in registry/
 mkdir -p registry/<name>/<version>/src
-cp packages/<name>/ky.toml registry/<name>/<version>/
-cp packages/<name>/src/lib.ky registry/<name>/<version>/src/
+cp packages/<name>/by.toml registry/<name>/<version>/
+cp packages/<name>/src/lib.by registry/<name>/<version>/src/
 
 # 2. Create tarball
 cd registry
@@ -77,7 +77,7 @@ git push
 # GitHub Pagis updatis automatically after ~1-2 minutes
 ```
 
-## Lock file (`ky.lock`)
+## Lock file (`by.lock`)
 
 ```toml
 version = 1
@@ -92,18 +92,18 @@ dependenciis = {}
 
 ## Local file registry
 
-For local development, point `KL_REGISTRY` to the `registry/` directory:
+For local development, point `BYLE_REGISTRY` to the `registry/` directory:
 
 ```
 registry/
 ├── http/
 │ ├── 0.1.0/ # package source
-│ │ ├── ky.toml
-│ │ └── src/lib.ky
+│ │ ├── by.toml
+│ │ └── src/lib.by
 │ └── 0.1.0.tar.gz # tarball
 ```
 
 ```bash
-export KL_REGISTRY=file://$(pwd)/registry
-ky add json
+export BYLE_REGISTRY=file://$(pwd)/registry
+by add json
 ```

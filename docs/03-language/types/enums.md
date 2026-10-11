@@ -6,7 +6,7 @@ Enums are tagged unions (discriminated unions).
 
 ## Declaration
 
-```ky
+```by
 enum Color:
  Red
  Green
@@ -15,7 +15,7 @@ enum Color:
 
 ## With payload
 
-```ky
+```by
 enum Optional:
  Some(i32)
  None
@@ -23,7 +23,7 @@ enum Optional:
 
 ## Usage
 
-```ky
+```by
 c = Color.Red
 
 match c:
@@ -37,7 +37,7 @@ match c:
 
 ## Variant with payload
 
-```ky
+```by
 v = Optional.Some(42)
 
 match v:

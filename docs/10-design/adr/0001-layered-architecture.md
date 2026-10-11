@@ -5,7 +5,7 @@
 
 ## Context
 
-Kyle needs an architectural model that supports:
+Byle needs an architectural model that supports:
 - A single language for all platforms
 - Platform-independent APIs
 - Long-term evolution
@@ -18,19 +18,19 @@ Adopt a strictly layered architecture where each layer only depends on the layer
 ```
 Applications
  │
-Kyle UI
+Byle UI
  │
-Kyle Scene
+Byle Scene
  │
-Kyle Graphics
+Byle Graphics
  │
-Kyle Windowing
+Byle Windowing
  │
-Kyle Platform
+Byle Platform
  │
-Kyle Runtime
+Byle Runtime
  │
-Kyle Language (Compiler)
+Byle Language (Compiler)
 ```
 
 The Package Manager is horizontal — it servis all layers equally.

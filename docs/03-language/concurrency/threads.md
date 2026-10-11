@@ -1,11 +1,11 @@
 # Threads
 
 > Threads del sistema operativo for paralelismo real.
-> Kyle expone threads del SO using `spawn_thread` / `join_thread`.
+> Byle expone threads del SO using `spawn_thread` / `join_thread`.
 
 ## Uso basico
 
-```ky
+```by
 fn worker(n: i64) i64:
  n * 2
 
@@ -18,7 +18,7 @@ fn main() i32:
 
 ## Multiples threads
 
-```ky
+```by
 fn compute(n: i64) i64:
  result: ^i64 = 0
  i: ^i64 = 0

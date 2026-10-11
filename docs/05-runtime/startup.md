@@ -1,20 +1,20 @@
 # Startup
 
-> Secuencia de inicio del runtime de Kyle cuando un program se ejecuta.
+> Secuencia de inicio del runtime de Byle cuando un program se ejecuta.
 
 ## Secuencia de inicio
 
-Cuando kernel/shell ejecuta un binary compilado with Kyle:
+Cuando kernel/shell ejecuta un binary compilado with Byle:
 
 ```
 1. Cargador del SO carga binary en memory
 2. C library initialization (__libc_init)
 3. Rust runtime init (stack guard, thread local storage)
-4. Kyle runtime init:
+4. Byle runtime init:
  a. Inicializar allocator
  b. Configurar panic handler
  c. Inicializar thread pool (lazy, primer uso)
-5. Llamar a main() o kyle_main()
+5. Llamar a main() o byle_main()
 6. Ejecutar code del usuario
 7. On exit:
  a. Destruir thread pool
@@ -28,7 +28,7 @@ Cuando kernel/shell ejecuta un binary compilado with Kyle:
 
 ```llvm
 defines i32 @main() { # Entry point real
- call i32 @kyle_main() # Delega al code Kyle
+ call i32 @byle_main() # Delega al code Byle
  ret i32 %0
 }
 ```
@@ -37,20 +37,20 @@ defines i32 @main() { # Entry point real
 
 ```llvm
 defines i32 @main(i32, ptr) { # Entry point real
- call i32 @kyle_main() # args se pasan as list
+ call i32 @byle_main() # args se pasan as list
  ret i32 %0
 }
 ```
 
-Si code Kyle no has `fn main()`, compiler genera un main implicito
+Si code Byle no has `fn main()`, compiler genera un main implicito
 que ejecuta code del module as script.
 
 ## Initialization lazy
 
 El runtime usa initialization lazy (via `OnceLock`) para:
 
-- Thread pool (primer `ky_spawn_task`)
-- Variablis de entorno (primer `ky_getenv`)
+- Thread pool (primer `by_spawn_task`)
+- Variablis de entorno (primer `by_getenv`)
 - Recursos globales
 
 Esto minimiza overhead de programs que no usan featuris especificas.

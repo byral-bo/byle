@@ -1,6 +1,6 @@
 # 03-language
 
-> Referencia completa del language Kyle. Cada subdirectorio cubre un aspecto especifico.
+> Referencia completa del language Byle. Cada subdirectorio cubre un aspecto especifico.
 
 | Subdirectorio | Contenido |
 |---------------|-----------|

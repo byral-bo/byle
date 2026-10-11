@@ -9,7 +9,7 @@
 **Documentación relacionada:**
 - [0002-ui-architecture.md](0002-ui-architecture.md) — Arquitectura
 - [0003-ui-translation.md](0003-ui-translation.md) — Traducción multi-target
-- [ui-syntax.md](../../03-language/syntax/ui-syntax.md) — Sintaxis .kyx
+- [ui-syntax.md](../../03-language/syntax/ui-syntax.md) — Sintaxis .byx
 - [style-system.md](../../03-language/ui/style-system.md) — Estilos
 - [state-events.md](../../03-language/ui/state-events.md) — Estado/eventos
 - [animation.md](../../03-language/ui/animation.md) — Animaciones
@@ -30,33 +30,33 @@
 | Principio | Significado |
 |-----------|-------------|
 | **Funcional primero** | Cada fase produce algo que FUNCIONA, no solo código muerto |
-| **Sin dependencias externas** | No npm, no Node.js, no CDN. Todo es Kyle + LLVM |
+| **Sin dependencias externas** | No npm, no Node.js, no CDN. Todo es Byle + LLVM |
 | **Web primero, desktop después** | Web (WASM + JS) es el target inicial por ser el más accesible |
-| **Runtime en Kyle** | Los componentes UI se escriben en Kyle (como http, json, sqlite) |
-| **Un parser, múltiples backends** | .kyx → AST Kyle → LLVM/WASM + JS generator |
+| **Runtime en Byle** | Los componentes UI se escriben en Byle (como http, json, sqlite) |
+| **Un parser, múltiples backends** | .byx → AST Byle → LLVM/WASM + JS generator |
 
 ---
 
 ## 2. FASE 0: CLI y Target Triples
 
-**Objetivo:** `ky build --target wasm32` funciona.
+**Objetivo:** `by build --target wasm32` funciona.
 
 ### Tareas
 
 | # | Tarea | Archivos | Esfuerzo |
 |---|-------|----------|:--------:|
-| 0.1 | Flag `--target` en CLI | `crates/kyc_cli/src/main.rs` | Pequeño |
-| 0.2 | Target triple en Codegen | `crates/kyc_backend/src/codegen.rs` | Pequeño |
-| 0.3 | Target triple en Pipeline | `crates/kyc_driver/src/pipeline.rs` | Pequeño |
-| 0.4 | Linker por target triple | `crates/kyc_backend/src/linker.rs` | Medio |
-| 0.5 | Compilar kyc_runtime a WASM | `crates/kyc_runtime/` | Medio |
+| 0.1 | Flag `--target` en CLI | `crates/byc_cli/src/main.rs` | Pequeño |
+| 0.2 | Target triple en Codegen | `crates/byc_backend/src/codegen.rs` | Pequeño |
+| 0.3 | Target triple en Pipeline | `crates/byc_driver/src/pipeline.rs` | Pequeño |
+| 0.4 | Linker por target triple | `crates/byc_backend/src/linker.rs` | Medio |
+| 0.5 | Compilar byc_runtime a WASM | `crates/byc_runtime/` | Medio |
 | 0.6 | JS glue runtime básico | `runtimes/js/glue.js` | Medio |
-| 0.7 | `ky build login.kyx` produce .wasm + .js | Pipeline completo | Medio |
+| 0.7 | `by build login.byx` produce .wasm + .js | Pipeline completo | Medio |
 
 ### Entregable
 
 ```bash
-ky build --target wasm32 app.kyx
+by build --target wasm32 app.byx
 # → app.wasm + ui-runtime.js + index.html
 ```
 
@@ -64,41 +64,41 @@ ky build --target wasm32 app.kyx
 
 ```bash
 cd /tmp/test-ui
-ky new webapp my-app
+by new webapp my-app
 cd my-app
-ky build
-# Abrir index.html en browser → ver "Hello from Kyle"
+by build
+# Abrir index.html en browser → ver "Hello from Byle"
 ```
 
 ---
 
-## 3. FASE 1: Parser .kyx + Traductor JS
+## 3. FASE 1: Parser .byx + Traductor JS
 
-**Objetivo:** Parsear .kyx y generar JS que manipula el DOM.
+**Objetivo:** Parsear .byx y generar JS que manipula el DOM.
 
 ### Tareas
 
 | # | Tarea | Archivos | Esfuerzo |
 |---|-------|----------|:--------:|
-| 1.1 | Nueva crate `kyc_ui` | `crates/kyc_ui/src/lib.rs` | Medio |
-| 1.2 | Parser XML .kyx → AstType | `crates/kyc_ui/src/parser.rs` | Grande |
-| 1.3 | Registrar `.kyx` en module resolver | `crates/kyc_frontend/src/resolver.rs` | Pequeño |
-| 1.4 | JS generator: componentes básicos | `crates/kyc_ui/src/js_gen.rs` | Grande |
-| 1.5 | Soporte `@expr` y `@(bloque)` | `crates/kyc_ui/src/parser.rs` | Medio |
-| 1.6 | Soporte `@if`, `@for`, `@match` | `crates/kyc_ui/src/js_gen.rs` | Medio |
-| 1.7 | Soporte slots y children | `crates/kyc_ui/src/js_gen.rs` | Medio |
+| 1.1 | Nueva crate `byc_ui` | `crates/byc_ui/src/lib.rs` | Medio |
+| 1.2 | Parser XML .byx → AstType | `crates/byc_ui/src/parser.rs` | Grande |
+| 1.3 | Registrar `.byx` en module resolver | `crates/byc_frontend/src/resolver.rs` | Pequeño |
+| 1.4 | JS generator: componentes básicos | `crates/byc_ui/src/js_gen.rs` | Grande |
+| 1.5 | Soporte `@expr` y `@(bloque)` | `crates/byc_ui/src/parser.rs` | Medio |
+| 1.6 | Soporte `@if`, `@for`, `@match` | `crates/byc_ui/src/js_gen.rs` | Medio |
+| 1.7 | Soporte slots y children | `crates/byc_ui/src/js_gen.rs` | Medio |
 
 ### Entregable
 
-```kyx
-# hello.kyx
+```byx
+# hello.byx
 <view>
     <text value="Hola Mundo" />
 </view>
 ```
 
 ```bash
-ky build --target wasm32 hello.kyx
+by build --target wasm32 hello.byx
 # → hello.wasm + ui-runtime.js
 # → Browser muestra "Hola Mundo"
 ```
@@ -113,15 +113,15 @@ ky build --target wasm32 hello.kyx
 
 | # | Tarea | Archivos | Esfuerzo |
 |---|-------|----------|:--------:|
-| 2.1 | Types Kyle: Color, Spacing, etc. | `packages/ui/src/styles/types.ky` | Pequeño |
-| 2.2 | Parser `style<>`, `layout<>`, `tpl<>`, `theme` | `crates/kyc_ui/src/parser.rs` | Medio |
-| 2.3 | JS generator: style → inline styles | `crates/kyc_ui/src/style_gen.rs` | Medio |
-| 2.4 | Theme system (light/dark) | `packages/ui/src/styles/theme.ky` | Medio |
-| 2.5 | Responsive `@media()` | `crates/kyc_ui/src/style_gen.rs` | Medio |
+| 2.1 | Types Byle: Color, Spacing, etc. | `packages/ui/src/styles/types.by` | Pequeño |
+| 2.2 | Parser `style<>`, `layout<>`, `tpl<>`, `theme` | `crates/byc_ui/src/parser.rs` | Medio |
+| 2.3 | JS generator: style → inline styles | `crates/byc_ui/src/style_gen.rs` | Medio |
+| 2.4 | Theme system (light/dark) | `packages/ui/src/styles/theme.by` | Medio |
+| 2.5 | Responsive `@media()` | `crates/byc_ui/src/style_gen.rs` | Medio |
 
 ### Entregable
 
-```kyx
+```byx
 style<button> Primary:
     background = Color("#0066FF")
     color = Color("#FFFFFF")
@@ -140,15 +140,15 @@ style<button> Primary:
 
 | # | Tarea | Archivos | Esfuerzo |
 |---|-------|----------|:--------:|
-| 3.1 | DOM events: click, input, change | `crates/kyc_ui/src/events_gen.rs` | Medio |
+| 3.1 | DOM events: click, input, change | `crates/byc_ui/src/events_gen.rs` | Medio |
 | 3.2 | Event → callback WASM bridge | `runtimes/js/glue.js` | Medio |
 | 3.3 | One-way binding (estado → UI) | `runtimes/js/reactivity.js` | Medio |
 | 3.4 | Two-way binding (UI ↔ estado) | `runtimes/js/reactivity.js` | Medio |
-| 3.5 | Event object (MouseEvent, KeyboardEvent) | `packages/ui/src/events.ky` | Pequeño |
+| 3.5 | Event object (MouseEvent, KeyboardEvent) | `packages/ui/src/events.by` | Pequeño |
 
 ### Entregable
 
-```kyx
+```byx
 @(
     count: ^i32 = 0
     fn increment():
@@ -184,7 +184,7 @@ Cada componente es su propio archivo en `packages/ui/src/components/`.
 
 ### Entregable
 
-```kyx
+```byx
 <view>
     <column layout=Center spacing=16>
         <text typography=Title value="Login" />
@@ -213,8 +213,8 @@ Cada componente es su propio archivo en `packages/ui/src/components/`.
 
 ### Entregable
 
-```kyx
-# app.kyx — auto-routing con <router>
+```byx
+# app.byx — auto-routing con <router>
 <app>
     <router>
         <home_view />
@@ -224,16 +224,16 @@ Cada componente es su propio archivo en `packages/ui/src/components/`.
 </app>
 ```
 
-```kyx
-# home.kyx
+```byx
+# home.byx
 view("/")
 <view>
     <text value="Inicio" />
 </view>
 ```
 
-```kyx
-# user_detail.kyx
+```byx
+# user_detail.byx
 view("/users/{id}")
 @(
     params: {str: str} = route_params()
@@ -279,7 +279,7 @@ view("/users/{id}")
 
 | # | Tarea | Esfuerzo |
 |---|-------|:--------:|
-| 8.1 | Portal component en .kyx parser | Pequeño |
+| 8.1 | Portal component en .byx parser | Pequeño |
 | 8.2 | JS generator: render en target selector | Medio |
 | 8.3 | Desktop: overlay layer | Medio |
 | 8.4 | Position strategies (Auto, RelativeTo, Center) | Medio |
@@ -325,10 +325,10 @@ view("/users/{id}")
 
 | # | Tarea | Esfuerzo |
 |---|-------|:--------:|
-| 11.1 | SSR renderer (Kyle → HTML) | Grande |
+| 11.1 | SSR renderer (Byle → HTML) | Grande |
 | 11.2 | State serialization para hydration | Medio |
 | 11.3 | Streaming SSR | Grande |
-| 11.4 | `ky serve` dev server | Medio |
+| 11.4 | `by serve` dev server | Medio |
 | 11.5 | SEO meta tags | Pequeño |
 
 ---
@@ -345,7 +345,7 @@ view("/users/{id}")
 | 12.2 | Event simulation | Medio |
 | 12.3 | Snapshot system | Medio |
 | 12.4 | Context mocking | Pequeño |
-| 12.5 | `ky test --coverage` | Medio |
+| 12.5 | `by test --coverage` | Medio |
 
 ---
 
@@ -355,7 +355,7 @@ view("/users/{id}")
 FASE 0: CLI + Targets
   │
   ▼
-FASE 1: Parser .kyx + JS gen  ◄── EMPEZAMOS AQUÍ
+FASE 1: Parser .byx + JS gen  ◄── EMPEZAMOS AQUÍ
   │
   ├──► FASE 2: Estilos
   │       │
@@ -395,7 +395,7 @@ FASE 1: Parser .kyx + JS gen  ◄── EMPEZAMOS AQUÍ
 
 ```
 Semana 1-2:   FASE 0 (CLI + Targets)
-              FASE 1.1-1.3 (Parser .kyx básico)
+              FASE 1.1-1.3 (Parser .byx básico)
 
 Semana 3-4:   FASE 1.4-1.7 (JS generator)
               FASE 2.1-2.3 (Estilos básicos)
@@ -428,8 +428,8 @@ Semana 17-18: FASE 11.4-11.5 (SSR + SEO)
 
 | Término | Significado |
 |---------|-------------|
-| `kyc_ui` | Nueva crate Rust que parsea .kyx y genera JS |
-| `js_gen.rs` | Generador de código JS a partir de AST Kyle |
+| `byc_ui` | Nueva crate Rust que parsea .byx y genera JS |
+| `js_gen.rs` | Generador de código JS a partir de AST Byle |
 | `style_gen.rs` | Traduce `style<>` a inline styles JS |
 | `events_gen.rs` | Traduce eventos a addEventListener |
 | `ui-runtime.js` | Runtime JS generado que contiene componentes |

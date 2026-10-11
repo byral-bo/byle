@@ -5,9 +5,9 @@
 
 ---
 
-## Tipo Kyle
+## Tipo Byle
 
-```kyle
+```byle
 final class view:
     # Layout
     style: style_class?             # Clase de estilo
@@ -37,7 +37,7 @@ final class view:
 
 ### Contenedor simple
 
-```kyx
+```byx
 <view>
     <text value="Contenido" />
 </view>
@@ -45,7 +45,7 @@ final class view:
 
 ### Con estilo
 
-```kyx
+```byx
 <view style=style(
     padding: spacing.all(16),
     background: color("#F5F5F5"),
@@ -57,7 +57,7 @@ final class view:
 
 ### Clickable
 
-```kyx
+```byx
 <view 
     clickable=true 
     click=@handle_click
@@ -102,7 +102,7 @@ final class view:
 
 ### Card personalizada
 
-```kyx
+```byx
 <view style=style(
     padding: spacing.all(16),
     background: color("#FFFFFF"),
@@ -119,7 +119,7 @@ final class view:
 
 ### Contenedor con hover
 
-```kyx
+```byx
 <view>
     @(
         is_hovered: ^bool = false
@@ -140,7 +140,7 @@ final class view:
 
 ### Contenedor scrollable
 
-```kyx
+```byx
 <view style=style(
     height: length.px(300),
     overflow: overflow.scroll
@@ -164,7 +164,7 @@ final class view:
 
 ### Desktop (SDL2/Skia)
 
-```kyle
+```byle
 fn render_view(x: f32, y: f32, w: f32, h: f32):
     skia_fill_rounded_rect(x, y, w, h, 8.0, color("#F5F5F5"))
     render_children(x + 16, y + 16, w - 32, h - 32)

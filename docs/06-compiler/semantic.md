@@ -1,7 +1,7 @@
 # Semantic Analysis
 
 > Type checking, scope resolution, validacion semantics.
-> Crate: `kyc_semantic/src/` (~2200 lines).
+> Crate: `byc_semantic/src/` (~2200 lines).
 
 ## Responsabilidad
 
@@ -82,7 +82,7 @@ fn check_function_call(&mut self, target: &Expr, args: &[Expr]) -> Type {
 
 El scope resolver asigna cada name a su declaration:
 
-```ky
+```by
 # Scope global
 x = 42 # x → global scope
 
@@ -143,16 +143,16 @@ fn register_builtins(&mut self) {
 
 ```rust
 // Type mismatch
-KL-E0001: Type mismatch: expected 'i32', found 'str'
- --> file.ky:10:5
+BYLE-E0001: Type mismatch: expected 'i32', found 'str'
+ --> file.by:10:5
 
 // Undefined symbol
-KL-E0009: Undefined symbol 'foo'
- --> file.ky:5:10
+BYLE-E0009: Undefined symbol 'foo'
+ --> file.by:5:10
 
 // Cannot modify immutable
-KL-E0007: Cannot modify immutable variable 'x'
- --> file.ky:3:5
+BYLE-E0007: Cannot modify immutable variable 'x'
+ --> file.by:3:5
 ```
 
 ## See also

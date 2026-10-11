@@ -78,7 +78,7 @@
 
 ### Chaining
 
-```ky
+```by
 result = " Hello World ".trim().to_upper().substr(0, 5)
 # result = "HELLO"
 ```

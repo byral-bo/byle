@@ -5,9 +5,9 @@
 
 ---
 
-## Tipo Kyle
+## Tipo Byle
 
-```kyle
+```byle
 final class text:
     # Contenido
     value: str                      # Texto a mostrar
@@ -34,20 +34,20 @@ final class text:
 
 ## Uso Básico
 
-```kyx
+```byx
 <text value="Hola Mundo" />
 ```
 
 ### Con estilo
 
-```kyx
+```byx
 <text value="Título" style=Title />
 <text value="Subtítulo" style=Subtitle />
 ```
 
 ### Reactivo
 
-```kyx
+```byx
 <view>
     @(
         count: ^i32 = 0
@@ -80,7 +80,7 @@ final class text:
 
 ### text_overflow
 
-```kyle
+```byle
 enum text_overflow:
     clip            # Cortar texto
     ellipsis        # Mostrar "..."
@@ -93,7 +93,7 @@ enum text_overflow:
 
 ### Texto con límite de líneas
 
-```kyx
+```byx
 <text 
     value="Este es un texto muy largo que puede no caber en una sola línea..."
     max_lines=2
@@ -103,13 +103,13 @@ enum text_overflow:
 
 ### Texto seleccionable
 
-```kyx
+```byx
 <text value="Código: ABC123" selectable=true />
 ```
 
 ### Texto con interpolación
 
-```kyx
+```byx
 <view>
     @(
         user: User = get_user()
@@ -121,7 +121,7 @@ enum text_overflow:
 
 ### Múltiples textos con formato
 
-```kyx
+```byx
 <hstack spacing=4>
     <text value="Precio:" font_weight=font_weight.bold />
     <text value="$99.99" color=color("#10B981") />
@@ -132,7 +132,7 @@ enum text_overflow:
 
 ## Estilos de texto predefinidos
 
-```kyle
+```byle
 style<text> Title:
     font_size = 24
     font_weight = font_weight.bold

@@ -1,19 +1,19 @@
-# Release Guide — Kyle Multi-Platform Distribution
+# Release Guide — Byle Multi-Platform Distribution
 
 ## Plataformas objetivo
 
 | Bundle | Plataforma | Origen |
 |--------|------------|--------|
-| `ky-macos-arm64.tar.gz` | macOS Apple Silicon | `macos-latest` (CI) o nativo |
-| `ky-macos-x64.tar.gz` | macOS Intel | `macos-13` (CI) |
-| `ky-linux-arm64.tar.gz` | Linux ARM64 | `ubuntu-24.04-arm` (CI) |
-| `ky-linux-x64.tar.gz` | Linux x86_64 | `ubuntu-24.04` (CI) |
-| `ky-windows-x64.zip` | Windows x86_64 | `windows-2025` (CI) |
+| `by-macos-arm64.tar.gz` | macOS Apple Silicon | `macos-latest` (CI) o nativo |
+| `by-macos-x64.tar.gz` | macOS Intel | `macos-13` (CI) |
+| `by-linux-arm64.tar.gz` | Linux ARM64 | `ubuntu-24.04-arm` (CI) |
+| `by-linux-x64.tar.gz` | Linux x86_64 | `ubuntu-24.04` (CI) |
+| `by-windows-x64.zip` | Windows x86_64 | `windows-2025` (CI) |
 
 Cada bundle contiene:
 ```
-ky (o ky.exe)
-libkyc_runtime.a
+by (o by.exe)
+libbyc_runtime.a
 LICENSE
 ```
 
@@ -24,13 +24,13 @@ LICENSE
 Solo hacer push del tag:
 
 ```bash
-git tag -a v0.6.0 -m "v0.6.0"
-git push origin v0.6.0
+git tag -a v0.8.9 -m "v0.8.9"
+git push origin v0.8.9
 ```
 
 Esto dispara `.github/workflows/release.yml` que:
 1. Crea el release en GitHub
-2. Compila `ky` + `kyc_runtime` para las 5 plataformas (en paralelo)
+2. Compila `by` + `byc_runtime` para las 5 plataformas (en paralelo)
 3. Genera los bundles + checksums
 4. Sube los assets al release
 
@@ -49,8 +49,8 @@ export LLVM_SYS_181_PREFIX=$(brew --prefix llvm@18)
 ./scripts/build-release.sh
 
 # 2. Push tag → CI genera el resto
-git tag -a v0.7.0 -m "v0.7.0"
-git push origin v0.7.0
+git tag -a v0.8.9 -m "v0.8.9"
+git push origin v0.8.9
 ```
 
 ---
@@ -84,7 +84,7 @@ Variables de entorno:
 
 | Variable | Default | Descripción |
 |----------|---------|-------------|
-| `KY_VERSION` | (de Cargo.toml) | Versión para nombrar bundles |
+| `BY_VERSION` | (de Cargo.toml) | Versión para nombrar bundles |
 | `CARGO_PROFILE` | `release` | Perfil de compilación |
 
 Solo compila targets con el toolchain instalado. Omite los que faltan.
@@ -95,10 +95,10 @@ Solo compila targets con el toolchain instalado. Omite los que faltan.
 
 ```bash
 # Extraer y probar
-mkdir -p /tmp/test-ky
-tar xzf dist/ky-macos-arm64.tar.gz -C /tmp/test-ky
-/tmp/test-ky/ky --version
-/tmp/test-ky/ky build examples/hello.ky
+mkdir -p /tmp/test-by
+tar xzf dist/by-macos-arm64.tar.gz -C /tmp/test-by
+/tmp/test-by/by --version
+/tmp/test-by/by build examples/hello.by
 ```
 
 ---
@@ -107,14 +107,14 @@ tar xzf dist/ky-macos-arm64.tar.gz -C /tmp/test-ky
 
 | Script | Plataforma | Comando |
 |--------|------------|---------|
-| `install.sh` | macOS / Linux | `curl -fsSL https://raw.githubusercontent.com/kyal-tech/kyle/main/install.sh \| sh` |
-| `install.ps1` | Windows | `iwr -Uri "https://raw.githubusercontent.com/kyal-tech/kyle/main/install.ps1" \| iex` |
+| `install.sh` | macOS / Linux | `curl -fsSL https://raw.githubusercontent.com/kyal-tech/byle/main/scripts/install.sh \| sh` |
+| `install.ps1` | Windows | `iwr -Uri "https://raw.githubusercontent.com/kyal-tech/byle/main/scripts/install.ps1" \| iex` |
 
 Ambos scripts:
 1. Detectan SO + arquitectura automáticamente
 2. Descargan el bundle correcto desde GitHub Releases
 3. Verifican checksum SHA-256
-4. Instalan `ky` + `libkyc_runtime.a`
+4. Instalan `by` + `libbyc_runtime.a`
 5. Configuran PATH automáticamente
 
 ---
@@ -131,7 +131,7 @@ El linker se selecciona en tiempo de compilación del compilador (`cfg!(target_o
 | Linux | `clang` (fallback `cc`) |
 | Windows | `link.exe` |
 
-Esto es correcto: cada binario `ky` usa el linker nativo de su plataforma.
+Esto es correcto: cada binario `by` usa el linker nativo de su plataforma.
 
 ### Windows + LLVM 18
 
@@ -145,13 +145,13 @@ Cada bundle tiene su SHA-256 (`bundle.tar.gz.sha256`). `install.sh` verifica aut
 ### Directorio de instalación
 
 ```
-~/.ky/                       # (o /usr/local/)
-  bin/ky                     # Compilador
-  lib/libkyc_runtime.a       # Runtime estático
+~/.by/                       # (o /usr/local/)
+  bin/by                     # Compilador
+  lib/libbyc_runtime.a       # Runtime estático
 ```
 
-El linker `ky` busca `libkyc_runtime.a` automáticamente en orden:
-1. `../lib/kl/libkyc_runtime.a` (junto al binario)
-2. `../lib/libkyc_runtime.a`  ← este es el que usamos
+El linker `by` busca `libbyc_runtime.a` automáticamente en orden:
+1. `../lib/by/libbyc_runtime.a` (junto al binario)
+2. `../lib/libbyc_runtime.a`  ← este es el que usamos
 3. Mismo directorio que el binario
 4. `./target/debug/` y `./target/release/`

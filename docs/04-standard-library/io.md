@@ -5,7 +5,7 @@
 
 ## Printing
 
-```ky
+```by
 use std.io
 
 print("hello")     # without newline
@@ -14,7 +14,7 @@ println("hello")   # with newline
 
 ## Reading input
 
-```ky
+```by
 line: str = io.input()       # read line
 line = io.input("> ")        # read line with prompt
 ```
@@ -23,7 +23,7 @@ line = io.input("> ")        # read line with prompt
 
 `print()` and `println()` are available globally without import:
 
-```ky
+```by
 print("hello")
 println("hello")
 name: str = input("> ")
@@ -40,7 +40,7 @@ name: str = input("> ")
 
 ## Example
 
-```ky
+```by
 name: str = input("What is your name? ")
 println("Hello, " + name + "!")
 ```

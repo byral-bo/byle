@@ -1,34 +1,34 @@
 # Editor Support
 
-> Kyle supports any editor via the Language Server Protocol (`ky lsp`).
+> Byle supports any editor via the Language Server Protocol (`by lsp`).
 
 ## LSP
 
-The Kyle compiler includes an LSP server. Any editor with LSP support (VS Code, Neovim, Helix, Emacs, etc.) can use it:
+The Byle compiler includes an LSP server. Any editor with LSP support (VS Code, Neovim, Helix, Emacs, etc.) can use it:
 
 ```bash
-ky lsp
+by lsp
 ```
 
 ## Vim / Neovim
 
 ```vim
-autocmd BufRead,BufNewFile *.ky set filetype=python
+autocmd BufRead,BufNewFile *.by set filetype=python
 ```
 
 ## Helix
 
 ```toml
 [[language]]
-name = "kyle"
-scope = "source.ky"
-file-typis = ["ky"]
+name = "byle"
+scope = "source.by"
+file-typis = ["by"]
 indent = { tab-width = 4, unit = " " }
 ```
 
 ## VS Code
 
-VS Code extension is available in the [kyle-vscode](https://github.com/IT-KYNERA/kyle-vscode) repository.
+VS Code extension is available in the [byle-vscode](https://github.com/IT-KYNERA/byle-vscode) repository.
 
 ## See also
 

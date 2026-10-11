@@ -1,6 +1,6 @@
 # Collections — Lists, Arrays, Dicts, Sets, Iterators
 
-> All collection types in Kyle: dynamic lists, fixed arrays, hash dicts, hash sets, and lazy iterators.
+> All collection types in Byle: dynamic lists, fixed arrays, hash dicts, hash sets, and lazy iterators.
 > Every example includes ownership semantics (`&` borrow, `^&` mutable borrow, move).
 
 ---
@@ -12,7 +12,7 @@ Array nativo en **stack**. Tamaño fijo en compile-time.
 
 ### Unidimensional
 
-```ky
+```by
 # Declaración con tipo explícito
 arr: [i32, 5] = [1, 2, 3, 4, 5]
 
@@ -34,7 +34,7 @@ n = arr.len()            # → 5
 
 Arrays de arrays vía sintaxis `[T, N]` anidada:
 
-```ky
+```by
 # 2D: matriz 3×4
 matriz: [[i32, 4], 3] = [
     [1, 2, 3, 4],
@@ -58,7 +58,7 @@ Cada nivel de anidamiento agrega un índice. El acceso es GEP directo en LLVM �
 
 ### Iteración
 
-```ky
+```by
 # Por índice
 for i in 0..arr.len():
     println(arr[i].to_str())
@@ -76,7 +76,7 @@ for val in &arr:
 
 Los arrays son **Copy** porque están en stack. Pero para arrays grandes conviene pasar por borrow para evitar copiar N elementos.
 
-```ky
+```by
 fn main():
     nums: [i32, 1000] = [0; 1000]
     nums[0] = 1
@@ -141,7 +141,7 @@ Lista dinámica en heap. **Trabaja por valor:** las operaciones buscan, agregan 
 
 ### Creación
 
-```ky
+```by
 vacia: {i32} = {0}; vacia.pop()   # inicializar y vaciar
 nums: {i32} = {1, 2, 3}           # con valores
 nums.push(4)                       # → {1, 2, 3, 4}
@@ -149,9 +149,9 @@ nums.push(4)                       # → {1, 2, 3, 4}
 
 ### Iteración (`for`)
 
-Kyle tiene tres modos de iterar, cada uno con distintas semánticas de ownership:
+Byle tiene tres modos de iterar, cada uno con distintas semánticas de ownership:
 
-```ky
+```by
 libros: {str} = {0 as i64}; libros.pop()
 libros.push("El Quijote")
 libros.push("Rayuela")
@@ -180,7 +180,7 @@ for libro in ^&libros:
 
 Para modificar (agregar, eliminar, reemplazar) mientras recorres, usa un bucle `while` con índice:
 
-```ky
+```by
 fn limpiar_nombres(nombres: ^&{str}, suffix: str):
     i = 0
     while i < nombres.len():
@@ -201,7 +201,7 @@ fn duplicar_pares(numeros: ^&{i32}):
 
 ### Búsqueda por valor
 
-```ky
+```by
 fn encontrar_por_titulo(biblioteca: &{str}, titulo: str) bool:
     for libro in &biblioteca:
         if libro == titulo:
@@ -215,7 +215,7 @@ if biblioteca.contains(titulo):
 
 ### Eliminar por valor
 
-```ky
+```by
 fn eliminar_ceros(nums: ^&{i32}):
     nums.remove(0)      # elimina el primer 0 que encuentra
     # Para eliminar TODOS los ceros:
@@ -239,7 +239,7 @@ fn eliminar_ceros(nums: ^&{i32}):
 
 ### Stack (LIFO) vía list
 
-```ky
+```by
 pila: {i32} = {0}; pila.pop()
 pila.push(10); pila.push(20); pila.push(30)
 valor = pila.pop()  # → 30
@@ -247,7 +247,7 @@ valor = pila.pop()  # → 30
 
 ### Queue (FIFO) vía list
 
-```ky
+```by
 cola: {i32} = {0}; cola.pop()
 cola.push(10); cola.push(20)
 valor = cola.pop_first()  # → 10
@@ -278,7 +278,7 @@ valor = cola.pop_first()  # → 10
 Diccionario hash en heap. Acceso por clave O(1) promedio.
 Usa funciones del módulo `dict` (notación de namespace).
 
-```ky
+```by
 # Creación
 d: {str: i32} = {}
 prefs = {"tema": 1, "idioma": 2}  # inferencia
@@ -303,7 +303,7 @@ dict.clear(d)
 
 ### Iteración
 
-```ky
+```by
 # Por borrow (inmutable) — solo lectura de claves
 for key in &d:
     println(key)
@@ -338,7 +338,7 @@ for key in &d:
 
 Hash set sin duplicados. Búsqueda O(1) promedio.
 
-```ky
+```by
 # Creación
 s: set<i32> = set{1, 2, 3}
 vacio: set<str> = set{}
@@ -360,7 +360,7 @@ n = s.len()      # → 3 (1 fue eliminado)
 
 ### Iteración
 
-```ky
+```by
 # Por borrow
 for val in &s:
     println(val.to_str())
@@ -392,7 +392,7 @@ for val in &s:
 
 Iterador **lazy** sobre listas. No asigna hasta `collect()`.
 
-```ky
+```by
 nums: {i32} = {0}; nums.pop()
 nums.push(1); nums.push(2); nums.push(3); nums.push(4); nums.push(5)
 

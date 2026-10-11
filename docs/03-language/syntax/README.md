@@ -1,6 +1,6 @@
 # Syntax
 
-> How se escribe code Kyle: variables, functions, expressions, statements.
+> How se escribe code Byle: variables, functions, expressions, statements.
 
 | File | Description |
 |---------|-------------|
@@ -15,5 +15,5 @@
 | `string-interpolation.md` | `"{expr}"` syntax |
 | `error-propagation.md` | `!` operator para propagar errores |
 | `operator-overloading.md` | `op_add`, `op_eq`, etc. |
-| `ui-syntax.md` | Syntax `.kyx` for UI |
-| `patterns.md` | Patronis de diseno en Kyle |
+| `ui-syntax.md` | Syntax `.byx` for UI |
+| `patterns.md` | Patronis de diseno en Byle |

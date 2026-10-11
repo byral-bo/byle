@@ -1,7 +1,7 @@
 # Parser
 
 > Transforma un stream de tokens en un AST (Abstract Syntax Tree).
-> Crate: `kyc_frontend/src/parser.rs` (2628 lines).
+> Crate: `byc_frontend/src/parser.rs` (2628 lines).
 
 ## Responsabilidad
 
@@ -20,7 +20,7 @@ Devuelve un `Module` (AST completo) o una list de errors de syntax.
 ## AST (Abstract Syntax Tree)
 
 El arbol de syntax abstracta represents program as una estructura de data
-que compiler can analizar. Definido en `kyc_core/src/ast.rs`.
+que compiler can analizar. Definido en `byc_core/src/ast.rs`.
 
 ### Module
 
@@ -70,7 +70,7 @@ que compiler can analizar. Definido en `kyc_core/src/ast.rs`.
 
 ### Expr
 
-```ky
+```by
  enum Expr {
  Literal { value: Literal },
  Identifier { name: String },
@@ -98,7 +98,7 @@ que compiler can analizar. Definido en `kyc_core/src/ast.rs`.
 
 ## Parsing strategy (Recursive Descent)
 
-Kyle usa un parbe **recursive descent** with un token de lookahead.
+Byle usa un parbe **recursive descent** with un token de lookahead.
 
 ```rust
 struct Parbe {
@@ -142,7 +142,7 @@ fn parse_function(&mut self) -> Result<FunctionDecl, String> {
 
 El parbe usa tokens `Indent`/`Dedent` del lexer for estructurar bloques:
 
-```ky
+```by
 fn main() i32: # Colon → espera bloque indentado
  x = 42 # Indent
  println(x.to_str()) # mismo nivel

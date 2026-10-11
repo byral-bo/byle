@@ -4,7 +4,7 @@
 **Date:** 2026-07-10
 **Documentación relacionada:**
 - [state-events.md](state-events.md) — Estado y eventos (context básico)
-- [ui-syntax.md](../syntax/ui-syntax.md) — Sintaxis .kyx
+- [ui-syntax.md](../syntax/ui-syntax.md) — Sintaxis .byx
 - [routing.md](routing.md) — Context en rutas
 
 ---
@@ -42,7 +42,7 @@ globales o compartidos.
 
 ### 3.1 Context básico
 
-```kyx
+```byx
 @(
     context ThemeContext:
         theme: Theme = DarkTheme
@@ -55,7 +55,7 @@ globales o compartidos.
 
 ### 3.2 Context con métodos
 
-```kyx
+```byx
 @(
     context AuthContext:
         user: User?
@@ -77,7 +77,7 @@ globales o compartidos.
 
 ### 3.3 Context con signals
 
-```kyx
+```byx
 @(
     context NotificationContext:
         notifications: ^Queue{Notification} = Queue{Notification}()
@@ -99,7 +99,7 @@ globales o compartidos.
 
 ### 4.1 use_context
 
-```kyx
+```byx
 @(
     auth = use_context(AuthContext)
 )
@@ -117,8 +117,8 @@ globales o compartidos.
 Cualquier componente dentro del árbol del provider puede accederlo sin
 props intermedios:
 
-```kyx
-# app.kyx — provee ThemeContext
+```byx
+# app.byx — provee ThemeContext
 @(
     context ThemeContext: ...
 )
@@ -134,7 +134,7 @@ props intermedios:
 
 ### 4.3 use_context con default
 
-```kyx
+```byx
 @(
     # Si no hay provider, usa el default
     theme = use_context(ThemeContext, default: LightTheme)
@@ -147,7 +147,7 @@ props intermedios:
 
 ### 5.1 Override de context
 
-```kyx
+```byx
 @(
     # Provee ThemeContext global
     context ThemeContext:
@@ -169,7 +169,7 @@ props intermedios:
 
 ### 5.2 Multi-context
 
-```kyx
+```byx
 @(
     context AuthContext: ...
     context ThemeContext: ...
@@ -193,7 +193,7 @@ props intermedios:
 
 ### 6.1 Context Factory
 
-```kyle
+```byle
 fn create_api_context(base_url: str) -> type:
     context ApiContext:
         url: str = base_url
@@ -203,7 +203,7 @@ fn create_api_context(base_url: str) -> type:
             fetch(url + path, headers: headers)
 ```
 
-```kyx
+```byx
 @(
     context ApiContext = create_api_context("https://api.example.com")
 )
@@ -211,7 +211,7 @@ fn create_api_context(base_url: str) -> type:
 
 ### 6.2 Context con Reducer (como useReducer)
 
-```kyx
+```byx
 @(
     context CartContext:
         state: CartState = CartState(items: {})
@@ -236,7 +236,7 @@ fn create_api_context(base_url: str) -> type:
 Para evitar re-renders innecesarios, los componentes pueden suscribirse
 a solo una parte del context:
 
-```kyx
+```byx
 @(
     # Solo se re-renderiza si cambia auth.user
     user = use_context(AuthContext, select: fn(ctx): ctx.user)
@@ -247,7 +247,7 @@ a solo una parte del context:
 
 Context que solo existe dentro de un bloque:
 
-```kyx
+```byx
 @(
     # FormContext existe solo dentro de este form
     context FormContext:
@@ -292,7 +292,7 @@ Si esos componentes tienen sub-árbol, se renderizan normalmente
 Sin selector → el componente se re-renderiza si **cualquier** campo del context
 cambia. Con selector → solo si cambia el campo seleccionado.
 
-```kyx
+```byx
 # Sin selector: se re-renderiza aunque cambie theme (no usa theme)
 user = use_context(AppContext)
 
@@ -304,7 +304,7 @@ user = use_context(AppContext, select: fn(ctx): ctx.user)
 
 ## 8. Testing con Context
 
-```kyle
+```byle
 test("Component with mock context"):
     render("""
         @(auth = use_context(AuthContext))
@@ -351,7 +351,7 @@ const ContextSystem = {
 
 ### 9.2 Desktop
 
-```kyle
+```byle
 # Generado automáticamente
 final class context_manager:
     providers: ^{context_key: any} = {}
@@ -386,5 +386,5 @@ final class context_manager:
 ## 11. Referencias
 
 - [state-events.md](state-events.md) — Estado y eventos (context básico)
-- [ui-syntax.md](../syntax/ui-syntax.md) — Sintaxis .kyx
+- [ui-syntax.md](../syntax/ui-syntax.md) — Sintaxis .byx
 - [testing.md](testing.md) — Testing con contexto mockeado

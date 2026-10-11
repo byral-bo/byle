@@ -1,4 +1,4 @@
-# Arquitectura Multiplataforma Kyle UI
+# Arquitectura Multiplataforma Byle UI
 
 **Status:** Specification v2.0
 **Date:** 2026-07-28
@@ -7,11 +7,11 @@
 
 ## 1. Filosofía de Diseño
 
-Kyle UI sigue principios que garantizan consistencia en todas las plataformas:
+Byle UI sigue principios que garantizan consistencia en todas las plataformas:
 
 ### 1.1 Un solo código, múltiples targets
 
-```kyx
+```byx
 # Este código funciona en web, desktop, iOS, Android
 <view>
     @(
@@ -39,7 +39,7 @@ Kyle UI sigue principios que garantizan consistencia en todas las plataformas:
 
 **❌ NO hacemos (lecciones de otros frameworks):**
 
-```kyle
+```byle
 # Flutter: 200+ widgets, imposible de memorizar
 Container(
   padding: EdgeInsets.all(16),
@@ -51,7 +51,7 @@ Container(
   )
 )
 
-# Kyle: Componentes nativos mínimos, composición libre
+# Byle: Componentes nativos mínimos, composición libre
 <vstack spacing=16>
     <text value="Hola" />
     <button text="Click" click=@handler />
@@ -92,9 +92,9 @@ Container(
 
 ### 2.2 Principios de diseño de componentes
 
-**1. Cada componente es un tipo Kyle:**
+**1. Cada componente es un tipo Byle:**
 
-```kyle
+```byle
 final class button:
     text: str
     style: style_class?
@@ -112,7 +112,7 @@ final class button:
 
 **2. Props tipadas, no strings mágicos:**
 
-```kyle
+```byle
 # ❌ Malo
 <button type="primary" size="large" />
 
@@ -122,7 +122,7 @@ final class button:
 
 **3. snake_case consistente:**
 
-```kyle
+```byle
 # ❌ Malo
 <button onClick={...} borderRadius={8} />
 
@@ -136,7 +136,7 @@ final class button:
 
 ### 3.1 Web (HTML/CSS/JS)
 
-```kyx
+```byx
 <button style=Primary text="Click" click=@handler />
 ```
 
@@ -157,13 +157,13 @@ final class button:
 
 ### 3.2 Desktop (SDL2/Skia)
 
-```kyx
+```byx
 <button style=Primary text="Click" click=@handler />
 ```
 
 ↓ Compila a:
 
-```kyle
+```byle
 fn render_button(x: f32, y: f32):
     skia_fill_rounded_rect(x, y, 100, 40, 8.0, color("#0066FF"))
     skia_draw_text(x + 50, y + 20, "Click", color("#FFFFFF"))
@@ -174,7 +174,7 @@ fn render_button(x: f32, y: f32):
 
 ### 3.3 iOS (SwiftUI)
 
-```kyx
+```byx
 <button style=Primary text="Click" click=@handler />
 ```
 
@@ -193,7 +193,7 @@ Button(action: handler) {
 
 ### 3.4 Android (Jetpack Compose)
 
-```kyx
+```byx
 <button style=Primary text="Click" click=@handler />
 ```
 
@@ -221,7 +221,7 @@ Button(
 
 `app_bar` funciona en todas las plataformas:
 
-```kyx
+```byx
 <app_bar title="Mi App">
     <app_bar_actions>
         <button icon="search" click=@search />
@@ -238,7 +238,7 @@ Button(
 
 ### 4.2 side_bar
 
-```kyx
+```byx
 <side_bar width=250 collapsible=true>
     <side_bar_item icon="home" label="Inicio" href="/" />
     <side_bar_item icon="users" label="Usuarios" href="/users" />
@@ -252,7 +252,7 @@ Button(
 
 ### 4.3 bottom_nav (mobile-first)
 
-```kyx
+```byx
 <bottom_nav>
     <bottom_nav_item icon="home" label="Inicio" href="/" />
     <bottom_nav_item icon="search" label="Buscar" href="/search" />
@@ -269,7 +269,7 @@ Button(
 
 ### 5.1 Breakpoints tipados
 
-```kyle
+```byle
 enum breakpoint:
     mobile      # < 640px
     tablet      # 640px - 1024px
@@ -279,7 +279,7 @@ enum breakpoint:
 
 ### 5.2 Condicionales por breakpoint
 
-```kyx
+```byx
 <view>
     @if current_breakpoint() == breakpoint.mobile:
         <bottom_nav />
@@ -290,7 +290,7 @@ enum breakpoint:
 
 ### 5.3 Layouts adaptativos
 
-```kyx
+```byx
 <adaptive_layout>
     <layout_for breakpoint=breakpoint.mobile>
         <vstack>...</vstack>
@@ -309,7 +309,7 @@ enum breakpoint:
 
 Listas grandes se virtualizan automáticamente:
 
-```kyx
+```byx
 <list data=@big_list virtual=true item_height=48>
     <item>
         <text value=@item.name />
@@ -323,7 +323,7 @@ Listas grandes se virtualizan automáticamente:
 
 ### 6.2 Lazy loading
 
-```kyx
+```byx
 <img src=@photo_url lazy=true placeholder=skeleton />
 ```
 
@@ -337,7 +337,7 @@ Listas grandes se virtualizan automáticamente:
 
 ### 7.1 ARIA automático
 
-```kyx
+```byx
 <button text="Eliminar" click=@delete />
 ```
 
@@ -348,7 +348,7 @@ Genera automáticamente:
 
 ### 7.2 Navegación por teclado
 
-```kyx
+```byx
 <view focusable=true on_key=@handle_key>
     <button text="Aceptar" />
     <button text="Cancelar" />

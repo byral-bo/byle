@@ -5,7 +5,7 @@
 
 ## Uso basico
 
-```ky
+```by
 ch: i64 = channel_new(16) # canal with buffer de 16
 channel_send(ch, 42)
 val: i64 = channel_recv(ch)
@@ -15,7 +15,7 @@ channel_free(ch)
 
 ## Productor-Consumidor
 
-```ky
+```by
 fn productor(ch: i64):
  i: ^i64 = 0
  while i < 10:

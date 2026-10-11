@@ -15,7 +15,7 @@ for pkg_dir in "$REGISTRY_DIR"/*/; do
   pkg_name=$(basename "$pkg_dir")
   echo "Processing $pkg_name ..."
 
-  # Read ky.toml for dependencies
+  # Read by.toml for dependencies
   versions_json="{\"versions\":["
   first_ver=true
 
@@ -36,10 +36,10 @@ for pkg_dir in "$REGISTRY_DIR"/*/; do
     ver_out="$OUT_DIR/$pkg_name/$ver"
     mkdir -p "$ver_out"
 
-    # Extract dependencies from ky.toml
+    # Extract dependencies from by.toml
     deps_json="{\"dependencies\":["
     first_dep=true
-    if [ -f "$ver_dir/ky.toml" ]; then
+    if [ -f "$ver_dir/by.toml" ]; then
       # Parse [dependencies] section
       in_deps=false
       while IFS= read -r line; do
@@ -57,7 +57,7 @@ for pkg_dir in "$REGISTRY_DIR"/*/; do
           fi
           deps_json="$deps_json{\"name\":\"$dep_name\",\"version\":\"$dep_ver\"}"
         fi
-      done < "$ver_dir/ky.toml"
+      done < "$ver_dir/by.toml"
     fi
     deps_json="$deps_json]}"
     echo "$deps_json" > "$ver_out/deps.json"

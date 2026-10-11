@@ -5,9 +5,9 @@
 
 ---
 
-## Tipo Kyle
+## Tipo Byle
 
-```kyle
+```byle
 final class card:
     # Estilo
     style: style_class?             # Clase de estilo
@@ -24,7 +24,7 @@ final class card:
 
 ## Uso Básico
 
-```kyx
+```byx
 <card>
     <vstack spacing=12>
         <text value="Título" style=Title />
@@ -35,7 +35,7 @@ final class card:
 
 ### Con estilo personalizado
 
-```kyx
+```byx
 <card style=style(
     padding: spacing.all(24),
     border_radius: 12,
@@ -61,7 +61,7 @@ final class card:
 
 ### Tarjeta de producto
 
-```kyx
+```byx
 <card style=style(padding: spacing.all(16))>
     <vstack spacing=12>
         <img src=@product.image width=200 height=150 />
@@ -77,7 +77,7 @@ final class card:
 
 ### Grid de tarjetas
 
-```kyx
+```byx
 <view>
     @(
         products: ^{Product} = {}
@@ -98,7 +98,7 @@ final class card:
 
 ### Tarjeta clickable
 
-```kyx
+```byx
 <card click=@() => navigate("/product/" + product.id.to_str())>
     <vstack spacing=8>
         <text value=@product.name />
@@ -111,7 +111,7 @@ final class card:
 
 ## Estilos predefinidos
 
-```kyle
+```byle
 style<card> Elevated:
     background = color("#FFFFFF")
     border_radius = 8

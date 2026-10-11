@@ -6,7 +6,7 @@
 
 - **snake_case** para todos los tipos (`list`, `set`, `dict`, `queue`, `stack`)
 - **Sin `new`**: `Type{valores}` para constructor literal, `Type()` para vacío
-- **Sin `;`**: Kyle no usa punto y coma
+- **Sin `;`**: Byle no usa punto y coma
 - **Ortogonalidad total**: `^`, `&`, `?`, `!` funcionan en todas las colecciones
 - **Consistencia**: métodos como `.push()`, `.pop()`, `.len()` iguales en todas
 
@@ -16,7 +16,7 @@
 
 Colección ordenada y mutable (si es `^[T]`).
 
-```ky
+```by
 items = [1, 2, 3]                   # [i32] inferido
 items: [i32] = [1, 2, 3]           # explícito, inmutable
 items: ^[str] = ["a", "b"]          # mutable
@@ -62,7 +62,7 @@ items.to_deque()
 
 Tamaño fijo conocido en compile-time.
 
-```ky
+```by
 arr: [i32, 5] = [1, 2, 3, 4, 5]    # array fijo
 arr: [i32, 100] = []                 # array de 100 ceros
 arr: ^[str, 10] = ["a", "b"]        # array mutable (raro)
@@ -94,7 +94,7 @@ slice = arr[1..3]                   # &[i32] slice
 
 Colección no ordenada sin duplicados.
 
-```ky
+```by
 nums = set{1, 2, 3}                 # set<i32> inferido
 nums: set<i32> = set{1, 2, 3}
 nums: ^set<str> = set{"a", "b"}
@@ -127,7 +127,7 @@ nums.to_array()
 
 ## Dict `{K: V}`
 
-```ky
+```by
 d = {"a": 1, "b": 2}                # {str: i32} inferido
 d: {str: i32} = {"a": 1}
 d: ^{str: i32} = {}                 # mutable vacío
@@ -158,7 +158,7 @@ for key, val in d:
 
 FIFO — primero en entrar, primero en salir.
 
-```ky
+```by
 q = queue{1, 2, 3}                  # queue<i32> inferido
 q: ^queue<i32> = queue()
 q: ^queue<i32> = queue{1, 2, 3}
@@ -181,7 +181,7 @@ q.to_deque()
 
 LIFO — último en entrar, primero en salir.
 
-```ky
+```by
 s = stack{1, 2, 3}
 s: ^stack<i32> = stack()
 s: ^stack<str> = stack{"a", "b"}
@@ -202,7 +202,7 @@ s.to_queue()
 
 Doble extremo — push/pop en ambos lados.
 
-```ky
+```by
 dq = deque{1, 2, 3}
 dq: ^deque<i32> = deque()
 
@@ -224,7 +224,7 @@ dq.to_stack()
 
 ## Linked List `linked_list<T>`
 
-```ky
+```by
 ll = linked_list{1, 2, 3}
 ll: ^linked_list<i32> = linked_list()
 
@@ -246,7 +246,7 @@ ll.to_list()
 
 ## String `str`
 
-```ky
+```by
 s = "hello world"
 
 s.len()
@@ -261,7 +261,7 @@ s += "!"                            # solo ^str
 s.to_upper()
 s.to_lower()
 s.trim()
-s.replace("world", "kyle")
+s.replace("world", "byle")
 s.substr(0, 5)                      # "hello"
 s.split(" ")                        # ["hello", "world"]
 s.to_list()                         # ['h','e','l',...]

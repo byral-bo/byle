@@ -1,0 +1,17 @@
+@link "c"
+extern fn by_getenv(ptr, ptr) i32
+extern fn by_setenv(ptr, ptr) i32
+extern fn by_init_args(i32, ptr) i64
+
+final class Process:
+    static fn getenv(name: &str) str:
+        buf = by_alloc(4096)
+        len = by_getenv(name as ptr, buf)
+        if len <= 0: return ""
+        buf as str
+
+    static fn setenv(name: &str, val: &str) bool:
+        by_setenv(name as ptr, val as ptr) == 1
+
+    static fn init_args(argc: i32, argv: ptr) i64:
+        by_init_args(argc, argv)

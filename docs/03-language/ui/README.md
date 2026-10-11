@@ -1,9 +1,9 @@
-# Kyle UI Framework — Documentación
+# Byle UI Framework — Documentación
 
 **Status:** Specification v2.0
 **Date:** 2026-07-28
 
-Kyle UI es un framework UI declarativo multiplataforma que compila `.kyx` a web (HTML/CSS/JS), desktop (SDL2/Skia), iOS (SwiftUI), y Android (Jetpack Compose).
+Byle UI es un framework UI declarativo multiplataforma que compila `.byx` a web (HTML/CSS/JS), desktop (SDL2/Skia), iOS (SwiftUI), y Android (Jetpack Compose).
 
 ---
 
@@ -29,7 +29,7 @@ Kyle UI es un framework UI declarativo multiplataforma que compila `.kyx` a web 
 | [animation.md](animation.md) | Animaciones y transiciones tipadas |
 | [routing.md](routing.md) | Routing, `<route>`, `<layout>`, `<slot>`, guards, navegación |
 | [accessibility.md](accessibility.md) | Accesibilidad WCAG 2.1 AA, ARIA, teclado, screen readers |
-| [anti-patterns.md](anti-patterns.md) | Anti-patrones de otros frameworks y cómo Kyle los evita |
+| [anti-patterns.md](anti-patterns.md) | Anti-patrones de otros frameworks y cómo Byle los evita |
 | [framework-comparison.md](framework-comparison.md) | **Comparativa** con React, Vue, SwiftUI, Jetpack Compose, Flutter |
 
 ## Componentes Nativos
@@ -124,7 +124,7 @@ Kyle UI es un framework UI declarativo multiplataforma que compila `.kyx` a web 
 
 ## Documentos Relacionados
 
-- [Sintaxis .kyx](../syntax/ui-syntax.md) — Sintaxis completa de archivos .kyx
+- [Sintaxis .byx](../syntax/ui-syntax.md) — Sintaxis completa de archivos .byx
 - [RFC-0002: Arquitectura UI](../../10-design/rfc/0002-ui-architecture.md)
 - [RFC-0003: Traducción multi-target](../../10-design/rfc/0003-ui-translation.md)
 - [RFC-0005: UI v2](../../10-design/rfc/0005-ui-rearchitecture-plan.md)
@@ -134,13 +134,13 @@ Kyle UI es un framework UI declarativo multiplataforma que compila `.kyx` a web 
 ## Quick Start
 
 ```bash
-ky new kyui mi-app
+by new byui mi-app
 cd mi-app
-ky run web
+by run web
 ```
 
-```kyx
-# app.kyx
+```byx
+# app.byx
 from views.home import home
 
 <app title="Mi App">
@@ -150,8 +150,8 @@ from views.home import home
 </app>
 ```
 
-```kyx
-# src/views/home.kyx
+```byx
+# src/views/home.byx
 <view>
     @(
         count: ^i32 = 0
@@ -172,7 +172,7 @@ from views.home import home
 
 Todos los componentes soportan eventos completos:
 
-```kyx
+```byx
 <button 
     text="Click me"
     click=@handle_click
@@ -190,7 +190,7 @@ Ver [events.md](events.md) para la lista completa de eventos y tipos.
 
 ## Visión a Largo Plazo
 
-Kyle UI está diseñado para:
+Byle UI está diseñado para:
 
 1. **Web** — HTML/CSS/JS nativo (actual)
 2. **Desktop** — SDL2/Skia para macOS, Linux, Windows

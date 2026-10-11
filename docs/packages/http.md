@@ -1,7 +1,7 @@
 # http — HTTP client, server, WebSocket, and middleware
 
 > Modular HTTP toolkit. Import only what you need.
-> Installation: `ky add http`
+> Installation: `by add http`
 
 ## Modules
 
@@ -18,7 +18,7 @@
 
 Full HTTP/1.1 client. Connects directly via TCP — no curl dependency.
 
-```ky
+```by
 use http.client
 
 client: http.client = http.client { timeout: 30 }
@@ -32,7 +32,7 @@ if res.is_ok:
 res = client.post(
     "https://api.example.com/users",
     "application/json",
-    """{"name": "Kyle", "age": 30}"""
+    """{"name": "Byle", "age": 30}"""
 )
 
 # PUT, PATCH, DELETE
@@ -76,7 +76,7 @@ res = client.get_with_headers(
 
 HTTP router with path parameters and static file serving.
 
-```ky
+```by
 use http.server
 
 app: http.router = http.router()
@@ -140,7 +140,7 @@ app.listen(8080)
 
 Validation, CORS, JWT auth, and request logging.
 
-```ky
+```by
 use http.server
 use http.middleware
 
@@ -180,7 +180,7 @@ app.listen(8080)
 
 ### Validate example
 
-```ky
+```by
 # Validate POST body
 app.post("/users",
     middleware.validate_body("""{
@@ -197,7 +197,7 @@ app.post("/users",
 
 ## WebSocket
 
-```ky
+```by
 use http.ws
 use http.server
 
@@ -230,7 +230,7 @@ app.listen(8080)
 
 ## Status codes
 
-```ky
+```by
 http.status.ok()         # 200
 http.status.created()    # 201
 http.status.no_content() # 204
@@ -243,7 +243,7 @@ http.status.server_error()  # 500
 
 ## Example: full REST API
 
-```ky
+```by
 use http.client
 use http.server
 use http.middleware

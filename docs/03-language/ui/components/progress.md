@@ -5,9 +5,9 @@
 
 ---
 
-## Tipo Kyle
+## Tipo Byle
 
-```kyle
+```byle
 final class progress:
     # Valor
     value: f32?                     # Valor actual (0.0 - max)
@@ -32,7 +32,7 @@ final class progress:
 
 ### Progreso determinado
 
-```kyx
+```byx
 <view>
     @(
         upload_progress: ^f32 = 45.0
@@ -44,7 +44,7 @@ final class progress:
 
 ### Progreso indeterminado
 
-```kyx
+```byx
 <progress indeterminate=true label="Cargando..." />
 ```
 
@@ -67,7 +67,7 @@ final class progress:
 
 ### Upload con progreso
 
-```kyx
+```byx
 <view>
     @(
         upload_progress: ^f32 = 0.0
@@ -93,7 +93,7 @@ final class progress:
 
 ### Múltiples tareas
 
-```kyx
+```byx
 <view>
     @(
         tasks: ^{Task} = {}

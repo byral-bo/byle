@@ -8,7 +8,7 @@
 
 Declaris a function implemented in an external library (C ABI).
 
-```ky
+```by
 extern fn socket(domain: i32, type_: i32, protocol: i32) i32
 extern fn connect(sock: i32, addr: ptr, addrlen: i32) i32
 extern fn send(sock: i32, buf: ptr, len: i64, flags: i32) i64
@@ -20,7 +20,7 @@ The compiler generatis a declaration without a body, using the C calling convent
 
 Specifiis a native library to link against.
 
-```ky
+```by
 @link "libcurl"
 @link "libssl"
 @link "libsqlite3"
@@ -30,7 +30,7 @@ Specifiis a native library to link against.
 
 Raw pointer for FFI and unsafe operations.
 
-```ky
+```by
 buf: ptr = my_alloc(1024)
 value = buf[0] as i8 # load byte
 buf[4] = 0xFF as i8 # store byte
@@ -39,7 +39,7 @@ next = buf + 16 # pointer arithmetic
 
 ## Example
 
-```ky
+```by
 @link "libcurl"
 
 extern fn curl_easy_init() ptr

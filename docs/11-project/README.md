@@ -1,6 +1,6 @@
 # 11-project
 
-> Planning, roadmap, and task tracking for the Kyle project.
+> Planning, roadmap, and task tracking for the Byle project.
 
 ## Files
 
@@ -29,4 +29,4 @@ See [`backend-packages-plan.md`](backend-packages-plan.md) for detailed task bre
 | Agent context | [`AGENTS.md`](../../AGENTS.md) |
 | Std library docs | [`docs/04-standard-library/`](../04-standard-library/) |
 | Package docs | [`docs/packages/`](../packages/) |
-| Syntax reference | [`docs/15-kyle-syntax-reference.md`](../15-kyle-syntax-reference.md) |
+| Syntax reference | [`docs/15-byle-syntax-reference.md`](../15-byle-syntax-reference.md) |

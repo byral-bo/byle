@@ -7,7 +7,7 @@
 
 ## Introducción
 
-Cada componente en Kyle UI pasa por un ciclo de vida específico desde que se crea hasta que se destruye. Los hooks de ciclo de vida te permiten ejecutar código en momentos específicos de este ciclo.
+Cada componente en Byle UI pasa por un ciclo de vida específico desde que se crea hasta que se destruye. Los hooks de ciclo de vida te permiten ejecutar código en momentos específicos de este ciclo.
 
 ---
 
@@ -59,7 +59,7 @@ Se ejecuta **inmediatamente después** de que el componente es creado, pero **an
 - Configurar listeners
 - Validar props
 
-```kyx
+```byx
 <view>
     @(
         user: User? = none
@@ -92,7 +92,7 @@ Se ejecuta **después** de que el componente ha sido montado en el DOM y es visi
 - Suscribirse a eventos globales
 - Medir dimensiones del DOM
 
-```kyx
+```byx
 <view>
     @(
         products: {Product} = {}
@@ -131,7 +131,7 @@ Se ejecuta **antes** de que el componente se re-renderice debido a cambios en pr
 - Validar cambios antes de aplicar
 - Optimizar rendimiento
 
-```kyx
+```byx
 <view>
     @(
         items: {Item} = {}
@@ -162,7 +162,7 @@ Se ejecuta **después** de que el componente ha sido re-renderizado.
 - Medir dimensiones después del render
 - Sincronizar con sistemas externos
 
-```kyx
+```byx
 <view>
     @(
         chart_data: {DataPoint} = {}
@@ -192,7 +192,7 @@ Se ejecuta **antes** de que el componente sea removido del DOM.
 - Confirmar navegación
 - Cancelar operaciones pendientes
 
-```kyx
+```byx
 <view>
     @(
         form_data: FormData = FormData()
@@ -226,7 +226,7 @@ Se ejecuta **después** de que el componente ha sido removido del DOM.
 - Liberar recursos
 - Cancelar suscripciones
 
-```kyx
+```byx
 <view>
     @(
         timer_id: i32 = 0
@@ -291,7 +291,7 @@ Se ejecuta **después** de que el componente ha sido removido del DOM.
 
 ### Carga de Datos con Loading State
 
-```kyx
+```byx
 <view>
     @(
         users: {User} = {}
@@ -323,7 +323,7 @@ Se ejecuta **después** de que el componente ha sido removido del DOM.
 
 ### Suscripción a Eventos Globales
 
-```kyx
+```byx
 <view>
     @(
         window_width: f32 = 0.0
@@ -347,7 +347,7 @@ Se ejecuta **después** de que el componente ha sido removido del DOM.
 
 ### Timer con Limpieza
 
-```kyx
+```byx
 <view>
     @(
         seconds: i32 = 0
@@ -382,7 +382,7 @@ Se ejecuta **después** de que el componente ha sido removido del DOM.
 
 ### Guardado Automático de Borrador
 
-```kyx
+```byx
 <view>
     @(
         content: str = ""
@@ -415,7 +415,7 @@ Se ejecuta **después** de que el componente ha sido removido del DOM.
 
 ## Comparación con Otros Frameworks
 
-| Kyle UI | React | Vue | SwiftUI | Jetpack Compose |
+| Byle UI | React | Vue | SwiftUI | Jetpack Compose |
 |---------|-------|-----|---------|-----------------|
 | `on_created()` | Constructor | `created()` | `init()` | Constructor |
 | `on_mounted()` | `useEffect(() => {}, [])` | `mounted()` | `onAppear` | `LaunchedEffect` |
@@ -431,20 +431,20 @@ Se ejecuta **después** de que el componente ha sido removido del DOM.
 ### ✅ Hacer
 
 1. **Limpiar recursos en `on_unmounted()`**
-```kyx
+```byx
 fn on_unmounted():
     clear_interval(timer_id)
     remove_event_listener()
 ```
 
 2. **Cargar datos en `on_mounted()`**
-```kyx
+```byx
 fn on_mounted():
     data = await api.fetch_data()
 ```
 
 3. **Validar en `on_created()`**
-```kyx
+```byx
 fn on_created():
     if props.user_id == none:
         raise Error("user_id requerido")
@@ -453,7 +453,7 @@ fn on_created():
 ### ❌ No Hacer
 
 1. **No manipular DOM en `on_created()`**
-```kyx
+```byx
 # ❌ Mal
 fn on_created():
     element.focus()  # Elemento aún no existe
@@ -464,7 +464,7 @@ fn on_mounted():
 ```
 
 2. **No hacer operaciones pesadas en `on_before_update()`**
-```kyx
+```byx
 # ❌ Mal
 fn on_before_update():
     heavy_computation()  # Se ejecuta en cada update
@@ -475,7 +475,7 @@ fn on_before_update():
 ```
 
 3. **No olvidar limpiar listeners**
-```kyx
+```byx
 # ❌ Mal
 fn on_mounted():
     window.addEventListener("resize", handler)

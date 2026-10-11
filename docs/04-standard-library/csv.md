@@ -5,10 +5,10 @@
 
 ## Parse CSV string
 
-```ky
+```by
 use std.csv
 
-data: str = "name,age\nKyle,30\nAna,25\n"
+data: str = "name,age\nByle,30\nAna,25\n"
 rows: [csv.row] = csv.parse(data)!
 
 for row in rows:
@@ -17,22 +17,22 @@ for row in rows:
 
 ## Serialize to CSV
 
-```ky
+```by
 rows: [csv.row] = [
-    csv.row({"name": "Kyle", "age": "30"}),
+    csv.row({"name": "Byle", "age": "30"}),
     csv.row({"name": "Ana", "age": "25"}),
 ]
 
 data: str = csv.to_str(rows)
 println(data)
 # name,age
-# Kyle,30
+# Byle,30
 # Ana,25
 ```
 
 ## Read CSV file
 
-```ky
+```by
 rows: [csv.row] = csv.parse_file("users.csv")!
 
 for row in rows:
@@ -43,9 +43,9 @@ for row in rows:
 
 ## Write CSV file
 
-```ky
+```by
 rows: [csv.row] = [
-    csv.row({"name": "Kyle", "age": "30"}),
+    csv.row({"name": "Byle", "age": "30"}),
     csv.row({"name": "Ana", "age": "25"}),
 ]
 
@@ -54,21 +54,21 @@ csv.to_file("output.csv", rows)!
 
 ## Typed serialization with classes
 
-```ky
+```by
 class User:
     name: str
     age: i32
     active: bool
 
 users: [User] = [
-    User { name: "Kyle", age: 30, active: true },
+    User { name: "Byle", age: 30, active: true },
     User { name: "Ana", age: 25, active: false },
 ]
 
 # Class to CSV
 data: str = csv.to_str(users)!
 # name,age,active
-# Kyle,30,true
+# Byle,30,true
 # Ana,25,false
 
 # CSV to class list
@@ -79,9 +79,9 @@ for user in parsed:
 
 ## Options
 
-```ky
+```by
 # Custom delimiter
-data: str = csv.parse_with("name;age\nKyle;30\n", ";")!
+data: str = csv.parse_with("name;age\nByle;30\n", ";")!
 
 # With headers row
 rows: [csv.row] = csv.parse("a,b\n1,2\n3,4\n")
@@ -112,7 +112,7 @@ for row in rows:
 
 ## Example
 
-```ky
+```by
 use std.csv
 
 # Parse and process

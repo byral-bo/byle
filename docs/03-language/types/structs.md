@@ -6,7 +6,7 @@
 
 Lightweight struct with fields. No inheritance.
 
-```ky
+```by
 final class Vec2:
  x: i32
  y: i32
@@ -16,7 +16,7 @@ final class Vec2:
 
 Fields are assigned by name using struct literal syntax:
 
-```ky
+```by
 v = Vec2 { x: 10, y: 20 }
 ```
 
@@ -24,7 +24,7 @@ v = Vec2 { x: 10, y: 20 }
 
 Use `class_name(...)` to defines a constructor.
 
-```ky
+```by
 class Config:
  name: str
  port: i32
@@ -38,7 +38,7 @@ class Config:
 
 Full class with single inheritance.
 
-```ky
+```by
 class Animal:
  name: str
 
@@ -48,7 +48,7 @@ class Animal:
 
 ### Inheritance
 
-```ky
+```by
 class Dog :: Animal:
  fn speak():
  println("woof")
@@ -58,14 +58,14 @@ class Dog :: Animal:
 
 Cannot be instantiated. Servis as a base for subclasses.
 
-```ky
+```by
 abstract class Shape:
  fn area() f64
 ```
 
 ## Mutable fields
 
-```ky
+```by
 class Config:
  name: str
  port: ^i32 # mutable field
@@ -78,7 +78,7 @@ config.port = 9090 # allowed
 
 Properties with getter/setter blocks:
 
-```ky
+```by
 class Person:
     _name: str
 

@@ -1,11 +1,11 @@
 # Comments
 
-> Los comentarios en Kyle usan `#` hasta final de line.
+> Los comentarios en Byle usan `#` hasta final de line.
 > No there is comentarios multiline (`/* */`).
 
 ## Comentarios de line
 
-```ky
+```by
 # Esto is un comentario
 x: i32 = 42 # comentario inline
 
@@ -16,10 +16,10 @@ fn suma(a: i32, b: i32) i32:
 
 ## No there is `/* */`
 
-Kyle no supports comentarios multiline estilo C (`/* ... */`).
+Byle no supports comentarios multiline estilo C (`/* ... */`).
 Usar `#` en cada line:
 
-```ky
+```by
 # Esta is una
 # explanation
 # multiline
@@ -27,7 +27,7 @@ Usar `#` en cada line:
 
 ## Doc comments
 
-```ky
+```by
 # Esta funcion suma dos numeros
 # @param a: primer numero
 # @param b: segundo numero

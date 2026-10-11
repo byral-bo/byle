@@ -13,23 +13,23 @@ error() { printf "${RED}%s${NC}\n" "$*"; exit 1; }
 info()  { printf "${YELLOW}%s${NC}\n" "$*"; }
 ok()    { printf "${GREEN}%s${NC}\n" "$*"; }
 
-# Buscar ky en PATH
-KY_PATH="$(command -v ky 2>/dev/null || true)"
-if [ -z "$KY_PATH" ]; then
-    error "ky no está instalado en el PATH"
+# Buscar by en PATH
+BY_PATH="$(command -v by 2>/dev/null || true)"
+if [ -z "$BY_PATH" ]; then
+    error "by no está instalado en el PATH"
 fi
 
 # Resolver directorio de instalación
-if [ -L "$KY_PATH" ]; then
-    KY_REAL="$(readlink -f "$KY_PATH" 2>/dev/null || readlink "$KY_PATH")"
-    KY_DIR="$(dirname "$(dirname "$KY_REAL")")"
+if [ -L "$BY_PATH" ]; then
+    BY_REAL="$(readlink -f "$BY_PATH" 2>/dev/null || readlink "$BY_PATH")"
+    BY_DIR="$(dirname "$(dirname "$BY_REAL")")"
 else
-    KY_DIR="$(dirname "$(dirname "$KY_PATH")")"
+    BY_DIR="$(dirname "$(dirname "$BY_PATH")")"
 fi
 
-echo "Se eliminará ky de:"
-echo "  Binario:  $KY_PATH"
-echo "  Directorio: $KY_DIR"
+echo "Se eliminará by de:"
+echo "  Binario:  $BY_PATH"
+echo "  Directorio: $BY_DIR"
 echo ""
 echo -n "Continuar? [s/N] "
 read -r CONFIRM
@@ -39,24 +39,24 @@ if [ "$CONFIRM" != "s" ] && [ "$CONFIRM" != "S" ]; then
 fi
 
 # Eliminar binarios
-rm -f "$KY_DIR/bin/ky"
-ok "Binarios eliminados: ky"
+rm -f "$BY_DIR/bin/by"
+ok "Binarios eliminados: by"
 
 # Eliminar runtime library
-if [ -d "$KY_DIR/lib/ky" ]; then
-    rm -rf "$KY_DIR/lib/ky"
-    ok "Runtime library eliminada: $KY_DIR/lib/ky"
+if [ -d "$BY_DIR/lib/by" ]; then
+    rm -rf "$BY_DIR/lib/by"
+    ok "Runtime library eliminada: $BY_DIR/lib/by"
 fi
 
 # Limpiar directorios vacíos (solo si no es /usr/local)
-if [ "$KY_DIR" != "/usr/local" ]; then
-    rmdir "$KY_DIR/bin" 2>/dev/null || true
-    rmdir "$KY_DIR/lib" 2>/dev/null || true
-    rmdir "$KY_DIR" 2>/dev/null || true
-    ok "Directorios eliminados: $KY_DIR"
+if [ "$BY_DIR" != "/usr/local" ]; then
+    rmdir "$BY_DIR/bin" 2>/dev/null || true
+    rmdir "$BY_DIR/lib" 2>/dev/null || true
+    rmdir "$BY_DIR" 2>/dev/null || true
+    ok "Directorios eliminados: $BY_DIR"
 fi
 
 echo ""
-ok "ky ha sido eliminado completamente."
+ok "by ha sido eliminado completamente."
 echo ""
-echo "Si agregaste ~/.ky/bin al PATH, elimina esa línea de ~/.zshrc o ~/.bashrc"
+echo "Si agregaste ~/.by/bin al PATH, elimina esa línea de ~/.zshrc o ~/.bashrc"

@@ -5,7 +5,7 @@
 
 ## Comparison
 
-```ky
+```by
 use std.math
 
 x: i32 = math.max(10, 20)       # 20
@@ -15,14 +15,14 @@ x = math.clamp(15, 0, 10)       # 10
 
 ## Arithmetic
 
-```ky
+```by
 x: i64 = math.pow(2, 10)        # 1024
 x: i32 = math.abs(-5)           # 5
 ```
 
 ## Floating point
 
-```ky
+```by
 x: f64 = math.sqrt(144.0)       # 12.0
 n: i64 = math.floor(3.7)        # 3
 n = math.ceil(3.2)              # 4
@@ -32,20 +32,20 @@ n = math.trunc(3.7)             # 3
 
 ## Interpolation
 
-```ky
+```by
 t: f64 = math.lerp(0.0, 10.0, 0.5)   # 5.0
 ```
 
 ## Constants
 
-```ky
+```by
 pi: f64 = math.pi    # 3.141592653589793
 e: f64 = math.e      # 2.718281828459045
 ```
 
 ## Trigonometric
 
-```ky
+```by
 x: f64 = math.sin(math.pi / 2)    # 1.0
 x = math.cos(0.0)                 # 1.0
 x = math.tan(0.0)                 # 0.0
@@ -72,7 +72,7 @@ x = math.tan(0.0)                 # 0.0
 
 ## Example
 
-```ky
+```by
 use std.math
 
 fn solve_quadratic(a: f64, b: f64, c: f64) (f64, f64)!:

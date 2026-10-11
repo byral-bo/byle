@@ -54,21 +54,35 @@ jobs:
         uses: Swatinem/rust-cache@v2
 
       - name: Build
-        run: cargo build --bin ky
+        run: cargo build --bin by --locked
+
+      - name: Format
+        run: cargo fmt --all -- --check
 
       - name: Test
-        run: cargo test -p kyc_core -p kyc_frontend -p kyc_hir -p kyc_semantic -p kyc_mir -p kyc_backend -p kyc_driver -p kyc_cli -p kyc_tools -p kyc_ui
+        run: cargo test --workspace --locked
 
-      - name: Clippy
-        run: cargo clippy --workspace -- -D warnings 2>&1 || true
+      - name: Clippy (strict)
+        run: cargo clippy --workspace --locked -- -D warnings
+
+      - name: Security audit (RustSec)
+        if: runner.os == 'Linux'
+        run: |
+          cargo install cargo-audit --version 0.22.2 --locked
+          cargo audit --deny warnings
 
       - name: Build release
-        run: cargo build --release --bin ky
+        run: |
+          cargo build --release --bin by --locked
+          cargo build --release -p byc_runtime --locked
 
       - name: Smoke test
         run: |
-          ./target/release/ky --version
-          ./target/release/ky help
+          ./target/release/by --version
+          ./target/release/by help
+
+      - name: E2E tests (.by)
+        run: ./scripts/test-by.sh
 
   test-arm:
     runs-on: ubuntu-24.04-arm
@@ -93,11 +107,24 @@ jobs:
         uses: Swatinem/rust-cache@v2
 
       - name: Build
-        run: cargo build --bin ky
+        run: cargo build --bin by --locked
+
+      - name: Format
+        run: cargo fmt --all -- --check
 
       - name: Test
-        run: cargo test -p kyc_core -p kyc_frontend -p kyc_hir -p kyc_semantic -p kyc_mir -p kyc_backend -p kyc_driver -p kyc_cli -p kyc_tools -p kyc_ui
+        run: cargo test --workspace --locked
 
       - name: Build release
-        run: cargo build --release --bin ky
+        run: |
+          cargo build --release --bin by --locked
+          cargo build --release -p byc_runtime --locked
+
+      - name: Smoke test
+        run: |
+          ./target/release/by --version
+          ./target/release/by help
+
+      - name: E2E tests (.by)
+        run: ./scripts/test-by.sh
 

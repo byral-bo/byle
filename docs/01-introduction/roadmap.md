@@ -2,24 +2,24 @@
 
 ## Platform Architecture
 
-Kyle is a layered platform. Each layer only knows the layer below it.
+Byle is a layered platform. Each layer only knows the layer below it.
 
 ```
 Applications (IDE, Desktop, KYOS...)
  │
-Kyle UI (widgets, navigation)
+Byle UI (widgets, navigation)
  │
-Kyle Scene (scene graph, layout)
+Byle Scene (scene graph, layout)
  │
-Kyle Graphics (canvas, GPU)
+Byle Graphics (canvas, GPU)
  │
-Kyle Windowing (windows, events)
+Byle Windowing (windows, events)
  │
-Kyle Platform (FS, net, threads, audio, sensors)
+Byle Platform (FS, net, threads, audio, sensors)
  │
-Kyle Runtime (memory, strings, collections)
+Byle Runtime (memory, strings, collections)
  │
-Kyle Language (compiler)
+Byle Language (compiler)
 ```
 
 The **compiler and runtime are complete** (Phasis 1-17). 
@@ -29,36 +29,36 @@ El foco current are **packagis backend** (HTTP, SQLite, Postgres, websocket).
 ### Current crate structure
 
 ```
-kyc_core/ ✅ foundation
-kyc_frontend/ ✅ lexer + parser
-kyc_hir/ ✅ desugaring
-kyc_semantic/ ✅ type checker, scope
-kyc_mir/ ✅ MIR lowering, SSA
-kyc_backend/ ✅ LLVM codegen
-kyc_driver/ ✅ pipeline
-kyc_cli/ ✅ CLI binary
-kyc_runtime/ ✅ runtime (memory, strings, lists, dicts)
-kyc_tools/ ✅ LSP, formatter, package manager
+byc_core/ ✅ foundation
+byc_frontend/ ✅ lexer + parser
+byc_hir/ ✅ desugaring
+byc_semantic/ ✅ type checker, scope
+byc_mir/ ✅ MIR lowering, SSA
+byc_backend/ ✅ LLVM codegen
+byc_driver/ ✅ pipeline
+byc_cli/ ✅ CLI binary
+byc_runtime/ ✅ runtime (memory, strings, lists, dicts)
+byc_tools/ ✅ LSP, formatter, package manager
 ```
 
 ### Current crate structure (updated)
 
 | Crate | Status | Purpose |
 |-------|--------|---------|
-| `kyc_core` | ✅ | Foundation types |
-| `kyc_frontend` | ✅ | Lexer + parser |
-| `kyc_hir` | ✅ | Desugaring |
-| `kyc_semantic` | ✅ | Type checker, scope, borrow |
-| `kyc_mir` | ✅ | MIR lowering, SSA, optimizations |
-| `kyc_backend` | ✅ | LLVM codegen, linker |
-| `kyc_driver` | ✅ | Pipeline orchestration |
-| `kyc_cli` | ✅ | CLI binary (`ky`) |
-| `kyc_runtime` | ✅ | Runtime (memory, strings, lists, dicts) |
-| `kyc_tools` | ✅ | LSP, formatter, package manager |
-| `kyc_ui` | ✅ | .kyx parser + UI-IR + Backends |
-| `kyc_platform` | ✅ | FS, Time APIs |
-| `kyc_graphics` | 📅 | Aspirational |
-| `kyc_scene` | 📅 | Aspirational |
+| `byc_core` | ✅ | Foundation types |
+| `byc_frontend` | ✅ | Lexer + parser |
+| `byc_hir` | ✅ | Desugaring |
+| `byc_semantic` | ✅ | Type checker, scope, borrow |
+| `byc_mir` | ✅ | MIR lowering, SSA, optimizations |
+| `byc_backend` | ✅ | LLVM codegen, linker |
+| `byc_driver` | ✅ | Pipeline orchestration |
+| `byc_cli` | ✅ | CLI binary (`by`) |
+| `byc_runtime` | ✅ | Runtime (memory, strings, lists, dicts) |
+| `byc_tools` | ✅ | LSP, formatter, package manager |
+| `byc_ui` | ✅ | .byx parser + UI-IR + Backends |
+| `byc_platform` | ✅ | FS, Time APIs |
+| `byc_graphics` | 📅 | Aspirational |
+| `byc_scene` | 📅 | Aspirational |
 
 ---
 
@@ -83,11 +83,11 @@ kyc_tools/ ✅ LSP, formatter, package manager
 | 16 | LLVM IR quality (nsw, TBAA, inbounds, readonly, noalias, noundef, !range, align, lifetime) | ✅ |
 | 17 | Optimization pipeline (O3, constant folding, alloca elimination, nsw verification) | ✅ |
 
-**Benchmarks (Kyle vs Rust vs C) — currentizado Jul 2026:**
+**Benchmarks (Byle vs Rust vs C) — currentizado Jul 2026:**
 
-Ejecutado en Apple M4 (ARM64). Compiladores: `clang -O3`, `rustc -O`, `ky build`.
+Ejecutado en Apple M4 (ARM64). Compiladores: `clang -O3`, `rustc -O`, `by build`.
 
-| Benchmark | Kyle | Rust | C | Relation (K/C) |
+| Benchmark | Byle | Rust | C | Relation (K/C) |
 |-----------|:----:|:----:|:-:|:--------------:|
 | Primis 3M | 672ms | 467ms | 444ms | 1.51x |
 | Fibonacci 40 | 406ms | 423ms | 410ms | **0.99x** |
@@ -95,11 +95,11 @@ Ejecutado en Apple M4 (ARM64). Compiladores: `clang -O3`, `rustc -O`, `ky build`
 | String concat 100k | 1.98s | 272ms | 238ms | 8.3x |
 | **Compile memory** | **7.0MB** | 18.9MB | 2.6MB | **2.7x vs Rust** |
 
-Kyle compite directamente with C y Rust en CPU-bound (primes, fib, mandelbrot).
-La brecha en strings se must a que Kyle usa `str_concat` (nueva alloc + copy en cada `+`).
+Byle compite directamente with C y Rust en CPU-bound (primes, fib, mandelbrot).
+La brecha en strings se must a que Byle usa `str_concat` (nueva alloc + copy en cada `+`).
 Rust usa `String::push` que amplia buffer existente.
 
-Kyle usa 2.7x less RAM que Rust during compilation (without LTO).
+Byle usa 2.7x less RAM que Rust during compilation (without LTO).
 
 Ver `BENCHMARK.md` for suite completo y `docs/` for featuris faltantes.
 
@@ -110,7 +110,7 @@ Ver `BENCHMARK.md` for suite completo y `docs/` for featuris faltantes.
 **Estimated: 2.5 days** 
 **Crate restructuring: NOT required for Phase 0** — all changis are in existing compiler crates.
 
-Goal: Enable packagis written in 100% Kyle without Rust.
+Goal: Enable packagis written in 100% Byle without Rust.
 
 | Step | Task | Filis | Est. |
 |------|------|-------|------|
@@ -118,38 +118,38 @@ Goal: Enable packagis written in 100% Kyle without Rust.
 | 0.2 | `@link` directive — parbe + linker integration | `parser.rs`, `pipeline.rs` | 0.5 day |
 | 0.3 | `ptr` type complete — load, store, offset, arithmetic | `lower.rs`, `codegen.rs` | 1 day |
 
-After Phase 0: packagis like `ky-http`, `ky-sqlite`, `ky-json` can be written in pure Kyle with FFI to C libraries.
+After Phase 0: packagis like `by-http`, `by-sqlite`, `by-json` can be written in pure Byle with FFI to C libraries.
 
 ---
 
-## Runtime Rewrite Analysis — What Kyle Can and Cannot Do
+## Runtime Rewrite Analysis — What Byle Can and Cannot Do
 
-The runtime (`libkyc_runtime.a`) has **88 `extern "C"` functions**. Here's exactly what can be rewritten in pure Kyle (+ `extern fn` to libc) and what cannot.
+The runtime (`libbyc_runtime.a`) has **88 `extern "C"` functions**. Here's exactly what can be rewritten in pure Byle (+ `extern fn` to libc) and what cannot.
 
 ### ✅ Can rewrite NOW (65 functions — 74%)
 
-These use only arithmetic, raw pointers, and libc FFI. All doable with current Kyle features.
+These use only arithmetic, raw pointers, and libc FFI. All doable with current Byle features.
 
 | Module | Count | Examplis |
 |--------|:-----:|----------|
-| `string.rs` | 20 | `ky_strlen`, `ky_concat`, `ky_str_to_i64`, `ky_str_contains`, `ky_substr`, etc. |
-| `list.rs` | 28 | `ky_list_new/push/get/set/pop/len`, `ky_list_map/filter/fold`, `ky_range`, etc. |
-| `io.rs` | 10 | `ky_print/println`, `ky_open/read/write/close`, `ky_sleep/now` |
-| `lib.rs` | 4 | `ky_pow`, `ky_add_pct`, `ky_sub_pct`, `ky_mul_pct` |
-| `assert.rs` | 1 | `ky_assert` |
-| `async_.rs` | 1 | `ky_yield` |
+| `string.rs` | 20 | `by_strlen`, `by_concat`, `by_str_to_i64`, `by_str_contains`, `by_substr`, etc. |
+| `list.rs` | 28 | `by_list_new/push/get/set/pop/len`, `by_list_map/filter/fold`, `by_range`, etc. |
+| `io.rs` | 10 | `by_print/println`, `by_open/read/write/close`, `by_sleep/now` |
+| `lib.rs` | 4 | `by_pow`, `by_add_pct`, `by_sub_pct`, `by_mul_pct` |
+| `assert.rs` | 1 | `by_assert` |
+| `async_.rs` | 1 | `by_yield` |
 
 **Total: 65 functions. Estimated: 2-3 days.**
 
-### 🔶 Needs missing Kyle feature (12 functions — 14%)
+### 🔶 Needs missing Byle feature (12 functions — 14%)
 
 | Function | What's Missing | Workaround |
 |----------|---------------|------------|
-| `ky_alloc/ky_free` | **Heap allocator** | Add `extern fn malloc(size: i64) ptr` ✅ already possible |
-| `ky_retain/ky_release` | **Atomic operations** | Needs LLVM `atomicrmw` instruction or `__sync_fetch_and_add` via extern |
-| `ky_iter_new/next/map/filter/free` (5) | **`box::new` + function ptr transmute** | Use `extern fn malloc` for heap + manual vtable |
-| `ky_f64_to_str` | **f64 formatting** | Use `extern fn snprintf(buf, size, fmt, val)` from libc |
-| `ky_assert_eq/assert_ne` | **i64 error message formatting** | Use `ky_i64_to_str` (from ✅ group) |
+| `by_alloc/by_free` | **Heap allocator** | Add `extern fn malloc(size: i64) ptr` ✅ already possible |
+| `by_retain/by_release` | **Atomic operations** | Needs LLVM `atomicrmw` instruction or `__sync_fetch_and_add` via extern |
+| `by_iter_new/next/map/filter/free` (5) | **`box::new` + function ptr transmute** | Use `extern fn malloc` for heap + manual vtable |
+| `by_f64_to_str` | **f64 formatting** | Use `extern fn snprintf(buf, size, fmt, val)` from libc |
+| `by_assert_eq/assert_ne` | **i64 error message formatting** | Use `by_i64_to_str` (from ✅ group) |
 
 **Estimated: 2-3 days (after adding missing extern fn declarations).**
 
@@ -157,9 +157,9 @@ These use only arithmetic, raw pointers, and libc FFI. All doable with current K
 
 | Module | Count | Why |
 |--------|:-----:|-----|
-| `dict.rs` | 10 | ✅ All 10 functions implemented (`ky_dict_contains`, `ky_dict_remove` added). Exposed as `dict.contains(d, key)` / `dict.remove(d, key)`. |
-| `thread.rs` | 2 | **Needs OS threads** — `ky_spawn_thread` needs `pthread_create` with a C-compatible trampoline. `ky_join_thread` needs `pthread_join`. The trampoline requiris codegen support for `extern "C"` closures. |
-| `async_.rs` | 2 | **Needs async executor** — `ky_spawn_task` and `ky_await_task` depend on threads, channels, mutexes, atomics, and a global executor singleton. This is the most complex piece. |
+| `dict.rs` | 10 | ✅ All 10 functions implemented (`by_dict_contains`, `by_dict_remove` added). Exposed as `dict.contains(d, key)` / `dict.remove(d, key)`. |
+| `thread.rs` | 2 | **Needs OS threads** — `by_spawn_thread` needs `pthread_create` with a C-compatible trampoline. `by_join_thread` needs `pthread_join`. The trampoline requiris codegen support for `extern "C"` closures. |
+| `async_.rs` | 2 | **Needs async executor** — `by_spawn_task` and `by_await_task` depend on threads, channels, mutexes, atomics, and a global executor singleton. This is the most complex piece. |
 
 **Estimated: 2-3 weeks (hash map: 1 week, threads: 1-2 weeks, async: depends on threads).**
 
@@ -176,15 +176,15 @@ These use only arithmetic, raw pointers, and libc FFI. All doable with current K
 
 ## Runtime Rewrite Plan — ⏸️ PAUSADO
 
-> **Decision:** La rewrite del runtime Rust a Kyle is pausada hasta que Kyle se use en proyectos reales. 
-> El file `crates/kyc_runtime/src/string.ky` existe with 18 functions pero permanece inerte. 
+> **Decision:** La rewrite del runtime Rust a Byle is pausada hasta que Byle se use en proyectos reales.
+> El file `crates/byc_runtime/src/string.by` existe with 18 functions pero permanece inerte.
 > Reactivar cuando: (1) proyectos realis requieran auto-suficiencia, (2) equipo lo considere necesario.
 
 | Phase | Description | Status |
 |-------|-------------|--------|
 | A | Rewrite 65 functions (string, list, io) | ⏸️ Pausado |
 | B | Missing extern fn declarations | ⏸️ Pausado |
-| C | Hash map (Dict) en Kyle puro | ⏸️ Pausado |
+| C | Hash map (Dict) en Byle puro | ⏸️ Pausado |
 | D | Threading & Async | ⏸️ Pausado |
 | E | Self-hosting compiler | 📅 Baja prioridad |
 
@@ -195,7 +195,7 @@ These use only arithmetic, raw pointers, and libc FFI. All doable with current K
 ```
 AHORA → Backend Packagis + websocket/WASM — ✅ ENFOQUE ACTUAL
  ↓
- Runtime rewrite en Kyle — ⏸️ PAUSADA (hasta tener proyectos reales)
+ Runtime rewrite en Byle — ⏸️ PAUSADA (hasta tener proyectos reales)
  ↓
  Windowing, Graphics, Scene, UI — 📅 ASPIRACIONAL (without fecha)
  ↓
@@ -214,9 +214,9 @@ AHORA → Backend Packagis + websocket/WASM — ✅ ENFOQUE ACTUAL
 | 4 | HTTP Server: callbacks, `{id:i32}` params, middleware | Fase 1 + 3 | 🔜 |
 | 5 | websocket + SSE about Server | Fase 4 | 🔜 |
 
-**Current state:** Packagis work (http client, json, sqlite, env) in 100% Kyle with FFI. HTTP Server TCP accept working. Function pointers implemented. Benchmarks completeds (Kyle vs Rust vs C). Bugs recientis arreglados: constructor without `fn`, `@link` propagation, `use X.{a, b, c}`, tuple destructuring, `close()` name conflict.
+**Current state:** Packagis work (http client, json, sqlite, env) in 100% Byle with FFI. HTTP Server TCP accept working. Function pointers implemented. Benchmarks completeds (Byle vs Rust vs C). Bugs recientis arreglados: constructor without `fn`, `@link` propagation, `use X.{a, b, c}`, tuple destructuring, `close()` name conflict.
 
-**Runtime rewrite en Kyle: PAUSADA.** El file `crates/kyc_runtime/src/string.ky` existe with 18 functions pero NO se usa. Reactivar solo cuando Kyle se use en proyectos realis y auto-suficiencia sea necesaria. Mientras tanto, runtime Rust funciona y is estable.
+**Runtime rewrite en Byle: PAUSADA.** El file `crates/byc_runtime/src/string.by` existe with 18 functions pero NO se usa. Reactivar solo cuando Byle se use en proyectos realis y auto-suficiencia sea necesaria. Mientras tanto, runtime Rust funciona y is estable.
 
 ### Bugs conocidos (no criticos)
 
@@ -226,7 +226,7 @@ AHORA → Backend Packagis + websocket/WASM — ✅ ENFOQUE ACTUAL
 
 ## Package Registry
 
-Kyle packagis are distributed via **GitHub Pagis registry** at `https://IT-KYNERA.github.io/KYLE/docs`. No `KL_REGISTRY` needed.
+Byle packagis are distributed via **GitHub Pagis registry** at `https://IT-KYNERA.github.io/BYLE/docs`. No `BYLE_REGISTRY` needed.
 
 ### Available packages
 
@@ -241,8 +241,8 @@ Kyle packagis are distributed via **GitHub Pagis registry** at `https://IT-KYNER
 
 ```bash
 # Local — apuntar al file registry del repo
-export KL_REGISTRY=file:///Users/me/KYLE/registry
-ky add http
+export BYLE_REGISTRY=file:///Users/me/BYLE/registry
+by add http
 ```
 
 See `docs/05-packages/registry.md` for full documentation.
@@ -266,7 +266,7 @@ See `docs/05-packages/registry.md` for full documentation.
 | Struct literal with type args | `Container<i32> { value: 42 }` ✅ |
 | Multi-level module imports | `use http.server....` ✅ |
 | Package @link propagation | `@link "c"` se mergea al program automaticamente ✅ |
-| **Implicit main** | `ky run app.ky` without `fn main()` — code module ejecutado automaticamente ✅ |
+| **Implicit main** | `by run app.by` without `fn main()` — code module ejecutado automaticamente ✅ |
 | **Closuris multi-line** | `(req, client):\n send_json(...)` with bloque indentado ✅ |
 | **Function pointers** | `handler as ptr`, llamado via `fn_ptr(args)` with CallIndirect ✅ |
 | **router HTTP alto nivel** | `app.get("/path", handler)` with `get` as metodo (keyword) ✅ |
@@ -288,7 +288,7 @@ See `docs/05-packages/registry.md` for full documentation.
 > La specification completa de cada type is en [`docs/03-language-reference/types.md`](docs/03-language-reference/types.md) section "Platform typis (futuro)".
 > Todos nombris de type van en **minuscula**: `datetime`, `bytes`, `decimal`, `uuid`, `url`, `regex`, `duration`.
 
-### Typis currentis de Kyle
+### Typis currentis de Byle
 
 | Category | Typis |
 |-----------|-------|
@@ -329,10 +329,10 @@ See `docs/05-packages/registry.md` for full documentation.
 
 | Actual | Nuevo | Filis |
 |--------|-------|----------|
-| `ky_parallel_for` | `ky_parallel_for` (futuro: `parallel.for`) | runtime, symbol_table, lowerer |
-| `ky_spawn_thread` | `ky_spawn_thread` (futuro: `thread.spawn`) | runtime, symbol_table |
-| `ky_join_thread` | `ky_join_thread` (futuro: `thread.join`) | runtime, symbol_table |
-| `ky_str_builder_*` | `str_builder` clase | ✅ ya wrapper |
+| `by_parallel_for` | `by_parallel_for` (futuro: `parallel.for`) | runtime, symbol_table, lowerer |
+| `by_spawn_thread` | `by_spawn_thread` (futuro: `thread.spawn`) | runtime, symbol_table |
+| `by_join_thread` | `by_join_thread` (futuro: `thread.join`) | runtime, symbol_table |
+| `by_str_builder_*` | `str_builder` clase | ✅ ya wrapper |
 | Functions package | camelCase | packages/http/, packages/json/ |
 
 ### Decision: Stack y Queue no are typis dedicados
@@ -347,7 +347,7 @@ See `docs/05-packages/registry.md` for full documentation.
 
 `Option<T>` (`T?`) y `Result<T, str>` (`T!`) existen as **enums genericos** del compiler:
 
-```kyle
+```byle
 x = maybe_value? # T? = Option<T>
 y = fallible_operation! # T! = Result<T, str>
 
@@ -363,23 +363,23 @@ Estan implementeds with `Option.Some(value)` / `Option.None` y `Result.Ok(value)
 
 | Fase | Typis | Filis | Esfuerzo |
 |------|-------|----------|----------|
-| **1** | `datetime` + `duration` (runtime) | `kyc_runtime/src/datetime.rs` + FFI | 3-4 days |
-| **2** | `bytes` (runtime) | `kyc_runtime/src/bytes.rs` + FFI | 2-3 days |
-| **3** | `decimal` (runtime) | `kyc_runtime/src/decimal.rs` + FFI | 2-3 days |
-| **4** | `uuid` (runtime) | `kyc_runtime/src/uuid.rs` + FFI | 1-2 days |
+| **1** | `datetime` + `duration` (runtime) | `byc_runtime/src/datetime.rs` + FFI | 3-4 days |
+| **2** | `bytes` (runtime) | `byc_runtime/src/bytes.rs` + FFI | 2-3 days |
+| **3** | `decimal` (runtime) | `byc_runtime/src/decimal.rs` + FFI | 2-3 days |
+| **4** | `uuid` (runtime) | `byc_runtime/src/uuid.rs` + FFI | 1-2 days |
 | **5** | Methods ricos en `Option<T>`/`Result<T,E>` | Compiler + runtime | 2-3 days |
 
 Cada type nuevo necesita:
-1. **Struct en runtime** (`kyc_runtime/src/`) with operacionis basicas
+1. **Struct en runtime** (`byc_runtime/src/`) with operacionis basicas
 2. **Extern functions** (`@link "c"` + `extern fn`)
-3. **Package Kyle** (`packages/<type>/`) with API de alto nivel
+3. **Package Byle** (`packages/<type>/`) with API de alto nivel
 4. **Tests** en package
 
 ---
 
 ## Self-Hosting — Codegen Analysis
 
-To compile Kyle with Kyle, the compiler's codegen (`kyc_backend/src/codegen.rs`, ~2,400 linis of Rust) must be rewritten in Kyle. It currently usis **inkwell** (Rust wrapper for LLVM C API).
+To compile Byle with Byle, the compiler's codegen (`byc_backend/src/codegen.rs`, ~2,400 linis of Rust) must be rewritten in Byle. It currently usis **inkwell** (Rust wrapper for LLVM C API).
 
 ### What would be needed
 
@@ -399,17 +399,17 @@ LLVM stays as the machine-code backend. The same way we call libcurl via `extern
 
 ### Plan de auto-hospedaje (Self-Hosting)
 
-```kyle
-# El objetivo: ky compilado by ky
-ky build compiler.ky # current: Rust → binary
- # futuro: Kyle → binary
+```byle
+# El objetivo: by compilado by by
+by build compiler.by # current: Rust → binary
+ # futuro: Byle → binary
 ```
 
 #### Fase 1 — LLVM C API bindings (`packages/llvm`)
 
-Declarar ~85 functions de LLVM C API as `extern fn` en Kyle:
+Declarar ~85 functions de LLVM C API as `extern fn` en Byle:
 
-```kyle
+```byle
 @link "LLVM"
 extern fn LLVMContextCreate() ptr
 extern fn LLVMModuleCreateWithName(name: ptr) ptr
@@ -419,15 +419,15 @@ extern fn LLVMAddFunction(mod: ptr, name: ptr, type_: ptr) ptr
 
 | File | Functions | Esfuerzo |
 |---------|-----------|----------|
-| `packages/llvm/src/core.ky` | Context, Module, Type, Value | 40 functions |
-| `packages/llvm/src/builder.ky` | IRBuilder (BuildAdd, BuildCall...) | 30 functions |
-| `packages/llvm/src/target.ky` | TargetMachine, emit object | 15 functions |
+| `packages/llvm/src/core.by` | Context, Module, Type, Value | 40 functions |
+| `packages/llvm/src/builder.by` | IRBuilder (BuildAdd, BuildCall...) | 30 functions |
+| `packages/llvm/src/target.by` | TargetMachine, emit object | 15 functions |
 
-#### Fase 2 — MIR typis en Kyle (`packages/mir`)
+#### Fase 2 — MIR typis en Byle (`packages/mir`)
 
-Los typis del compiler (hoy en Rust) se define en Kyle:
+Los typis del compiler (hoy en Rust) se define en Byle:
 
-```kyle
+```byle
 final class MirType:
  kind: i32 # 0=i32, 1=str, 2=struct...
  name: str
@@ -440,15 +440,15 @@ final class MirInst:
 
 | File | Contenido |
 |---------|-----------|
-| `packages/mir/src/types.ky` | MirType, MirValue, MirConstant |
-| `packages/mir/src/inst.ky` | MirInst (25 variants) |
-| `packages/mir/src/function.ky` | MirFunction, MirBasicBlock |
+| `packages/mir/src/types.by` | MirType, MirValue, MirConstant |
+| `packages/mir/src/inst.by` | MirInst (25 variants) |
+| `packages/mir/src/function.by` | MirFunction, MirBasicBlock |
 
-#### Fase 3 — Codegen en Kyle (`packages/codegen`)
+#### Fase 3 — Codegen en Byle (`packages/codegen`)
 
-Traducir `codegen.rs` (~2,400 lines Rust → Kyle):
+Traducir `codegen.rs` (~2,400 lines Rust → Byle):
 
-```kyle
+```byle
 use llvm.{core, builder}
 use mir.{types, inst, function}
 
@@ -468,14 +468,14 @@ fn compile_function(f: MirFunction) ptr:
 #### Fase 4 — Bootstrap
 
 ```bash
-# 1. Compilar codegen Kyle usando compiler Rust
-ky build codegen.ky -o ky-step1
+# 1. Compilar codegen Byle usando compiler Rust
+by build codegen.by -o by-step1
 
-# 2. Compilar codegen Kyle usando ky-step1
-./ky-step1 codegen.ky -o ky-step2
+# 2. Compilar codegen Byle usando by-step1
+./by-step1 codegen.by -o by-step2
 
-# 3. Verificar que ky-step2 produce mismo output
-diff <(ky-step1) <(ky-step2) # bootstrap completed!
+# 3. Verificar que by-step2 produce mismo output
+diff <(by-step1) <(by-step2) # bootstrap completed!
 ```
 
 #### Timeline estimado
@@ -483,10 +483,10 @@ diff <(ky-step1) <(ky-step2) # bootstrap completed!
 | Fase | Description | Dependencias | Esfuerzo |
 |------|-------------|-------------|----------|
 | 1 | LLVM C API bindings | — | 1 day |
-| 2 | MIR typis en Kyle | — | 2 days |
-| 3 | Codegen en Kyle | Fase 1 + 2 | 2 semanas |
+| 2 | MIR typis en Byle | — | 2 days |
+| 3 | Codegen en Byle | Fase 1 + 2 | 2 semanas |
 | 4 | Bootstrap | Fase 3 | 1 day |
-| 5 | Rewrite frontend (lexer+parser) en Kyle | Fase 4 | 4 semanas |
+| 5 | Rewrite frontend (lexer+parser) en Byle | Fase 4 | 4 semanas |
 
 ---
 
@@ -525,7 +525,7 @@ diff <(ky-step1) <(ky-step2) # bootstrap completed!
 | Backend | Purpose |
 |---------|---------|
 | Cranelift | Faster compilation (debug mode), no LLVM dependency |
-| WASM | Compile Kyle for browbe and WebAssembly targets |
+| WASM | Compile Byle for browbe and WebAssembly targets |
 
 ---
 
@@ -555,13 +555,13 @@ diff <(ky-step1) <(ky-step2) # bootstrap completed!
 
 ## 📊 Fasis de Madurez del Lenguaje (Benchmark gaps)
 
-Featuris identificadas en benchmarks que Kyle necesita for be competitivo as language de bajo nivel:
+Featuris identificadas en benchmarks que Byle necesita for be competitivo as language de bajo nivel:
 
 | Feature | Importancia | Dependencia | ETA |
 |---------|-------------|-------------|-----|
 | **Native Arrays `[T, N]`** | ⭐⭐⭐⭐⭐ | Parbe + typeck + MIR + codegen | 🚀 **En progreso** |
 | **Threads + Concurrency** | ⭐⭐⭐⭐⭐ | Runtime | 📅 Fase D |
-| **Async/Await en Kyle** | ⭐⭐⭐⭐ | Runtime + compiler | 📅 Fase D |
+| **Async/Await en Byle** | ⭐⭐⭐⭐ | Runtime + compiler | 📅 Fase D |
 | **HashMap completo** (String→any) | ⭐⭐⭐⭐ | Runtime | 📅 Fase C |
 | **Networking TCP/UDP** | ⭐⭐⭐⭐ | Runtime + packagis | 📅 Fase 4-5 |
 | **websocket/SSE** | ⭐⭐⭐ | Packagis | 📅 Fase 5 |
@@ -632,28 +632,28 @@ Requiere nuevo `MirType::Slice` o modificar `MirInst::ArrayElemPtr` for aceptar 
 
 ## 📋 Plan de completitud de types
 
-Kyle must tener **todos typis importbefore as nativos** (no packages).
+Byle must tener **todos typis importbefore as nativos** (no packages).
 Solo HTTP/Postgres/SQLite are packages. El resto is infraestructura base.
 
 ### Fase 2: Migrar packagis a nativos
 
 Cada type package → integration nativa requiere:
-1. Type Kyle (`final class`) directamente en runtime
+1. Type Byle (`final class`) directamente en runtime
 2. Builtins registrados en compiler (without `extern fn` manuales)
 3. Sin `use X.Y` — disponiblis globalmente
 
 | Package current | Type nativo | Runtime status |
 |---------------|-------------|----------------|
-| `use datetime` | `date_time` | ✅ `kyc_runtime/src/datetime.rs` |
+| `use datetime` | `date_time` | ✅ `byc_runtime/src/datetime.rs` |
 | `use datetime.duration` | `duration` | ✅ en datetime.rs |
-| `use date` | `Date` | ✅ `kyc_runtime/src/date.rs` |
+| `use date` | `Date` | ✅ `byc_runtime/src/date.rs` |
 | `use date.time` | `Time` | ✅ en date.rs |
-| `use bytis.bytes` | `bytes` | ✅ `kyc_runtime/src/bytes.rs` |
-| `use decimal` | `decimal` | ✅ `kyc_runtime/src/decimal.rs` |
-| `use uuid` | `uuid` | ✅ `kyc_runtime/src/uuid.rs` |
-| `use url` | `url` | ✅ `kyc_runtime/src/url.rs` |
-| `use regex` | `regex` | ✅ `kyc_runtime/src/regex.rs` |
-| `ky_getenv`/`ky_setenv` | `Env` | ✅ `kyc_runtime/src/string.rs` |
+| `use bytis.bytes` | `bytes` | ✅ `byc_runtime/src/bytes.rs` |
+| `use decimal` | `decimal` | ✅ `byc_runtime/src/decimal.rs` |
+| `use uuid` | `uuid` | ✅ `byc_runtime/src/uuid.rs` |
+| `use url` | `url` | ✅ `byc_runtime/src/url.rs` |
+| `use regex` | `regex` | ✅ `byc_runtime/src/regex.rs` |
+| `by_getenv`/`by_setenv` | `Env` | ✅ `byc_runtime/src/string.rs` |
 
 ### Fase 3: Typis I/O nativos
 
@@ -677,18 +677,18 @@ Cada type package → integration nativa requiere:
 
 | Type | Status | Notis |
 |------|--------|-------|
-| `channel<T>` | 🔶 | Runtime listo. Falta type Kyle generico |
+| `channel<T>` | 🔶 | Runtime listo. Falta type Byle generico |
 | `mutex<T>` | ❌ | Para threads. Runtime Rust ya has |
 | `AtomicI64` / `AtomicBool` | ❌ | Operacionis lock-free |
 | `future<T>` | ❌ | Handle tipado for async |
-| `iterator` | 🔶 | KlIter existe en runtime. Falta type Kyle |
+| `iterator` | 🔶 | KlIter existe en runtime. Falta type Byle |
 | `select` | ❌ | Multiplexor de canalis |
 
 ### Fase 6: Smart pointers
 
 | Type | Notis |
 |------|-------|
-| `box<T>` | Heap pointer simple. Ya existe `ky_alloc` for raw |
+| `box<T>` | Heap pointer simple. Ya existe `by_alloc` for raw |
 | `rc<T>` | Single-thread reference counting |
 | `arc<T>` | Multi-thread atomic refcount |
 | `weak<T>` | weak reference (evita ciclos rc/arc) |

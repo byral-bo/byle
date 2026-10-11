@@ -9,7 +9,7 @@
 
 Driver PostgreSQL nativo via FFI a `libpq`. Minimum overhead, tipado fuerte, cero magia.
 
-```kyle
+```byle
 use postgris.{pool, Row}
 ```
 
@@ -17,7 +17,7 @@ use postgris.{pool, Row}
 
 ## 2. Connection
 
-```kyle
+```byle
 use postgris.pool
 
 pool = pool.new("postgresql://user:pass@localhost:5432/mydb")
@@ -30,7 +30,7 @@ for row in rows:
 
 ### pool vs Connection
 
-```kyle
+```byle
 # pool (recommended) — reusa connections
 pool = pool.new(conn_string, max_size=10)
 
@@ -46,7 +46,7 @@ conn.close()
 
 ### Query simple (SELECT)
 
-```kyle
+```byle
 rows = pool.query("SELECT id, name, age FROM users")
 
 for row in rows:
@@ -57,20 +57,20 @@ for row in rows:
 
 ### Con parameters
 
-```kyle
+```byle
 rows = pool.query("SELECT * FROM users WHERE age > $1", [18])
 ```
 
 ### Insert/Update/Delete (Execute)
 
-```kyle
+```byle
 n = pool.execute("INSERT INTO users (name, age) VALUES ($1, $2)", {"Ana", 30})
 print(n) # numero de filas afectadas
 ```
 
 ### Transacciones
 
-```kyle
+```byle
 conn = pool.get_conn()
 conn.begin()
 conn.execute("UPDATE users SET age = $1 WHERE id = $2", {25, 1})
@@ -86,7 +86,7 @@ conn.close()
 
 ### Row — acceso by name
 
-```kyle
+```byle
 final class Row:
  fn get<T>(name: str) T # with type explicito
  fn get(name: str) i64 # default i64
@@ -99,7 +99,7 @@ final class Row:
 
 ### Mapeo a clasis (with deserialize)
 
-```kyle
+```byle
 use postgris.pool
 use jare.deserialize
 
@@ -116,7 +116,7 @@ if len(rows) > 0:
 
 ### Valoris NULL
 
-```kyle
+```byle
 age = row.get("age") # 0 si NULL (i64 default)
 age = row.get("age") as i64? # 0 si NULL with Option
 name = row.get_str("name") # "" si NULL
@@ -126,7 +126,7 @@ name = row.get_str("name") # "" si NULL
 
 ## 5. Migracionis (simple)
 
-```kyle
+```byle
 use postgris.pool
 
 pool = pool.new(conn_string)
@@ -166,7 +166,7 @@ pool.execute("CREATE TABLE IF NOT EXISTS posts (id SERIAL PRIMARY KEY, user_id I
 
 El driver usa `extern fn` + `@link "pq"` for llamar a libpq:
 
-```kyle
+```byle
 @link "pq"
 
 extern fn PQconnectdb(conninfo: ptr) ptr
@@ -176,7 +176,7 @@ extern fn PQgetvalue(result: ptr, row: i32, col: i32) ptr
 extern fn PQfinish(conn: ptr)
 ```
 
-La implementation completa is en `packages/postgres/src/lib.ky`.
+La implementation completa is en `packages/postgres/src/lib.by`.
 
 ---
 

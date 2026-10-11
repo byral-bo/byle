@@ -16,7 +16,7 @@
 
 ## Primary expressions
 
-```ky
+```by
 42              # literal
 "hello"         # string
 name            # identifier
@@ -32,7 +32,7 @@ f(x, y)         # function call
 
 ## Collection literals
 
-```ky
+```by
 [1, 2, 3]           # lista [i32]
 ^[1, 2]             # lista mutable
 []                  # lista vacía
@@ -49,7 +49,7 @@ grid: [[i32, 3], 3] = [[1,0,0],[0,1,0],[0,0,1]]
 
 ## Assignment
 
-```ky
+```by
 x = value
 x += 1
 (x, y) = tuple
@@ -57,13 +57,13 @@ x += 1
 
 ## Ternary
 
-```ky
+```by
 result = if x > 0: "positive" else: "negative"
 ```
 
 ## Match expression
 
-```ky
+```by
 name = match x:
     1: "one"
     2: "two"
@@ -72,7 +72,7 @@ name = match x:
 
 ## Range
 
-```ky
+```by
 0..5     # exclusive: 0,1,2,3,4
 0..=5    # inclusive: 0,1,2,3,4,5
 0..<5    # exclusive alias

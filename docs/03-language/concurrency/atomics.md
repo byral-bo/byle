@@ -12,7 +12,7 @@
 
 ## Design propuesto
 
-```ky
+```by
 counter: atomic_i64 = atomic_i64(0)
 
 # Operacionis atomicas
@@ -25,7 +25,7 @@ counter.compare_and_swap(10, 20) # CAS
 
 ### atomic_bool
 
-```ky
+```by
 flag: atomic_bool = atomic_bool(false)
 flag.store(true)
 val: bool = flag.load()
@@ -33,7 +33,7 @@ val: bool = flag.load()
 
 ### Ordenamiento de memory
 
-```ky
+```by
 counter.store(42, "relaxed") # without barreras
 counter.store(42, "acquire") # acquire semantics
 counter.store(42, "release") # release semantics

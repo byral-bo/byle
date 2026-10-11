@@ -5,7 +5,7 @@
 
 ## Hex encoding
 
-```ky
+```by
 use std.bytes
 
 data: bytes = bytes.from_hex("48656C6C6F")
@@ -17,14 +17,14 @@ println(hex)          # "48656C6C6F"
 
 ## Base64 encoding
 
-```ky
+```by
 encoded: str = bytes.to_base64(data)
 decoded: bytes = bytes.from_base64(encoded)
 ```
 
 ## Integer to/from bytes
 
-```ky
+```by
 # Big endian (network byte order)
 b: bytes = bytes.to_be_i32(1024)
 val: i32 = bytes.from_be_i32(b)
@@ -39,7 +39,7 @@ val = bytes.from_le_i32(b)
 
 ## Fixed-size byte arrays
 
-```ky
+```by
 # Read specific types from bytes
 b: bytes = bytes.from_hex("0004A200000005")
 i1: i32 = bytes.from_be_i32_at(b, 0)  # 1186  (0x0004A2)
@@ -48,7 +48,7 @@ i2: i32 = bytes.from_be_i32_at(b, 4)  # 5     (0x00000005)
 
 ## Buffer for building binary data
 
-```ky
+```by
 buf: bytes.buffer = bytes.buffer(64)
 buf.write_be_i32(1024)
 buf.write_be_i64(123456789)
@@ -94,7 +94,7 @@ println(data.len().to_str())  # total bytes
 
 ## Example
 
-```ky
+```by
 use std.bytes
 
 # Encode a network packet

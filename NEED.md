@@ -1,15 +1,15 @@
-# Kyle Language Specification Requirements
-## Requisitos Técnicos para que Kyle sea un Lenguaje de Programación de Sistemas de Bajo Nivel
+# Byle Language Specification Requirements
+## Requisitos Técnicos para que Byle sea un Lenguaje de Programación de Sistemas de Bajo Nivel
 
 **Versión:** 1.0 (Draft)
 **Estado:** Arquitectura Base
-**Objetivo:** Definir todas las capacidades que debe poseer Kyle para convertirse en un lenguaje moderno capaz de desarrollar sistemas operativos, kernels, hipervisores, runtimes, compiladores, drivers y software crítico de alto rendimiento.
+**Objetivo:** Definir todas las capacidades que debe poseer Byle para convertirse en un lenguaje moderno capaz de desarrollar sistemas operativos, kernels, hipervisores, runtimes, compiladores, drivers y software crítico de alto rendimiento.
 
 ---
 
 # 1. Filosofía del Lenguaje
 
-Kyle debe diseñarse bajo los siguientes principios fundamentales.
+Byle debe diseñarse bajo los siguientes principios fundamentales.
 
 - Simplicidad sintáctica.
 - Legibilidad extrema.
@@ -32,7 +32,7 @@ Kyle debe diseñarse bajo los siguientes principios fundamentales.
 
 # 2. Objetivos Principales
 
-Kyle debe ser capaz de desarrollar:
+Byle debe ser capaz de desarrollar:
 
 - Sistemas Operativos
 - Kernels
@@ -812,4 +812,4 @@ Librerías oficiales para:
 4. La sintaxis debe minimizar el ruido visual sin sacrificar expresividad.
 5. El lenguaje debe ser adecuado tanto para aplicaciones de usuario como para software de infraestructura crítica.
 6. El compilador debe detectar la mayor cantidad posible de errores en tiempo de compilación.
-7. Kyle debe ser un lenguaje preparado para construir software de sistemas durante las próximas décadas, priorizando mantenibilidad, rendimiento, portabilidad y seguridad.
+7. Byle debe ser un lenguaje preparado para construir software de sistemas durante las próximas décadas, priorizando mantenibilidad, rendimiento, portabilidad y seguridad.

@@ -1,0 +1,47 @@
+# Clases — final class, fields, methods, herencia
+
+final class Point:
+    x: i32
+    y: i32
+
+    fn add(other: Point) Point:
+        return Point(this.x + other.x, this.y + other.y)
+
+    fn to_str() str:
+        return "({this.x}, {this.y})"
+
+final class Counter:
+    count: ^i32 = 0
+    name: str
+
+    fn increment():
+        this.count += 1
+
+    fn get_count() i32:
+        return this.count
+
+class Animal:
+    name: str
+
+    fn speak() str:
+        return "..."
+
+class Dog :: Animal:
+    fn speak() str:
+        return "guau!"
+
+    new(name: str):
+        this.name = name
+
+fn main():
+    p = Point(10, 20)
+    q = Point(1, 2)
+    r = p.add(q)
+    print(r.to_str())
+
+    c = Counter(0, "test")
+    c.increment()
+    print(c.get_count().to_str())
+
+    d = Dog("Rex")
+    print(d.speak())

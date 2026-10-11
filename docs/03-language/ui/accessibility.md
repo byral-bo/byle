@@ -7,7 +7,7 @@
 
 ## 1. Principios
 
-Kyle UI debe ser accesible por defecto. Todo componente built-in debe cumplir
+Byle UI debe ser accesible por defecto. Todo componente built-in debe cumplir
 con WCAG 2.1 AA como mínimo.
 
 | Principio | Significado |
@@ -25,7 +25,7 @@ con WCAG 2.1 AA como mínimo.
 
 Cada componente genera ARIA automáticamente:
 
-```kyx
+```byx
 <button text="Cerrar" click=@close />
 ```
 
@@ -36,7 +36,7 @@ Web target → HTML generado automáticamente:
 
 ### 2.2 Atributos explícitos
 
-```kyx
+```byx
 <text_field
     label="Email"
     aria_label="Correo electrónico"
@@ -49,7 +49,7 @@ Web target → HTML generado automáticamente:
 
 ### 2.3 Roles ARIA
 
-```kyx
+```byx
 <view role="navigation" aria_label="Menú principal">
     <link to="/" text="Inicio" />
     <link to="/about" text="Acerca de" />
@@ -62,14 +62,14 @@ Web target → HTML generado automáticamente:
 
 ### 3.1 Orden de tabulación
 
-```kyx
+```byx
 <text_field tab_index=1 />
 <button tab_index=2 text="Enviar" />
 ```
 
 ### 3.2 Focus management
 
-```kyx
+```byx
 @(
     fn on_mounted():
         focus("email-input")  # auto-focus al montar
@@ -80,7 +80,7 @@ Web target → HTML generado automáticamente:
 
 ### 3.3 Atajos de teclado
 
-```kyx
+```byx
 <view keydown=@handle_keyboard>
     <!-- Ctrl+S para guardar -->
 </view>
@@ -99,14 +99,14 @@ Web target → HTML generado automáticamente:
 
 ### 4.1 Texto alternativo
 
-```kyx
+```byx
 <image src="logo.png" alt="Logo de la empresa" />
 <icon name="search" aria_label="Buscar" />
 ```
 
 ### 4.2 Live regions
 
-```kyx
+```byx
 <view aria_live="polite" aria_atomic="true">
     <text value="Se encontraron " + results.len().to_str() + " resultados" />
 </view>
@@ -114,7 +114,7 @@ Web target → HTML generado automáticamente:
 
 ### 4.3 Mensajes de estado
 
-```kyx
+```byx
 <view role="status" aria_live="polite">
     @if loading:
         <text value="Cargando..." />
@@ -131,7 +131,7 @@ Web target → HTML generado automáticamente:
 
 El theme system debe garantizar contraste suficiente:
 
-```kyle
+```byle
 # Validación en tiempo de compilación
 theme AccessibleTheme: LightTheme:
     # Error de compilación si el contraste es < 4.5:1
@@ -142,7 +142,7 @@ theme AccessibleTheme: LightTheme:
 
 Todos los tamaños de fuente deben ser relativos al tamaño base del sistema:
 
-```kyle
+```byle
 style<text> Body:
     font_size = 14       # relativo al theme.font_size_base
     line_height = 1.5    # relativo al font_size
@@ -150,7 +150,7 @@ style<text> Body:
 
 ### 5.3 Reduced motion
 
-```kyle
+```byle
 style<button> MotionAware:
     transition = transition("background", 200, easing.ease_in_out, 0)
     @media(reduced_motion: true):

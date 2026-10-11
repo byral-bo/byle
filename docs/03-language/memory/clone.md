@@ -9,7 +9,7 @@ implicitamente with `y = x`. Para create una copia independiente se usa `.clone(
 
 ## Uso
 
-```ky
+```by
 a: str = "hello"
 b: str = a.clone() # COPY explicita: ambos vivos
 println(a) # ✅ "hello"
@@ -18,7 +18,7 @@ println(b) # ✅ "hello"
 
 ## Clone en lists
 
-```ky
+```by
 original: {i32} = {1, 2, 3}
 copia: {i32} = original.clone()
 original.push(4)
@@ -28,14 +28,14 @@ println(original.len().to_str()) # 4
 
 ## Clone en arrays
 
-```ky
+```by
 arr: [i32, 3] = [1, 2, 3]
 copia: [i32, 3] = arr.clone()
 ```
 
 ## Clone en clases
 
-```ky
+```by
 class Point:
  x: i32
  y: i32

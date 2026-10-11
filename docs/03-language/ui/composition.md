@@ -3,7 +3,7 @@
 **Status:** Draft v1.0
 **Date:** 2026-07-10
 **Documentación relacionada:**
-- [ui-syntax.md](../syntax/ui-syntax.md) — Sintaxis .kyx (slots, componentes)
+- [ui-syntax.md](../syntax/ui-syntax.md) — Sintaxis .byx (slots, componentes)
 - [state-events.md](state-events.md) — Estado y eventos
 - [context-patterns.md](context-patterns.md) — Contexto
 
@@ -11,7 +11,7 @@
 
 ## 1. Filosofía
 
-Kyle favorece **composición sobre herencia**. Los componentes se combinan,
+Byle favorece **composición sobre herencia**. Los componentes se combinan,
 no se extienden. Esto da más flexibilidad, mejor tipado, y menos acoplamiento.
 
 ```
@@ -31,8 +31,8 @@ que NO se re-renderizan al navegar entre rutas.
 
 ### 2.1 Layout con slot
 
-```kyx
-# layouts/main.kyx
+```byx
+# layouts/main.byx
 <layout>
     <navbar title="Mi App" />
     <hstack>
@@ -45,8 +45,8 @@ que NO se re-renderizan al navegar entre rutas.
 </layout>
 ```
 
-```kyx
-# layouts/blank.kyx — sin navbar, sidebar ni footer
+```byx
+# layouts/blank.byx — sin navbar, sidebar ni footer
 <layout>
     <slot />
 </layout>
@@ -74,7 +74,7 @@ Antes:                      Después:
 
 ### 2.3 Uso en router
 
-```kyx
+```byx
 <router>
     <route path="/" component=home layout=main />
     <route path="/login" component=login layout=blank />
@@ -90,8 +90,8 @@ El layout se monta UNA VEZ. Solo el `<slot />` se re-renderiza al navegar.
 
 ### 2.2 Slots nombrados
 
-```kyx
-# card.kyx
+```byx
+# card.byx
 <view>
     <slot name="header" />
     <slot name="content" />
@@ -99,7 +99,7 @@ El layout se monta UNA VEZ. Solo el `<slot />` se re-renderiza al navegar.
 </view>
 ```
 
-```kyx
+```byx
 <card>
     <header>
         <text value="Título" />
@@ -115,7 +115,7 @@ El layout se monta UNA VEZ. Solo el `<slot />` se re-renderiza al navegar.
 
 ### 2.3 Slot con fallback
 
-```kyx
+```byx
 <slot name="header">
     <text value="Header por defecto" />
 </slot>
@@ -129,8 +129,8 @@ Si no se provee slot `header`, se muestra el fallback.
 
 El slot puede recibir datos del componente padre:
 
-```kyx
-# list.kyx — componente que renderiza items
+```byx
+# list.byx — componente que renderiza items
 @(
     items: {T}
     # Slot "item" recibe cada item como data
@@ -142,7 +142,7 @@ El slot puede recibir datos del componente padre:
 </view>
 ```
 
-```kyx
+```byx
 <!-- Uso -->
 <List items=@products>
     <item>
@@ -156,8 +156,8 @@ El slot puede recibir datos del componente padre:
 
 ### 3.1 Múltiples render props
 
-```kyx
-# data_table.kyx
+```byx
+# data_table.byx
 <view>
     <slot name="header" data=@columns />
     <slot name="row" data=@row />
@@ -167,7 +167,7 @@ El slot puede recibir datos del componente padre:
 </view>
 ```
 
-```kyx
+```byx
 <data_table columns=@cols rows=@rows>
     <header>
         <hstack>
@@ -188,8 +188,8 @@ El slot puede recibir datos del componente padre:
 
 Un componente puede exponer una referencia a un elemento interno:
 
-```kyx
-# input_wrapper.kyx
+```byx
+# input_wrapper.byx
 @(
     inner_ref: ^&ElementRef  # el padre recibe esta ref
 )
@@ -199,7 +199,7 @@ Un componente puede exponer una referencia a un elemento interno:
 </view>
 ```
 
-```kyx
+```byx
 @(
     input_ref: ElementRef
     fn focus_input():
@@ -214,8 +214,8 @@ Un componente puede exponer una referencia a un elemento interno:
 
 ### 4.1 Forward con múltiples refs
 
-```kyx
-# form_group.kyx
+```byx
+# form_group.byx
 @(
     refs: {
         "name": ^ElementRef,
@@ -238,7 +238,7 @@ Un componente puede exponer una referencia a un elemento interno:
 Un HOC es una función que toma un componente y retorna uno nuevo con
 funcionalidad extra:
 
-```kyle
+```byle
 fn with_auth<T>(component: type) -> type:
     # Retorna un nuevo componente que verifica auth
     return fn(props: T) View:
@@ -253,14 +253,14 @@ fn with_auth<T>(component: type) -> type:
             <redirect to="/login" />
 ```
 
-```kyx
+```byx
 @with_auth
 <admin_panel user_id=@uid />
 ```
 
 ### 5.1 HOC con configuración
 
-```kyle
+```byle
 fn with_logging<T>(component: type, name: str) -> type:
     return fn(props: T) View:
         @(
@@ -282,8 +282,8 @@ fn with_logging<T>(component: type, name: str) -> type:
 
 Múltiples componentes que funcionan juntos, compartiendo estado implícito:
 
-```kyx
-# tabs.kyx — compound component
+```byx
+# tabs.byx — compound component
 @(
     active_tab: ^str = ""
     context TabsContext:
@@ -298,7 +298,7 @@ Múltiples componentes que funcionan juntos, compartiendo estado implícito:
 </view>
 ```
 
-```kyx
+```byx
 <tabs>
     <tabs_header>
         <tab name="info" label="Información" />
@@ -317,15 +317,15 @@ Múltiples componentes que funcionan juntos, compartiendo estado implícito:
 
 Componentes que solo definen estructura:
 
-```kyx
-# two_panel.kyx
+```byx
+# two_panel.byx
 <view>
     <slot name="sidebar" />
     <slot name="main" />
 </view>
 ```
 
-```kyx
+```byx
 <two_panel>
     <sidebar>
         <nav_menu />
@@ -338,8 +338,8 @@ Componentes que solo definen estructura:
 
 ### 6.3 Delegation Pattern
 
-```kyx
-# confirm_dialog.kyx
+```byx
+# confirm_dialog.byx
 @(
     on_confirm: ^&(fn ())
     on_cancel: ^&(fn ())
@@ -366,7 +366,7 @@ Componentes que solo definen estructura:
 | Testing | Fácil (aislado) | Difícil (base+derivado) |
 | Cambios | Locales | En cascada |
 
-**En Kyle:** Todo componente es `final` por defecto. No hay herencia de
+**En Byle:** Todo componente es `final` por defecto. No hay herencia de
 componentes. Solo composición.
 
 ---
@@ -375,8 +375,8 @@ componentes. Solo composición.
 
 Separa la lógica de estado de la presentación:
 
-```kyx
-# counter_provider.kyx — solo estado
+```byx
+# counter_provider.byx — solo estado
 @(
     count: ^i32 = 0
     context CounterContext:
@@ -389,8 +389,8 @@ Separa la lógica de estado de la presentación:
 <slot />
 ```
 
-```kyx
-# counter_display.kyx — solo UI
+```byx
+# counter_display.byx — solo UI
 @(
     ctx = use_context(CounterContext)
 )
@@ -407,8 +407,8 @@ Separa la lógica de estado de la presentación:
 
 ## 9. Composición con Estilos
 
-```kyx
-# styled_button.kyx — componente que compone estilo + comportamiento
+```byx
+# styled_button.byx — componente que compone estilo + comportamiento
 @(
     variant: style  # Primary | Secondary | Danger
     on_click: ^&(fn ())
@@ -419,7 +419,7 @@ Separa la lógica de estado de la presentación:
 </button>
 ```
 
-```kyx
+```byx
 <styled_button variant=Primary click=@save>
     <icon name="save" />
     <text value="Guardar" />
@@ -443,6 +443,6 @@ Separa la lógica de estado de la presentación:
 
 ## 11. Referencias
 
-- [ui-syntax.md](../syntax/ui-syntax.md) — Sintaxis .kyx
+- [ui-syntax.md](../syntax/ui-syntax.md) — Sintaxis .byx
 - [state-events.md](state-events.md) — Estado y eventos
 - [context-patterns.md](context-patterns.md) — Provider/Consumer

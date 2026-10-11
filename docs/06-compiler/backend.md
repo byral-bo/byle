@@ -1,7 +1,7 @@
 # LLVM Backend
 
 > Configuration del backend LLVM: target machine, optimizaciones, emision de objeto.
-> Crate: `kyc_backend/src/` (codegen.rs + linker.rs + pipeline integrado).
+> Crate: `byc_backend/src/` (codegen.rs + linker.rs + pipeline integrado).
 
 ## Responsabilidad
 

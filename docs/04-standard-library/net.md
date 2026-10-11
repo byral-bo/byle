@@ -5,7 +5,7 @@
 
 ## TCP server
 
-```ky
+```by
 use std.net
 
 listener: tcp_listener = net.tcp_listen(8080)!
@@ -20,7 +20,7 @@ while true:
 
 ## TCP client
 
-```ky
+```by
 conn: tcp_stream = net.tcp_connect("example.com", 80)!
 conn.write("GET / HTTP/1.1\r\nHost: example.com\r\n\r\n")
 response: str = conn.read(4096)
@@ -47,7 +47,7 @@ conn.close()
 
 ## Example: simple HTTP server
 
-```ky
+```by
 use std.net
 
 fn handle_request(client: tcp_stream):

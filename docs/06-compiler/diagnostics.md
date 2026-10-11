@@ -1,7 +1,7 @@
 # Diagnostics
 
 > Sistema de errors y diagnosticos del compiler.
-> Crate: `kyc_core/src/diagnostics.rs` / `kyc_core/src/span.rs`
+> Crate: `byc_core/src/diagnostics.rs` / `byc_core/src/span.rs`
 
 ## Responsabilidad
 
@@ -14,19 +14,19 @@ Cada error has un code unico:
 
 | Code | Significado |
 |--------|-------------|
-| `KL-E0001` | Type mismatch |
-| `KL-E0002` | Syntax error |
-| `KL-E0003` | Undefined type |
-| `KL-E0004` | Cannot modify immutable |
-| `KL-E0005` | Undefined function |
-| `KL-E0006` | Wrong number of arguments |
-| `KL-E0007` | Cannot modify constant |
-| `KL-E0008` | Invalid assignment target |
-| `KL-E0009` | Undefined symbol |
-| `KL-E0010` | Wrong number of type arguments |
-| `KL-E0011` | Ambiguous type |
-| `KL-E0012` | Return type mismatch |
-| `KL-E0013` | Move analysis error |
+| `BYLE-E0001` | Type mismatch |
+| `BYLE-E0002` | Syntax error |
+| `BYLE-E0003` | Undefined type |
+| `BYLE-E0004` | Cannot modify immutable |
+| `BYLE-E0005` | Undefined function |
+| `BYLE-E0006` | Wrong number of arguments |
+| `BYLE-E0007` | Cannot modify constant |
+| `BYLE-E0008` | Invalid assignment target |
+| `BYLE-E0009` | Undefined symbol |
+| `BYLE-E0010` | Wrong number of type arguments |
+| `BYLE-E0011` | Ambiguous type |
+| `BYLE-E0012` | Return type mismatch |
+| `BYLE-E0013` | Move analysis error |
 
 ## Estructura
 
@@ -49,11 +49,11 @@ Cada error has un code unico:
 ## Formato de output
 
 ```
-KL-E0001: Type mismatch
+BYLE-E0001: Type mismatch
 
  expected 'i32', found 'str'
 
- --> file.ky:10:5
+ --> file.by:10:5
  |
 10 | x = "hello" + 42
  | ^^^^^^^^^^^^^ expected i32 here

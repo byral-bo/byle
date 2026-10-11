@@ -12,10 +12,10 @@
 
 ### 1.1 animation_state
 
-Estado animable en un fotograma. Es un tipo Kyle con todas las propiedades
+Estado animable en un fotograma. Es un tipo Byle con todas las propiedades
 que pueden animarse:
 
-```kyle
+```byle
 final class animation_state:
     opacity: f32?          # 0.0 a 1.0
     translate_x: f32?      # desplazamiento en píxeles
@@ -35,7 +35,7 @@ final class animation_state:
 
 Un fotograma en la línea de tiempo:
 
-```kyle
+```byle
 final class animation_frame:
     progress: f32           # 0.0 a 1.0 (porcentaje de la animación)
     state: animation_state   # estado en ese punto
@@ -48,7 +48,7 @@ final class animation_frame:
 Las animaciones se declaran con sintaxis `animation<componente> Nombre:`,
 igual que los estilos con `style<componente>`, asegurando type-safety:
 
-```kyle
+```byle
 # Animación completa con fotogramas
 animation<view> FadeIn:
     duration = 300              # milisegundos
@@ -89,7 +89,7 @@ animation<view> Pulse:
 Las transiciones se declaran DENTRO de los estilos, no como bloque separado.
 Son parte del `Transition` type:
 
-```kyle
+```byle
 style<button> Primary:
     background = color("#0066FF")
     color = color("#FFFFFF")
@@ -108,7 +108,7 @@ style<button> PrimaryHover: Primary:
 
 ### 1.5 Micro-interacciones
 
-```kyle
+```byle
 animation<button> Ripple:
     type = animation_type.ripple
     duration = 600
@@ -131,7 +131,7 @@ animation<button> ScalePress:
 
 ### 2.1 Easing
 
-```kyle
+```byle
 enum Easing:
     Linear
     Ease
@@ -154,7 +154,7 @@ enum Easing:
 
 ### 2.2 FillMode
 
-```kyle
+```byle
 enum FillMode:
     None       # no aplicar estilo después de la animación
     Forwards   # mantener el estado final
@@ -164,7 +164,7 @@ enum FillMode:
 
 ### 2.3 AnimationIteration
 
-```kyle
+```byle
 enum AnimationIteration:
     Count(i32)     # número específico de repeticiones
     Infinite       # loop infinito
@@ -172,7 +172,7 @@ enum AnimationIteration:
 
 ### 2.4 AnimationType
 
-```kyle
+```byle
 enum AnimationType:
     Standard       # keyframes normales
     Ripple         # efecto de onda (click)
@@ -186,8 +186,8 @@ enum AnimationType:
 
 ## 3. Uso en Componentes
 
-```kyx
-# app.kyx — ejemplo completo
+```byx
+# app.byx — ejemplo completo
 @(
     visible: ^bool = false
     fn toggle():
@@ -221,7 +221,7 @@ enum AnimationType:
 
 ### 4.1 Web
 
-Las animaciones Kyle se compilan a CSS animations/transitions + Web Animations API:
+Las animaciones Byle se compilan a CSS animations/transitions + Web Animations API:
 
 ```javascript
 // ui-runtime.js — generado automáticamente
@@ -258,7 +258,7 @@ function applyAnimation(element, name) {
 
 ### 4.2 Desktop (Skia)
 
-```kyle
+```byle
 # Generado automáticamente por el compilador de animaciones
 fn animate_fade_in(el, start_time: i64):
     elapsed = now() - start_time
@@ -287,8 +287,8 @@ fn animate_fade_in(el, start_time: i64):
 
 ## 6. Ejemplo completo
 
-```kyx
-# card.kyx — componente con animaciones
+```byx
+# card.byx — componente con animaciones
 @(
     hover: ^bool = false
 )

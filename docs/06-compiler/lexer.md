@@ -1,7 +1,7 @@
 # Lexer
 
-> Transforma code source `.ky` en un stream de tokens.
-> Crate: `kyc_frontend/src/lexer.rs` (914 lines).
+> Transforma code source `.by` en un stream de tokens.
+> Crate: `byc_frontend/src/lexer.rs` (914 lines).
 
 ## Responsabilidad
 
@@ -41,9 +41,9 @@ Cada token tiene:
 
 ### Indentation as syntax
 
-Kyle usa **indentation** for delimitar bloquis (como Python), no llaves:
+Byle usa **indentation** for delimitar bloquis (como Python), no llaves:
 
-```ky
+```by
 fn main() i32:
  x = 42
  if x > 10:
@@ -64,7 +64,7 @@ Esto simplifica parbe y does code more limpio.
 
 ## Example
 
-```ky
+```by
 # Code source
 fn sum(a: i32, b: i32) i32:
  result = a + b

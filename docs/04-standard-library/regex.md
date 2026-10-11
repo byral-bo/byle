@@ -5,7 +5,7 @@
 
 ## Creating a regex
 
-```ky
+```by
 use std.regex
 
 re: regex = regex("[0-9]+")
@@ -13,7 +13,7 @@ re: regex = regex("[0-9]+")
 
 ## Matching
 
-```ky
+```by
 re: regex = regex("[0-9]+")
 
 re.is_match("abc123")     # true
@@ -22,7 +22,7 @@ re.is_match("abc")        # false
 
 ## Finding
 
-```ky
+```by
 re: regex = regex("[0-9]+")
 
 first: str = re.find("abc123def456")      # "123"
@@ -31,7 +31,7 @@ all: [str] = re.find_all("abc123def456")   # ["123", "456"]
 
 ## Replacing
 
-```ky
+```by
 re: regex = regex("[0-9]+")
 
 result: str = re.replace("abc123def", "X")   # "abcXdef"
@@ -39,7 +39,7 @@ result: str = re.replace("abc123def", "X")   # "abcXdef"
 
 ## Splitting
 
-```ky
+```by
 re: regex = regex("[,\\s]+")
 
 parts: [str] = re.split("a, b  c,d")   # ["a", "b", "c", "d"]
@@ -47,7 +47,7 @@ parts: [str] = re.split("a, b  c,d")   # ["a", "b", "c", "d"]
 
 ## Groups
 
-```ky
+```by
 re: regex = regex("(\\w+)@(\\w+)")
 m: str = re.find("user@host")
 println(m)   # "user@host"
@@ -66,7 +66,7 @@ println(m)   # "user@host"
 
 ## Example
 
-```ky
+```by
 use std.regex
 
 # Validate email

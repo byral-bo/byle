@@ -1,29 +1,29 @@
-# RFC-0002: Kyle UI Framework
+# RFC-0002: Byle UI Framework
 
 **Status:** Implementado (FASIS A-C) — Actualizado 2026-07-11
 **Date:** 2026-07-09 (creado)
 **Documentaci&oacute;n relacionada:**
 - [`docs/10-design/rfc/0003-ui-translation.md`](0003-ui-translation.md) — Traducci&oacute;n multi-target (JS/WASM/nativo)
 - [`docs/10-design/rfc/0005-ui-rearchitecture-plan.md`](0005-ui-rearchitecture-plan.md) — Plan de readaptaci&oacute;n multi-plataforma
-- [`docs/03-language/syntax/ui-syntax.md`](../../03-language/syntax/ui-syntax.md) — sintaxis .kyx
+- [`docs/03-language/syntax/ui-syntax.md`](../../03-language/syntax/ui-syntax.md) — sintaxis .byx
 - [`docs/07-tools/distribution.md`](../../07-tools/distribution.md) — distribuci&oacute;n multi-plataforma (Fase 0)
 
 ---
 
 ## 1. Visi&oacute;n General
 
-Kyle UI es un sistema de UI declarativo que permite escribir una sola vez la interfaz
-en `.kyx` y desplegarla en **cualquier plataforma**:
+Byle UI es un sistema de UI declarativo que permite escribir una sola vez la interfaz
+en `.byx` y desplegarla en **cualquier plataforma**:
 
 | Plataforma | Target | Pipeline |
 |------------|--------|----------|
-| **Web** | `wasm32-unknown-unknown` | Kyle → LLVM → WASM → DOM |
-| **Windows** | `x86_64-pc-windows-gnu` | Kyle → LLVM → Win32/Skia |
-| **macOS** | `aarch64-apple-darwin` | Kyle → LLVM → Cocoa/Skia |
-| **Linux** | `x86_64-unknown-linux-gnu` | Kyle → LLVM → X11/Wayland/Skia |
-| **Android** | `aarch64-linux-android` | Kyle → LLVM → Android NDK |
-| **iOS** | `aarch64-apple-ios` | Kyle → LLVM → UIKit/SwiftUI |
-| **Custom OS** | `x86_64-unknown-kyleos` | Kyle → LLVM → Kyle Graphics Stack |
+| **Web** | `wasm32-unknown-unknown` | Byle → LLVM → WASM → DOM |
+| **Windows** | `x86_64-pc-windows-gnu` | Byle → LLVM → Win32/Skia |
+| **macOS** | `aarch64-apple-darwin` | Byle → LLVM → Cocoa/Skia |
+| **Linux** | `x86_64-unknown-linux-gnu` | Byle → LLVM → X11/Wayland/Skia |
+| **Android** | `aarch64-linux-android` | Byle → LLVM → Android NDK |
+| **iOS** | `aarch64-apple-ios` | Byle → LLVM → UIKit/SwiftUI |
+| **Custom OS** | `x86_64-unknown-byleos` | Byle → LLVM → Byle Graphics Stack |
 
 El principio fundamental: **un solo lenguaje, un solo compilador, m&uacute;ltiples backends**.
 
@@ -32,32 +32,32 @@ El principio fundamental: **un solo lenguaje, un solo compilador, m&uacute;ltipl
 | Principio | Significado |
 |-----------|-------------|
 | **Declarativo** | El qu&eacute;, no el c&oacute;mo. El framework optimiza el renderizado. |
-| **Sin JS** | Todo el c&oacute;digo es Kyle. No hay transpilaci&oacute;n a JavaScript. |
+| **Sin JS** | Todo el c&oacute;digo es Byle. No hay transpilaci&oacute;n a JavaScript. |
 | **FFI nativo** | Cada plataforma expone sus APIs v&iacute;a `extern fn` + `@link`. |
-| **Un solo parser** | .kyx se transforma a AST de Kyle. El mismo pipeline sem&aacute;ntico + MIR + LLVM. |
-| **Runtime en Kyle** | Los componentes UI se escriben en Kyle puro (como http, json, sqlite). |
+| **Un solo parser** | .byx se transforma a AST de Byle. El mismo pipeline sem&aacute;ntico + MIR + LLVM. |
+| **Runtime en Byle** | Los componentes UI se escriben en Byle puro (como http, json, sqlite). |
 
 ---
 
-## 2. C&oacute;mo se compila .kyx
+## 2. C&oacute;mo se compila .byx
 
-El archivo `.kyx` no es un lenguaje nuevo. Es **az&uacute;car sint&aacute;ctico** que el compilador
-transforma a Kyle est&aacute;ndar antes de pasarlo al pipeline existente.
+El archivo `.byx` no es un lenguaje nuevo. Es **az&uacute;car sint&aacute;ctico** que el compilador
+transforma a Byle est&aacute;ndar antes de pasarlo al pipeline existente.
 
 ### 2.1 Pipeline de compilaci&oacute;n
 
 ```
-.kyx (XML-like)
+.byx (XML-like)
   │
   ▼
 ┌──────────────────────┐
-│  .kyx Parser         │  ← NUEVO: transforma XML a AST Kyle
-│  (frontend/kyx.rs)   │
+│  .byx Parser         │  ← NUEVO: transforma XML a AST Byle
+│  (frontend/byx.rs)   │
 └──────────┬───────────┘
            ▼
 ┌──────────────────────┐
-│  AST Kyle            │  ← Existente: mismo AST
-│  (kyc_core/ast.rs)   │
+│  AST Byle            │  ← Existente: mismo AST
+│  (byc_core/ast.rs)   │
 └──────────┬───────────┘
            ▼
 ┌──────────────────────┐
@@ -67,7 +67,7 @@ transforma a Kyle est&aacute;ndar antes de pasarlo al pipeline existente.
            ▼
 ┌──────────────────────┐
 │  LLVM Codegen        │  ← Existente: set target triple
-│  (kyc_backend)       │
+│  (byc_backend)       │
 └──────────┬───────────┘
            ▼
     .wasm / .exe / app  ← Seg&uacute;n target
@@ -75,26 +75,26 @@ transforma a Kyle est&aacute;ndar antes de pasarlo al pipeline existente.
 
 ### 2.2 Transformaci&oacute;n XML → AST
 
-```kyx
+```byx
 <button text="Login" click=@login />
 ```
 
 se transforma a:
 
-```kyle
+```byle
 button(text: "Login", click: login)
 ```
 
-El parser .kyx debe soportar:
+El parser .byx debe soportar:
 
-| Sintaxis .kyx | Equivalente Kyle |
+| Sintaxis .byx | Equivalente Byle |
 |---------------|------------------|
 | `<Componente />` | `componente()` |
 | `<Comp attr=@val />` | `comp(attr: val)` |
 | `<Comp attr="str" />` | `comp(attr: "str")` |
 | `<Comp>hijo</Comp>` | `comp(hijo)` |
 | `@expr` | `expr` |
-| `@(bloque)` | Bloque Kyle embebido |
+| `@(bloque)` | Bloque Byle embebido |
 | `@if:` / `@for:` | Control flow |
 | `@match:` | Pattern matching |
 | `style<X> Name:` | Struct de estilo |
@@ -102,15 +102,15 @@ El parser .kyx debe soportar:
 
 ### 2.3 Extensi&oacute;n de archivo
 
-- `.kyx` = vista (componente o p&aacute;gina)
-- `.ky` = l&oacute;gica opcional (el mismo componente puede tener ambos)
+- `.byx` = vista (componente o p&aacute;gina)
+- `.by` = l&oacute;gica opcional (el mismo componente puede tener ambos)
 
-El module resolver debe buscar `.kyx` adem&aacute;s de `.ky`:
+El module resolver debe buscar `.byx` adem&aacute;s de `.by`:
 
 ```
 use Login.view
-  → busca Login.ky (no existe)
-  → busca Login.kyx (existe) → lo parsea
+  → busca Login.by (no existe)
+  → busca Login.byx (existe) → lo parsea
 ```
 
 ---
@@ -119,32 +119,32 @@ use Login.view
 
 ### Fase 0 — Base (ahora)
 
-**Objetivo:** Que Kyle se instale en cualquier plataforma y el compilador soporte target triples.
+**Objetivo:** Que Byle se instale en cualquier plataforma y el compilador soporte target triples.
 
 | # | Tarea | Dependencia |
 |---|-------|-------------|
 | 0.1 | Instalador multi-plataforma (install.sh + install.ps1) | — |
-| 0.2 | Flag `--target` en `ky build` | — |
+| 0.2 | Flag `--target` en `by build` | — |
 | 0.3 | Linker seleccionable por target (no por host) | 0.2 |
 | 0.4 | Runtime cross-compilado para cada target | 0.1 |
-| 0.5 | Directorio de runtimes: `~/.ky/lib/targets/<triple>/` | 0.4 |
+| 0.5 | Directorio de runtimes: `~/.by/lib/targets/<triple>/` | 0.4 |
 
 Documento asociado: [`docs/07-tools/distribution.md`](../../07-tools/distribution.md)
 
 ---
 
-### Fase 1 — Parser .kyx
+### Fase 1 — Parser .byx
 
-**Objetivo:** Poder escribir `.kyx` y compilarlo a nativo.
+**Objetivo:** Poder escribir `.byx` y compilarlo a nativo.
 
 | # | Tarea | Dependencia |
 |---|-------|-------------|
-| 1.1 | Registrar `.kyx` como extensi&oacute;n conocida | — |
-| 1.2 | Parser XML → AST de Kyle (nuevo crate: `kyc_ui`) | — |
-| 1.3 | Module resolver busca `.kyx` adem&aacute;s de `.ky` | 1.1 |
-| 1.4 | `ky build login.kyx` produce ejecutable nativo | 1.2, 1.3 |
-| 1.5 | Soporte de fragmentos `@(...)` con c&oacute;digo Kyle | 1.2 |
-| 1.6 | Soporte de `@if`, `@for`, `@match` en .kyx | 1.5 |
+| 1.1 | Registrar `.byx` como extensi&oacute;n conocida | — |
+| 1.2 | Parser XML → AST de Byle (nuevo crate: `byc_ui`) | — |
+| 1.3 | Module resolver busca `.byx` adem&aacute;s de `.by` | 1.1 |
+| 1.4 | `by build login.byx` produce ejecutable nativo | 1.2, 1.3 |
+| 1.5 | Soporte de fragmentos `@(...)` con c&oacute;digo Byle | 1.2 |
+| 1.6 | Soporte de `@if`, `@for`, `@match` en .byx | 1.5 |
 | 1.7 | Soporte de `style<>`, `layout<>`, `tpl<>`, `theme` | 1.5 |
 | 1.8 | Soporte de slots y componentes hijos | 1.4 |
 
@@ -152,16 +152,16 @@ Documento asociado: [`docs/07-tools/distribution.md`](../../07-tools/distributio
 
 ### Fase 2 — WebAssembly
 
-**Objetivo:** Compilar .kyx a WASM y correr en el navegador.
+**Objetivo:** Compilar .byx a WASM y correr en el navegador.
 
 | # | Tarea | Dependencia |
 |---|-------|-------------|
 | 2.1 | Soportar target `wasm32-unknown-unknown` en codegen | 0.2 |
-| 2.2 | Compilar `kyc_runtime` a WASM | — |
+| 2.2 | Compilar `byc_runtime` a WASM | — |
 | 2.3 | Linker WASM: `wasm-ld` en linker.rs | 0.3 |
-| 2.4 | Runtime DOM: bindings Kyle → JS (`extern fn`) | — |
-| 2.5 | `ky new webapp` — template con HTML shell | 2.1–2.4 |
-| 2.6 | Eventos del DOM (click, input, change) en Kyle | 2.4 |
+| 2.4 | Runtime DOM: bindings Byle → JS (`extern fn`) | — |
+| 2.5 | `by new webapp` — template con HTML shell | 2.1–2.4 |
+| 2.6 | Eventos del DOM (click, input, change) en Byle | 2.4 |
 | 2.7 | Two-way binding en WASM | 2.6 |
 | 2.8 | Optimizaci&oacute;n: tama&ntilde;o del .wasm, lazy loading | 2.1 |
 
@@ -171,7 +171,7 @@ Documento asociado: [`docs/07-tools/distribution.md`](../../07-tools/distributio
 LLVM genera .wasm directamente (wasm32-unknown-unknown)
   │
   ▼
-Runtime Kyle compilado a WASM (memoria, strings, lists)
+Runtime Byle compilado a WASM (memoria, strings, lists)
   │
   ▼
 DOM bindings via imports WASM:
@@ -179,8 +179,8 @@ DOM bindings via imports WASM:
   (import "dom" "addEventListener" (func ...))
   │
   ▼
-Browser carga el WASM. Kyle llama a funciones JS
-para manipular el DOM. Sin JS engorroso, todo desde Kyle.
+Browser carga el WASM. Byle llama a funciones JS
+para manipular el DOM. Sin JS engorroso, todo desde Byle.
 ```
 
 ---
@@ -191,7 +191,7 @@ para manipular el DOM. Sin JS engorroso, todo desde Kyle.
 
 | # | Tarea | Dependencia |
 |---|-------|-------------|
-| 3.1 | Crear `packages/ui/` con componentes base en Kyle | — |
+| 3.1 | Crear `packages/ui/` con componentes base en Byle | — |
 | 3.2 | FFI a Skia (`@link "libskia"`) para canvas 2D | — |
 | 3.3 | Ventana nativa: Win32, Cocoa, X11 v&iacute;a FFI | — |
 | 3.4 | Sistema de layout (flexbox-like) | 3.1 |
@@ -200,13 +200,13 @@ para manipular el DOM. Sin JS engorroso, todo desde Kyle.
 | 3.7 | Componentes: Navigation, Tab, Drawer, Dialog | 3.6 |
 | 3.8 | Sistema de estilos y temas (from `style<>`/`theme`) | 3.1 |
 | 3.9 | Animaciones y transiciones | 3.8 |
-| 3.10 | `ky new app` — template multiplataforma | 3.5 |
+| 3.10 | `by new app` — template multiplataforma | 3.5 |
 
 ---
 
 ### Fase 4 — Mobile (Android + iOS)
 
-**Objetivo:** Compilar .kyx a apps nativas de m&oacute;vil.
+**Objetivo:** Compilar .byx a apps nativas de m&oacute;vil.
 
 | # | Tarea | Dependencia |
 |---|-------|-------------|
@@ -215,22 +215,22 @@ para manipular el DOM. Sin JS engorroso, todo desde Kyle.
 | 4.3 | Runtime Android: SurfaceView + touch events | 3.2 |
 | 4.4 | Runtime iOS: Metal + UIKit bridge | 3.2 |
 | 4.5 | Componentes nativos mobile (BottomBar, Swipe, etc.) | 3.5 |
-| 4.6 | `ky new mobile` — template Android + iOS | 4.1–4.5 |
+| 4.6 | `by new mobile` — template Android + iOS | 4.1–4.5 |
 
 ---
 
 ### Fase 5 — Custom OS
 
-**Objetivo:** Kyle como lenguaje de sistema para un OS basado en Linux.
+**Objetivo:** Byle como lenguaje de sistema para un OS basado en Linux.
 
 | # | Tarea | Dependencia |
 |---|-------|-------------|
-| 5.1 | Kyle runtime sin libc (freestanding) | — |
-| 5.2 | Kyle graphics stack en lugar de X11/Wayland | 3.2 |
-| 5.3 | Kernel Linux + init en Kyle | 5.1 |
-| 5.4 | Sistema de ventanas en Kyle | 5.2 |
-| 5.5 | Drivers de dispositivo en Kyle (FFI al kernel) | 5.1 |
-| 5.6 | `ky build --target kyle-os` | 0.2 |
+| 5.1 | Byle runtime sin libc (freestanding) | — |
+| 5.2 | Byle graphics stack en lugar de X11/Wayland | 3.2 |
+| 5.3 | Kernel Linux + init en Byle | 5.1 |
+| 5.4 | Sistema de ventanas en Byle | 5.2 |
+| 5.5 | Drivers de dispositivo en Byle (FFI al kernel) | 5.1 |
+| 5.6 | `by build --target byle-os` | 0.2 |
 
 ---
 
@@ -241,35 +241,35 @@ El runtime UI sigue el mismo patr&oacute;n que los paquetes existentes (http, js
 ```
 packages/ui/
   src/
-    lib.ky             # Entry point, re-exports
+    lib.by             # Entry point, re-exports
     components/
-      view.ky          # <view>
-      text.ky          # <text>
-      button.ky        # <button>
-      text_field.ky    # <text_field>
+      view.by          # <view>
+      text.by          # <text>
+      button.by        # <button>
+      text_field.by    # <text_field>
       ...
     layout/
-      flex.ky          # Flexbox layout engine
-      grid.ky          # Grid layout
+      flex.by          # Flexbox layout engine
+      grid.by          # Grid layout
     style/
-      theme.ky         # Sistema de temas
-      animation.ky     # Animaciones
+      theme.by         # Sistema de temas
+      animation.by     # Animaciones
     platform/
-      web.ky           # DOM bindings (Fase 2)
-      desktop.ky       # Skia bindings (Fase 3)
-      mobile.ky        # Mobile bindings (Fase 4)
+      web.by           # DOM bindings (Fase 2)
+      desktop.by       # Skia bindings (Fase 3)
+      mobile.by        # Mobile bindings (Fase 4)
     extern/
-      skia.ky          # @link "libskia"
-      dom.ky           # @link a funciones JS (WASM)
-      win32.ky         # @link "user32"
-      cocoa.ky         # @link a frameworks macOS
-      x11.ky           # @link "libX11"
+      skia.by          # @link "libskia"
+      dom.by           # @link a funciones JS (WASM)
+      win32.by         # @link "user32"
+      cocoa.by         # @link a frameworks macOS
+      x11.by           # @link "libX11"
 ```
 
-Cada componente UI en Kyle:
+Cada componente UI en Byle:
 
-```kyle
-# packages/ui/src/components/button.ky
+```byle
+# packages/ui/src/components/button.by
 
 extern fn skia_draw_rounded_rect(x: f32, y: f32, w: f32, h: f32, radius: f32)
 extern fn skia_draw_text(x: f32, y: f32, text: &str)
@@ -289,12 +289,12 @@ final class Button:
 
 ### 5.1 Flag `--target`
 
-`ky build` debe aceptar `--target` para especificar la plataforma de salida:
+`by build` debe aceptar `--target` para especificar la plataforma de salida:
 
 ```bash
-ky build app.ky                           # nativo (host)
-ky build --target wasm32 app.ky           # WebAssembly
-ky build --target x86_64-unknown-linux-gnu app.ky  # Linux x64
+by build app.by                           # nativo (host)
+by build --target wasm32 app.by           # WebAssembly
+by build --target x86_64-unknown-linux-gnu app.by  # Linux x64
 ```
 
 Esto implica:
@@ -303,22 +303,22 @@ Esto implica:
 
 ### 5.2 Resoluci&oacute;n de m&oacute;dulos
 
-El resolver debe priorizar `.ky` sobre `.kyx` si ambos existen:
+El resolver debe priorizar `.by` sobre `.byx` si ambos existen:
 
 ```
 use Login.view
-  → Login.ky existe? → usarlo (.ky tiene prioridad)
-  → Login.kyx existe? → parsearlo como .kyx
+  → Login.by existe? → usarlo (.by tiene prioridad)
+  → Login.byx existe? → parsearlo como .byx
   → Error: no encontrado
 ```
 
 ### 5.3 Directorio de runtimes
 
 ```
-~/.ky/
-  bin/ky
+~/.by/
+  bin/by
   lib/
-    libkyc_runtime.a                       # runtime host
+    libbyc_runtime.a                       # runtime host
     targets/
       aarch64-apple-darwin/                # macOS ARM
       x86_64-apple-darwin/                 # macOS Intel
@@ -331,14 +331,14 @@ use Login.view
 
 Cada subdirectorio contiene:
 ```
-libkyc_runtime.a              # Runtime base compilado para ese target
-libkyc_ui_runtime.a           # Runtime UI (Fase 3+)
+libbyc_runtime.a              # Runtime base compilado para ese target
+libbyc_ui_runtime.a           # Runtime UI (Fase 3+)
 ```
 
 ### 5.4 Componentes nativos del sistema
 
 Los componentes predefinidos (App, View, Text, Button, etc.) se implementan
-como paquetes Kyle, no como built-ins del compilador. El compilador solo
+como paquetes Byle, no como built-ins del compilador. El compilador solo
 provee el pipeline de compilaci&oacute;n y el FFI.
 
 ---
@@ -349,7 +349,7 @@ provee el pipeline de compilaci&oacute;n y el FFI.
 |-------------------|--------|-------------|
 | Backend especializado para un solo target | El c&oacute;digo se vuelve insostenible cuando llegan m&aacute;s targets | LLVM ya maneja todos; solo configura el triple |
 | Linker hardcodeado por OS | No se puede cross-compilar | Seleccionar linker por target (din&aacute;mico) |
-| Parser de .kyx separado del de .ky | Duplicaci&oacute;n de l&oacute;gica sem&aacute;ntica | .kyx → AST Kyle → pipeline existente |
+| Parser de .byx separado del de .by | Duplicaci&oacute;n de l&oacute;gica sem&aacute;ntica | .byx → AST Byle → pipeline existente |
 | Runtime UI monol&iacute;tico | Dif&iacute;cil de mantener y portar | Componentes modulares (un archivo por componente) |
 | Bindings JS espec&iacute;ficos de un browser | No funciona en todos los browsers | DOM est&aacute;ndar W3C |
 | Dependencia de npm/Node.js para web | Contradice la filosof&iacute;a "sin JS" | WASM puro, sin Node.js |
@@ -361,13 +361,13 @@ provee el pipeline de compilaci&oacute;n y el FFI.
 
 | T&eacute;rmino | Significado |
 |---------------|-------------|
-| .kyx | Archivo de vista Kyle UI (XML-like) |
+| .byx | Archivo de vista Byle UI (XML-like) |
 | Target triple | Identificador de plataforma LLVM (ej: `wasm32-unknown-unknown`) |
 | WASM | WebAssembly, formato binario para navegadores |
-| FFI | Foreign Function Interface, mecanismo para llamar C desde Kyle |
+| FFI | Foreign Function Interface, mecanismo para llamar C desde Byle |
 | Skia | Biblioteca de gr&aacute;ficos 2D multiplataforma (usada por Chrome, Flutter) |
 | Shell HTML | `index.html` que carga un m&oacute;dulo WASM |
-| Componente | Unidad de UI reutilizable en .kyx |
+| Componente | Unidad de UI reutilizable en .byx |
 | Slot | Lugar reservado para contenido hijo en un componente |
 | Binding | Conexi&oacute;n bidireccional entre variable y UI |
 
@@ -375,7 +375,7 @@ provee el pipeline de compilaci&oacute;n y el FFI.
 
 ## 8. Referencias
 
-- [`docs/03-language/syntax/ui-syntax.md`](../../03-language/syntax/ui-syntax.md) — Sintaxis completa de .kyx
+- [`docs/03-language/syntax/ui-syntax.md`](../../03-language/syntax/ui-syntax.md) — Sintaxis completa de .byx
 - [`docs/07-tools/distribution.md`](../../07-tools/distribution.md) — Distribuci&oacute;n multi-plataforma (Fase 0)
 - [`docs/03-language/ffi/abi.md`](../../03-language/ffi/abi.md) — FFI extern fn + @link
 - LLVM WebAssembly target: `wasm32-unknown-unknown`

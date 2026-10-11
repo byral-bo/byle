@@ -1,24 +1,29 @@
-# install.ps1 — Windows PowerShell installer for Kyle
+# install.ps1 — Windows PowerShell installer for Byle
 #
 # Usage:
-#   iwr -Uri "https://raw.githubusercontent.com/kyal-tech/kyle/main/install.ps1" | iex
+#   iwr -Uri "https://raw.githubusercontent.com/kyal-tech/byle/main/scripts/install.ps1" | iex
 #
 # Environment variables:
-#   $env:KY_VERSION = "v0.6.1"     Version to install (default: latest)
-#   $env:KY_PREFIX = "C:\ky"       Install directory (default: ~\.ky)
+#   $env:BY_VERSION = "v0.8.9"     Version to install (default: latest)
+#   $env:BY_PREFIX = "C:\by"       Install directory (default: ~\.by)
 
 param(
     [string]$Version = "v0.8.9",
     [string]$Prefix = ""
 )
 
-$Repo = "kyal-tech/kyle"
+$Repo = "kyal-tech/byle"
 
 # ─── Detect architecture ────────────────────────────────────
 
-$Arch = if ([Environment]::Is64BitOperatingSystem) { "x64" } else { "arm64" }
+$RuntimeArch = [System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture.ToString()
+if ($RuntimeArch -ne "X64") {
+    Write-Host "Error: Windows architecture '$RuntimeArch' is not supported by this release (x64 only)."
+    exit 1
+}
+$Arch = "x64"
 $Platform = "windows-$Arch"
-$Bundle = "ky-windows-$Arch.zip"
+$Bundle = "by-windows-$Arch.zip"
 $BundleUrl = "https://github.com/$Repo/releases/download/$Version/$Bundle"
 
 Write-Host "Detected: $Platform"
@@ -26,22 +31,22 @@ Write-Host "Detected: $Platform"
 # ─── Determine install prefix ───────────────────────────────
 
 if (-not $Prefix) {
-    $env:KY_PREFIX = if ($env:KY_PREFIX) { $env:KY_PREFIX } else { "$env:USERPROFILE\.ky" }
+    $env:BY_PREFIX = if ($env:BY_PREFIX) { $env:BY_PREFIX } else { "$env:USERPROFILE\.by" }
 } else {
-    $env:KY_PREFIX = $Prefix
+    $env:BY_PREFIX = $Prefix
 }
 
-$BinDir = "$env:KY_PREFIX\bin"
-$LibDir = "$env:KY_PREFIX\lib"
+$BinDir = "$env:BY_PREFIX\bin"
+$LibDir = "$env:BY_PREFIX\lib"
 
 # ─── Download ───────────────────────────────────────────────
 
-$TmpDir = "$env:TEMP\ky-install"
+$TmpDir = "$env:TEMP\by-install"
 if (Test-Path $TmpDir) { Remove-Item -Recurse -Force $TmpDir }
 New-Item -ItemType Directory -Force -Path $TmpDir | Out-Null
 
 $OutFile = "$TmpDir\$Bundle"
-Write-Host "Downloading Kyle $Version for $Platform..."
+Write-Host "Downloading Byle $Version for $Platform..."
 Write-Host "  $BundleUrl"
 
 try {
@@ -50,6 +55,24 @@ try {
     Write-Host "Error: failed to download $Bundle"
     Write-Host "Check that $Version exists at:"
     Write-Host "  https://github.com/$Repo/releases"
+    exit 1
+}
+
+# ─── Verify checksum ───────────────────────────────────────
+
+$ChecksumUrl = "$BundleUrl.sha256"
+$ChecksumFile = "$TmpDir\$Bundle.sha256"
+try {
+    Invoke-WebRequest -Uri $ChecksumUrl -OutFile $ChecksumFile -UseBasicParsing
+    $ExpectedHash = (Get-Content $ChecksumFile -Raw).Trim() -split '\s+' | Select-Object -First 1
+    $ActualHash = (Get-FileHash -Path $OutFile -Algorithm SHA256).Hash.ToLowerInvariant()
+    if ($ExpectedHash.ToLowerInvariant() -ne $ActualHash) {
+        Write-Host "Error: checksum verification failed"
+        exit 1
+    }
+    Write-Host "Checksum verified."
+} catch {
+    Write-Host "Error: unable to verify bundle checksum"
     exit 1
 }
 
@@ -63,29 +86,29 @@ try {
     exit 1
 }
 
-if (-not (Test-Path "$TmpDir\ky.exe")) {
-    Write-Host "Error: ky.exe not found in archive"
+if (-not (Test-Path "$TmpDir\by.exe")) {
+    Write-Host "Error: by.exe not found in archive"
     Get-ChildItem $TmpDir
     exit 1
 }
 
 # ─── Install ─────────────────────────────────────────────────
 
-Write-Host "Installing to $env:KY_PREFIX..."
+Write-Host "Installing to $env:BY_PREFIX..."
 
 # Create directories
 New-Item -ItemType Directory -Force -Path $BinDir | Out-Null
 New-Item -ItemType Directory -Force -Path $LibDir | Out-Null
 
 # Copy files
-Copy-Item "$TmpDir\ky.exe" "$BinDir\ky.exe" -Force
-if (Test-Path "$TmpDir\libkyc_runtime.a") {
-    Copy-Item "$TmpDir\libkyc_runtime.a" "$LibDir\libkyc_runtime.a" -Force
-} elseif (Test-Path "$TmpDir\kyc_runtime.lib") {
-    Copy-Item "$TmpDir\kyc_runtime.lib" "$LibDir\kyc_runtime.lib" -Force
+Copy-Item "$TmpDir\by.exe" "$BinDir\by.exe" -Force
+if (Test-Path "$TmpDir\libbyc_runtime.a") {
+    Copy-Item "$TmpDir\libbyc_runtime.a" "$LibDir\libbyc_runtime.a" -Force
+} elseif (Test-Path "$TmpDir\byc_runtime.lib") {
+    Copy-Item "$TmpDir\byc_runtime.lib" "$LibDir\byc_runtime.lib" -Force
 }
 
-# Clean up ky install temp
+# Clean up by install temp
 Remove-Item -Recurse -Force $TmpDir
 
 # ─── Add to PATH ────────────────────────────────────────────
@@ -114,19 +137,19 @@ $env:PATH = "$BinDir;$env:PATH"
 
 Write-Host ""
 try {
-    $version = & "$BinDir\ky.exe" --version 2>&1
+    $version = & "$BinDir\by.exe" --version 2>&1
     if ($LASTEXITCODE -eq 0) {
-        Write-Host "[OK] Kyle $Version installed successfully!"
+        Write-Host "[OK] Byle $Version installed successfully!"
         Write-Host ""
-        Write-Host "  Binary:  $BinDir\ky.exe"
+        Write-Host "  Binary:  $BinDir\by.exe"
         Write-Host ""
-        Write-Host "  Use now:  ky --version"
-        Write-Host "  Try:      ky run examples\hello.ky"
+        Write-Host "  Use now:  by --version"
+        Write-Host "  Try:      by run examples\hello.by"
     } else {
         Write-Host "[WARN] Installation completed but verification failed."
     }
 } catch {
-    Write-Host "[WARN] Installation completed but 'ky.exe' not found in PATH."
+    Write-Host "[WARN] Installation completed but 'by.exe' not found in PATH."
     Write-Host "   Restart your terminal or add manually:"
     Write-Host "    [Environment]::SetEnvironmentVariable('PATH', ""$BinDir;`$env:PATH"", 'User')"
 }

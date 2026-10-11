@@ -1,0 +1,7 @@
+# Imports — use keyword
+# Tests std.str module
+
+use std.str.{to_upper}
+
+fn main():
+    print(to_upper("imports work"))

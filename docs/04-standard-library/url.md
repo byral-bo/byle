@@ -5,7 +5,7 @@
 
 ## Parse a URL
 
-```ky
+```by
 use std.url
 
 u: url = url.parse("https://user:pass@api.example.com:8080/path/to/page?q=hello&limit=10#section")!
@@ -21,20 +21,20 @@ println(u.userinfo())  # "user:pass"
 
 ## Query parameters
 
-```ky
-u: url = url.parse("/search?q=kyle&page=1&limit=20")!
+```by
+u: url = url.parse("/search?q=byle&page=1&limit=20")!
 
-q: str = u.query_get("q")        # "kyle"
+q: str = u.query_get("q")        # "byle"
 page: str = u.query_get("page")  # "1"
 none: str = u.query_get("sort")  # "" (not found)
 
 all: {str: str} = u.query_all()
-# {"q": "kyle", "page": "1", "limit": "20"}
+# {"q": "byle", "page": "1", "limit": "20"}
 ```
 
 ## Build a URL
 
-```ky
+```by
 u: url = url.new()
 u.set_scheme("https")
 u.set_host("api.example.com")
@@ -47,7 +47,7 @@ result: str = u.to_str()
 
 ## URL from parts
 
-```ky
+```by
 u: url = url.from_parts(
     "https",
     "api.example.com",
@@ -60,7 +60,7 @@ println(u.to_str())
 
 ## Encode/decode
 
-```ky
+```by
 encoded: str = url.encode("hello world")   # "hello%20world"
 decoded: str = url.decode("hello%20world") # "hello world"
 ```
@@ -92,7 +92,7 @@ decoded: str = url.decode("hello%20world") # "hello world"
 
 ## Example
 
-```ky
+```by
 use std.url
 
 u: url = url.parse("https://api.github.com/repos/user/repo")!

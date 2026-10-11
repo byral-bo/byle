@@ -12,13 +12,13 @@
 ## 0. Resumen Ejecutivo
 
 El framework UI tiene una **capa intermedia agnóstica (UI-IR)** que permite
-a `.kyx` compilar a cualquier plataforma. El diseño v2 introduce:
+a `.byx` compilar a cualquier plataforma. El diseño v2 introduce:
 
 - **Targets desglosados por SO**: `web`, `macos`, `windows`, `linux`, `ios`, `android`
 - **Rutas centralizadas** en el `<router>` con `<route>`, NO en las vistas
 - **Props vía visibilidad**: público = prop, `_` = interno, `__` = privado
 - **Layouts persistentes** con `<layout>` + `<slot />` (navbar/sidebar no se refrescan)
-- **Sin `view("/path")`**: los `.kyx` son solo componentes, las rutas están en `app.kyx`
+- **Sin `view("/path")`**: los `.byx` son solo componentes, las rutas están en `app.byx`
 - **Todo snake_case**: `color()`, `spacing.all()`, `font_weight.bold`, etc.
 
 ---
@@ -26,12 +26,12 @@ a `.kyx` compilar a cualquier plataforma. El diseño v2 introduce:
 ## 1. Arquitectura Aprobada
 
 ```
-.ky / .kyx (código fuente)
+.by / .byx (código fuente)
      │
      ▼
 ┌──────────────────────────────┐
-│      .kyx Parser             │  ← XML → AST Kyle → UI-IR
-│   (kyc_ui/parser.rs)         │
+│      .byx Parser             │  ← XML → AST Byle → UI-IR
+│   (byc_ui/parser.rs)         │
 └──────────┬───────────────────┘
            ▼
 ┌──────────────────────────────┐
@@ -79,7 +79,7 @@ a `.kyx` compilar a cualquier plataforma. El diseño v2 introduce:
 
 Cada componente es un `final class`. No hay mapeo explícito a plataformas — eso es interno del backend.
 
-```kyle
+```byle
 final class app, router, route, layout, view
 final class vstack, hstack, zstack, spacer, divider
 final class text, button, image, link, input, text_field
@@ -92,8 +92,8 @@ final class group, scroll, modal, sheet, alert, navbar, sidebar
 
 | Aspecto | v1 (anterior) | v2 (aprobado) |
 |---------|---------------|---------------|
-| Rutas | `view("/path")` en cada `.kyx` | Centralizadas en `<router>` con `<route>` |
-| Props | Bloque `@(...)` en .kyx | Visibilidad: `name` = prop, `_` = interno |
+| Rutas | `view("/path")` en cada `.byx` | Centralizadas en `<router>` con `<route>` |
+| Props | Bloque `@(...)` en .byx | Visibilidad: `name` = prop, `_` = interno |
 | Layout | No existía | `<layout>` + `<slot />` persistente |
 | Target | `@target("web")` string | `target(Target.web)` enum tipado |
 | `Color` | `Color("#0066FF")` | `color("#0066ff")` |
@@ -104,7 +104,7 @@ final class group, scroll, modal, sheet, alert, navbar, sidebar
 
 ## 3. UI-IR (UI Intermediate Representation)
 
-Definido en `crates/kyc_ui/src/ir.rs`:
+Definido en `crates/byc_ui/src/ir.rs`:
 
 ```rust
 pub struct UiProgram {
@@ -158,8 +158,8 @@ Backends registrados:
 |-------|:--------:|----------|
 | Parser: `<route path="..." component=@comp layout=@layout>` | Medio | `parser.rs`, `ir.rs` |
 | Parser: props via visibility (`_name`, `__name`) | Medio | `parser.rs` |
-| Module resolver: `<home_view />` busca `views/home.kyx` | Grande | `resolver.rs` |
-| Multi-file: compilar N .kyx → 1 IR con N rutas | Grande | `pipeline.rs` |
+| Module resolver: `<home_view />` busca `views/home.byx` | Grande | `resolver.rs` |
+| Multi-file: compilar N .byx → 1 IR con N rutas | Grande | `pipeline.rs` |
 | `<layout>` + `<slot />` en UI-IR | Medio | `ir.rs`, `web_backend.rs` |
 | `target(Target.web)` enum en parser | Pequeño | `parser.rs` |
 
@@ -167,8 +167,8 @@ Backends registrados:
 
 | Tarea | Esfuerzo |
 |-------|:--------:|
-| `app.kyx` como entry point único | Medio |
-| `ky new kyui` genera `app.kyx + views/ + layouts/ + components/` | Medio |
+| `app.byx` como entry point único | Medio |
+| `by new byui` genera `app.byx + views/ + layouts/ + components/` | Medio |
 | Bloque `config:` con `target(Target.web): port = 8080` | Medio |
 
 ### FASE D: Desktop Nativos (Skia/SDL2/GLFW)

@@ -16,7 +16,7 @@
 
 ### mutex
 
-```ky
+```by
 m: mutex<i32> = mutex(0)
 
 lock(m):
@@ -25,7 +25,7 @@ lock(m):
 
 ### barrier
 
-```ky
+```by
 b: barrier = barrier(4) # wait a 4 threads
 
 fn worker(b: &barrier):
@@ -35,7 +35,7 @@ fn worker(b: &barrier):
 
 ### Uso with threads
 
-```ky
+```by
 m: mutex<i32> = mutex(0)
 n: ^i64 = 0
 
@@ -51,10 +51,10 @@ fn worker(arg: i64) i64:
 
 Para muchos cases de sincronizacion, canalis are more seguros y simples:
 
-```ky
-ch: i64 = ky_channel_new(16)
-ky_channel_send(ch, 42)
-val: i64 = ky_channel_recv(ch)
+```by
+ch: i64 = by_channel_new(16)
+by_channel_send(ch, 42)
+val: i64 = by_channel_recv(ch)
 ```
 
 ## See also

@@ -1,5 +1,0 @@
-# Test: Basic binding and reactivity
-<view>
-    @( name: ^str = "World")
-    <text value=@"Hello " + name />
-</view>

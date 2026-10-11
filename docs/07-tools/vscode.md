@@ -1,45 +1,47 @@
 # VS Code Extension
 
-**Status:** Cross-platform — macOS, Linux, Windows
+**Status:** External project — [`byle-vscode`](https://github.com/IT-KYNERA/byle-vscode)
 
 ## Install
 
 **macOS / Linux:**
 ```bash
-curl -fsSL https://raw.githubusercontent.com/kyal-tech/kyle/main/vscode-ky/install-extension.sh | sh
+git clone https://github.com/IT-KYNERA/byle-vscode.git
 ```
 
 **Windows (PowerShell):**
 ```powershell
-iwr -Uri "https://raw.githubusercontent.com/kyal-tech/kyle/main/vscode-ky/install-extension.ps1" | iex
+iwr -Uri "https://raw.githubusercontent.com/IT-KYNERA/byle-vscode/main/install.ps1" | iex
 ```
 
-Or install from the VS Code Marketplace: search "Kyle Language Support".
+Or install from the VS Code Marketplace: search "Byle Language Support".
+
+The extension source and release assets do not belong to this compiler repository.
 
 ## Features
 
-- **Syntax highlighting** — TextMate grammar for `.ky` files
+- **Syntax highlighting** — TextMate grammar for `.by` files
 - **LSP integration** — diagnostics, autocomplete, go-to-def, hover, find refs, rename
 - **Inlay hints** — inferred types shown inline
 - **Code lens** — "Run test" button above `#[test]` functions
-- **Task provider** — auto-discovers `.ky` files for run/build/check
+- **Task provider** — auto-discovers `.by` files for run/build/check
 - **Debug adapter** — DAP-based debugging with breakpoints, stack traces, scopes
 - **Test UI** — VS Code TestController integration for `#[test]` functions
 - **Problems panel** — compiler diagnostics shown as problems
-- **Color theme** — "Kyle Pastel" dark theme
+- **Color theme** — "Byle Pastel" dark theme
 - **Snippets** — code snippets for common patterns
 
 ## Configuration
 
 | Setting | Description |
 |---------|-------------|
-| `ky.kycPath` | path to `ky` binary (auto-detected) |
-| `ky.semanticHighlighting` | Enable experimental semantic highlighting |
+| `byle.byPath` | path to `by` binary (auto-detected) |
+| `byle.semanticHighlighting` | Enable experimental semantic highlighting |
 
 ## Binary search order
 
-1. `ky.kycPath` setting
+1. `byle.byPath` setting
 2. PATH environment
-3. macOS/Linux: `~/.ky/bin/ky`, `~/.cargo/bin/ky`, `/usr/local/bin/ky`, `/opt/homebrew/bin/ky`
-4. Windows: `%USERPROFILE%\.ky\bin\ky.exe`
+3. macOS/Linux: `~/.by/bin/by`, `~/.cargo/bin/by`, `/usr/local/bin/by`, `/opt/homebrew/bin/by`
+4. Windows: `%USERPROFILE%\.by\bin\by.exe`
 5. `where` (Windows) / `which` (Unix) command

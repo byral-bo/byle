@@ -1,33 +1,32 @@
 [workspace]
 resolver = "2"
 members = [
-    "crates/kyc_core",
-    "crates/kyc_frontend",
-    "crates/kyc_hir",
-    "crates/kyc_semantic",
-    "crates/kyc_mir",
-    "crates/kyc_backend",
-    "crates/kyc_driver",
-    "crates/kyc_cli",
-    "crates/kyc_runtime",
-    "crates/kyc_tools",
-    "crates/kyc_platform",
-    "crates/kyc_runtime_wasm",
-    "crates/kyc_ui",
+    "crates/byc_core",
+    "crates/byc_frontend",
+    "crates/byc_hir",
+    "crates/byc_semantic",
+    "crates/byc_mir",
+    "crates/byc_backend",
+    "crates/byc_driver",
+    "crates/byc_cli",
+    "crates/byc_runtime",
+    "crates/byc_tools",
+    "crates/byc_platform",
+    "crates/byc_runtime_wasm",
+    "crates/byc_ui",
 ]
 default-members = [
-    "crates/kyc_core",
-    "crates/kyc_frontend",
-    "crates/kyc_hir",
-    "crates/kyc_semantic",
-    "crates/kyc_mir",
-    "crates/kyc_backend",
-    "crates/kyc_driver",
-    "crates/kyc_cli",
-    "crates/kyc_runtime",
-    "crates/kyc_tools",
-    "crates/kyc_platform",
-    "crates/kyc_ui",
+    "crates/byc_core",
+    "crates/byc_frontend",
+    "crates/byc_hir",
+    "crates/byc_semantic",
+    "crates/byc_mir",
+    "crates/byc_backend",
+    "crates/byc_driver",
+    "crates/byc_cli",
+    "crates/byc_runtime",
+    "crates/byc_tools",
+    "crates/byc_platform",
 ]
 
 [workspace.package]
@@ -37,9 +36,13 @@ authors = ["Kynera"]
 license = "MIT"
 
 [profile.release]
-# LTO disabled for now — LLVM version mismatch between Kyle (18.1) and Rust
+# LTO disabled for now — LLVM version mismatch between Byle (18.1) and Rust
 # makes cross-boundary LTO unreliable. Inline list ops in codegen provide
 # the performance gain without LTO complexity.
+panic = "abort"
+
+[profile.dev]
+panic = "abort"
 
 [workspace.dependencies]
 # LLVM bindings — enabled when Phase 3 begins

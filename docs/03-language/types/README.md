@@ -1,6 +1,6 @@
 # Types
 
-> Sistema de typis de Kyle: primitivos, compuestos, genericos, traits.
+> Sistema de typis de Byle: primitivos, compuestos, genericos, traits.
 
 | File | Description |
 |---------|-------------|

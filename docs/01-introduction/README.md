@@ -1,6 +1,6 @@
 # 01-introduction
 
-> Introduction to the Kyle programming language.
+> Introduction to the Byle programming language.
 
 ## Files
 
@@ -15,7 +15,7 @@
 
 ## Summary
 
-Kyle is a **low-level language with high-level syntax**:
+Byle is a **low-level language with high-level syntax**:
 - Compiled via LLVM 18
 - Strong static typing with inference
 - Ownership and borrow checker (v0.6)

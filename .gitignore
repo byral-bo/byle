@@ -1,25 +1,22 @@
 # === Rust / Cargo ===
 target/
 
-# Cargo.lock should be committed for binaries (Kyle is a binary, not a library)
+# Cargo.lock should be committed for binaries (Byle is a binary, not a library)
 # Do NOT ignore Cargo.lock
 
-# === KL build artifacts ===
+# === BYLE build artifacts ===
 *.o
 *.ll
 *.bc
-*.kyc
-*.klc
-.kyc-build/
-klc-build/
-.klc-build/
+*.byc
+.byc-build/
 build/
 
-# === Examples — only .ky source files are tracked ===
+# === Examples — only .by source files are tracked ===
 /examples/*
-!/examples/*.ky
-!/examples/**/*.ky
-!/examples/ky.toml
+!/examples/*.by
+!/examples/**/*.by
+!/examples/by.toml
 
 *.js.map
 
@@ -38,9 +35,9 @@ Thumbs.db
 Desktop.ini
 
 # === Root build artifacts ===
-/ky
-/ky-macos-arm64.tar.gz
-/libkyc_runtime.a
+/by
+/by-macos-arm64.tar.gz
+/libbyc_runtime.a
 
 # === Distribution / Release artifacts ===
 dist/
@@ -55,5 +52,4 @@ tmp/
 *.old
 core
 node_modules/
-kyle-benchmarks
-kyle-benchmarks
+byle-benchmarks

@@ -5,9 +5,9 @@
 
 ---
 
-## Tipo Kyle
+## Tipo Byle
 
-```kyle
+```byle
 # Toast no es un componente visual, es una función del runtime
 
 fn toast.success(message: str, duration: i32 = 3000)
@@ -30,7 +30,7 @@ fn toast.show(
 
 ### Notificaciones simples
 
-```kyx
+```byx
 <view>
     @(
         fn handle_save():
@@ -56,7 +56,7 @@ fn toast.show(
 
 ### toast_type
 
-```kyle
+```byle
 enum toast_type:
     success         # Verde, ícono check
     error           # Rojo, ícono X
@@ -70,7 +70,7 @@ enum toast_type:
 
 ### Toast con acción
 
-```kyx
+```byx
 <view>
     @(
         fn handle_delete():
@@ -92,7 +92,7 @@ enum toast_type:
 
 ### Toast en formulario
 
-```kyx
+```byx
 <view>
     @(
         form: ^UserForm = UserForm()
@@ -121,7 +121,7 @@ enum toast_type:
 
 ### Toast de progreso
 
-```kyx
+```byx
 <view>
     @(
         fn handle_upload():
@@ -147,7 +147,7 @@ enum toast_type:
 
 ### Múltiples toasts
 
-```kyx
+```byx
 <view>
     @(
         fn handle_batch_operation():
@@ -169,7 +169,7 @@ enum toast_type:
 
 ### toast.show()
 
-```kyle
+```byle
 toast.show(
     message: str,                      # Mensaje a mostrar
     type: toast_type = toast_type.info, # Tipo (success, error, info, warning)
@@ -182,14 +182,14 @@ toast.show(
 
 ### toast.dismiss()
 
-```kyle
+```byle
 toast.dismiss(toast_id: str)  # Cierra un toast específico
 toast.dismiss_all()           # Cierra todos los toasts
 ```
 
 ### toast_position
 
-```kyle
+```byle
 enum toast_position:
     top_left
     top_center
@@ -238,7 +238,7 @@ enum toast_position:
 
 ### Desktop (SDL2/Skia)
 
-```kyle
+```byle
 fn render_toast(toast: Toast):
     x = screen_w - toast.width - 20
     y = 20
@@ -284,7 +284,7 @@ LaunchedEffect(Unit) {
 
 ### ❌ Malo: Usar toast para errores críticos
 
-```kyx
+```byx
 fn handle_critical_error():
     toast.error("Error crítico del sistema")
 ```
@@ -293,7 +293,7 @@ fn handle_critical_error():
 
 ### ✅ Bueno: Usar modal para errores críticos
 
-```kyx
+```byx
 fn handle_critical_error():
     show_error_modal = true
 
@@ -304,7 +304,7 @@ fn handle_critical_error():
 
 ### ❌ Malo: Demasiados toasts a la vez
 
-```kyx
+```byx
 for item in items:
     toast.success(@"Item " + item.name + " procesado")
 ```
@@ -313,13 +313,13 @@ for item in items:
 
 ### ✅ Bueno: Consolidar mensajes
 
-```kyx
+```byx
 toast.success(@"10 items procesados correctamente")
 ```
 
 ### ❌ Malo: Toast sin duración para operaciones largas
 
-```kyx
+```byx
 fn handle_long_operation():
     toast.info("Procesando...")
     # Operación de 10 segundos
@@ -331,7 +331,7 @@ fn handle_long_operation():
 
 ### ✅ Bueno: Dismiss manual
 
-```kyx
+```byx
 fn handle_long_operation():
     toast_id = toast.info("Procesando...", duration=0)
     long_operation()

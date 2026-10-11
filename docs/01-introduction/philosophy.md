@@ -1,13 +1,13 @@
 # Pthreadsophy
 
-Kyle se construye about cuatro pilaris fundamentales:
+Byle se construye about cuatro pilaris fundamentales:
 
 ## Python Readability
 
-El code Kyle se lee as prosa. Indentation for bloques, without `{}`, without `;`.
+El code Byle se lee as prosa. Indentation for bloques, without `{}`, without `;`.
 Variablis without keywords. Functions with syntax minimalist.
 
-```ky
+```by
 fn procesar(file: &str) str!:
  data: str = file.open(file, "r").read()
  if data.is_empty():
@@ -25,7 +25,7 @@ Sistema de typis fuerte, estatico, with inferencia. Todo se conoce en compile-ti
 - **No data races** — move by defecto, one mut XOR many immut
 - **No dangling pointers** — ownership tracking
 
-```ky
+```by
 name: str? = get_nombre()
 if name.is_some():
  println(name.unwrap()) # seguro: ya verificamos
@@ -49,7 +49,7 @@ Compila a code nativo via LLVM 18 with pipeline completo de optimizationn.
 Source → Lexer → Parbe → HIR → Semantic → MIR → SSA → LLVM IR → O3 → Binary
 ```
 
-| Measurement | Kyle | C | Rust | Python |
+| Measurement | Byle | C | Rust | Python |
 |----------|:----:|:-:|:----:|:------:|
 | Fib (500M) | 180ms | 115ms | 116ms | ❌ |
 | Concat (500k) | 9ms | 8ms | 1ms | 22ms |

@@ -5,9 +5,9 @@
 
 ---
 
-## Tipo Kyle
+## Tipo Byle
 
-```kyle
+```byle
 final class sidebar:
     # Configuración
     width: f32 = 250.0              # Ancho
@@ -22,7 +22,7 @@ final class sidebar:
 
 ## Uso Básico
 
-```kyx
+```byx
 <layout>
     <app_bar title="Mi App" />
     
@@ -56,7 +56,7 @@ final class sidebar:
 
 ### sidebar_item
 
-```kyle
+```byle
 final class sidebar_item:
     icon: str?                      # Nombre del ícono
     label: str                      # Etiqueta
@@ -71,7 +71,7 @@ final class sidebar_item:
 
 ### Sidebar colapsable
 
-```kyx
+```byx
 <view>
     @(
         collapsed: ^bool = false
@@ -97,7 +97,7 @@ final class sidebar_item:
 
 ### Con grupos
 
-```kyx
+```byx
 <sidebar>
     <sidebar_group label="Principal">
         <sidebar_item icon="home" label="Inicio" href="/" />
@@ -130,7 +130,7 @@ final class sidebar_item:
 
 En mobile, el sidebar se convierte automáticamente en un drawer:
 
-```kyx
+```byx
 <view>
     @(
         drawer_open: ^bool = false

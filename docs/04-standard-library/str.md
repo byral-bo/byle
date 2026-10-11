@@ -7,7 +7,7 @@
 
 These methods are available on all `str` values directly.
 
-```ky
+```by
 s: str = " Hello World "
 
 trimmed: str = s.trim()           # "Hello World"
@@ -18,7 +18,7 @@ length: i32 = s.len()             # 14
 
 ## Searching
 
-```ky
+```by
 s: str = "hello world"
 
 s.contains("world")    # true
@@ -29,7 +29,7 @@ index: i32 = s.find("world")  # 6
 
 ## Slicing
 
-```ky
+```by
 s: str = "hello world"
 
 first: str = s.substr(0, 5)     # "hello"
@@ -39,10 +39,10 @@ c: i8 = s.char_at(0)            # 'h' (as i8 byte value)
 
 ## Transformation
 
-```ky
+```by
 s: str = "hello world"
 
-replaced: str = s.replace("world", "kyle")  # "hello kyle"
+replaced: str = s.replace("world", "byle")  # "hello byle"
 parts: [str] = s.split(" ")                  # ["hello", "world"]
 joined: str = parts.join(", ")               # "hello, world"
 ```
@@ -51,7 +51,7 @@ joined: str = parts.join(", ")               # "hello, world"
 
 For efficient concatenation in loops, use `str_builder`.
 
-```ky
+```by
 sb: str = str_builder.new(100)
 str_builder.append(sb, "hello ")
 str_builder.append(sb, "world")
@@ -99,10 +99,10 @@ for large strings.
 
 ## Example
 
-```ky
+```by
 use std.str
 
-csv_line: str = "  hello, world, kyle  "
+csv_line: str = "  hello, world, byle  "
 parts: [str] = csv_line.trim().split(",")
 for part in parts:
     println(part.trim())

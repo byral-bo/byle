@@ -7,7 +7,7 @@
 
 Mutual exclusion for shared state.
 
-```ky
+```by
 use std.sync
 
 m: mutex<i64> = mutex(0)
@@ -35,7 +35,7 @@ m.unlock()
 
 Lock-free atomic operations for simple values.
 
-```ky
+```by
 counter: atomic_i64 = sync.atomic_i64(0)
 counter.fetch_add(1)
 val: i64 = counter.load()   # 1
@@ -60,7 +60,7 @@ val: bool = flag.load()     # true
 
 Communication between threads via typed channels.
 
-```ky
+```by
 ch: chan<i64> = sync.channel(16)   # buffered channel (16 items)
 ch.send(42)
 val: i64 = ch.recv()
@@ -79,7 +79,7 @@ ch.close()
 
 ## Example: producer-consumer
 
-```ky
+```by
 use std.sync
 use std.thread
 

@@ -1,4 +1,4 @@
-# Eventos en Kyle UI
+# Eventos en Byle UI
 
 **Status:** Specification v2.0
 **Date:** 2026-07-28
@@ -7,7 +7,7 @@
 
 ## Filosofía
 
-Todos los eventos en Kyle UI son:
+Todos los eventos en Byle UI son:
 - **Tipados** — Cada evento tiene un tipo específico
 - **Multiplataforma** — Misma sintaxis en web, desktop, iOS, Android
 - **snake_case** — Consistente en todo el framework
@@ -78,7 +78,7 @@ Todos los eventos en Kyle UI son:
 
 ### click_event
 
-```kyle
+```byle
 final class click_event:
     x: f32                      # Coordenada X
     y: f32                      # Coordenada Y
@@ -92,7 +92,7 @@ final class click_event:
 
 ### mouse_event
 
-```kyle
+```byle
 final class mouse_event:
     x: f32                      # Coordenada X
     y: f32                      # Coordenada Y
@@ -110,7 +110,7 @@ final class mouse_event:
 
 ### touch_event
 
-```kyle
+```byle
 final class touch_event:
     touches: {touch_point}      # Puntos de contacto actuales
     changed_touches: {touch_point}  # Puntos que cambiaron
@@ -127,7 +127,7 @@ final class touch_point:
 
 ### key_event
 
-```kyle
+```byle
 final class key_event:
     key: str                    # Tecla (ej: "a", "Enter", "ArrowUp")
     code: str                   # Código físico (ej: "KeyA", "Enter")
@@ -140,7 +140,7 @@ final class key_event:
 
 ### input_event
 
-```kyle
+```byle
 final class input_event:
     value: str                  # Valor actual del input
     target: str                 # ID del elemento
@@ -150,7 +150,7 @@ final class input_event:
 
 ### change_event
 
-```kyle
+```byle
 final class change_event:
     value: str                  # Nuevo valor
     target: str                 # ID del elemento
@@ -159,7 +159,7 @@ final class change_event:
 
 ### focus_event
 
-```kyle
+```byle
 final class focus_event:
     target: str                 # ID del elemento
     related_target: str?        # Elemento relacionado (blur/focus)
@@ -167,7 +167,7 @@ final class focus_event:
 
 ### submit_event
 
-```kyle
+```byle
 final class submit_event:
     target: str                 # ID del form
     prevent_default: fn()       # Prevenir envío default
@@ -175,7 +175,7 @@ final class submit_event:
 
 ### scroll_event
 
-```kyle
+```byle
 final class scroll_event:
     scroll_x: f32               # Scroll horizontal
     scroll_y: f32               # Scroll vertical
@@ -188,7 +188,7 @@ final class scroll_event:
 
 ### Click simple
 
-```kyx
+```byx
 <view>
     @(
         fn handle_click(event: click_event):
@@ -201,7 +201,7 @@ final class scroll_event:
 
 ### Hover (mouse enter/leave)
 
-```kyx
+```byx
 <view>
     @(
         is_hovered: ^bool = false
@@ -224,7 +224,7 @@ final class scroll_event:
 
 ### Double click
 
-```kyx
+```byx
 <view>
     @(
         fn handle_dblclick(event: click_event):
@@ -239,7 +239,7 @@ final class scroll_event:
 
 ### Long press (mobile)
 
-```kyx
+```byx
 <view>
     @(
         fn handle_long_press(event: touch_event):
@@ -255,7 +255,7 @@ final class scroll_event:
 
 ### Keyboard events
 
-```kyx
+```byx
 <view>
     @(
         fn handle_keydown(event: key_event):
@@ -279,7 +279,7 @@ final class scroll_event:
 
 ### Input en tiempo real
 
-```kyx
+```byx
 <view>
     @(
         search: ^str = ""
@@ -299,7 +299,7 @@ final class scroll_event:
 
 ### Focus/Blur
 
-```kyx
+```byx
 <view>
     @(
         email_focused: ^bool = false
@@ -324,7 +324,7 @@ final class scroll_event:
 
 ### Scroll
 
-```kyx
+```byx
 <view>
     @(
         scroll_y: ^f32 = 0.0
@@ -350,7 +350,7 @@ final class scroll_event:
 
 ### button
 
-```kyx
+```byx
 <button 
     text="Click"
     click=@handle_click
@@ -364,7 +364,7 @@ final class scroll_event:
 
 ### text_field
 
-```kyx
+```byx
 <text_field 
     bind=@value
     input=@handle_input
@@ -378,7 +378,7 @@ final class scroll_event:
 
 ### checkbox
 
-```kyx
+```byx
 <checkbox 
     bind=@checked
     change=@handle_change
@@ -388,7 +388,7 @@ final class scroll_event:
 
 ### select
 
-```kyx
+```byx
 <select 
     bind=@selected
     change=@handle_change
@@ -399,7 +399,7 @@ final class scroll_event:
 
 ### view (contenedor)
 
-```kyx
+```byx
 <view 
     click=@handle_click
     dblclick=@handle_dblclick
@@ -465,7 +465,7 @@ element.addEventListener('touchend', () => {
 
 ### Desktop (SDL2)
 
-```kyle
+```byle
 fn handle_sdl_event(event: SDL_Event):
     match event.type:
         SDL_MOUSEBUTTONDOWN:
@@ -547,7 +547,7 @@ Box(
 
 ### ❌ Malo: No prevenir default en submit
 
-```kyx
+```byx
 <form submit=@() => {
     # Form se recarga automáticamente
     save_data()
@@ -558,7 +558,7 @@ Box(
 
 ### ✅ Bueno: Prevenir default
 
-```kyx
+```byx
 <form submit=@(event: submit_event) => {
     event.prevent_default()
     save_data()
@@ -567,7 +567,7 @@ Box(
 
 ### ❌ Malo: Usar click en mobile para gestos complejos
 
-```kyx
+```byx
 <view click=@handle_interaction>
 ```
 
@@ -575,7 +575,7 @@ Box(
 
 ### ✅ Bueno: Usar eventos touch específicos
 
-```kyx
+```byx
 <view 
     touch_start=@handle_touch_start
     touch_end=@handle_touch_end
@@ -586,7 +586,7 @@ Box(
 
 ### ❌ Malo: No manejar eventos de teclado para accesibilidad
 
-```kyx
+```byx
 <button text="Submit" click=@submit />
 ```
 
@@ -594,7 +594,7 @@ Box(
 
 ### ✅ Bueno: Soportar teclado
 
-```kyx
+```byx
 <button 
     text="Submit" 
     click=@submit

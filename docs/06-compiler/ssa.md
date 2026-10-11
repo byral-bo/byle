@@ -1,7 +1,7 @@
 # SSA Construction
 
 > Transformation a Static Single Assignment form.
-> Crate: `kyc_mir/src/ssa.rs` (947 lines).
+> Crate: `byc_mir/src/ssa.rs` (947 lines).
 
 ## Responsabilidad
 

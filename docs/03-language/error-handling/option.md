@@ -5,8 +5,8 @@
 
 ## Syntax sugar `T?`
 
-```ky
-name: str? = "Kyle"
+```by
+name: str? = "Byle"
 name = none
 
 if value = name: # pattern matching
@@ -15,7 +15,7 @@ if value = name: # pattern matching
 
 ## Pattern matching
 
-```ky
+```by
 match name:
  some(v): println("name: " + v)
  none: println("without name")
@@ -30,7 +30,7 @@ match name:
 | `unwrap()` | Retorna value o panic |
 | `unwrap_or(default)` | Retorna value o default |
 
-```ky
+```by
 name: str? = get_nombre()
 if name.is_some():
  println(name.unwrap())
@@ -40,11 +40,11 @@ name = name.unwrap_or("invitado")
 
 ## Uso en retorno de funcion
 
-```ky
+```by
 fn find_user(id: i32) User?:
  if id == 0:
  return none
- Ube { name: "Kyle", id: id }
+ Ube { name: "Byle", id: id }
 
 match find_user(1):
  some(u): println(u.name)

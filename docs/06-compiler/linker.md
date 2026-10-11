@@ -1,12 +1,12 @@
 # Linker
 
 > Enlazado del code objeto with libreria runtime for producir binary final.
-> Crate: `kyc_backend/src/linker.rs` (189 lines).
+> Crate: `byc_backend/src/linker.rs` (189 lines).
 
 ## Responsabilidad
 
 El linker toma filis objeto (`.o`) generados by LLVM y enlaza con
-`libkyc_runtime.a` y libraries del sistema for producir un executable nativo.
+`libbyc_runtime.a` y libraries del sistema for producir un executable nativo.
 
 ## Proceso
 
@@ -51,13 +51,13 @@ El linker toma filis objeto (`.o`) generados by LLVM y enlaza con
 
 ```rust
  fn find_runtime_lib() -> Option<PathBuf> {
- // 1. Relative to ky binary
- // /usr/local/bin/ky → /usr/local/lib/kl/libkyc_runtime.a
+ // 1. Relative to by binary
+ // /usr/local/bin/by → /usr/local/lib/by/libbyc_runtime.a
  // 2. Cargo workspace
- // target/debug/libkyc_runtime.a
- // target/release/libkyc_runtime.a
+ // target/debug/libbyc_runtime.a
+ // target/release/libbyc_runtime.a
  // 3. Current directory
- // ./target/debug/libkyc_runtime.a
+ // ./target/debug/libbyc_runtime.a
 }
 ```
 
@@ -65,10 +65,10 @@ La libreria runtime se busca en (by orden):
 
 | Path | Example |
 |------|---------|
-| Junto al binary `ky` | `~/.ky/bin/libkyc_runtime.a` |
-| Workspace debug | `<project>/target/debug/libkyc_runtime.a` |
-| Workspace release | `<project>/target/release/libkyc_runtime.a` |
-| Directorio current | `./target/debug/libkyc_runtime.a` |
+| Junto al binary `by` | `~/.by/bin/libbyc_runtime.a` |
+| Workspace debug | `<project>/target/debug/libbyc_runtime.a` |
+| Workspace release | `<project>/target/release/libbyc_runtime.a` |
+| Directorio current | `./target/debug/libbyc_runtime.a` |
 
 ## Link-Time Optimization (LTO)
 
@@ -84,7 +84,7 @@ a traves de limitis between code generado y libreria runtime.
 ## Verification
 
 ```llvm
-$ clang -o output input.o libkyc_runtime.a -framework CoreFoundation -lm -O3 -flto
+$ clang -o output input.o libbyc_runtime.a -framework CoreFoundation -lm -O3 -flto
 ```
 
 ## See also

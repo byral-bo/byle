@@ -1,6 +1,6 @@
 # Standard Library
 
-> Built-in modules available to all Kyle programs without installation.
+> Built-in modules available to all Byle programs without installation.
 > Import with `use std.<module>`.
 
 ## Modules

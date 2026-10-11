@@ -1,6 +1,6 @@
 # Macros
 
-> **No implemented.** Kyle no has sistema de macros currentmente.
+> **No implemented.** Byle no has sistema de macros currentmente.
 
 ## Status
 
@@ -15,7 +15,7 @@
 
 Para metaprogramacion, usa functions y genericos:
 
-```ky
+```by
 fn max<T: copy>(a: T, b: T) T:
  if a > b: a else: b
 

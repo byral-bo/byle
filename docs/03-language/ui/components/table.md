@@ -5,9 +5,9 @@
 
 ---
 
-## Tipo Kyle
+## Tipo Byle
 
-```kyle
+```byle
 final class table:
     # Datos
     data: ^{any}                      # Colección de filas
@@ -46,7 +46,7 @@ final class table:
 
 ### Tabla simple
 
-```kyx
+```byx
 <view>
     @(
         users: ^{User} = {}
@@ -62,7 +62,7 @@ final class table:
 
 ### Tabla con ordenamiento
 
-```kyx
+```byx
 <table data=@users sortable=true on_sort=@handle_sort>
     <col field="name" label="Nombre" sortable=true />
     <col field="email" label="Email" sortable=true />
@@ -72,7 +72,7 @@ final class table:
 
 ### Tabla con paginación
 
-```kyx
+```byx
 <table data=@users per_page=20 page=@current_page on_page_change=@change_page>
     <col field="name" label="Nombre" />
     <col field="email" label="Email" />
@@ -104,7 +104,7 @@ final class table:
 
 ### column_def
 
-```kyle
+```byle
 final class column_def:
     field: str                        # Nombre del campo en los datos
     label: str                        # Etiqueta de la columna
@@ -116,7 +116,7 @@ final class column_def:
 
 ### sort_dir
 
-```kyle
+```byle
 enum sort_dir:
     asc                             # Ascendente
     desc                            # Descendente
@@ -128,7 +128,7 @@ enum sort_dir:
 
 ### Tabla completa con todas las features
 
-```kyx
+```byx
 <view>
     @(
         users: ^{User} = {}
@@ -180,7 +180,7 @@ enum sort_dir:
 
 ### Tabla con formateo personalizado
 
-```kyx
+```byx
 <table data=@orders>
     <col field="id" label="ID" />
     <col field="date" label="Fecha" formatter=@(val) => format_date(val) />
@@ -193,7 +193,7 @@ enum sort_dir:
 
 ### Tabla con expansión de filas
 
-```kyx
+```byx
 <view>
     @(
         users: ^{User} = {}
@@ -252,7 +252,7 @@ enum sort_dir:
 
 ### Desktop (SDL2/Skia)
 
-```kyle
+```byle
 fn render_table(data: {User}, columns: {column_def}):
     # Header
     for i, col in columns:
@@ -300,7 +300,7 @@ Table {
 
 ### ❌ Malo: Tabla sin paginación con muchos datos
 
-```kyx
+```byx
 <table data=@thousand_rows>
     <col field="name" label="Nombre" />
 </table>
@@ -310,7 +310,7 @@ Table {
 
 ### ✅ Bueno: Paginar tablas grandes
 
-```kyx
+```byx
 <table data=@thousand_rows per_page=50 page=@page>
     <col field="name" label="Nombre" />
 </table>
@@ -318,7 +318,7 @@ Table {
 
 ### ❌ Malo: Columnas sin ancho definido
 
-```kyx
+```byx
 <table data=@data>
     <col field="long_field_name" label="Campo muy largo" />
 </table>
@@ -328,7 +328,7 @@ Table {
 
 ### ✅ Bueno: Definir anchos
 
-```kyx
+```byx
 <table data=@data>
     <col field="name" label="Nombre" width=length.px(200) />
     <col field="email" label="Email" width=length.fill />

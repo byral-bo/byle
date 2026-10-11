@@ -1,12 +1,12 @@
 # env — Environment variables
 
 > Get, set, and manage environment variables. Load .env files.
-> Installation: `ky add env`
+> Installation: `by add env`
 > Import: `use env`
 
 ## Reading variables
 
-```ky
+```by
 use env
 
 home: str = env.get("HOME")
@@ -15,14 +15,14 @@ println("home: " + home)
 
 ## Default values
 
-```ky
+```by
 port: str = env.get_or("PORT", "8080")
 debug: str = env.get_or("DEBUG", "false")
 ```
 
 ## Typed access
 
-```ky
+```by
 port: i32 = env.get_int("PORT", 8080)
 timeout: f64 = env.get_float("TIMEOUT", 30.0)
 debug: bool = env.get_bool("DEBUG", false)
@@ -30,14 +30,14 @@ debug: bool = env.get_bool("DEBUG", false)
 
 ## Setting variables
 
-```ky
+```by
 env.set("MY_VAR", "my_value")
 env.unset("TEMP_VAR")
 ```
 
 ## .env file loading
 
-```ky
+```by
 # Load .env from current directory
 env.load_file!()   # loads .env
 
@@ -51,7 +51,7 @@ api_key: str = env.get("API_KEY")
 
 ## Listing all variables
 
-```ky
+```by
 keys: [str] = env.list()
 for key in keys:
     println(key + "=" + env.get(key))
@@ -85,7 +85,7 @@ MAX_CONNECTIONS=100
 
 ## Example
 
-```ky
+```by
 use env
 
 # Load configuration

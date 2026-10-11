@@ -1,0 +1,14 @@
+# Normative syntax smoke test: ^, !, =, := and none.
+
+fn safe_value() i32!:
+    return ok(41)
+
+fn main():
+    answer := 42
+    mutable: ^i32 = 0
+    mutable = answer
+    optional: i32? = none
+    value = safe_value()!
+    if optional:
+        print("unexpected optional value")
+    print(value)

@@ -1,6 +1,6 @@
 # Keywords
 
-> Reserved words in Kyle. Cannot be used as identifiers.
+> Reserved words in Byle. Cannot be used as identifiers.
 
 ```
 fn class final abstract enum

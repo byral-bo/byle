@@ -5,7 +5,7 @@
 
 ## Spawning and joining
 
-```ky
+```by
 use std.thread
 
 fn worker(n: i64) i64:
@@ -23,13 +23,13 @@ println(result.to_str())
 
 ## Sleeping
 
-```ky
+```by
 thread.sleep(1000)   # milliseconds
 ```
 
 ## Current thread
 
-```ky
+```by
 id: i64 = thread.id()
 ```
 
@@ -45,7 +45,7 @@ id: i64 = thread.id()
 
 ## Example
 
-```ky
+```by
 use std.thread
 
 fn compute(n: i64) i64:

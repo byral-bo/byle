@@ -1,4 +1,4 @@
-# Building Kyle
+# Building Byle
 
 ## Requirements
 
@@ -24,73 +24,76 @@ $env:LLVM_SYS_181_PREFIX = "C:\Program Files\LLVM"
 ## Build the Compiler
 
 ```bash
-git clone https://github.com/kyal-tech/kyle.git
-cd KYLE
+git clone https://github.com/kyal-tech/byle.git
+cd byle
 
 # Release build (recommended)
-cargo build --release --bin ky
+cargo build --release --bin by --locked
 
 # Debug build
-cargo build --bin ky
+cargo build --bin by --locked
 ```
 
 ## Quick Test
 
 ```bash
-# Run a .ky file
-echo 'print("Hello from Kyle!")' > hello.ky
-./target/release/ky run hello.ky
+# Run a .by file
+echo 'print("Hello from Byle!")' > hello.by
+./target/release/by run hello.by
 
 # Type-check only
-./target/release/ky check hello.ky
+./target/release/by check hello.by
 
-# Build UI app (.kyx)
-./target/release/ky build examples/counter.kyx
+# Build UI app (.byx)
+./target/release/by build app.byx
 
 # Build for desktop
-./target/release/ky build examples/counter.kyx desktop
+./target/release/by build app.byx desktop
 
 # Build for iOS
-./target/release/ky build examples/counter.kyx --target ios
+./target/release/by build app.byx --target ios
 ```
 
 ## Run Tests
 
 ```bash
 # All workspace tests
-cargo test --workspace --exclude kyc_runtime_wasm
+cargo test --workspace --locked
 
 # Syntax tests
-for f in tests/syntax/*.ky; do
-    ./target/release/ky run "$f" && echo "PASS: $f" || echo "FAIL: $f"
+for f in tests/syntax/*.by; do
+    ./target/release/by run "$f" && echo "PASS: $f" || echo "FAIL: $f"
 done
 
-# Package type-checks
-./target/release/ky check packages/http/src/lib.ky
-./target/release/ky check packages/sqlite/src/lib.ky
-./target/release/ky check packages/postgres/src/lib.ky
-./target/release/ky check packages/env/src/lib.ky
-./target/release/ky check packages/ui/src/lib.kyx
+# Standard library and end-to-end checks
+./scripts/test-by.sh ./target/release/by
+
+# Dependency security audit
+cargo install cargo-audit --version 0.22.2 --locked
+cargo audit --deny warnings
+
+# Gate completo antes de release o commit
+./scripts/pre-release-check.sh
 ```
+
+### Nota sobre macOS/Homebrew
+
+En algunos entornos macOS con LLVM instalado mediante Homebrew, `cargo` puede
+mostrar un aviso del linker sobre una ruta alternativa de `libunwind`. Si la
+compilación termina correctamente y `cargo clippy --workspace --locked -- -D warnings`
+no reporta errores, ese aviso pertenece al toolchain del sistema y no al
+código de Byle. CI valida el build en macOS y Linux por separado.
 
 ## Install
 
 ```bash
 # macOS / Linux
-curl -fsSL https://raw.githubusercontent.com/kyal-tech/kyle/main/scripts/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/kyal-tech/byle/main/scripts/install.sh | sh
 
 # Windows (PowerShell)
-iwr -Uri "https://raw.githubusercontent.com/kyal-tech/kyle/main/scripts/install.ps1" | iex
+iwr -Uri "https://raw.githubusercontent.com/kyal-tech/byle/main/scripts/install.ps1" | iex
 ```
 
-## Install VS Code Extension
+## Editor integration
 
-```bash
-# From marketplace
-code --install-extension kynera.ky
-
-# Or from .vsix
-code --install-extension ky-0.8.7.vsix
-```
-
-> Extension source at [`vscode-extension/`](vscode-extension/)
+The VS Code extension is maintained separately in `byle-vscode`.

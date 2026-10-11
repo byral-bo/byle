@@ -1,6 +1,6 @@
 # Ecosystem Architecture
 
-Kyle is not just a programming language. It is a complete software development platform.
+Byle is not just a programming language. It is a complete software development platform.
 
 ## Layered architecture
 
@@ -9,20 +9,20 @@ Each layer only knows the layer immediately below it. This guaranteis scalabilit
 ```
 Applications (KYOS...)
  │ 📅 Aspirational — without fecha
-Kyle UI (widgets)
+Byle UI (widgets)
  │ 📅 Aspirational — without fecha
-Kyle Scene (scene graph, layout)
+Byle Scene (scene graph, layout)
  │ 📅 Aspirational — without fecha
-Kyle Graphics (canvas, GPU)
+Byle Graphics (canvas, GPU)
  │ 📅 Aspirational — without fecha
-Kyle Windowing (windows, events)
+Byle Windowing (windows, events)
  │ 📅 Aspirational — without fecha
  │
-Kyle Platform (FS, net, threads, audio)
+Byle Platform (FS, net, threads, audio)
  │ 🔜 En desarrollo — FS + time implementeds
-Kyle Runtime (memory, strings, collections)
+Byle Runtime (memory, strings, collections)
  │ ✅ Completo
-Kyle Language (compiler)
+Byle Language (compiler)
  │ ✅ Completo
 ```
 
@@ -32,19 +32,19 @@ Kyle Language (compiler)
 
 ## Language layer
 
-The compiler transforms `.ky` source code into native binaries. It has no knowledge of UI, windows, GPUs, or operating systems. Its only responsibility is generating machine code.
+The compiler transforms `.by` source code into native binaries. It has no knowledge of UI, windows, GPUs, or operating systems. Its only responsibility is generating machine code.
 
 ## Runtime layer
 
 Language servicis that do not depend on the operating system: memory allocation, strings, lists, dictionaries, panic handling.
 
-> ⏸️ **Runtime rewrite en Kyle:** Pausada. El file `crates/kyc_runtime/src/string.ky` existe with 18 functions pero no se usa. Se reactivara cuando Kyle se use en proyectos reales.
+> ⏸️ **Runtime rewrite en Byle:** Pausada. El file `crates/byc_runtime/src/string.by` existe with 18 functions pero no se usa. Se reactivara cuando Byle se use en proyectos reales.
 
 ## Platform layer
 
-Every interaction with the operating system gois through Kyle Platform, which definis platform-independent APIs: file system, networking, threads, audio, sensors, etc.
+Every interaction with the operating system gois through Byle Platform, which definis platform-independent APIs: file system, networking, threads, audio, sensors, etc.
 
-> 🔜 **Status:** FS (file I/O) y Time implementeds en `kyc_platform` crate. Networking, threads, env, audio pendientes.
+> 🔜 **Status:** FS (file I/O) y Time implementeds en `byc_platform` crate. Networking, threads, env, audio pendientes.
 
 ## Windowing layer — 📅 Aspirational
 
@@ -64,7 +64,7 @@ Reusable components: buttons, text boxes, lists, tables, dialogs, menus. Contain
 
 ## Platform adapters
 
-Each operating system implements Kyle Platform interfacis independently:
+Each operating system implements Byle Platform interfacis independently:
 - Linux, macOS, Windows, Android, iOS, Web (WASM), KYOS
 
 ## Package manager

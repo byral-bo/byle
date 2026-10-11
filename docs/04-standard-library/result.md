@@ -7,10 +7,10 @@
 
 Represents a value that may or may not be present: `some(value)` or `none`.
 
-```ky
+```by
 use std.result
 
-name: option<str> = some("Kyle")
+name: option<str> = some("Byle")
 name = none
 
 match name:
@@ -20,8 +20,8 @@ match name:
 
 ### Sugar syntax: `T?`
 
-```ky
-name: str? = "Kyle"
+```by
+name: str? = "Byle"
 name = none
 
 match name:
@@ -38,7 +38,7 @@ match name:
 | `unwrap` | `fn() T` | Returns value or panics |
 | `unwrap_or` | `fn(default: T) T` | Returns value or default |
 
-```ky
+```by
 name: str? = get_user_name()
 if name.is_some():
     println(name.unwrap())
@@ -46,7 +46,7 @@ if name.is_some():
 
 ### Pattern binding in if/while
 
-```ky
+```by
 if name = optional_value:
     println(name)  # name is available inside this block
 
@@ -58,7 +58,7 @@ while line = read_line():
 
 Represents an operation that can succeed or fail: `ok(value)` or `error(message)`.
 
-```ky
+```by
 use std.result
 
 fn divide(a: i32, b: i32) result<i32, str>:
@@ -69,7 +69,7 @@ fn divide(a: i32, b: i32) result<i32, str>:
 
 ### Sugar syntax: `T!`
 
-```ky
+```by
 fn divide(a: i32, b: i32) i32!:
     if b == 0:
         return error("division by zero")
@@ -93,7 +93,7 @@ match res:
 
 ### Error propagation: `!`
 
-```ky
+```by
 use std.fs
 use std.json
 
@@ -105,7 +105,7 @@ fn read_config(path: &str) Config!:
 
 ### Null-coalescing: `??`
 
-```ky
+```by
 name: str = user_name ?? "anonymous"
 ```
 
@@ -113,4 +113,4 @@ name: str = user_name ?? "anonymous"
 
 - `result<T, E>` replaces exception-based error handling. Errors are values, not control flow.
 - The `!` operator propagates errors upward, similar to Rust's `?` operator.
-- `option<T>` replaces null pointers. No null reference errors in Kyle.
+- `option<T>` replaces null pointers. No null reference errors in Byle.

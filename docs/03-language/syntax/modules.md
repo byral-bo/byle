@@ -4,13 +4,13 @@
 
 ## Module definition
 
-A module is a `.ky` file. The module name is the filename without extension. El path del archivo **es** el namespace — no hay declaración `namespace` explícita.
+A module is a `.by` file. The module name is the filename without extension. El path del archivo **es** el namespace — no hay declaración `namespace` explícita.
 
 ## Imports
 
 Solo `use`. No hay `from X import Y`.
 
-```ky
+```by
 use std.io                          # módulo completo
 use std.io.{print, read}            # import selectivo
 use std.io as io                    # alias
@@ -34,13 +34,13 @@ print("hello")                      # si importaste directo
 
 ```
 my-project/
-├── ky.toml
+├── by.toml
 └── src/
-    ├── main.ky
-    └── lib.ky
+    ├── main.by
+    └── lib.by
 ```
 
-## Package manifest (ky.toml)
+## Package manifest (by.toml)
 
 ```toml
 [project]
@@ -49,12 +49,12 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-ky-http = "1.0"
+by-http = "1.0"
 ```
 
 ## Standard library
 
-```ky
+```by
 use std.io
 use std.json
 use std.math

@@ -1,6 +1,6 @@
 ---
 name: Pull Request
-about: Propuesta de cambio para Kyle
+about: Propuesta de cambio para Byle
 title: ""
 labels: []
 assignees: ""
@@ -28,12 +28,12 @@ assignees: ""
 
 ## Cómo lo probé
 
-<!-- Comandos ejecutados y resultados. Ej: cargo test -p kyc_runtime; ky run tests/std_*.ky -->
+<!-- Comandos ejecutados y resultados. Ej: cargo test -p byc_runtime; by run tests/std_*.by -->
 
 ## Checklist
 
-- [ ] Compila: `cargo build --release --bin ky`
-- [ ] Tests workspace: `cargo test --workspace --exclude kyc_runtime_wasm`
+- [ ] Compila: `cargo build --release --bin by`
+- [ ] Tests workspace: `cargo test --workspace`
 - [ ] Tests de sintaxis y std
 - [ ] Clippy sin errores: `cargo clippy --workspace -- -D warnings`
 - [ ] Commits con formato convencional

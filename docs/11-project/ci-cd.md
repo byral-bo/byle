@@ -2,7 +2,7 @@
 
 ## GitHub Actions
 
-The Kyle repository includis a complete CI workflow (`.github/workflows/ci.yml`) that builds and tests on Linux, macOS, and ARM64.
+The Byle repository includis a complete CI workflow (`.github/workflows/ci.yml`) that builds and tests on Linux, macOS, and ARM64.
 
 ```yaml
 name: CI
@@ -41,13 +41,13 @@ jobs:
 ## Testing in CI
 
 ```bash
-ky test
+by test
 ```
 
-For CI environments, use `ky fmt --check` to validate formatting:
+For CI environments, use `by fmt --check` to validate formatting:
 
 ```bash
-ky fmt src/ --check
+by fmt src/ --check
 ```
 
 ## Release workflow

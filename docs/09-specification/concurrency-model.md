@@ -1,6 +1,6 @@
 # Concurrency Model
 
-> El modelo de concurrency de Kyle is especificado en `03-language/concurrency/`.
+> El modelo de concurrency de Byle is especificado en `03-language/concurrency/`.
 > Este documento is un index que referencia filis relevantes.
 
 | Aspecto | Documento |

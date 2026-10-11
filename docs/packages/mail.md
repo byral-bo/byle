@@ -1,18 +1,18 @@
 # mail — Email sending
 
 > Send emails via SMTP with TLS, attachments, and HTML body.
-> Installation: `ky add mail`
+> Installation: `by add mail`
 > Import: `use mail`
 
 ## Quick start
 
-```ky
+```by
 use mail
 
 msg: mail.message = mail.message(
     "from@example.com",
     "to@example.com",
-    "Hello from Kyle",
+    "Hello from Byle",
     "This is the email body"
 )
 
@@ -21,13 +21,13 @@ mail.send("smtp.example.com", 587, "user", "pass", msg)!
 
 ## HTML email
 
-```ky
+```by
 msg: mail.message = mail.message(
     "from@example.com",
     "to@example.com",
     "Welcome!",
     """
-    <h1>Welcome to Kyle</h1>
+    <h1>Welcome to Byle</h1>
     <p>Thanks for joining.</p>
     """
 )
@@ -38,7 +38,7 @@ mail.send("smtp.example.com", 587, "user", "pass", msg)!
 
 ## Multiple recipients
 
-```ky
+```by
 msg: mail.message = mail.message(
     "from@example.com",
     ["alice@example.com", "bob@example.com"],
@@ -49,7 +49,7 @@ msg: mail.message = mail.message(
 
 ## With attachment
 
-```ky
+```by
 msg: mail.message = mail.message(
     "from@example.com",
     "to@example.com",
@@ -65,7 +65,7 @@ mail.send("smtp.example.com", 587, "user", "pass", msg)!
 
 ## CC and BCC
 
-```ky
+```by
 msg: mail.message = mail.message(
     "from@example.com",
     "to@example.com",
@@ -78,7 +78,7 @@ msg.bcc("archive@example.com")
 
 ## Connection configuration
 
-```ky
+```by
 # With explicit TLS (port 465)
 mail.send_tls("smtp.example.com", 465, "user", "pass", msg)!
 
@@ -113,7 +113,7 @@ mail.send_plain("mail.internal:25", msg)!
 
 ## Example
 
-```ky
+```by
 use mail
 use std.fs
 

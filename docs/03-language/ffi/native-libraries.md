@@ -1,10 +1,10 @@
 # Native Libraries
 
-> Linkear y usar libraries nativas del sistema from Kyle.
+> Linkear y usar libraries nativas del sistema from Byle.
 
 ## Linker flags with `@link`
 
-```ky
+```by
 @link "curl" # -lcurl
 @link "pthread" # -lpthread
 @link "m" # -lm (math)
@@ -14,7 +14,7 @@
 
 ### Frameworks (macOS)
 
-```ky
+```by
 @link "-framework CoreFoundation"
 @link "-framework Security"
 @link "-framework SystemConfiguration"
@@ -22,7 +22,7 @@
 
 ### Library paths
 
-```ky
+```by
 @link "-L/usr/local/lib"
 @link "-L/opt/homebrew/lib"
 ```
@@ -42,7 +42,7 @@ El linker busca libraries en:
 | Static (`.a`) | Binario portable | Size grande |
 | Dynamic (`.so`/`.dylib`) | Size pequeno | Requiere runtime library |
 
-Por defecto Kyle linkea dynamicmente. Para estatico, usa `@link "lib.a"`.
+Por defecto Byle linkea dynamicmente. Para estatico, usa `@link "lib.a"`.
 
 ## See also
 

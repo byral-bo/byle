@@ -1,11 +1,11 @@
 # C++ Interop
 
 > Interoperabilidad with C++.
-> **Pending de implementation.** Actualmente Kyle solo supports C FFI directo.
+> **Pending de implementation.** Actualmente Byle solo supports C FFI directo.
 
 ## Status current
 
-Kyle can llamar functions C (via `extern "C"`) pero NO can llamar functions
+Byle can llamar functions C (via `extern "C"`) pero NO can llamar functions
 C++ directamente. Para usar libraries C++, necesitas un wrapper C.
 
 ## Workaround: wrapper C
@@ -23,7 +23,7 @@ extern "C" {
 }
 ```
 
-```ky
+```by
 @link "cpp_lib_wrapper"
 extern fn create_object() ptr
 extern fn destroy_object(obj: ptr)

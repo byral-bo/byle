@@ -11,7 +11,7 @@ Un solo package for todo HTTP. Cliente, servidor y websocket comparten types.
 
 Nada de functions globales. Todo se instancia.
 
-```kyle
+```byle
 use http.client
 use http.server.router
 use http.websocket.{ws_upgrade, ws_read_text, ws_send_text}
@@ -25,14 +25,14 @@ use jare.{serialize, deserialize}
 
 ### http_method
 
-```kyle
+```byle
 enum http_method:
  GET | POST | PUT | DELETE | PATCH | HEAD | OPTIONS
 ```
 
 ### http_status
 
-```kyle
+```byle
 final class http_status:
  code: i32
  text: str
@@ -43,7 +43,7 @@ Constantes: `HttpStatusOk` (200), `HttpStatusCreated` (201),
 
 ### header
 
-```kyle
+```byle
 final class header:
  name: str
  value: str
@@ -55,13 +55,13 @@ final class header:
 
 ### Uso
 
-```kyle
+```byle
 use http.client
 
 client = client { timeout: 10 }
 
 # GET
-ris = client.get("https://api.github.com/repos/kyal-tech/kyle")
+ris = client.get("https://api.github.com/repos/kyal-tech/byle")
 if res.is_ok:
  print(res.body)
 
@@ -70,7 +70,7 @@ class User:
  name: str
  age: i32
 
-ube = Ube { name: "Kyle", age: 1 }
+ube = Ube { name: "Byle", age: 1 }
 ris = client.post("https://api.example.com/users", user)
 
 # POST with string raw
@@ -84,7 +84,7 @@ ris = client.delete(url)
 
 ### response
 
-```kyle
+```byle
 final class response:
  status_code: i32
  status_text: str
@@ -107,7 +107,7 @@ El servidor usa un `router` with handlers as closures, estilo Express.
 
 ### Uso basico
 
-```kyle
+```byle
 use http.server.router
 
 app = router()
@@ -121,7 +121,7 @@ app.listen(8080)
 
 ### Paths with parameters
 
-```kyle
+```byle
 app.get("/users/{id}", (req, res):
  id = req.param("id") # str
  res.json({user: id})
@@ -146,7 +146,7 @@ app.get("/users/{id:i32}", (req, res):
 
 ### request
 
-```kyle
+```byle
 final class request:
  method: http_method
  path: str
@@ -162,7 +162,7 @@ final class request:
 
 ### Res
 
-```kyle
+```byle
 final class Res:
  fn json(data): # 200 + JSON (cualquier clase serializable)
  fn json(data, code: i32): # status + JSON
@@ -176,7 +176,7 @@ Cualquier `final class` se serializa a JSON automaticamente en `res.json()`.
 
 ### Middleware
 
-```kyle
+```byle
 # Before — se ejecuta before de paths
 app.before("/api/*", (req, res, next):
  if req.header("Authorization") == "":
@@ -188,7 +188,7 @@ app.before("/api/*", (req, res, next):
 # After — se ejecuta after de paths
 app.after("/api/*", (req, res, next):
  next()
- res.header("X-Powered-By", "Kyle")
+ res.header("X-Powered-By", "Byle")
 )
 ```
 
@@ -196,14 +196,14 @@ Los middleware reciben `(req, res, next)` y must llamar `next()` for continuar c
 
 ### Filis estaticos
 
-```kyle
+```byle
 app.static("/static", "./public")
 # GET /static/index.html → ./public/index.html
 ```
 
 ### CORS
 
-```kyle
+```byle
 app.cors(
  origin="*",
  methods="GET, POST, PUT, DELETE",
@@ -213,7 +213,7 @@ app.cors(
 
 ### Error handling
 
-```kyle
+```byle
 app.get("/users/{id:i32}", (req, res):
  ube = find_user(req.param("id"))
  if ube == none:
@@ -225,7 +225,7 @@ app.get("/users/{id:i32}", (req, res):
 
 ### Example completo: API REST
 
-```kyle
+```byle
 use http.server.router
 use jare.deserialize
 
@@ -270,7 +270,7 @@ websocket se maneja as una path mas. El router does upgrade automatic.
 
 ### Echo server
 
-```kyle
+```byle
 use http.server.router
 
 app = router()
@@ -286,7 +286,7 @@ app.listen(8080)
 
 ### Chat server
 
-```kyle
+```byle
 use http.server.router
 
 app = router()
@@ -302,7 +302,7 @@ app.listen(8080)
 
 ### websocket handler
 
-```kyle
+```byle
 app.ws("/path", (ws):
  ws.on("message", (msg): ...) # mensaje de texto
  ws.on("binary", (data): ...) # data binarys
@@ -313,7 +313,7 @@ app.ws("/path", (ws):
 
 ### websocket object
 
-```kyle
+```byle
 final class websocket:
  fn send(text: str) # enviar mensaje texto
  fn send(data: bytes) # enviar data binarys
@@ -335,4 +335,4 @@ final class websocket:
 | 4 | **router: paths, path params, middleware** | Fase 1 + 3 | 🔜 |
 | 5 | websocket + SSE | Fase 4 | 🔜 |
 | 6 | PostgreSQL package | — | 🔜 |
-| 7 | WASM target + ky-web | — | 🔜 |
+| 7 | WASM target + by-web | — | 🔜 |

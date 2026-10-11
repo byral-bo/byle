@@ -22,19 +22,19 @@
 | **SSA opcional** | Deshabilitado by defecto (bugs conocidos) |
 | **LLVM O3** | Optimization agresiva en release |
 | **LTO** | Link-Time Optimization en release |
-| **Sin runtime pesado** | `libkyc_runtime.a` ~3MB |
+| **Sin runtime pesado** | `libbyc_runtime.a` ~3MB |
 
 ## Tooling
 
 | Herramienta | Purpose |
 |-------------|-----------|
-| `ky build` | Compilar a binary |
-| `ky run` | Compilar y execute |
-| `ky check` | Type-check rapido |
-| `ky test` | Ejecutar tests |
-| `ky fmt` | Formatear code |
-| `ky lsp` | Language server |
-| `ky add` / `ky install` | Management de paquetis |
+| `by build` | Compilar a binary |
+| `by run` | Compilar y execute |
+| `by check` | Type-check rapido |
+| `by test` | Ejecutar tests |
+| `by fmt` | Formatear code |
+| `by lsp` | Language server |
+| `by add` / `by install` | Management de paquetis |
 
 ## Paquetes
 

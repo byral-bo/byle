@@ -3,7 +3,7 @@
 **Status:** Draft v1.0
 **Date:** 2026-07-10
 **Documentación relacionada:**
-- [ui-syntax.md](../syntax/ui-syntax.md) — Sintaxis .kyx
+- [ui-syntax.md](../syntax/ui-syntax.md) — Sintaxis .byx
 - [state-events.md](state-events.md) — Estado y eventos
 - [routing.md](routing.md) — Routing (guardias on_error)
 
@@ -53,7 +53,7 @@ la app se rompa.
 
 ### 2.1 ErrorBoundary component
 
-```kyx
+```byx
 <error_boundary>
     <child_component />
 </error_boundary>
@@ -61,15 +61,15 @@ la app se rompa.
 
 ### 2.2 Con UI de fallback
 
-```kyx
+```byx
 <error_boundary>
     @(    fallback: ^view = error_view())
     <profile_card user_id=@user_id />
 </error_boundary>
 ```
 
-```kyx
-# error_view.kyx
+```byx
+# error_view.byx
 @(
     on_retry: ^&(fn ())
 )
@@ -85,7 +85,7 @@ la app se rompa.
 
 ### 2.3 Inline fallback
 
-```kyx
+```byx
 <error_boundary>
     <slot name="fallback">
         <view padding=16>
@@ -133,7 +133,7 @@ on_error(caught_error) se dispara en el boundary
 
 ### 4.2 Eventos
 
-```kyx
+```byx
 @(
     fn handle_error(error: Error):
         log_error_to_server(error)
@@ -147,7 +147,7 @@ on_error(caught_error) se dispara en el boundary
 
 ### 4.3 Reintento automático
 
-```kyx
+```byx
 <error_boundary max_retries=3>
     <weather_widget city=@city />
 </error_boundary>
@@ -157,7 +157,7 @@ Si falla, reintenta hasta 3 veces con backoff exponencial (1s, 2s, 4s).
 
 ### 4.4 Reset en cambio de props
 
-```kyx
+```byx
 <error_boundary reset_on_change={"user_id", "section"}>
     <profile_section user_id=@user_id section=@section />
 </error_boundary>
@@ -173,7 +173,7 @@ Si `user_id` o `section` cambian, el boundary se resetea automáticamente
 Cada boundary captura errores de su propio subárbol. Si un boundary falla,
 el error lo captura el boundary padre:
 
-```kyx
+```byx
 <error_boundary>                    # ← captura errores de sidebar + content
     <sidebar>
         <error_boundary>            # ← captura errores de nav_items
@@ -199,7 +199,7 @@ Si el boundary interno falla → lo captura el boundary externo.
 
 ### 6.1 Fallback minimalista
 
-```kyx
+```byx
 <error_boundary>
     <slot name="fallback">
         <text value="❌" />
@@ -210,7 +210,7 @@ Si el boundary interno falla → lo captura el boundary externo.
 
 ### 6.2 Fallback con acción
 
-```kyx
+```byx
 <error_boundary>
     @(
         fallback: ^View = error_retry_view(fn():
@@ -223,7 +223,7 @@ Si el boundary interno falla → lo captura el boundary externo.
 
 ### 6.3 Fallback específico por error
 
-```kyx
+```byx
 @(
     fn handle_error(error: Error):
         if error.type == ErrorType.Network:
@@ -241,7 +241,7 @@ Si el boundary interno falla → lo captura el boundary externo.
 
 ### 6.4 Fallback con reporte
 
-```kyx
+```byx
 <error_boundary log_to="/api/log-error">
     <profile_section />
 </error_boundary>
@@ -255,7 +255,7 @@ El boundary captura el error, lo envía al servidor, y muestra el fallback.
 
 ### 7.1 Reintento manual
 
-```kyx
+```byx
 @(
     boundary_ref: ^ErrorBoundaryRef
 
@@ -272,7 +272,7 @@ El boundary captura el error, lo envía al servidor, y muestra el fallback.
 
 ### 7.2 Reintento con estado degradado
 
-```kyx
+```byx
 @(
     fn handle_error(error: Error):
         # Mostrar versión simplificada en lugar de fallback
@@ -292,7 +292,7 @@ El boundary captura el error, lo envía al servidor, y muestra el fallback.
 El boundary puede mantener el último estado exitoso y mostrarlo hasta que
 se recupere:
 
-```kyx
+```byx
 <error_boundary cache_last_success=true>
     <weather_widget />
 </error_boundary>
@@ -307,8 +307,8 @@ de un mensaje de error.
 
 Error boundaries en rutas:
 
-```kyx
-# app.kyx
+```byx
+# app.byx
 <router>
     <error_boundary>
         <home_view />
@@ -360,7 +360,7 @@ class ErrorBoundary {
 
 ### 9.2 Desktop
 
-```kyle
+```byle
 # Generado automáticamente
 final class error_boundary:
     state: ^boundary_state = boundary_state.success
@@ -398,6 +398,6 @@ final class error_boundary:
 
 ## 11. Referencias
 
-- [ui-syntax.md](../syntax/ui-syntax.md) — Sintaxis .kyx
+- [ui-syntax.md](../syntax/ui-syntax.md) — Sintaxis .byx
 - [state-events.md](state-events.md) — Estado y eventos
 - [routing.md](routing.md) — Guardias on_error en rutas

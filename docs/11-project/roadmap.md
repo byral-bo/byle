@@ -1,4 +1,4 @@
-# Kyle — Roadmap de Desarrollo
+# Byle — Roadmap de Desarrollo
 
 > Current focus: **Backend package ecosystem** (see [`backend-packages-plan.md`](backend-packages-plan.md))
 > UI Framework: ⏸️ **Paused** (see `docs/03-language/ui/`)
@@ -24,45 +24,45 @@
 
 ### 🔴 FASE 1: Std Core Wrappers (19 módulos) — ✅ 21 wrappers creados en `packages/std/`
 
-Crear wrappers Kyle para las 190+ funciones runtime existentes. Todos compilan (`ky check`); smoke-tested en conjunto.
+Crear wrappers Byle para las 190+ funciones runtime existentes. Todos compilan (`by check`); smoke-tested en conjunto.
 
 | Módulo | Estado | Notas |
 |--------|:------:|-------|
 | `std::result` | ✅ Wrapper | `ok`/`error`/`some`/`none` son builtins |
-| `std::json` | ✅ Wrapper | `ky_json_*`, `ky_struct_to_json` |
-| `std::time` | ✅ Wrapper | `ky_datetime_*`, `ky_date_*`, `ky_duration_*` |
-| `std::fs` | ✅ Wrapper | `ky_fs_*` |
-| `std::path` | ✅ Wrapper | `ky_path_*` |
-| `std::str` | ✅ Wrapper | `ky_str_*`, `Str` class |
-| `std::math` | ✅ Wrapper | `ky_pow`, etc. |
-| `std::io` | ✅ Wrapper | `ky_print*`, `ky_input*` |
-| `std::net` | ✅ Wrapper | `ky_tcp_*` |
+| `std::json` | ✅ Wrapper | `by_json_*`, `by_struct_to_json` |
+| `std::time` | ✅ Wrapper | `by_datetime_*`, `by_date_*`, `by_duration_*` |
+| `std::fs` | ✅ Wrapper | `by_fs_*` |
+| `std::path` | ✅ Wrapper | `by_path_*` |
+| `std::str` | ✅ Wrapper | `by_str_*`, `Str` class |
+| `std::math` | ✅ Wrapper | `by_pow`, etc. |
+| `std::io` | ✅ Wrapper | `by_print*`, `by_input*` |
+| `std::net` | ✅ Wrapper | `by_tcp_*` |
 | `std::random` | ✅ Wrapper | `Random.bytes`, `Random.int` |
-| `std::regex` | ✅ Wrapper | `ky_regex_*` |
-| `std::thread` | ✅ Wrapper | `ky_spawn_thread` |
-| `std::sync` | ✅ Wrapper | `Mutex`/`AtomicI64`/`AtomicBool`/`Channel` (+ `tests/std_sync.ky`) |
+| `std::regex` | ✅ Wrapper | `by_regex_*` |
+| `std::thread` | ✅ Wrapper | `by_spawn_thread` |
+| `std::sync` | ✅ Wrapper | `Mutex`/`AtomicI64`/`AtomicBool`/`Channel` (+ `tests/std_sync.by`) |
 | `std::crypto` | ✅ Wrapper | sha256, base64, uuid |
-| `std::process` | ✅ Wrapper | `ky_getenv`, libc |
-| `std::testing` | ✅ Wrapper | `ky_assert*`, `Assert` |
-| `std::bytes` | ✅ Implementado | `ky_bytes_*`, `ky_buffer_*` `tests/std_bytes.ky` |
-| `std::cli` | ✅ Implementado | `ky_cli_*`, `std/cli.ky` `tests/std_cli.ky` |
-| `std::csv` | ✅ Implementado | `ky_csv_*`, `std/csv.ky` `tests/std_csv.ky` |
-| `std::url` | ✅ Wrapper | `ky_url_*` |
-| `std::log` | ✅ Wrapper | `ky_log_*`, `Log` class |
+| `std::process` | ✅ Wrapper | `by_getenv`, libc |
+| `std::testing` | ✅ Wrapper | `by_assert*`, `Assert` |
+| `std::bytes` | ✅ Implementado | `by_bytes_*`, `by_buffer_*` `tests/std_bytes.by` |
+| `std::cli` | ✅ Implementado | `by_cli_*`, `std/cli.by` `tests/std_cli.by` |
+| `std::csv` | ✅ Implementado | `by_csv_*`, `std/csv.by` `tests/std_csv.by` |
+| `std::url` | ✅ Wrapper | `by_url_*` |
+| `std::log` | ✅ Wrapper | `by_log_*`, `Log` class |
 
 **Total:** 21/21 std modules documented. Implementados con wrapper+test: result, json, time, fs, path, str, math, io, net, random, regex, thread, sync, crypto, process, testing, bytes, cli, csv.
 
 ### 🟡 FASE 2: Std New Runtime (5 módulos)
 
-Implementar runtime functions + wrappers Kyle.
+Implementar runtime functions + wrappers Byle.
 
-| Módulo | Runtime | Kyle Wrapper | Tests | Prioridad |
+| Módulo | Runtime | Byle Wrapper | Tests | Prioridad |
 |--------|:-------:|:------------:|:-----:|:---------:|
 | `std::log` | 🟡 `log.rs` | ❌ | ❌ | 🔴 Alta |
-| `std::cli` | ✅ `ky_cli_*` | ✅ `std/cli.ky` | ✅ `tests/std_cli.ky` | 🔴 Alta |
-| `std::csv` | ✅ `ky_csv_*` | ✅ `std/csv.ky` | ✅ `tests/std_csv.ky` | 🟡 Media |
+| `std::cli` | ✅ `by_cli_*` | ✅ `std/cli.by` | ✅ `tests/std_cli.by` | 🔴 Alta |
+| `std::csv` | ✅ `by_csv_*` | ✅ `std/csv.by` | ✅ `tests/std_csv.by` | 🟡 Media |
 | `std::url` | 🟡 Extender | ❌ | ❌ | 🟡 Media |
-| `std::bytes` | ✅ `ky_bytes_*` | ✅ `std/bytes.ky` | ✅ `tests/std_bytes.ky` | 🟡 Media |
+| `std::bytes` | ✅ `by_bytes_*` | ✅ `std/bytes.by` | ✅ `tests/std_bytes.by` | 🟡 Media |
 
 ### 🟡 FASE 3: Package Improvements (4 packages)
 
@@ -77,9 +77,9 @@ Mejorar packages existentes con funcionalidades faltantes.
 
 ### 🟢 FASE 4: New Packages (4 packages)
 
-Crear packages desde cero con runtime Rust + Kyle wrapper.
+Crear packages desde cero con runtime Rust + Byle wrapper.
 
-| Package | Runtime | Kyle Wrapper | Tests | Prioridad |
+| Package | Runtime | Byle Wrapper | Tests | Prioridad |
 |---------|:-------:|:------------:|:-----:|:---------:|
 | `crypto` | ❌ | ❌ | ❌ | 🟡 Media |
 | `config` (YAML/TOML) | ❌ | ❌ | ❌ | 🟡 Media |
@@ -90,8 +90,8 @@ Crear packages desde cero con runtime Rust + Kyle wrapper.
 
 ## ⏸️ UI Framework — Paused
 
-UI development (`.kyx`, web/desktop/iOS/TUI backends) is paused.
-Existing code at `packages/ui/` and `crates/kyc_ui/` remains functional but not in active development.
+UI development (`.byx`, web/desktop/iOS/TUI backends) is paused.
+Existing code at `packages/ui/` and `crates/byc_ui/` remains functional but not in active development.
 
 See `docs/03-language/ui/README.md` for full UI documentation.
 
@@ -101,19 +101,19 @@ See `docs/03-language/ui/README.md` for full UI documentation.
 
 ```bash
 # Rust tests
-cargo test --workspace --exclude kyc_runtime_wasm
+cargo test --workspace --exclude byc_runtime_wasm
 
 # Build release binary
-cargo build --release --bin ky
+cargo build --release --bin by
 
 # Syntax tests
-for f in tests/syntax/*.ky; do ky run "$f"; done
+for f in tests/syntax/*.by; do by run "$f"; done
 
 # Package tests
-ky test packages/http/tests/test_http.ky
+by test packages/http/tests/test_http.by
 
 # Check package
-ky check packages/http/src/lib.ky
+by check packages/http/src/lib.by
 ```
 
 ---

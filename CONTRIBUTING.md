@@ -1,6 +1,6 @@
-# Contributing to Kyle — Guía de Colaboración
+# Contributing to Byle — Guía de Colaboración
 
-> Documento oficial de referencia para contribuir al repositorio Kyle.
+> Documento oficial de referencia para contribuir al repositorio Byle.
 > Léelo completo antes de tu primer commit. Es obligatorio para todos los colaboradores.
 
 ---
@@ -26,7 +26,7 @@
 
 ## 1. Modelo de ramas
 
-Kyle usa un **Git Flow simplificado**, pensado para equipos pequeños que quieren
+Byle usa un **Git Flow simplificado**, pensado para equipos pequeños que quieren
 escalar sin fricción.
 
 ```
@@ -191,7 +191,7 @@ La revisión es obligatoria y es **la defensa de calidad del proyecto**.
 
 ## 6. Versionado semántico y releases
 
-Kyle sigue **SemVer**: `MAJOR.MINOR.PATCH`.
+Byle sigue **SemVer**: `MAJOR.MINOR.PATCH`.
 
 | Incremento | Cuándo |
 |-----------|--------|
@@ -271,24 +271,24 @@ git rebase origin/develop
 
 ```
 crates/            ← Rust: compilador y herramientas
-  kyc_frontend/    → Lexer + parser
-  kyc_hir/         → HIR
-  kyc_semantic/    → Type checker + borrow checker
-  kyc_mir/         → MIR
-  kyc_backend/     → LLVM codegen
-  kyc_driver/      → Pipeline
-  kyc_cli/         → Binario `ky`
-  kyc_runtime/     → Runtime (190+ extern "C")
-  kyc_tools/       → LSP, formatter, package manager
-packages/          → Paquetes instalables (`ky add`)
+  byc_frontend/    → Lexer + parser
+  byc_hir/         → HIR
+  byc_semantic/    → Type checker + borrow checker
+  byc_mir/         → MIR
+  byc_backend/     → LLVM codegen
+  byc_driver/      → Pipeline
+  byc_cli/         → Binario `by`
+  byc_runtime/     → Runtime (190+ extern "C")
+  byc_tools/       → LSP, formatter, package manager
+packages/          → Paquetes instalables (`by add`)
 docs/              → Docs del lenguaje, stdlib, planes
 tests/             → Tests de sintaxis y packages
-examples/          → Programas .ky / .kyx
+examples/          → Programas .by / .byx
 scripts/           → install.sh, dev-install.sh
 .github/workflows/ → CI + Release
 ```
 
-Documentación clave: `AGENTS.md`, `BUILD.md`, `PACKAGES.md`.
+Documentación clave: `AGENTS.md`, `BUILD.md`, `docs/11-project/benchmarks.md` y `docs/packages/`.
 
 ---
 
@@ -298,20 +298,24 @@ Documentación clave: `AGENTS.md`, `BUILD.md`, `PACKAGES.md`.
 
 ```bash
 # Build
-cargo build --release --bin ky
+cargo build --release --bin by --locked
 
-# Tests de workspace (excluye wasm que no aplica en CI)
-cargo test --workspace --exclude kyc_runtime_wasm
+# Tests completos del workspace
+cargo test --workspace --locked
 
 # Tests de sintaxis
-for f in tests/syntax/*.ky; do ky run "$f"; done
-for f in tests/std_*.ky; do ky run "$f"; done
+for f in tests/syntax/*.by; do by run "$f"; done
+for f in tests/std_*.by; do by run "$f"; done
 
 # Clippy (sin warnings)
-cargo clippy --workspace -- -D warnings
+cargo clippy --workspace --locked -- -D warnings
+
+# Auditoría de dependencias
+cargo install cargo-audit --version 0.22.2 --locked
+cargo audit --deny warnings
 
 # Tests de un paquete
-ky test packages/<name>/tests/
+by test packages/<name>/tests/
 ```
 
 **Regla**: si no compila o fallan tests, el PR no se abre. Punto.
@@ -345,7 +349,7 @@ Los hotfixes son la única excepción al "todo entra por `develop`".
 
 ### Checklist previo al PR
 
-- [ ] Compila en local (`cargo build --release --bin ky`)
+- [ ] Compila en local (`cargo build --release --bin by --locked`)
 - [ ] Tests pasan (workspace + sintaxis + std)
 - [ ] Clippy sin errores
 - [ ] Commit con formato convencional

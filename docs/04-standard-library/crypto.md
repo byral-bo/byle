@@ -5,7 +5,7 @@
 
 ## Hashing
 
-```ky
+```by
 use std.crypto
 
 hash: str = crypto.sha256("hello world")
@@ -17,14 +17,14 @@ println(hash)   # hex string
 
 ## Encoding
 
-```ky
+```by
 encoded: str = crypto.base64_encode("hello world")
 decoded: str = crypto.base64_decode(encoded)
 ```
 
 ## Random data
 
-```ky
+```by
 bytes: bytes = crypto.random_bytes(32)
 uuid: str = crypto.uuid_v4()
 println(uuid)   # "550e8400-e29b-41d4-a716-446655440000"
@@ -43,7 +43,7 @@ println(uuid)   # "550e8400-e29b-41d4-a716-446655440000"
 
 ## Example
 
-```ky
+```by
 use std.crypto
 
 token: str = crypto.sha256("user:password:123")

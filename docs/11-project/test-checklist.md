@@ -1,7 +1,7 @@
-# Test Checklist — Kyle Language Features
+# Test Checklist — Byle Language Features
 
 > **Última actualización:** 2026-07-11
-> Estado real de cada feature verificado con `ky check` y `ky run`.
+> Estado real de cada feature verificado con `by check` y `by run`.
 
 ---
 
@@ -100,7 +100,7 @@
 
 ## 📝 NOTAS DE SINTAXIS
 
-```kyle
+```byle
 # ✅ Struct literal usa {} no ()
 p = Point { x: 10, y: 20 }
 

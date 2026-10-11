@@ -1,22 +1,22 @@
 # Platform Abstraction
 
 > Capa de abstraccion de plataforma: interaccion with sistema operativo.
-> Crate: `kyc_platform` (en desarrollo).
+> Crate: `byc_platform` (en desarrollo).
 
 ## Responsabilidad
 
 La capa Platform abstrae diferencias between sistemas operativos, proporcionando
-una API unificada for runtime de Kyle. Es unica capa que conoce SO subyacente.
+una API unificada for runtime de Byle. Es unica capa que conoce SO subyacente.
 
 ## Status current
 
 | Module | Status | Crate | Notis |
 |--------|--------|-------|-------|
-| File I/O | ✅ | `kyc_runtime/src/io.rs` | open/read/write/close |
-| Time | ✅ | `kyc_runtime/src/datetime.rs` | now/parse/format |
-| Networking | ✅ | `kyc_runtime/src/net.rs` | TCP listen/accept/read/write |
-| Threads | ✅ | `kyc_runtime/src/thread.rs` | spawn/join |
-| Environment | ✅ | `kyc_runtime/src/string.rs` | getenv/setenv |
+| File I/O | ✅ | `byc_runtime/src/io.rs` | open/read/write/close |
+| Time | ✅ | `byc_runtime/src/datetime.rs` | now/parse/format |
+| Networking | ✅ | `byc_runtime/src/net.rs` | TCP listen/accept/read/write |
+| Threads | ✅ | `byc_runtime/src/thread.rs` | spawn/join |
+| Environment | ✅ | `byc_runtime/src/string.rs` | getenv/setenv |
 | Filesystem (dirs) | ❌ | — | Pending |
 | Process | ❌ | — | Pending |
 | Signals | ❌ | — | Pending |
@@ -29,42 +29,42 @@ El module I/O current (`io.rs`) proporciona:
 
 ```rust
 // File operations
-ky_open(path, mode) -> i32 fd // Open file
-ky_read_str(fd, len) -> ptr // Read as string
-ky_write_str(fd, buf) -> i32 // Write string
-ky_close(fd) -> i32 // Close fd
+by_open(path, mode) -> i32 fd // Open file
+by_read_str(fd, len) -> ptr // Read as string
+by_write_str(fd, buf) -> i32 // Write string
+by_close(fd) -> i32 // Close fd
 ```
 
 ## Networking Module
 
 ```rust
 // TCP operations
-ky_tcp_listen(port) -> i32 fd
-ky_tcp_accept(fd) -> i32 client_fd
-ky_tcp_read(fd, len) -> ptr
-ky_tcp_write(fd, buf, len) -> i32
-ky_tcp_close(fd) -> i32
+by_tcp_listen(port) -> i32 fd
+by_tcp_accept(fd) -> i32 client_fd
+by_tcp_read(fd, len) -> ptr
+by_tcp_write(fd, buf, len) -> i32
+by_tcp_close(fd) -> i32
 
 // WebSocket
-ky_ws_accept(request) -> ptr
-ky_ws_read_frame(fd) -> ptr
-ky_ws_send_frame(fd, opcode, data, len) -> i32
+by_ws_accept(request) -> ptr
+by_ws_read_frame(fd) -> ptr
+by_ws_send_frame(fd, opcode, data, len) -> i32
 
 // Crypto helpers
-ky_sha1(data, len, output) -> i32
-ky_base64_encode(data, len) -> ptr
+by_sha1(data, len, output) -> i32
+by_base64_encode(data, len) -> ptr
 
 // Pointer operations (for FFI)
-ky_ptr_read_i32(ptr) -> i32
-ky_ptr_read_ptr(ptr) -> ptr
-ky_ptr_write_i32(ptr, i32)
+by_ptr_read_i32(ptr) -> i32
+by_ptr_read_ptr(ptr) -> ptr
+by_ptr_write_i32(ptr, i32)
 ```
 
 ## Time Module
 
 ```rust
-ky_now() -> i64 // Current timestamp (ms)
-ky_sleep(ms) // Sleep milliseconds
+by_now() -> i64 // Current timestamp (ms)
+by_sleep(ms) // Sleep milliseconds
 ```
 
 ## Platform Adapters

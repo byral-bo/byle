@@ -1,10 +1,10 @@
 # Testing
 
-> Kyle has un framework de testing integrado with attribute `#[test]`.
+> Byle has un framework de testing integrado with attribute `#[test]`.
 
 ## Escribir tests
 
-```ky
+```by
 use testing.assert
 
 #[test]
@@ -22,7 +22,7 @@ fn test_string():
 ## Ejecutar tests
 
 ```bash
-ky test
+by test
 ```
 
 Busca functions `#[test]` en `tests/`, compila y ejecuta.
@@ -40,12 +40,12 @@ Busca functions `#[test]` en `tests/`, compila y ejecuta.
 
 ```
 my-project/
-├── ky.toml
+├── by.toml
 ├── src/
-│ └── main.ky
+│ └── main.by
 └── tests/
- ├── test_unit.ky
- └── test_integration.ky
+ ├── test_unit.by
+ └── test_integration.by
 ```
 
 ## Requirements
@@ -57,7 +57,7 @@ Cada funcion de test debe:
 
 ## Example completo
 
-```ky
+```by
 use testing.assert
 
 fn sum_list(lst: {i32}) i32:

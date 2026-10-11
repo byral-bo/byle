@@ -5,7 +5,7 @@
 
 ## Reading files
 
-```ky
+```by
 use std.fs
 
 content: str = fs.read("data.txt")!
@@ -15,14 +15,14 @@ println("lines: " + lines.len().to_str())
 
 ## Writing files
 
-```ky
+```by
 fs.write("output.txt", "hello world")!
 fs.append("log.txt", "new log entry")!
 ```
 
 ## File information
 
-```ky
+```by
 if fs.exists("data.txt"):
     size: i64 = fs.size("data.txt")
     println("size: " + size.to_str() + " bytes")
@@ -30,7 +30,7 @@ if fs.exists("data.txt"):
 
 ## Directory operations
 
-```ky
+```by
 fs.create_dir("data")!
 fs.create_dir_all("data/images/icons")!  # creates parent dirs too
 
@@ -44,7 +44,7 @@ fs.remove_dir_all("data/temp")!   # recursive
 
 ## Copy, move, remove
 
-```ky
+```by
 fs.copy("source.txt", "backup.txt")!
 fs.rename("old.txt", "new.txt")!
 fs.remove("temp.txt")!
@@ -52,7 +52,7 @@ fs.remove("temp.txt")!
 
 ## Binary files
 
-```ky
+```by
 data: bytes = fs.read_bytes("image.png")!
 fs.write_bytes("copy.png", data)!
 ```
@@ -79,7 +79,7 @@ fs.write_bytes("copy.png", data)!
 
 ## Example
 
-```ky
+```by
 use std.fs
 
 fn backup_config():

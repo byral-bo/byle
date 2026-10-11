@@ -1,6 +1,6 @@
 # FFI
 
-> Foreign Function Interface: llamar functions nativas from Kyle.
+> Foreign Function Interface: llamar functions nativas from Byle.
 
 | File | Description |
 |---------|-------------|

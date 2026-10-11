@@ -1,7 +1,7 @@
 # MIR (Mid-Level IR)
 
 > Translation del AST tipado a una representscion de bajo nivel with instruccionis simples.
-> Crate: `kyc_mir/src/lower.rs` (7740 lines).
+> Crate: `byc_mir/src/lower.rs` (7740 lines).
 
 ## Responsabilidad
 
@@ -65,7 +65,7 @@ call, branch, etc. Esta is fase more grande y compleja del compiler.
 
 ## Lowering: example concreto
 
-```ky
+```by
 fn add(a: i32, b: i32) i32:
  a + b
 ```
@@ -97,7 +97,7 @@ Return { value: Local(6) }
 
 ### If/Else
 
-```ky
+```by
 if x > 0:
  println("pos")
 else:
@@ -108,10 +108,10 @@ else:
  BinaryOp { cond, Gt, x, 0 }
  CondBr { cond, true_block: "bb1", false_block: "bb2" }
 bb1:
- Call { "ky_println", ["pos"] }
+ Call { "by_println", ["pos"] }
  Br "bb3"
 bb2:
- Call { "ky_println", ["neg"] }
+ Call { "by_println", ["neg"] }
  Br "bb3"
 bb3:
  ...
@@ -119,7 +119,7 @@ bb3:
 
 ### While
 
-```ky
+```by
 while i < n:
  ...
 ```
@@ -152,7 +152,7 @@ El code gen genera GEP about alloca original en vez de about una copia.
 ### str (Move type)
 
 Los strings se manejan as pointers a heap. El borrow analysis inserta
-llamadas a `ky_free` cuando un string sale de scope.
+llamadas a `by_free` cuando un string sale de scope.
 
 ## See also
 

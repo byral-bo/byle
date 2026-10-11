@@ -1,7 +1,7 @@
 # Async Scheduler
 
 > Scheduler de tasks asincronas: thread pool for async/await.
-> Crate: `kyc_runtime/src/async_.rs` (152 lines), `kyc_runtime/src/task.rs` (41 lines).
+> Crate: `byc_runtime/src/async_.rs` (152 lines), `byc_runtime/src/task.rs` (41 lines).
 
 ## Responsabilidad
 
@@ -22,16 +22,16 @@ type TaskFn = Box<dyn FnOnce() + Send>;
 ```
 
 - Pool global inicializado with `available_parallelism()` workers
-- Configurable via variable de entorno `KL_WORKERS`
+- Configurable via variable de entorno `BYLE_WORKERS`
 - Communication using `std::sync::mpsc` channel
 
 ## Functions
 
-### ky_spawn_task
+### by_spawn_task
 
 ```rust
 #[unsafe(no_mangle)]
- extern "C" fn ky_spawn_task(
+ extern "C" fn by_spawn_task(
  func: Option<unsafe extern "C" fn(i64) -> i64>,
  arg: i64,
 ) -> i64
@@ -41,31 +41,31 @@ Spawnear una funcion en thread pool.
 
 - `func`: pointer a funcion with C calling convention
 - `arg`: argumento i64 unico
-- Retorna: handle i64 opaco for `ky_await_task` (un `Arc` convertido a i64)
+- Retorna: handle i64 opaco for `by_await_task` (un `Arc` convertido a i64)
 
-```ky
+```by
 task = async: heavy_computation()
 result = await task
 ```
 
-### ky_await_task
+### by_await_task
 
 ```rust
 #[unsafe(no_mangle)]
- extern "C" fn ky_await_task(handle: i64) -> i64
+ extern "C" fn by_await_task(handle: i64) -> i64
 ```
 
 Esperar resultado de una task asincrona.
 
-- `handle`: i64 devuelto by `ky_spawn_task`
+- `handle`: i64 devuelto by `by_spawn_task`
 - Bloquea thread current hasta que task completa
 - Retorna: value i64 producido by task
 
-### ky_yield
+### by_yield
 
 ```rust
 #[unsafe(no_mangle)]
- extern "C" fn ky_yield()
+ extern "C" fn by_yield()
 ```
 
 Cede paso al scheduler. Permite que otra task se ejecute.
@@ -83,7 +83,7 @@ Donde `BoxedFuture<T> = Pin<Box<dyn Future<Output = T> + Send>>`.
 
 ## Initialization lazy
 
-El scheduler se inicializa bajo demanda. La primera llamada a `ky_spawn_task`
+El scheduler se inicializa bajo demanda. La primera llamada a `by_spawn_task`
 crea thread pool.
 
 ```rust
@@ -93,7 +93,7 @@ static EXECUTOR: OnceLock<Executor> = OnceLock::new();
 ## Configuration
 
 ```bash
-export KL_WORKERS=8 # Limitar a 8 workers (default: available_parallelism)
+export BYLE_WORKERS=8 # Limitar a 8 workers (default: available_parallelism)
 ```
 
 ## See also

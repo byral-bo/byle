@@ -6,7 +6,7 @@
 #
 # Usage:
 #   ./protect-branch.sh OWNER REPO BRANCH
-#   ./protect-branch.sh kyal-tech kyle main
+#   ./protect-branch.sh kyal-tech byle main
 #
 # Auth (pick one):
 #   1. Export a token:   GITHUB_TOKEN=ghp_xxx ./protect-branch.sh ...
@@ -22,8 +22,8 @@ set -eu
 
 if [ "$#" -lt 3 ]; then
     echo "Usage: $0 OWNER REPO BRANCH [--remove]" >&2
-    echo "  ./protect-branch.sh kyal-tech kyle main" >&2
-    echo "  ./protect-branch.sh kyal-tech kyle main --remove" >&2
+    echo "  ./protect-branch.sh kyal-tech byle main" >&2
+    echo "  ./protect-branch.sh kyal-tech byle main --remove" >&2
     exit 1
 fi
 

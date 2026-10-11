@@ -2,7 +2,7 @@
 
 New syntax usis direct assignment:
 
-```ky
+```by
 x = 5 # immutable
 y: ^i32 = 10 # mutable
 Z := 20 # constant
@@ -10,7 +10,7 @@ Z := 20 # constant
 
 ### struct → final class
 
-```ky
+```by
 class Point: # replacis `struct Point:`
  x: i32
  y: i32
@@ -18,7 +18,7 @@ class Point: # replacis `struct Point:`
 
 ### Option → T?
 
-```ky
+```by
 name: str? = none # replacis `name: Option<str> = None`
 ```
 
@@ -34,7 +34,7 @@ name: str? = none # replacis `name: Option<str> = None`
 | Mutable borrow | — | **`^&T`** |
 | Move explicito | `^T` | Default (no marcador) |
 
-```ky
+```by
 # v0.5 (antiguo)
 fn read(s: str): # borrow
 fn append(s: &str): # mutable
@@ -48,7 +48,7 @@ fn consume(s: str): # move (default)
 
 ### Variables: `&T` mutable → `^T` mutable
 
-```ky
+```by
 # v0.5
 x: &i32 = 0
 
@@ -58,7 +58,7 @@ x: ^i32 = 0
 
 ### Llamadas: `&x` mutable → `^&x` mutable borrow
 
-```ky
+```by
 # v0.5
 append(&buf)
 

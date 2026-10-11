@@ -1,25 +1,25 @@
 # FAQ
 
-> Questions frecuentis about Kyle.
+> Questions frecuentis about Byle.
 
 ## Generales
 
-### Is Kyle a high or low level language?
+### Is Byle a high or low level language?
 
 **Bajo nivel.** Compila a nativo via LLVM, has control de memory manual
 (ownership, borrow checker), pointers raw, FFI directo with C. Pero with syntax
 simple y legible as Python.
 
-### �Does Kyle compete with Rust?
+### �Does Byle compete with Rust?
 
-Si, en sentido de be un language de sistemas seguro y rapido. Pero Kyle
+Si, en sentido de be un language de sistemas seguro y rapido. Pero Byle
 prioriza simplicidad sintactica about exhaustividad del type system.
 Menos features, less complejidad.
 
-### �Does Kyle have a garbage collector?
+### �Does Byle have a garbage collector?
 
 **No.** La memory se gestiona using ownership (move by defecto) y 
-borrow checker inserta `ky_free` automaticamente.
+borrow checker inserta `by_free` automaticamente.
 
 ## Syntax
 
@@ -40,7 +40,7 @@ marca with `^`: `x: ^i32 = 0`.
 
 ## Rendimiento
 
-| Benchmark | Kyle vs C | Gap | Causa principal |
+| Benchmark | Byle vs C | Gap | Causa principal |
 |-----------|:---------:|:---:|-----------------|
 | Fib | 1.6× | Register alloc | Optimizar `^i32` en codegen |
 | Concat | 1.1× | FFI call overhead | strBuilder inline hints |
@@ -56,7 +56,7 @@ PostgreSQL are packagis porque are protocolos/basis de data especificos.
 
 ### �Where are the runtime files?
 
-En `crates/kyc_runtime/src/`. 3350 lines de Rust, 88 functions `extern "C"`.
+En `crates/byc_runtime/src/`. 3350 lines de Rust, 88 functions `extern "C"`.
 
 ## See also
 

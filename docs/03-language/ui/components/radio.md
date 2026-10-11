@@ -5,9 +5,9 @@
 
 ---
 
-## Tipo Kyle
+## Tipo Byle
 
-```kyle
+```byle
 final class radio:
     # Valor
     bind: ^str?                     # Binding al valor seleccionado
@@ -33,7 +33,7 @@ final class radio:
 
 ### Grupo de radios
 
-```kyx
+```byx
 <view>
     @(
         selected_color: ^str = "red"
@@ -70,7 +70,7 @@ final class radio:
 
 ### Con modelo
 
-```kyx
+```byx
 <form model=@form>
     <radio field="gender" value="male" label="Masculino" />
     <radio field="gender" value="female" label="Femenino" />
@@ -80,7 +80,7 @@ final class radio:
 
 ### Radio group con layout horizontal
 
-```kyx
+```byx
 <view>
     @(
         size: ^str = "md"

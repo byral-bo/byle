@@ -1,45 +1,45 @@
-# Self-hosting — Portear Kyle de Rust a Kyle
+# Self-hosting — Portear Byle de Rust a Byle
 
-## ¿Qué significa "Kyle corre Kyle"?
+## ¿Qué significa "Byle corre Byle"?
 
-Hoy `ky` (el compilador) está escrito en **Rust** (10+ crates, ~50k líneas).
-`libkyc_runtime.a` (el runtime) está escrito en **Rust** (~2k líneas).
+Hoy `by` (el compilador) está escrito en **Rust** (10+ crates, ~50k líneas).
+`libbyc_runtime.a` (el runtime) está escrito en **Rust** (~2k líneas).
 
-**Kyle se compila a sí mismo** cuando el compilador `ky` está escrito en Kyle, y compila su propio código fuente.
+**Byle se compila a sí mismo** cuando el compilador `by` está escrito en Byle, y compila su propio código fuente.
 
 ---
 
-## ¿Qué se puede pasar a Kyle AHORA?
+## ¿Qué se puede pasar a Byle AHORA?
 
 Sin cambiar nada del compilador, usando solo `extern fn` + `@link` (FFI a C) + lógica pura:
 
 ### ✅ Runtime (YA se puede)
 
-Cada función del runtime Rust se reescribe en Kyle. Las syscalls van por FFI.
+Cada función del runtime Rust se reescribe en Byle. Las syscalls van por FFI.
 
-```kyle
+```byle
 # Antes (Rust):
-// kyc_runtime/src/memory.rs
-pub extern "C" fn ky_alloc(size: i64) -> *mut u8 {
+// byc_runtime/src/memory.rs
+pub extern "C" fn by_alloc(size: i64) -> *mut u8 {
     unsafe { libc::malloc(size as usize) as *mut u8 }
 }
 
-# Después (Kyle):
-# runtime/memory.ky
+# Después (Byle):
+# runtime/memory.by
 @link "c"
 extern fn malloc(size: i64) ptr
 extern fn free(ptr)
 
-fn ky_alloc(size: i64) ptr:
+fn by_alloc(size: i64) ptr:
     return malloc(size)
 
-fn ky_free(p: ptr):
+fn by_free(p: ptr):
     free(p)
 ```
 
-Es **exactamente lo mismo** que los packages (`http`, `json`, `sqlite`) — 100% Kyle con FFI a C.
+Es **exactamente lo mismo** que los packages (`http`, `json`, `sqlite`) — 100% Byle con FFI a C.
 
-| Componente del runtime | Líneas (Rust) | Portar a Kyle |
+| Componente del runtime | Líneas (Rust) | Portar a Byle |
 |------------------------|:------------:|:-------------:|
 | `memory.rs` (alloc/free) | 80 | ✅ Ahora |
 | `string.rs` (str ops) | 200 | ✅ Ahora |
@@ -55,9 +55,9 @@ Es **exactamente lo mismo** que los packages (`http`, `json`, `sqlite`) — 100%
 
 ### ✅ Build System / CLI (YA se puede)
 
-`ky build`, `ky run`, `ky check` son solo lógica + subprocesos:
+`by build`, `by run`, `by check` son solo lógica + subprocesos:
 
-```kyle
+```byle
 # Antes (Rust):
 fn cmd_build(args: &[String]) {
     let source = std::fs::read_to_string(&file).unwrap();
@@ -67,15 +67,15 @@ fn cmd_build(args: &[String]) {
     linker.link(&[&obj], output, ...).unwrap();
 }
 
-# Después (Kyle):
-# cli/build.ky
+# Después (Byle):
+# cli/build.by
 extern fn system(cmd: &str) i32
 extern fn read_file(path: &str) str
 extern fn write_file(path: &str, content: &[u8])
 
 fn cmd_build(source: str, file: str, output: str):
     # El parser, type checker, MIR, LLVM codegen
-    # se llaman vía FFI a librerías Kyle compiladas
+    # se llaman vía FFI a librerías Byle compiladas
     ast = parse(source)
     hir = lower(ast)
     sem = check_types(hir)
@@ -99,20 +99,20 @@ fn cmd_build(source: str, file: str, output: str):
 | MIR (lower + optimize) | ✅ Sí | ✅ Ahora |
 | SSA (mem2reg, phi) | ✅ Sí | ✅ Ahora |
 
-Todos estos son algoritmos puros. No necesitan nada especial de Kyle. Strings, enums, pattern matching, listas, if/for — Kyle tiene todo eso.
+Todos estos son algoritmos puros. No necesitan nada especial de Byle. Strings, enums, pattern matching, listas, if/for — Byle tiene todo eso.
 
 ---
 
-## ¿Qué NECESITA una feature nueva de Kyle?
+## ¿Qué NECESITA una feature nueva de Byle?
 
 ### 🟡 LLVM Codegen (requiere FFI bindings a LLVM C API)
 
 El codegen traduce MIR → LLVM IR. Hoy usa `inkwell` (Rust bindings a LLVM).
 
-Para portarlo a Kyle, necesitamos `extern fn` para la **C API de LLVM**:
+Para portarlo a Byle, necesitamos `extern fn` para la **C API de LLVM**:
 
-```kyle
-# llvm.ky — Bindings a LLVM C API
+```byle
+# llvm.by — Bindings a LLVM C API
 @link "llvm"
 extern fn LLVMModuleCreateWithName(name: &str) ptr
 extern fn LLVMAddFunction(mod: ptr, name: &str, ty: ptr) ptr
@@ -155,26 +155,26 @@ fn compile_module(mir: MirModule) -> ptr:
 ## Mapa de migración
 
 ```
-HOY:  Kyle .ky ─▶ Rust parser ─▶ Rust types ─▶ Rust MIR ─▶ Rust LLVM ─▶ binary
-                     (kyc_frontend)  (kyc_semantic)  (kyc_mir)  (kyc_backend)
-                     + Rust runtime (kyc_runtime)
+HOY:  Byle .by ─▶ Rust parser ─▶ Rust types ─▶ Rust MIR ─▶ Rust LLVM ─▶ binary
+                     (byc_frontend)  (byc_semantic)  (byc_mir)  (byc_backend)
+                     + Rust runtime (byc_runtime)
 
-FASE 1 (2-3 sem):  Kyle .ky ─▶ Kyle parser ─▶ Kyle types ─▶ Kyle MIR ─▶ Rust LLVM ─▶ binary
+FASE 1 (2-3 sem):  Byle .by ─▶ Byle parser ─▶ Byle types ─▶ Byle MIR ─▶ Rust LLVM ─▶ binary
                                   ↑               ↑             ↑
-                              Portar a Kyle   Portar a Kyle  Portar a Kyle
+                              Portar a Byle   Portar a Byle  Portar a Byle
                                   │               │             │
-                                  └── Todo esto corre HOY en Kyle ──┘
+                                  └── Todo esto corre HOY en Byle ──┘
 
-                     Kyle runtime (portado de Rust)
-                     ↑── Esto también corre HOY en Kyle
+                     Byle runtime (portado de Rust)
+                     ↑── Esto también corre HOY en Byle
 
-FASE 2 (4-6 sem):  Kyle .ky ─▶ Kyle parser ─▶ ... ─▶ Kyle MIR ─▶ Kyle LLVM bindings ─▶ binary
+FASE 2 (4-6 sem):  Byle .by ─▶ Byle parser ─▶ ... ─▶ Byle MIR ─▶ Byle LLVM bindings ─▶ binary
                                                                      (FFI a libLLVM)
-                                                  Kyle runtime
+                                                  Byle runtime
 
-FASE 3 (bootstrap): El Kyle viejo (Rust) compila el nuevo Kyle (Kyle)
-                     El nuevo Kyle (Kyle) se compila a sí mismo
-                     🎉 KYLE CORRE KYLE
+FASE 3 (bootstrap): El Byle viejo (Rust) compila el nuevo Byle (Byle)
+                     El nuevo Byle (Byle) se compila a sí mismo
+                     🎉 BYLE CORRE BYLE
 ```
 
 ## ¿Esto bloquea KYOS?
@@ -185,10 +185,10 @@ El flujo sería:
 
 ```
 PARALELO:
-  ├── Workstream A (KYOS Services) → Kyle user-space → compila con Rust ky
-  ├── Workstream B (KYOS Desktop)  → KYUI nativo    → compila con Rust ky
-  ├── Workstream C (KYOS Kernel)   → kernel Kyle     → compila con Rust ky + freestanding
-  └── Workstream D (Self-hosting)  → portear Rust a Kyle → compilador Kyle en Kyle
+  ├── Workstream A (KYOS Services) → Byle user-space → compila con Rust by
+  ├── Workstream B (KYOS Desktop)  → BYUI nativo    → compila con Rust by
+  ├── Workstream C (KYOS Kernel)   → kernel Byle     → compila con Rust by + freestanding
+  └── Workstream D (Self-hosting)  → portear Rust a Byle → compilador Byle en Byle
 ```
 
 Workstream D corre en segundo plano y no bloquea a nadie.
@@ -197,4 +197,4 @@ Workstream D corre en segundo plano y no bloquea a nadie.
 
 ## Referencia de sintaxis
 
-Para portar el compilador, usar `docs/15-kyle-syntax-reference.md` como referencia rápida de toda la sintaxis de Kyle con ejemplos funcionales.
+Para portar el compilador, usar `docs/15-byle-syntax-reference.md` como referencia rápida de toda la sintaxis de Byle con ejemplos funcionales.

@@ -22,7 +22,7 @@
 
 ## Comportamiento
 
-```ky
+```by
 x: i32 = 42
 y: i32 = x # COPY: ambos vivos
 println(x) # ✅ 42

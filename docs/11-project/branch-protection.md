@@ -13,8 +13,8 @@ por API y sirve para cualquiera de tus proyectos.
 ./scripts/protect-branch.sh OWNER REPO BRANCH
 
 # Ejemplos
-./scripts/protect-branch.sh kyal-tech kyle main
-./scripts/protect-branch.sh kyal-tech kyle develop
+./scripts/protect-branch.sh kyal-tech byle main
+./scripts/protect-branch.sh kyal-tech byle develop
 ./scripts/protect-branch.sh mi-usuario mi-app main
 
 # QUITAR la protección
@@ -26,7 +26,7 @@ por API y sirve para cualquiera de tus proyectos.
 | Variable | Qué hace | Default |
 |----------|----------|---------|
 | `GITHUB_TOKEN` | Token de acceso (si no usas keychain ni gh) | auto-detecta |
-| `REQUIRED_CHECKS` | Checks de CI a exigir, separados por `\|` | los 3 del CI de Kyle |
+| `REQUIRED_CHECKS` | Checks de CI a exigir, separados por `\|` | los 3 del CI de Byle |
 | `APPROVALS` | Aprobaciones de revisión requeridas (`0` solo; `>=1` con equipo) | `0` |
 
 ```bash

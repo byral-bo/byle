@@ -5,9 +5,9 @@
 
 ---
 
-## Tipo Kyle
+## Tipo Byle
 
-```kyle
+```byle
 final class app_bar:
     # Contenido
     title: str?                     # Título de la app/vista
@@ -25,14 +25,14 @@ final class app_bar:
 
 ## Uso Básico
 
-```kyx
+```byx
 <app_bar title="Mi Aplicación">
 </app_bar>
 ```
 
 ### Con acciones
 
-```kyx
+```byx
 <app_bar title="Mi Aplicación">
     <app_bar_actions>
         <button icon="search" click=@handle_search />
@@ -43,7 +43,7 @@ final class app_bar:
 
 ### Con navegación (back button)
 
-```kyx
+```byx
 <app_bar title="Detalle">
     <app_bar_navigation>
         <button icon="arrow_back" click=@go_back />
@@ -81,7 +81,7 @@ final class app_bar:
 
 ### Con búsqueda
 
-```kyx
+```byx
 <view>
     @(
         searching: ^bool = false
@@ -107,7 +107,7 @@ final class app_bar:
 
 ### Con perfil de usuario
 
-```kyx
+```byx
 <app_bar title="Dashboard">
     <app_bar_actions>
         <button icon="notifications" click=@show_notifications />

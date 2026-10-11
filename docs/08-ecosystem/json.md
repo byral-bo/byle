@@ -9,7 +9,7 @@
 
 Built-in globales. No necesita import.
 
-```kyle
+```byle
 # Clase → JSON string
 jare = serialize(user)
 
@@ -27,15 +27,15 @@ data = parse(json_str)
 
 ## 2. Clase → JSON (`serialize`)
 
-```kyle
+```byle
 class User:
  name: str
  age: i32
  active: bool
 
-ube = Ube { name: "Kyle", age: 1, active: true }
+ube = Ube { name: "Byle", age: 1, active: true }
 jare = serialize(user)
-# → {"name":"Kyle","age":1,"active":true}
+# → {"name":"Byle","age":1,"active":true}
 ```
 
 Auto-detecta campos. Sin descriptor manual.
@@ -44,7 +44,7 @@ Auto-detecta campos. Sin descriptor manual.
 
 ## 3. JSON → Clase (`deserialize<T>`)
 
-```kyle
+```byle
 json_str = "{\"name\":\"Ana\",\"age\":30,\"active\":true}"
 ube = deserialize<User>(json_str)
 print(user.name) # "Ana"
@@ -55,7 +55,7 @@ print(user.age) # 30
 
 ## 4. En HTTP
 
-```kyle
+```byle
 use http.client
 
 class Todo:
@@ -66,7 +66,7 @@ class Todo:
 client = client { timeout: 10 }
 
 # POST with clase → auto-JSON
-data = Todo { title: "Kyle", body: "test", user_id: 1 }
+data = Todo { title: "Byle", body: "test", user_id: 1 }
 ris = client.post(url, data)
 
 # GET + deserializar
@@ -79,7 +79,7 @@ print(todo.title)
 
 ## 5. En servidor
 
-```kyle
+```byle
 use http.server.router
 
 app = router()

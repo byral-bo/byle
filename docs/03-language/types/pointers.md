@@ -1,37 +1,37 @@
 # Pointers
 
-> Pointers raw en Kyle: `ptr` for FFI y operacionis de bajo nivel.
+> Pointers raw en Byle: `ptr` for FFI y operacionis de bajo nivel.
 
 ## `ptr` type
 
 `ptr` is un pointer raw de 8 bytis (64 bits). Es un type **Copy**.
 
-```ky
+```by
 p: ptr = 0 as ptr # null pointer
 p = some_variable as ptr # convertir addressn
 ```
 
 ## Operations
 
-```ky
-extern fn ky_ptr_read_i32(ptr) i32
-extern fn ky_ptr_write_i32(ptr, i32)
-extern fn ky_ptr_read_ptr(ptr) ptr
+```by
+extern fn by_ptr_read_i32(ptr) i32
+extern fn by_ptr_write_i32(ptr, i32)
+extern fn by_ptr_read_ptr(ptr) ptr
 
-buf: ptr = ky_alloc(1024)
-ky_ptr_write_i32(buf, 42)
-val: i32 = ky_ptr_read_i32(buf)
+buf: ptr = by_alloc(1024)
+by_ptr_write_i32(buf, 42)
+val: i32 = by_ptr_read_i32(buf)
 println(val.to_str()) # 42
-ky_free(buf)
+by_free(buf)
 ```
 
 ## Arithmetic de pointers
 
-```ky
-buf: ptr = ky_alloc(100)
+```by
+buf: ptr = by_alloc(100)
 ptr: ptr = buf + 8 # offset en bytes
-ky_ptr_write_i32(ptr, 99)
-ky_free(buf)
+by_ptr_write_i32(ptr, 99)
+by_free(buf)
 ```
 
 ## Usos comunes
@@ -40,7 +40,7 @@ ky_free(buf)
 |-----|---------|
 | FFI C | `buf: ptr = malloc(1024)` |
 | Memory-mapped I/O | `reg: ptr = 0xFF00_0000 as ptr` |
-| Buffer pool | `ky_alloc` / `ky_free` |
+| Buffer pool | `by_alloc` / `by_free` |
 | Type erasure | `fn_ptr = my_function as ptr` |
 
 ## Seguridad
@@ -51,11 +51,11 @@ ky_free(buf)
 - No there is lifetime tracking
 - El usuario is responsable de management
 
-```ky
+```by
 unsafe:
- buf: ptr = ky_alloc(100)
- ky_ptr_write_i32(buf, 42)
- ky_free(buf)
+ buf: ptr = by_alloc(100)
+ by_ptr_write_i32(buf, 42)
+ by_free(buf)
 ```
 
 ## See also

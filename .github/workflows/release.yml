@@ -13,6 +13,12 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+      - name: Security audit (RustSec)
+        run: |
+          cargo install cargo-audit --version 0.22.2 --locked
+          cargo audit --deny warnings
       - name: Create Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -20,7 +26,7 @@ jobs:
           # Delete existing release if any (supports force-pushed tags)
           gh release delete ${{ github.ref_name }} --yes 2>/dev/null || true
           gh release create ${{ github.ref_name }} \
-            --title "Kyle ${{ github.ref_name }}" \
+            --title "Byle ${{ github.ref_name }}" \
             --notes "See commit history for changes." \
             --repo ${{ github.repository }}
 
@@ -34,23 +40,23 @@ jobs:
           sudo apt-get update -qq
           sudo apt-get install -y -qq llvm-18-dev libpolly-18-dev libzstd-dev
           echo "LLVM_SYS_181_PREFIX=/usr/lib/llvm-18" >> $GITHUB_ENV
-      - name: Build ky
-        run: cargo build --bin ky --release
+      - name: Build by
+        run: cargo build --bin by --release --locked
       - name: Build runtime
-        run: cargo build -p kyc_runtime --release
+        run: cargo build -p byc_runtime --release --locked
       - name: Package
         run: |
           mkdir -p dist
-          cp target/release/ky dist/
-          cp target/release/libkyc_runtime.a dist/
+          cp target/release/by dist/
+          cp target/release/libbyc_runtime.a dist/
           cp LICENSE dist/
-          cd dist && tar czf ky-linux-arm64.tar.gz ky libkyc_runtime.a LICENSE && cd ..
-          cd dist && shasum -a 256 ky-linux-arm64.tar.gz > ky-linux-arm64.tar.gz.sha256
+          cd dist && tar czf by-linux-arm64.tar.gz by libbyc_runtime.a LICENSE && cd ..
+          cd dist && sha256sum by-linux-arm64.tar.gz > by-linux-arm64.tar.gz.sha256
       - name: Upload
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          cd dist && gh release upload ${{ github.ref_name }} ky-linux-arm64.tar.gz ky-linux-arm64.tar.gz.sha256 --clobber
+          cd dist && gh release upload ${{ github.ref_name }} by-linux-arm64.tar.gz by-linux-arm64.tar.gz.sha256 --clobber
 
   build-linux-x64:
     needs: create-release
@@ -62,23 +68,23 @@ jobs:
           sudo apt-get update -qq
           sudo apt-get install -y -qq llvm-18-dev libpolly-18-dev libzstd-dev
           echo "LLVM_SYS_181_PREFIX=/usr/lib/llvm-18" >> $GITHUB_ENV
-      - name: Build ky
-        run: cargo build --bin ky --release
+      - name: Build by
+        run: cargo build --bin by --release --locked
       - name: Build runtime
-        run: cargo build -p kyc_runtime --release
+        run: cargo build -p byc_runtime --release --locked
       - name: Package
         run: |
           mkdir -p dist
-          cp target/release/ky dist/
-          cp target/release/libkyc_runtime.a dist/
+          cp target/release/by dist/
+          cp target/release/libbyc_runtime.a dist/
           cp LICENSE dist/
-          cd dist && tar czf ky-linux-x64.tar.gz ky libkyc_runtime.a LICENSE && cd ..
-          cd dist && shasum -a 256 ky-linux-x64.tar.gz > ky-linux-x64.tar.gz.sha256
+          cd dist && tar czf by-linux-x64.tar.gz by libbyc_runtime.a LICENSE && cd ..
+          cd dist && sha256sum by-linux-x64.tar.gz > by-linux-x64.tar.gz.sha256
       - name: Upload
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          cd dist && gh release upload ${{ github.ref_name }} ky-linux-x64.tar.gz ky-linux-x64.tar.gz.sha256 --clobber
+          cd dist && gh release upload ${{ github.ref_name }} by-linux-x64.tar.gz by-linux-x64.tar.gz.sha256 --clobber
 
   build-macos-arm64:
     needs: create-release
@@ -90,38 +96,39 @@ jobs:
           brew install llvm@18
           echo "LLVM_SYS_181_PREFIX=$(brew --prefix llvm@18)" >> $GITHUB_ENV
           echo "$(brew --prefix llvm@18)/bin" >> $GITHUB_PATH
-      - name: Build ky
+      - name: Build by
         run: |
           # Static link LLVM + zstd + unwind to avoid code signing issues
           export LLVM_LINK_SHARED=0
-          cargo build --bin ky --release
+          cargo build --bin by --release --locked
       - name: Build runtime
-        run: cargo build -p kyc_runtime --release
+        run: cargo build -p byc_runtime --release --locked
       - name: Package
         run: |
           mkdir -p dist/lib
-          cp target/release/ky dist/ky
+          cp target/release/by dist/by
           # Bundle dylibs + fix library search paths (avoids Gatekeeper code signing kills)
           for lib in /opt/homebrew/opt/zstd/lib/libzstd.1.dylib /opt/homebrew/opt/llvm@18/lib/libunwind.1.dylib; do
             if [ -f "$lib" ]; then
               cp -L "$lib" dist/lib/
-              install_name_tool -change "$lib" "@executable_path/../lib/$(basename $lib)" dist/ky
+              install_name_tool -change "$lib" "@executable_path/../lib/$(basename $lib)" dist/by
             fi
           done
           # Ad-hoc sign binary + bundled libs together
-          codesign -f -s - dist/ky 2>/dev/null || true
+          codesign -f -s - dist/by
           for f in dist/lib/*.dylib; do
-            codesign -f -s - "$f" 2>/dev/null || true
+            [ -f "$f" ] || continue
+            codesign -f -s - "$f"
           done
-          cp target/release/libkyc_runtime.a dist/
+          cp target/release/libbyc_runtime.a dist/
           cp LICENSE dist/
-          cd dist && tar czf ky-macos-arm64.tar.gz ky lib/ libkyc_runtime.a LICENSE && cd ..
-          cd dist && shasum -a 256 ky-macos-arm64.tar.gz > ky-macos-arm64.tar.gz.sha256
+          cd dist && tar czf by-macos-arm64.tar.gz by lib/ libbyc_runtime.a LICENSE && cd ..
+          cd dist && shasum -a 256 by-macos-arm64.tar.gz > by-macos-arm64.tar.gz.sha256
       - name: Upload
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          cd dist && gh release upload ${{ github.ref_name }} ky-macos-arm64.tar.gz ky-macos-arm64.tar.gz.sha256 --clobber
+          cd dist && gh release upload ${{ github.ref_name }} by-macos-arm64.tar.gz by-macos-arm64.tar.gz.sha256 --clobber
 
   build-windows-x64:
     needs: create-release
@@ -186,31 +193,33 @@ jobs:
           # This script creates both from scratch, plus compiles llvm-config.exe via csc.exe.
           .\tools\windows\patch-llvm.ps1 -LLVM_PREFIX "$env:LLVM_SYS_181_PREFIX"
 
-      - name: Build ky
-        run: cargo build --bin ky --release
+      - name: Build by
+        run: cargo build --bin by --release --locked
 
       - name: Build runtime
-        run: cargo build -p kyc_runtime --release
+        run: cargo build -p byc_runtime --release --locked
 
       - name: Package
         shell: pwsh
         run: |
           mkdir dist
-          Copy-Item target/release/ky.exe dist/
-          # MSVC names the static lib kyc_runtime.lib (no 'lib' prefix, .lib extension)
-          if (Test-Path target/release/libkyc_runtime.a) {
-            Copy-Item target/release/libkyc_runtime.a dist/
-            $runtimeFile = "libkyc_runtime.a"
-          } elseif (Test-Path target/release/kyc_runtime.lib) {
-            Copy-Item target/release/kyc_runtime.lib dist/
-            $runtimeFile = "kyc_runtime.lib"
+          Copy-Item target/release/by.exe dist/
+          # MSVC names the static lib byc_runtime.lib (no 'lib' prefix, .lib extension)
+          if (Test-Path target/release/libbyc_runtime.a) {
+            Copy-Item target/release/libbyc_runtime.a dist/
+            $runtimeFile = "libbyc_runtime.a"
+          } elseif (Test-Path target/release/byc_runtime.lib) {
+            Copy-Item target/release/byc_runtime.lib dist/
+            $runtimeFile = "byc_runtime.lib"
           } else {
-            Write-Error "Runtime library not found (tried libkyc_runtime.a and kyc_runtime.lib)"
+            Write-Error "Runtime library not found (tried libbyc_runtime.a and byc_runtime.lib)"
             Get-ChildItem target/release/*runtime*
             exit 1
           }
           Copy-Item LICENSE dist/
-          Compress-Archive -Path dist/ky.exe, dist/$runtimeFile, dist/LICENSE -DestinationPath dist/ky-windows-x64.zip
+          Compress-Archive -Path dist/by.exe, dist/$runtimeFile, dist/LICENSE -DestinationPath dist/by-windows-x64.zip
+          $hash = (Get-FileHash dist/by-windows-x64.zip -Algorithm SHA256).Hash.ToLowerInvariant()
+          "$hash  by-windows-x64.zip" | Set-Content dist/by-windows-x64.zip.sha256 -NoNewline
 
       - name: Upload
         shell: pwsh
@@ -218,4 +227,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cd dist
-          gh release upload ${{ github.ref_name }} ky-windows-x64.zip --clobber
+          gh release upload ${{ github.ref_name }} by-windows-x64.zip by-windows-x64.zip.sha256 --clobber

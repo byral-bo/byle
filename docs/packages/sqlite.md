@@ -1,12 +1,12 @@
 # sqlite — SQLite database
 
-> Pure Kyle FFI bindings to SQLite3.
-> Installation: `ky add sqlite`
+> Pure Byle FFI bindings to SQLite3.
+> Installation: `by add sqlite`
 > Import: `use sqlite`
 
 ## Opening a database
 
-```ky
+```by
 use sqlite
 
 db: sqlite.database = sqlite.open("data.db")!
@@ -14,19 +14,19 @@ db: sqlite.database = sqlite.open("data.db")!
 
 ## Creating tables
 
-```ky
+```by
 db.execute("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, name TEXT, age INTEGER)")!
 ```
 
 ## Inserting data
 
-```ky
-db.execute("INSERT INTO users (name, age) VALUES ('Kyle', 30)")!
+```by
+db.execute("INSERT INTO users (name, age) VALUES ('Byle', 30)")!
 ```
 
 ## Parameterized queries (safe from SQL injection)
 
-```ky
+```by
 stmt: sqlite.statement = db.prepare("INSERT INTO users (name, age) VALUES (?, ?)")!
 stmt.bind_text(1, "Alice")
 stmt.bind_int(2, 25)
@@ -36,7 +36,7 @@ stmt.finalize()!
 
 ## Querying data
 
-```ky
+```by
 stmt: sqlite.statement = db.prepare("SELECT id, name, age FROM users WHERE age > ?")!
 stmt.bind_int(1, 20)
 
@@ -51,7 +51,7 @@ stmt.finalize()!
 
 ## Transaction support
 
-```ky
+```by
 db.execute("BEGIN")!
 db.execute("INSERT INTO users (name, age) VALUES ('Bob', 35)")!
 db.execute("INSERT INTO users (name, age) VALUES ('Carol', 28)")!
@@ -100,7 +100,7 @@ db.execute("COMMIT")!
 
 ## Example
 
-```ky
+```by
 use sqlite
 
 db: sqlite.database = sqlite.open("test.db")!
@@ -109,7 +109,7 @@ db.execute("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, name TEXT,
 
 # Insert with parameters
 stmt: sqlite.statement = db.prepare("INSERT INTO users (name, age) VALUES (?, ?)")!
-stmt.bind_text(1, "Kyle")
+stmt.bind_text(1, "Byle")
 stmt.bind_int(2, 30)
 stmt.step()!
 stmt.finalize()!

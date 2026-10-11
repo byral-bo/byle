@@ -1,12 +1,12 @@
 # postgres — PostgreSQL client
 
-> Pure Kyle FFI bindings to libpq for PostgreSQL.
-> Installation: `ky add postgres`
+> Pure Byle FFI bindings to libpq for PostgreSQL.
+> Installation: `by add postgres`
 > Import: `use postgres`
 
 ## Connecting
 
-```ky
+```by
 use postgres
 
 db: postgres.db = postgres.connect("host=localhost port=5432 dbname=mydb user=user password=pass")!
@@ -14,7 +14,7 @@ db: postgres.db = postgres.connect("host=localhost port=5432 dbname=mydb user=us
 
 ## Simple query
 
-```ky
+```by
 rows: postgres.result = db.query("SELECT id, name, age FROM users")!
 for i in 0..rows.len():
     row: postgres.row = rows.get(i)
@@ -26,7 +26,7 @@ for i in 0..rows.len():
 
 Parameters are passed as a list of string values. PostgreSQL converts them to the target column type.
 
-```ky
+```by
 rows: postgres.result = db.query_params(
     "SELECT * FROM users WHERE age > $1 AND active = $2",
     ["30", "true"]
@@ -36,7 +36,7 @@ println("found " + rows.len().to_str() + " users")
 
 ## Typed row access
 
-```ky
+```by
 rows: postgres.result = db.query("SELECT id, name, email, age, active FROM users")!
 for i in 0..rows.len():
     row: postgres.row = rows.get(i)
@@ -50,9 +50,9 @@ for i in 0..rows.len():
 
 ## INSERT, UPDATE, DELETE
 
-```ky
+```by
 db.execute("CREATE TABLE IF NOT EXISTS users (id SERIAL PRIMARY KEY, name TEXT)")!
-db.execute_params("INSERT INTO users (name) VALUES ($1)", ["Kyle"])!
+db.execute_params("INSERT INTO users (name) VALUES ($1)", ["Byle"])!
 db.execute_params("UPDATE users SET name = $1 WHERE id = $2", ["Updated", "1"])!
 db.execute_params("DELETE FROM users WHERE id = $1", ["1"])!
 ```
@@ -61,9 +61,9 @@ db.execute_params("DELETE FROM users WHERE id = $1", ["1"])!
 
 For full type safety, use prepared statements with explicit bind methods.
 
-```ky
+```by
 stmt: postgres.statement = db.prepare("INSERT INTO users (name, age) VALUES ($1, $2)")!
-stmt.bind_str(1, "Kyle")?
+stmt.bind_str(1, "Byle")?
 stmt.bind_int(2, 30)?
 stmt.execute()!
 stmt.finalize()!
@@ -80,7 +80,7 @@ stmt.finalize()!
 
 ## Transactions
 
-```ky
+```by
 tx: postgres.transaction = db.begin()!
 tx.execute_params("INSERT INTO users (name) VALUES ($1)", ["Alice"])!
 tx.execute_params("INSERT INTO users (name) VALUES ($1)", ["Bob"])!
@@ -148,14 +148,14 @@ tx.commit()!
 
 ## Example
 
-```ky
+```by
 use postgres
 
 db: postgres.db = postgres.connect("host=localhost dbname=test")!
 
 db.execute("CREATE TABLE IF NOT EXISTS users (id SERIAL PRIMARY KEY, name TEXT, age INTEGER)")!
 
-db.execute_params("INSERT INTO users (name, age) VALUES ($1, $2)", ["Kyle", "30"])!
+db.execute_params("INSERT INTO users (name, age) VALUES ($1, $2)", ["Byle", "30"])!
 
 rows: postgres.result = db.query("SELECT * FROM users ORDER BY id")!
 for i in 0..rows.len():

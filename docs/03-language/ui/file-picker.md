@@ -22,11 +22,11 @@ El `<file_picker>` es un componente nativo que abre el selector de archivos del 
 
 ## 2. Tipo `file_data`
 
-`file_data` es un **tipo nativo** de Kyle. Se puede usar en clases, modelos de formulario, y como tipo de parámetro.
+`file_data` es un **tipo nativo** de Byle. Se puede usar en clases, modelos de formulario, y como tipo de parámetro.
 
 ### 2.1 Definición del tipo
 
-```kyle
+```byle
 final class file_data:
     name: str              # nombre del archivo (e.g. "foto.jpg")
     size: i64              # tamaño en bytes
@@ -37,7 +37,7 @@ final class file_data:
 
 ### 2.2 Uso en clases
 
-```kyx
+```byx
 final class UserForm:
     name: str = ""
     email: str = ""
@@ -45,7 +45,7 @@ final class UserForm:
     age: i32 = 0
 ```
 
-```kyx
+```byx
 final class UploadResult:
     file: file_data
     uploaded_at: i64
@@ -56,7 +56,7 @@ final class UploadResult:
 
 ### 2.3 Acceso a campos
 
-```kyx
+```byx
 <view>
     @(
         f: file_data       # ← variable de tipo file_data
@@ -77,7 +77,7 @@ final class UploadResult:
 
 ### 3.1 Selector básico
 
-```kyx
+```byx
 <file_picker on_select=@fn (file: file_data):
     print("Archivo seleccionado: " + file.name)
 />
@@ -85,7 +85,7 @@ final class UploadResult:
 
 ### 3.2 Filtro por tipo
 
-```kyx
+```byx
 # Solo imágenes
 <file_picker accept="image/*" on_select=@handle_image />
 
@@ -98,7 +98,7 @@ final class UploadResult:
 
 ### 3.3 Múltiples archivos
 
-```kyx
+```byx
 <file_picker multiple=true on_select=@fn (files: {file_data}):
     for file in files:
         print(" - " + file.name)
@@ -107,7 +107,7 @@ final class UploadResult:
 
 ### 3.4 Modo carpeta
 
-```kyx
+```byx
 <file_picker mode=directory on_select=@fn (files: {file_data}):
     print("Archivos en carpeta: " + files.len().to_str())
 />
@@ -115,7 +115,7 @@ final class UploadResult:
 
 ### 3.5 Con vista previa
 
-```kyx
+```byx
 <view>
     @(
         preview: ^str?
@@ -147,7 +147,7 @@ final class UploadResult:
 
 ## 5. Uso con HTTP upload
 
-```kyx
+```byx
 <view>
     @(
         fn upload(file: file_data):
@@ -198,7 +198,7 @@ function createFilePicker(accept, multiple, onSelect) {
 
 ### 6.2 Desktop (macOS)
 
-```kyle
+```byle
 @link "-framework AppKit"
 extern fn NSOpenPanel_runModal() i32
 extern fn NSOpenPanel_URL() ptr
@@ -235,7 +235,7 @@ struct FilePickerView: UIViewControllerRepresentable {
 
 ## 7. Referencias
 
-- [ui-syntax.md](../syntax/ui-syntax.md) — Sintaxis .kyx
+- [ui-syntax.md](../syntax/ui-syntax.md) — Sintaxis .byx
 - [state-events.md](state-events.md) — Estado y eventos
 - [routing.md](routing.md) — Routing/Navegación
 - [RFC-0005](../../10-design/rfc/0005-ui-rearchitecture-plan.md) — Arquitectura UI

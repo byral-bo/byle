@@ -5,9 +5,9 @@
 
 ---
 
-## Tipo Kyle
+## Tipo Byle
 
-```kyle
+```byle
 final class text_field:
     # Valor
     bind: ^str?                     # Binding bidireccional (sin modelo)
@@ -46,7 +46,7 @@ final class text_field:
 
 ### Con bind (sin modelo)
 
-```kyx
+```byx
 <view>
     @(
         email: ^str = ""
@@ -58,7 +58,7 @@ final class text_field:
 
 ### Con modelo (form)
 
-```kyx
+```byx
 <view>
     @(
         form: ^UserForm = UserForm()
@@ -73,7 +73,7 @@ final class text_field:
 
 ### Con validación
 
-```kyx
+```byx
 <text_field 
     label="Email" 
     bind=@email 
@@ -108,7 +108,7 @@ final class text_field:
 
 ### input_type
 
-```kyle
+```byle
 enum input_type:
     text            # Texto normal
     email           # Email (validación automática)
@@ -128,13 +128,13 @@ enum input_type:
 
 ### Password field
 
-```kyx
+```byx
 <password_field label="Contraseña" bind=@password required=true min_length=8 />
 ```
 
 ### Con helper text
 
-```kyx
+```byx
 <text_field 
     label="Usuario" 
     bind=@username 
@@ -147,7 +147,7 @@ enum input_type:
 
 ### Con ícono
 
-```kyx
+```byx
 <text_field 
     label="Buscar" 
     bind=@search_query 
@@ -158,7 +158,7 @@ enum input_type:
 
 ### Formulario completo
 
-```kyx
+```byx
 <view>
     @(
         form: ^RegisterForm = RegisterForm()
@@ -209,7 +209,7 @@ enum input_type:
 
 ### Desktop (SDL2/Skia)
 
-```kyle
+```byle
 fn render_text_field(x: f32, y: f32, w: f32, h: f32):
     # Border
     skia_draw_rect(x, y, w, h, border_color)
@@ -267,7 +267,7 @@ Column {
 
 ### ❌ Malo: No manejar errores
 
-```kyx
+```byx
 <text_field label="Email" bind=@email />
 <button text="Enviar" click=@submit />
 ```
@@ -276,14 +276,14 @@ Column {
 
 ### ✅ Bueno: Validar y mostrar errores
 
-```kyx
+```byx
 <text_field label="Email" bind=@email error=@email_error />
 <button text="Enviar" disabled=@has_errors click=@submit />
 ```
 
 ### ❌ Malo: Usar strings para tipos
 
-```kyx
+```byx
 <text_field type="email" />
 ```
 
@@ -291,7 +291,7 @@ Column {
 
 ### ✅ Bueno: Usar enum tipado
 
-```kyx
+```byx
 <text_field type=input_type.email />
 ```
 

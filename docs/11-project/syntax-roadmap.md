@@ -1,6 +1,6 @@
 # Syntax Evolution Roadmap
 
-> Plan completo de implementación de la nueva sintaxis de Kyle.
+> Plan completo de implementación de la nueva sintaxis de Byle.
 > Desde la documentación → parser → type checker → MIR → codegen → tests → bootstrap.
 
 ---
@@ -28,7 +28,7 @@ Toda la documentación actualizada con la sintaxis definitiva.
 | 0.5 | `docs/03-language/syntax/statements.md` | [x] | For loops con nuevas colecciones |
 | 0.6 | `docs/03-language/syntax/README.md` | [x] | Índice con `collections.md` |
 | 0.7 | `docs/09-specification/type-system.md` | [x] | Ortogonalidad `?` `!` `^` `&` en TODOS los tipos |
-| 0.8 | `docs/15-kyle-syntax-reference.md` | [x] | Referencia completa actualizada |
+| 0.8 | `docs/15-byle-syntax-reference.md` | [x] | Referencia completa actualizada |
 | 0.9 | `docs/11-project/roadmap.md` | [x] | Roadmap con fases 5-7 |
 | 0.10 | `docs/11-project/self-hosting.md` | [x] | Estado actualizado |
 | 0.11 | `docs/11-project/syntax-roadmap.md` | [x] | **ESTE DOCUMENTO** |
@@ -153,49 +153,49 @@ Toda la documentación actualizada con la sintaxis definitiva.
 
 | # | Expresión | Prioridad |
 |---|-----------|-----------|
-| 4.2.1 | `[1, 2, 3]` → `ky_list_new() + ky_list_push` | ALTA |
+| 4.2.1 | `[1, 2, 3]` → `by_list_new() + by_list_push` | ALTA |
 | 4.2.2 | `^[1, 2]` → igual pero variable mutable | ALTA |
-| 4.2.3 | `[]` → `ky_list_new()` | ALTA |
-| 4.2.4 | `set{1, 2}` → `ky_set_new() + ky_set_add` | ALTA |
-| 4.2.5 | `queue{1}` → `ky_queue_new() + ky_queue_push` | MEDIA |
+| 4.2.3 | `[]` → `by_list_new()` | ALTA |
+| 4.2.4 | `set{1, 2}` → `by_set_new() + by_set_add` | ALTA |
+| 4.2.5 | `queue{1}` → `by_queue_new() + by_queue_push` | MEDIA |
 
 ### 4.3 Lowering de métodos
 
 | # | Método | Runtime fn | Prioridad |
 |---|--------|------------|-----------|
-| 4.3.1 | `.push()` en lista | `ky_list_push` | ALTA |
-| 4.3.2 | `.pop()` en lista | `ky_list_pop` | ALTA |
-| 4.3.3 | `.map()` en lista | `ky_list_map` | ALTA |
-| 4.3.4 | `.filter()` en lista | `ky_list_filter` | ALTA |
-| 4.3.5 | `.fold()` en lista | `ky_list_fold` | ALTA |
-| 4.3.6 | `.contains()` en lista | `ky_list_contains` | ALTA |
-| 4.3.7 | `.add()` en set | `ky_set_add` | ALTA |
-| 4.3.8 | `.contains()` en set | `ky_set_contains` | ALTA |
-| 4.3.9 | `.union()`, `.intersection()` en set | `ky_set_union`, etc | MEDIA |
-| 4.3.10 | `.to_list()` en todas | `ky_X_to_list` | ALTA |
-| 4.3.11 | `.to_array()` en lista/set | `ky_list_to_array` | MEDIA |
-| 4.3.12 | `.to_set()` en lista | `ky_list_to_set` | MEDIA |
-| 4.3.13 | `.push()` en queue/stack | `ky_queue_push`, `ky_stack_push` | MEDIA |
-| 4.3.14 | `.pop()` en queue/stack | `ky_queue_pop`, `ky_stack_pop` | MEDIA |
+| 4.3.1 | `.push()` en lista | `by_list_push` | ALTA |
+| 4.3.2 | `.pop()` en lista | `by_list_pop` | ALTA |
+| 4.3.3 | `.map()` en lista | `by_list_map` | ALTA |
+| 4.3.4 | `.filter()` en lista | `by_list_filter` | ALTA |
+| 4.3.5 | `.fold()` en lista | `by_list_fold` | ALTA |
+| 4.3.6 | `.contains()` en lista | `by_list_contains` | ALTA |
+| 4.3.7 | `.add()` en set | `by_set_add` | ALTA |
+| 4.3.8 | `.contains()` en set | `by_set_contains` | ALTA |
+| 4.3.9 | `.union()`, `.intersection()` en set | `by_set_union`, etc | MEDIA |
+| 4.3.10 | `.to_list()` en todas | `by_X_to_list` | ALTA |
+| 4.3.11 | `.to_array()` en lista/set | `by_list_to_array` | MEDIA |
+| 4.3.12 | `.to_set()` en lista | `by_list_to_set` | MEDIA |
+| 4.3.13 | `.push()` en queue/stack | `by_queue_push`, `by_stack_push` | MEDIA |
+| 4.3.14 | `.pop()` en queue/stack | `by_queue_pop`, `by_stack_pop` | MEDIA |
 
 ### 4.4 Runtime functions nuevas
 
 | # | Función | Descripción | Prioridad |
 |---|---------|-------------|-----------|
-| 4.4.1 | `ky_set_new()` | Crear set vacío | ALTA |
-| 4.4.2 | `ky_set_add(s, val)` | Agregar a set | ALTA |
-| 4.4.3 | `ky_set_contains(s, val)` | Check set | ALTA |
-| 4.4.4 | `ky_set_remove(s, val)` | Remover de set | ALTA |
-| 4.4.5 | `ky_set_len(s)` | Tamaño del set | ALTA |
-| 4.4.6 | `ky_set_to_list(s)` | Set → lista | ALTA |
-| 4.4.7 | `ky_set_union(a, b)` | Unión de sets | MEDIA |
-| 4.4.8 | `ky_set_intersection(a, b)` | Intersección | MEDIA |
-| 4.4.9 | `ky_queue_new()` | Crear queue | MEDIA |
-| 4.4.10 | `ky_queue_push(q, val)` | Enqueue | MEDIA |
-| 4.4.11 | `ky_queue_pop(q)` | Dequeue | MEDIA |
-| 4.4.12 | `ky_stack_new()` | Crear stack | MEDIA |
-| 4.4.13 | `ky_stack_push(s, val)` | Push stack | MEDIA |
-| 4.4.14 | `ky_stack_pop(s)` | Pop stack | MEDIA |
+| 4.4.1 | `by_set_new()` | Crear set vacío | ALTA |
+| 4.4.2 | `by_set_add(s, val)` | Agregar a set | ALTA |
+| 4.4.3 | `by_set_contains(s, val)` | Check set | ALTA |
+| 4.4.4 | `by_set_remove(s, val)` | Remover de set | ALTA |
+| 4.4.5 | `by_set_len(s)` | Tamaño del set | ALTA |
+| 4.4.6 | `by_set_to_list(s)` | Set → lista | ALTA |
+| 4.4.7 | `by_set_union(a, b)` | Unión de sets | MEDIA |
+| 4.4.8 | `by_set_intersection(a, b)` | Intersección | MEDIA |
+| 4.4.9 | `by_queue_new()` | Crear queue | MEDIA |
+| 4.4.10 | `by_queue_push(q, val)` | Enqueue | MEDIA |
+| 4.4.11 | `by_queue_pop(q)` | Dequeue | MEDIA |
+| 4.4.12 | `by_stack_new()` | Crear stack | MEDIA |
+| 4.4.13 | `by_stack_push(s, val)` | Push stack | MEDIA |
+| 4.4.14 | `by_stack_pop(s)` | Pop stack | MEDIA |
 
 ---
 
@@ -215,12 +215,12 @@ Toda la documentación actualizada con la sintaxis definitiva.
 
 | # | Test | Descripción | Prioridad |
 |---|------|-------------|-----------|
-| 6.1 | Actualizar `06_collections.ky` | Nueva sintaxis `[T]`, `set{T}`, métodos | ALTA |
-| 6.2 | Actualizar `11_operators.ky` | Si hay cambios | BAJA |
-| 6.3 | **NUEVO** `14_imports.ky` | Sistema `use` completo | ALTA |
-| 6.4 | **NUEVO** `15_conversions.ky` | `to_list()`, `to_array()`, `to_set()` | MEDIA |
-| 6.5 | **NUEVO** `16_orthogonality.ky` | `^` `&` `?` `!` en todos los tipos | ALTA |
-| 6.6 | **NUEVO** `17_queue_stack.ky` | Queue, Stack, Deque básico | MEDIA |
+| 6.1 | Actualizar `06_collections.by` | Nueva sintaxis `[T]`, `set{T}`, métodos | ALTA |
+| 6.2 | Actualizar `11_operators.by` | Si hay cambios | BAJA |
+| 6.3 | **NUEVO** `14_imports.by` | Sistema `use` completo | ALTA |
+| 6.4 | **NUEVO** `15_conversions.by` | `to_list()`, `to_array()`, `to_set()` | MEDIA |
+| 6.5 | **NUEVO** `16_orthogonality.by` | `^` `&` `?` `!` en todos los tipos | ALTA |
+| 6.6 | **NUEVO** `17_queue_stack.by` | Queue, Stack, Deque básico | MEDIA |
 | 6.7 | Workspace tests | `cargo test --workspace` pasa | ALTA |
 
 ---
@@ -229,10 +229,10 @@ Toda la documentación actualizada con la sintaxis definitiva.
 
 | # | Bug | Síntoma | Causa | Prioridad |
 |---|-----|---------|-------|-----------|
-| 7.1 | #7: `elif` + strings → `ky_free` crash | Cualquier `elif name == "x":` crashea | SSA promotion de string clones con `ky_free` en distinto block | 🔴 |
+| 7.1 | #7: `elif` + strings → `by_free` crash | Cualquier `elif name == "x":` crashea | SSA promotion de string clones con `by_free` en distinto block | 🔴 |
 | 7.2 | #1: while-loop strings pierden contenido | `s = s + "x"` dentro de `while` — `s.len()` ok, datos vacíos | SSA/non-promotable en restauración dominador | 🔴 |
 | 7.3 | struct str field → lectura vacía | Structs con campo `str` producen string vacío | ABI struct layout en LLVM codegen | 🔴 |
-| 7.4 | `^{str}` listas con garbage | `list<str>` con strings literales produce valores basura | str→i64 cast inverso en `ky_list_get` | 🟡 |
+| 7.4 | `^{str}` listas con garbage | `list<str>` con strings literales produce valores basura | str→i64 cast inverso en `by_list_get` | 🟡 |
 | 7.5 | `^str.get/set` → `_call` linker error | `pos.set(pos.get()+1)` falla | Method dispatch para tipos mutables | 🟡 |
 | 7.6 | `extern fn` retorna `str` → `_call` error | `extern fn foo() str:` no linkea | ABI mismatch runtime ptr vs str | 🟢 |
 
@@ -242,14 +242,14 @@ Toda la documentación actualizada con la sintaxis definitiva.
 
 | # | Tarea | Depende de | Prioridad |
 |---|-------|-----------|-----------|
-| 8.1 | ky2c.ky genera C correcto | Bugs 7.1-7.3 | 🔴 |
-| 8.2 | ky2c.ky compila ky2c.ky → output idéntico | 8.1 | 🔴 |
-| 8.3 | lexer.ky runtime funcional | Bug 7.3 (struct str field) | 🔴 |
-| 8.4 | token.ky + lexer.ky integrados | 8.3 | 🔴 |
-| 8.5 | parser.ky type-check + runtime | 8.4 | 🔴 |
-| 8.6 | checker.ky funcional | 8.5 | 🔴 |
-| 8.7 | llvm.ky bindings funcionales | — | 🟡 |
-| 8.8 | codegen.ky con llvm.ky | 8.7 | 🟡 |
+| 8.1 | ky2c.by genera C correcto | Bugs 7.1-7.3 | 🔴 |
+| 8.2 | ky2c.by compila ky2c.by → output idéntico | 8.1 | 🔴 |
+| 8.3 | lexer.by runtime funcional | Bug 7.3 (struct str field) | 🔴 |
+| 8.4 | token.by + lexer.by integrados | 8.3 | 🔴 |
+| 8.5 | parser.by type-check + runtime | 8.4 | 🔴 |
+| 8.6 | checker.by funcional | 8.5 | 🔴 |
+| 8.7 | llvm.by bindings funcionales | — | 🟡 |
+| 8.8 | codegen.by con llvm.by | 8.7 | 🟡 |
 
 ---
 
@@ -257,17 +257,17 @@ Toda la documentación actualizada con la sintaxis definitiva.
 
 | # | Tarea | Descripción | Prioridad |
 |---|-------|-------------|-----------|
-| 9.1 | Runtime en Kyle | Portar `ky_alloc`, `ky_free`, strings, listas, dicts a Kyle | 🔴 |
-| 9.2 | CLI en Kyle | `ky build`, `ky run`, `ky check` en Kyle | 🔴 |
-| 9.3 | LSP en Kyle | Language server en Kyle | 🟡 |
-| 9.4 | Package manager en Kyle | `ky add`, `ky install`, etc | 🟡 |
-| 9.5 | Formateador en Kyle | `ky fmt` en Kyle | 🟢 |
+| 9.1 | Runtime en Byle | Portar `by_alloc`, `by_free`, strings, listas, dicts a Byle | 🔴 |
+| 9.2 | CLI en Byle | `by build`, `by run`, `by check` en Byle | 🔴 |
+| 9.3 | LSP en Byle | Language server en Byle | 🟡 |
+| 9.4 | Package manager en Byle | `by add`, `by install`, etc | 🟡 |
+| 9.5 | Formateador en Byle | `by fmt` en Byle | 🟢 |
 
 ---
 
 ## Resumen de sintaxis (cheat sheet final)
 
-```ky
+```by
 # ===== IMPORTS =====
 use std.io                          # io.print()
 use std.io.{print, read}            # print() directo

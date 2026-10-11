@@ -5,9 +5,9 @@
 
 ---
 
-## Tipo Kyle
+## Tipo Byle
 
-```kyle
+```byle
 final class tooltip:
     # Contenido
     text: str                       # Texto del tooltip
@@ -25,7 +25,7 @@ final class tooltip:
 
 ## Uso Básico
 
-```kyx
+```byx
 <button text="Hover me">
     <tooltip text="Este es un tooltip" />
 </button>
@@ -33,7 +33,7 @@ final class tooltip:
 
 ### Con posición
 
-```kyx
+```byx
 <button text="Info">
     <tooltip text="Información adicional" position=tooltip_position.bottom />
 </button>
@@ -56,7 +56,7 @@ final class tooltip:
 
 ### tooltip_position
 
-```kyle
+```byle
 enum tooltip_position:
     top
     bottom
@@ -70,7 +70,7 @@ enum tooltip_position:
 
 ### Tooltip en ícono
 
-```kyx
+```byx
 <button icon="info" variant=button_variant.icon>
     <tooltip text="Más información sobre esta función" />
 </button>
@@ -78,7 +78,7 @@ enum tooltip_position:
 
 ### Tooltip con delay
 
-```kyx
+```byx
 <button text="Guardar">
     <tooltip text="Guarda los cambios actuales" delay=500 />
 </button>
@@ -86,7 +86,7 @@ enum tooltip_position:
 
 ### Tooltip en tabla
 
-```kyx
+```byx
 <table data=@users>
     <col field="name" label="Nombre">
         <text value=@item.name>

@@ -1,21 +1,21 @@
 # Memory Management
 
-> Management de memory en runtime de Kyle: allocation, deallocation, retain/release.
-> Crate: `kyc_runtime/src/memory.rs` (67 lines).
+> Management de memory en runtime de Byle: allocation, deallocation, retain/release.
+> Crate: `byc_runtime/src/memory.rs` (67 lines).
 
 ## Responsabilidad
 
-El runtime de Kyle proporciona management manual de memory for strings, lists, dictionarys
+El runtime de Byle proporciona management manual de memory for strings, lists, dictionarys
 y otros typis heap-allocados. No there is garbage collector — memory se libera explicitamente
-using borrow analysis del compiler, que inserta llamadas a `ky_free` automaticamente.
+using borrow analysis del compiler, que inserta llamadas a `by_free` automaticamente.
 
 ## Functions
 
-### ky_alloc
+### by_alloc
 
 ```rust
 #[unsafe(no_mangle)]
- extern "C" fn ky_alloc(size: i64) -> *mut u8
+ extern "C" fn by_alloc(size: i64) -> *mut u8
 ```
 
 Asigna un bloque de memory del heap del size especificado.
@@ -24,42 +24,42 @@ Asigna un bloque de memory del heap del size especificado.
 - La memory incluye un header with refcount y size
 - Equivalente a `malloc()` de C
 
-```ky
-extern fn ky_alloc(size: i64) ptr
-buf = ky_alloc(1024) # asigna 1024 bytes
+```by
+extern fn by_alloc(size: i64) ptr
+buf = by_alloc(1024) # asigna 1024 bytes
 ```
 
-### ky_free
+### by_free
 
 ```rust
 #[unsafe(no_mangle)]
- extern "C" fn ky_free(ptr: *mut u8)
+ extern "C" fn by_free(ptr: *mut u8)
 ```
 
-Libera un bloque de memory previamente asignado with `ky_alloc`.
+Libera un bloque de memory previamente asignado with `by_alloc`.
 
 - No does nada si `ptr` is null
 - No verifica doble-free (undefined behavior)
 - Equivalente a `free()` de C
 
-```ky
-extern fn ky_free(ptr)
-ky_free(buf) # libera memory
+```by
+extern fn by_free(ptr)
+by_free(buf) # libera memory
 ```
 
-### ky_retain / ky_release
+### by_retain / by_release
 
 ```rust
 #[unsafe(no_mangle)]
- extern "C" fn ky_retain(ptr: *mut u8)
+ extern "C" fn by_retain(ptr: *mut u8)
 #[unsafe(no_mangle)]
- extern "C" fn ky_release(ptr: *mut u8)
+ extern "C" fn by_release(ptr: *mut u8)
 ```
 
 Sistema de reference counting for memory compartida.
 
-- `ky_retain`: incrementa contador de referencias atomico
-- `ky_release`: decrementa y libera si llega a 0
+- `by_retain`: incrementa contador de referencias atomico
+- `by_release`: decrementa y libera si llega a 0
 - Usa `AtomicI64` for contador
 
 ### Header
@@ -75,24 +75,24 @@ struct Header {
 
 ## Integration with borrow analysis
 
-El compiler (`borrow_analysis.rs`) determina automaticamente cuando insertar `ky_free`:
+El compiler (`borrow_analysis.rs`) determina automaticamente cuando insertar `by_free`:
 
 ```rust
 // Generado by compiler al final del scope
-ky_free(s_ptr) # str sale de scope → free
-ky_list_free(lst) # list sale de scope → free (llama ky_free internamente)
-ky_dict_free(d) # dictionary sale de scope → free
+by_free(s_ptr) # str sale de scope → free
+by_list_free(lst) # list sale de scope → free (llama by_free internamente)
+by_dict_free(d) # dictionary sale de scope → free
 ```
 
 Esto elimina necesidad de `free()` manual o garbage collector.
 
 ## Estrategia de allocation
 
-- `ky_alloc` usa `Layout::from_size_align` de Rust (que usa `malloc`/`free` del sistema)
-- Strings, lists y dictionarys usan `ky_alloc` internamente
+- `by_alloc` usa `Layout::from_size_align` de Rust (que usa `malloc`/`free` del sistema)
+- Strings, lists y dictionarys usan `by_alloc` internamente
 - El runtime NO has su propio pool/arena — delega en asignador del sistema
 
 ## See also
 
 - `allocator.md` — Details del asignador de memory
-- `06-compiler/borrow-analysis.md` — How compiler inserta `ky_free`
+- `06-compiler/borrow-analysis.md` — How compiler inserta `by_free`

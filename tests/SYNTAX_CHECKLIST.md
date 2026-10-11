@@ -1,4 +1,4 @@
-# Kyle Language Syntax — Complete Feature Checklist
+# Byle Language Syntax — Complete Feature Checklist
 
 > **Legend:**
 > - `[x]` = Confirmed working (test exists)
@@ -14,7 +14,7 @@
 > **`!` error propagation:** ✅ FIXED.
 > **Field access en clases:** ✅ FIXED (retorna tipo correcto, no truncado a i32).
 > **`_call` SSA verify error:** ✅ FIXED (str_builder_* declaraciones en backend).
-> **`&str` prelude (fs, uuid, decimal, etc.):** ✅ FIXED (ref_param_locals sin ky_ptr_read_ptr).
+> **`&str` prelude (fs, uuid, decimal, etc.):** ✅ FIXED (ref_param_locals sin by_ptr_read_ptr).
 > **`use X.Y`** es la ÚNICA sintaxis de importación. `from X import Y` está deprecado.
 > **`#[test]`/`#[bench]`** ✅ ya funcionan.
 
@@ -22,7 +22,7 @@
 
 ## 1. Variables & Mutability (11 features)
 
-[x] 1.1 Immutable variable (default): `name = "Kyle"`
+[x] 1.1 Immutable variable (default): `name = "Byle"`
 [x] 1.2 Mutable variable (`^T`): `count: ^i32 = 0`
 [x] 1.3 Type annotation: `x: i32 = 42`
 [x] 1.4 Type inference: `y = 10`
@@ -38,9 +38,9 @@
 
 [x] 2.1-2.16 i8, i16, i32, i64, u8, u16, u32, u64, f32, f64, bool, char, str, ptr, void, never
 [x] 2.17 bytes, uuid, datetime, duration, date, time, fs (exists)
-[x] 2.18 decimal, url, regex, big_int, json, path, sha256 — ✅ Funcionan (regex necesita runtime: `ky_regex_new` no implementado)
+[x] 2.18 decimal, url, regex, big_int, json, path, sha256 — ✅ Funcionan (regex necesita runtime: `by_regex_new` no implementado)
 [x] 2.19 str_builder, env — ✅ str_builder funciona. `env_get` requiere `packages/env` (usa `extern fn getenv` de libc)
-[x] 2.20 file (`open`/`write_str`/`close`), socket (`ky_tcp_*`) — ✅ Funcionan
+[x] 2.20 file (`open`/`write_str`/`close`), socket (`by_tcp_*`) — ✅ Funcionan
 
 ## 3. Types — Compound (37 features)
 
@@ -114,7 +114,7 @@
 [x] 5.11 `for val in &arr` (borrow array)
 [x] 5.12 `for val in ^&arr` (mutable borrow — read works, mutation requires set loop)
 [x] 5.13 `while` with list `.pop()`
-[x] 5.20 unsafe block (`as_ptr`) — ✅ `&val as ptr` funciona (usando `extern fn ky_ptr_read_i32`/`ky_ptr_write_i32` para acceso)
+[x] 5.20 unsafe block (`as_ptr`) — ✅ `&val as ptr` funciona (usando `extern fn by_ptr_read_i32`/`by_ptr_write_i32` para acceso)
 
 ## 6. Match / Pattern Matching (11 features)
 
@@ -262,7 +262,7 @@
 [x] 14.1 `extern fn`
 [x] 14.2 `@link` directive
 [x] 14.6 `ptr` type
-[x] 14.9 Type mapping C ↔ Kyle
+[x] 14.9 Type mapping C ↔ Byle
 [x] 14.3 `@link "c"` + `extern fn` calling C (getpid)
 [x] 14.4 `extern fn malloc/free`
 [x] 14.5 `extern fn puts`
@@ -291,12 +291,12 @@
 
 ## 16. Attributes & Metaprogramming (6 features)
 
-[x] 16.1-16.2: #[test], #[bench] — ✅ ya funcionan en parser + `ky test`.
+[x] 16.1-16.2: #[test], #[bench] — ✅ ya funcionan en parser + `by test`.
 [ ] 16.3-16.6: Macros (macro_rules!, derive, proc macros) — NO PRIORIDAD.
 
 ## 17. Async/Await & Concurrency (21 features)
 
-[x] 17.1-17.21: Async/await — ✅ FUNCIONA. `async fn`, `await`, channels (`ky_channel_*`).
+[x] 17.1-17.21: Async/await — ✅ FUNCIONA. `async fn`, `await`, channels (`by_channel_*`).
 
 ## 18-25. Remaining: See full docs/03-language/
 
@@ -305,11 +305,11 @@
 ## How to Verify
 
 ```bash
-ky build <file.ky>    # debe compilar sin errores
-ky run <file.ky>       # debe ejecutar sin crashes
+by build <file.by>    # debe compilar sin errores
+by run <file.by>       # debe ejecutar sin crashes
 ```
 
-Para features marcadas `[?]`, crear un archivo `.ky` de prueba y compilarlo.
+Para features marcadas `[?]`, crear un archivo `.by` de prueba y compilarlo.
 
 ## ✅ Todas las features están funcionando
 

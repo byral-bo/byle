@@ -5,7 +5,7 @@
 
 ## Creating paths
 
-```ky
+```by
 use std.path
 
 p: path = path("/home/user/file.txt")
@@ -14,7 +14,7 @@ p = path.join("data", "images", "photo.jpg")
 
 ## Path components
 
-```ky
+```by
 p: path = path("/home/user/file.txt")
 
 dir: str = p.dirname()       # "/home/user"
@@ -25,7 +25,7 @@ stem: str = p.stem()         # "file"
 
 ## Checking existence
 
-```ky
+```by
 if p.exists():
     if p.is_file():
         println("file")
@@ -35,7 +35,7 @@ if p.exists():
 
 ## Joining
 
-```ky
+```by
 p: path = path("/data")
 p = p.join("images").join("icons").join("photo.jpg")
 ```
@@ -58,7 +58,7 @@ p = p.join("images").join("icons").join("photo.jpg")
 
 ## Example
 
-```ky
+```by
 use std.path
 
 p: path = path("/data")

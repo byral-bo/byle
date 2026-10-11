@@ -1,4 +1,4 @@
-# Componentes Nativos Kyle UI
+# Componentes Nativos Byle UI
 
 **Status:** Specification v2.0
 **Date:** 2026-07-28
@@ -7,7 +7,7 @@
 
 ## Filosofía
 
-Kyle UI tiene **~35 componentes nativos**, no 200 como Flutter. Cada uno es un **tipo Kyle** con props fuertemente tipadas.
+Byle UI tiene **~35 componentes nativos**, no 200 como Flutter. Cada uno es un **tipo Byle** con props fuertemente tipadas.
 
 ### Principios
 
@@ -152,7 +152,7 @@ Todos los componentes soportan eventos multiplataforma. Ver [events.md](events.m
 
 ### Eventos
 
-```kyle
+```byle
 final class click_event:
     x: f32
     y: f32
@@ -211,7 +211,7 @@ final class scroll_event:
 
 ### Tamaños
 
-```kyle
+```byle
 enum size:
     xs      # extra small
     sm      # small
@@ -222,7 +222,7 @@ enum size:
 
 ### Estados
 
-```kyle
+```byle
 enum state:
     idle
     loading

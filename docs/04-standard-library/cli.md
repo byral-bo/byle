@@ -5,7 +5,7 @@
 
 ## Quick start
 
-```ky
+```by
 use std.cli
 
 args: {str: str} = cli.parse()
@@ -17,13 +17,13 @@ println("hello " + name)
 ## Running
 
 ```bash
-ky run app.ky --name=Kyle --verbose
-# hello Kyle
+by run app.by --name=Byle --verbose
+# hello Byle
 ```
 
 ## Positional arguments
 
-```ky
+```by
 use std.cli
 
 cli.parse()  # must be called first
@@ -33,13 +33,13 @@ println("first: " + first + ", second: " + second)
 ```
 
 ```bash
-ky run app.ky input.txt output.txt
+by run app.by input.txt output.txt
 # first: input.txt, second: output.txt
 ```
 
 ## Default values
 
-```ky
+```by
 args: {str: str} = cli.parse()
 port: str = args["port"] ?? "8080"
 host: str = args["host"] ?? "localhost"
@@ -47,13 +47,13 @@ mode: str = args["mode"] ?? "release"
 ```
 
 ```bash
-ky run app.ky --port=3000
+by run app.by --port=3000
 # port=3000, host=localhost, mode=release
 ```
 
 ## Flag definitions with type hints
 
-```ky
+```by
 cli.define("port", "p", "server port", "8080")
 cli.define("host", "h", "server host", "localhost")
 cli.define("verbose", "v", "enable verbose output", "false")
@@ -65,22 +65,22 @@ verbose: bool = cli.get_bool("verbose")
 ```
 
 ```bash
-ky run app.ky -p 9000 -v
+by run app.by -p 9000 -v
 ```
 
 ## Help text
 
 If you define flags, `--help` is auto-generated:
 
-```ky
+```by
 cli.define("port", "p", "server port", "8080")
 cli.define("host", "h", "server host", "localhost")
 cli.parse()
 ```
 
 ```bash
-ky run app.ky --help
-# Usage: app.ky [options]
+by run app.by --help
+# Usage: app.by [options]
 #   --port, -p   server port       (default: 8080)
 #   --host, -h   server host       (default: localhost)
 ```
@@ -98,7 +98,7 @@ ky run app.ky --help
 
 ## Example
 
-```ky
+```by
 use std.cli
 
 cli.define("port", "p", "server port", "8080")

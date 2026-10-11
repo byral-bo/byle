@@ -2,7 +2,7 @@
 
 ## Result handling
 
-```ky
+```by
 fn divide(a: i32, b: i32) i32!:
  if b == 0:
  return error("division by zero")
@@ -15,7 +15,7 @@ fn process():
 
 ## Early return with guard
 
-```ky
+```by
 fn process_config(path: str) str!:
  guard content = read_file(path) else:
  return error("cannot read config")
@@ -24,7 +24,7 @@ fn process_config(path: str) str!:
 
 ## Builder pattern with mutable fields
 
-```ky
+```by
 final class request:
  url: str
  method: ^str
@@ -38,7 +38,7 @@ fn main():
 
 ## Iterate with index
 
-```ky
+```by
 items = [10, 20, 30] # array
 for i in 0..len(items):
  println("items[{i}] = {items[i]}")
@@ -46,7 +46,7 @@ for i in 0..len(items):
 
 ## String interpolation
 
-```ky
+```by
 name = "Ana"
 age = 30
 println("{name} is {age} years old")
@@ -54,14 +54,14 @@ println("{name} is {age} years old")
 
 ## Default valuis with ?
 
-```ky
+```by
 name: str? = none
 display = name ?? "anonymous"
 ```
 
 ## Enum matching with payload
 
-```ky
+```by
 enum Optional:
  Some(i32)
  None
@@ -76,7 +76,7 @@ fn unwrap_or_default(v: Optional) i32:
 
 ## Async tasks
 
-```ky
+```by
 async fn fetch(url: str) str:
  # ... http request ...
  "response"
@@ -90,7 +90,7 @@ fn main():
 
 ## Operator overloading
 
-```ky
+```by
 final class Vec2:
  x: i32
  y: i32

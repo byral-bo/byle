@@ -1,12 +1,12 @@
 # crypto — Extended cryptography
 
 > Password hashing, HMAC, JWT, and higher-level cryptographic utilities.
-> Installation: `ky add crypto`
+> Installation: `by add crypto`
 > Import: `use crypto`
 
 ## Password hashing
 
-```ky
+```by
 use crypto
 
 # Hash a password (automatic salt + work factor)
@@ -20,7 +20,7 @@ if valid:
 
 ## HMAC
 
-```ky
+```by
 key: str = "my-secret-key"
 data: str = "message-to-authenticate"
 
@@ -30,11 +30,11 @@ println(hmac)   # hex-encoded HMAC-SHA256
 
 ## JWT
 
-```ky
+```by
 # Create a JWT token
 secret: str = "my-secret-key"
 token: str = crypto.jwt_encode(
-    {"sub": "123", "name": "Kyle", "admin": true},
+    {"sub": "123", "name": "Byle", "admin": true},
     secret
 )!
 println(token)
@@ -48,14 +48,14 @@ match payload:
 
 ## Key derivation
 
-```ky
+```by
 derived: str = crypto.pbkdf2_sha256("password", "salt", 100000, 32)
 println(derived)   # hex string
 ```
 
 ## Utility functions
 
-```ky
+```by
 # Compare in constant time (prevents timing attacks)
 equal: bool = crypto.constant_time_compare("abc123", "abc123")
 
@@ -79,7 +79,7 @@ println(token)
 
 ## Example
 
-```ky
+```by
 use crypto
 
 # User registration

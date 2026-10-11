@@ -7,24 +7,24 @@
 
 | Comando | Description |
 |---------|-------------|
-| `ky add <pkg>` | Agregar dependency |
-| `ky remove <pkg>` | Eliminar dependency |
-| `ky install` | Instalar dependencies del proyecto |
-| `ky publish` | Publicar package en registry |
+| `by add <pkg>` | Agregar dependency |
+| `by remove <pkg>` | Eliminar dependency |
+| `by install` | Instalar dependencies del proyecto |
+| `by publish` | Publicar package en registry |
 
 ## Formato del package
 
 ```
 package-name/
-├── ky.toml # metadata del package
+├── by.toml # metadata del package
 └── src/
- └── lib.ky # code source
+ └── lib.by # code source
 ```
 
 ## Registry URL
 
 ```
-https://IT-KYNERA.github.io/KYLE/docs
+https://IT-KYNERA.github.io/BYLE/docs
 ```
 
 ## See also

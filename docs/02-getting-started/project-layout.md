@@ -1,18 +1,18 @@
 # Project Layout
 
-> Estructura recommended for proyectos Kyle.
+> Estructura recommended for proyectos Byle.
 
 ## App project
 
 ```
 myapp/
-├── ky.toml # Configuration del proyecto
+├── by.toml # Configuration del proyecto
 ├── src/
-│ ├── main.ky # Punto de input
-│ ├── lib.ky # Library del proyecto
-│ └── utils.ky # Modulis auxiliares
+│ ├── main.by # Punto de input
+│ ├── lib.by # Library del proyecto
+│ └── utils.by # Modulis auxiliares
 ├── tests/
-│ └── test_main.ky # Tests
+│ └── test_main.by # Tests
 └── target/
  ├── debug/ # Build artifacts (debug)
  └── release/ # Build artifacts (release)
@@ -22,11 +22,11 @@ myapp/
 
 ```
 myapi/
-├── ky.toml
+├── by.toml
 ├── src/
-│ ├── main.ky
-│ ├── routes.ky
-│ └── models.ky
+│ ├── main.by
+│ ├── routes.by
+│ └── models.by
 ├── tests/
 └── target/
 ```
@@ -34,10 +34,10 @@ myapi/
 ## Bare script
 
 ```
-script.ky # File unico, without ky.toml
+script.by # File unico, without by.toml
 ```
 
-## ky.toml
+## by.toml
 
 ```toml
 name = "myapp"

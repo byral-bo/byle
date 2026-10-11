@@ -1,0 +1,18 @@
+@link "c"
+extern fn by_random_bytes(ptr, i64) i32
+extern fn by_bytes_new(i32) ptr
+extern fn by_bytes_free(ptr, i32)
+extern fn by_bytes_from_le_i32(ptr) i32
+
+final class Random:
+    static fn bytes(count: i32) i64:
+        buf := by_bytes_new(count) as i64
+        by_random_bytes(buf as ptr, count as i64)
+        buf
+
+    static fn int(max: i32) i32:
+        buf := Random.bytes(4)
+        val := by_bytes_from_le_i32(buf as ptr)
+        by_bytes_free(buf as ptr, 4)
+        if max <= 0: return 0
+        (val & 2147483647) % max

@@ -5,9 +5,9 @@
 
 ---
 
-## Tipo Kyle
+## Tipo Byle
 
-```kyle
+```byle
 final class tab_bar:
     # Valor
     bind: ^str?                     # Binding a la pestaña activa
@@ -23,7 +23,7 @@ final class tab_bar:
 
 ## Uso Básico
 
-```kyx
+```byx
 <view>
     @(
         active_tab: ^str = "general"
@@ -58,7 +58,7 @@ final class tab_bar:
 
 ### tab
 
-```kyle
+```byle
 final class tab:
     name: str                       # Identificador único
     label: str                      # Etiqueta mostrada
@@ -72,7 +72,7 @@ final class tab:
 
 ### Tabs con íconos
 
-```kyx
+```byx
 <tab_bar bind=@active_tab>
     <tab name="home" label="Inicio" icon="home">
         <home_view />
@@ -88,7 +88,7 @@ final class tab:
 
 ### Tabs con badge
 
-```kyx
+```byx
 <tab_bar bind=@active_tab>
     <tab name="inbox" label="Bandeja">
         <hstack spacing=4>
@@ -105,7 +105,7 @@ final class tab:
 
 ### Tabs scrollables (muchas pestañas)
 
-```kyx
+```byx
 <scroll horizontal=true>
     <tab_bar bind=@active_tab>
         @for(category in categories):
@@ -136,7 +136,7 @@ final class tab:
 
 En mobile, las tabs pueden convertirse en bottom navigation:
 
-```kyx
+```byx
 <view>
     @if current_breakpoint() == breakpoint.mobile:
         <bottom_nav bind=@active_tab>

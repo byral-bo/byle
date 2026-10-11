@@ -5,9 +5,9 @@
 
 ---
 
-## Tipo Kyle
+## Tipo Byle
 
-```kyle
+```byle
 final class slider:
     # Valor
     bind: ^f32?                     # Binding al valor actual
@@ -33,7 +33,7 @@ final class slider:
 
 ## Uso Básico
 
-```kyx
+```byx
 <view>
     @(
         volume: ^f32 = 50.0
@@ -66,7 +66,7 @@ final class slider:
 
 ### Rango de precio
 
-```kyx
+```byx
 <view>
     @(
         min_price: ^f32 = 0.0
@@ -94,7 +94,7 @@ final class slider:
 
 ### Con formato personalizado
 
-```kyx
+```byx
 <view>
     @(
         rating: ^f32 = 3.0

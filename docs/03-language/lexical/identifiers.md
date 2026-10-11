@@ -1,6 +1,6 @@
 # Identifiers
 
-> Reglas for nombris de identificadoris en Kyle.
+> Reglas for nombris de identificadoris en Byle.
 
 ## Reglas
 
@@ -12,7 +12,7 @@
 
 ## Validos
 
-```ky
+```by
 foo
 mi_variable
 _private
@@ -23,7 +23,7 @@ StringBuilder
 
 ## Invalidos
 
-```ky
+```by
 123foo # empieza with digito
 foo-bar # guion no permitido
 if # keyword reservada

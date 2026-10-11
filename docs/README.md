@@ -1,6 +1,6 @@
-# Kyle Documentation
+# Byle Documentation
 
-> Official documentation for the Kyle programming language.
+> Official documentation for the Byle programming language.
 
 ## Structure
 

@@ -2,12 +2,12 @@
 
 > Load YAML and TOML config files into typed classes.
 > Merge defaults, file values, and environment variables.
-> Installation: `ky add config`
+> Installation: `by add config`
 > Import: `use config`
 
 ## Load TOML
 
-```ky
+```by
 use config
 
 class ServerConfig:
@@ -35,7 +35,7 @@ debug = true
 
 ## Load YAML
 
-```ky
+```by
 cfg: AppConfig = config.load_yaml<AppConfig>("app.yaml")!
 ```
 
@@ -50,7 +50,7 @@ server:
 
 ## Defaults with merge
 
-```ky
+```by
 class DbConfig:
     host: str
     port: i32
@@ -71,7 +71,7 @@ cfg: DbConfig = config.load_yaml_with_defaults<DbConfig>("db.yaml", defaults)!
 
 ## Environment variable overrides
 
-```ky
+```by
 # Environment variables override file values
 # DATABASE_HOST=prod.example.com overrides db.yaml's host
 
@@ -84,7 +84,7 @@ cfg: DbConfig = config.load_yaml<DbConfig>("db.yaml", {
 
 ## Config from string
 
-```ky
+```by
 toml_str: str = """
 [server]
 host = "localhost"
@@ -109,7 +109,7 @@ println(cfg.host)
 
 ## Example: 12-factor app config
 
-```ky
+```by
 use config
 
 class Config:

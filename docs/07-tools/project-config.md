@@ -1,7 +1,7 @@
-# Project Configuration (`ky.toml`)
+# Project Configuration (`by.toml`)
 
-> `ky.toml` es el archivo de configuración de cualquier proyecto Kyle, sea CLI,
-> servidor, web, librería, o lo que sea. Todo proyecto Kyle tiene uno.
+> `by.toml` es el archivo de configuración de cualquier proyecto Byle, sea CLI,
+> servidor, web, librería, o lo que sea. Todo proyecto Byle tiene uno.
 
 ---
 
@@ -17,9 +17,9 @@ authors = ["Tu Nombre <email@ejemplo.com>"]
 license = "MIT"
 
 [entry]
-main = "src/main.ky"        # archivo de entrada (default: "main.ky")
+main = "src/main.by"        # archivo de entrada (default: "main.by")
 # main = "."                # también funciona: todo en la raíz
-# main = "app.ky"           # o un archivo específico
+# main = "app.by"           # o un archivo específico
 
 [compiler]
 optimization = "O2"          # "O0", "O1", "O2", "O3"
@@ -55,23 +55,23 @@ Configura el punto de entrada del proyecto.
 
 | Campo | Tipo | Default | Descripción |
 |-------|------|---------|-------------|
-| `main` | string | `"main.ky"` | Archivo principal |
+| `main` | string | `"main.by"` | Archivo principal |
 
 `main` puede ser:
-- `"src/main.ky"` — ruta específica dentro del proyecto
-- `"app.ky"` — archivo en la raíz
-- `"."` — todo el directorio raíz como entrada (busca `*.ky`)
-- `"src/"` — todos los archivos `.ky` en `src/`
+- `"src/main.by"` — ruta específica dentro del proyecto
+- `"app.by"` — archivo en la raíz
+- `"."` — todo el directorio raíz como entrada (busca `*.by`)
+- `"src/"` — todos los archivos `.by` en `src/`
 
-Si `main` no existe, `ky` busca en orden:
-1. `main.ky` (raíz)
-2. `src/main.ky`
-3. `app.ky`
-4. `index.ky`
-5. `src/index.ky`
+Si `main` no existe, `by` busca en orden:
+1. `main.by` (raíz)
+2. `src/main.by`
+3. `app.by`
+4. `index.by`
+5. `src/index.by`
 
-**Nota**: `ky run`, `ky build`, `ky check` pueden recibir un archivo específico
-como argumento (ej: `ky run index.ky`), ignorando `[entry]`. Si no se pasa
+**Nota**: `by run`, `by build`, `by check` pueden recibir un archivo específico
+como argumento (ej: `by run index.by`), ignorando `[entry]`. Si no se pasa
 archivo, se usa `[entry]`.
 
 ## 4. Sección `[compiler]`
@@ -132,8 +132,8 @@ sqlite = { git = "..." }     # desde git (futuro)
 
 Las dependencias se resuelven en este orden:
 1. `packages/<name>/` (desarrollo local)
-2. `std/<name>/` (instalado vía `ky add`)
-3. `~/.ky/cache/<name>/` (caché global)
+2. `std/<name>/` (instalado vía `by add`)
+3. `~/.by/cache/<name>/` (caché global)
 
 ## 7. Ejemplos por tipo de proyecto
 
@@ -145,7 +145,7 @@ version = "0.1.0"
 edition = "2024"
 
 [entry]
-main = "main.ky"
+main = "main.by"
 
 [dependencies]
 json = "0.1.0"
@@ -159,7 +159,7 @@ version = "0.1.0"
 edition = "2024"
 
 [entry]
-main = "src/server.ky"
+main = "src/server.by"
 
 [compiler]
 optimization = "O2"
@@ -190,7 +190,7 @@ version = "0.1.0"
 edition = "2024"
 
 [entry]
-main = "kernel.ky"
+main = "kernel.by"
 
 [compiler]
 target = "freestanding"
@@ -199,26 +199,26 @@ optimization = "O3"
 
 ## 8. Orden de resolución
 
-Cuando ejecutas `ky run`, `ky build`, o `ky check`:
+Cuando ejecutas `by run`, `by build`, o `by check`:
 
-1. Si se pasa un archivo explícito (`ky run index.ky`): **usa ese archivo**
-2. Si no: busca en orden: `main` de `[entry]` → `main.ky` → `src/main.ky` → `app.ky` → `index.ky` → `src/index.ky`
+1. Si se pasa un archivo explícito (`by run index.by`): **usa ese archivo**
+2. Si no: busca en orden: `main` de `[entry]` → `main.by` → `src/main.by` → `app.by` → `index.by` → `src/index.by`
 3. Si encuentra el archivo: lo compila y ejecuta
 4. Si no: error "no entry point found"
 
-## 9. Comportamiento `ky run` sin `fn main()`
+## 9. Comportamiento `by run` sin `fn main()`
 
-Kyle permite ejecutar scripts sin `fn main()` explícita. El compilador
+Byle permite ejecutar scripts sin `fn main()` explícita. El compilador
 auto-genera un `main` que ejecuta el código en orden secuencial:
 
-```kyle
-# index.ky — sin fn main()
+```byle
+# index.by — sin fn main()
 name = input("ingresa tu nombre: ")
 print("hola " + name)
 ```
 
 Esto es equivalente a:
-```kyle
+```byle
 fn main():
     name = input("ingresa tu nombre: ")
     print("hola " + name)

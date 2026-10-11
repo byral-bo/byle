@@ -1,6 +1,6 @@
 # 09-specification
 
-> Specification formal del language Kyle. Conhas grammar, precedencia
+> Specification formal del language Byle. Conhas grammar, precedencia
 > y documentation que no is cubierta en `03-language/`.
 
 ## Files

@@ -5,9 +5,9 @@
 
 ---
 
-## Tipo Kyle
+## Tipo Byle
 
-```kyle
+```byle
 final class spinner:
     # Configuración
     size: f32 = 32.0                # Tamaño en píxeles
@@ -22,13 +22,13 @@ final class spinner:
 
 ## Uso Básico
 
-```kyx
+```byx
 <spinner />
 ```
 
 ### Con tamaño personalizado
 
-```kyx
+```byx
 <spinner size=48.0 color=color("#0066FF") />
 ```
 
@@ -48,7 +48,7 @@ final class spinner:
 
 ### Loading overlay
 
-```kyx
+```byx
 <view>
     @(
         loading: ^bool = false
@@ -79,7 +79,7 @@ final class spinner:
 
 ### Botón con loading
 
-```kyx
+```byx
 <view>
     @(
         saving: ^bool = false
@@ -99,7 +99,7 @@ final class spinner:
 
 ### Lista cargando
 
-```kyx
+```byx
 <view>
     @(
         items: ^{Item}? = none

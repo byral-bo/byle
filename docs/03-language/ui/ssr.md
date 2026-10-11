@@ -11,14 +11,14 @@
 
 ## 1. Visión General
 
-Kyle soporta SSR para el target web. El mismo componente `.kyx` se renderiza
+Byle soporta SSR para el target web. El mismo componente `.byx` se renderiza
 en el servidor (HTML) y luego se hidrata en el cliente (JS interactivo).
 
 ```
 Browser solicita /dashboard
     │
     ▼
-Servidor Kyle
+Servidor Byle
     │
     ├── Renderiza <dashboard_view /> a HTML string
     ├── Inyecta estado inicial como JSON (serializado)
@@ -39,11 +39,11 @@ Hidratación: eventos, binding, estado reactivo
 
 ## 2. SSR Automático
 
-Por defecto, las vistas `.kyx` registradas en el `<router>` son SSR automático al
+Por defecto, las vistas `.byx` registradas en el `<router>` son SSR automático al
 compilar para web con flag `--ssr`:
 
 ```bash
-ky build app.kyx --target web --ssr
+by build app.byx --target web --ssr
 ```
 
 Esto genera:
@@ -52,7 +52,7 @@ Esto genera:
 dist/
 ├── index.html           # HTML renderizado (SSR)
 ├── ui-runtime.js        # Runtime JS interactivo
-├── app.wasm             # Lógica Kyle compilada
+├── app.wasm             # Lógica Byle compilada
 └── pages/
     ├── home.wasm        # Lazy-loaded pages
     └── dashboard.wasm
@@ -66,7 +66,7 @@ dist/
 
 Todo el árbol se renderiza en servidor:
 
-```kyx
+```byx
 <app>
     <error_boundary>      # SSR
         <home_view />     # SSR
@@ -76,7 +76,7 @@ Todo el árbol se renderiza en servidor:
 
 ### 3.2 SSR deshabilitado (client-only)
 
-```kyx
+```byx
 <dashboard_view ssr=false />
 ```
 
@@ -90,7 +90,7 @@ El servidor renderiza un placeholder. El contenido se genera en cliente:
 
 ### 3.3 SSR parcial
 
-```kyx
+```byx
 <view>
     <header>              # SSR
         <nav_items ssr=true />
@@ -112,7 +112,7 @@ El servidor serializa el estado inicial para que el cliente lo retome:
 ```javascript
 // Generado automáticamente en el HTML
 <script>
-window.__KYLE_INITIAL_STATE__ = {
+window.__BYLE_INITIAL_STATE__ = {
     user: { id: 42, name: "Juan" },
     theme: "dark",
     locale: "es",
@@ -125,7 +125,7 @@ window.__KYLE_INITIAL_STATE__ = {
 
 El compilador detecta qué variables de estado se usan en SSR y las serializa:
 
-```kyx
+```byx
 @(
     user: User            # → se serializa automáticamente
     theme: Theme          # → se serializa automáticamente
@@ -135,7 +135,7 @@ El compilador detecta qué variables de estado se usan en SSR y las serializa:
 
 ### 4.2 Exclusiones
 
-```kyx
+```byx
 @(
     session: Session @no_ssr    # No serializar (datos sensibles)
     api_key: str @no_ssr        # No exponer en HTML
@@ -156,7 +156,7 @@ El compilador detecta qué variables de estado se usan en SSR y las serializa:
 
 ### 5.1 Código condicional
 
-```kyle
+```byle
 fn load_data():
     if is_server():
         # Cargar datos en SSR (fetch desde servidor)
@@ -168,7 +168,7 @@ fn load_data():
 
 ### 5.2 Hooks SSR-only
 
-```kyle
+```byle
 fn on_server_init():
     # Se llama solo en SSR, antes de renderizar
     # Ideal para fetch de datos iniciales
@@ -181,7 +181,7 @@ fn on_server_init():
 
 ### 6.1 Fetch durante SSR
 
-```kyx
+```byx
 @(
     user: User? = None
 
@@ -201,7 +201,7 @@ fn on_server_init():
 
 El servidor mantiene un cache de fetchs durante SSR para evitar duplicados:
 
-```kyle
+```byle
 fn fetch_user(id: i32) User:
     # El runtime SSR cachea automáticamente
     # Si dos componentes piden el mismo user, solo un fetch
@@ -210,7 +210,7 @@ fn fetch_user(id: i32) User:
 
 ### 6.3 Timeout SSR
 
-```kyle
+```byle
 fn on_server_init():
     # Timeout de 5s para SSR
     data = fetch_with_timeout("/api/data", 5000)
@@ -225,7 +225,7 @@ Si el timeout expira, el servidor renderiza con los datos parciales.
 Para páginas grandes, el servidor puede hacer streaming del HTML:
 
 ```bash
-ky build app.kyx --target web --ssr=stream
+by build app.byx --target web --ssr=stream
 ```
 
 ```
@@ -246,7 +246,7 @@ Browser:
 
 ### 7.1 Suspense boundaries
 
-```kyx
+```byx
 <view>
     <header />                                # flush inmediato
     <suspense fallback=<spinner />>
@@ -262,7 +262,7 @@ Browser:
 
 ### 8.1 Meta tags dinámicos
 
-```kyx
+```byx
 @(
     title: str = "Dashboard"
     description: str = "Panel de control"
@@ -293,10 +293,10 @@ Generación automática de `sitemap.xml` basado en las rutas declaradas:
 
 ## 9. Compilación por Target
 
-### 9.1 Kyle SSR Server
+### 9.1 Byle SSR Server
 
 ```bash
-ky run web app.kyx --port 3000
+by run web app.byx --port 3000
 ```
 
 Inicia un servidor HTTP que:
@@ -308,7 +308,7 @@ Inicia un servidor HTTP que:
 ### 9.2 Integración con Node.js
 
 ```javascript
-// server.js — generado automáticamente por ky build --ssr
+// server.js — generado automáticamente por by build --ssr
 import { render } from './ssr-runtime.js';
 
 app.get('/*', (req, res) => {
@@ -324,7 +324,7 @@ app.get('/*', (req, res) => {
 
 ### 9.3 Integración con cualquier backend
 
-El SSR de Kyle produce HTML puro. Puede integrarse con:
+El SSR de Byle produce HTML puro. Puede integrarse con:
 
 - **Node.js** (Express, Fastify, Next.js)
 - **Python** (FastAPI, Django)
@@ -334,7 +334,7 @@ El SSR de Kyle produce HTML puro. Puede integrarse con:
 
 ```bash
 # CLI mode: genera HTML para una ruta
-ky render app.kyx /dashboard > dashboard.html
+by render app.byx /dashboard > dashboard.html
 ```
 
 ---

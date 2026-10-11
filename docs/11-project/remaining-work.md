@@ -1,6 +1,6 @@
-# Kyle — Comprehensive Implementation Guide for AI Agents
+# Byle — Comprehensive Implementation Guide for AI Agents
 
-> **Documento integral para que otra inteligencia artificial implemente las features faltantes del lenguaje Kyle.**
+> **Documento integral para que otra inteligencia artificial implemente las features faltantes del lenguaje Byle.**
 >
 > Versión: Jul 2026. Basado en commit `0864350` + múltiples fixes posteriores.
 >
@@ -29,17 +29,17 @@
 
 ## 1. Resumen Ejecutivo
 
-Kyle es un lenguaje de programación compilado, estáticamente tipado, con sintaxis similar a Python, sistema de ownership similar a Rust, y generación de código nativo vía LLVM.
+Byle es un lenguaje de programación compilado, estáticamente tipado, con sintaxis similar a Python, sistema de ownership similar a Rust, y generación de código nativo vía LLVM.
 
-**El compilador está escrito en Rust** y está organizado en 11 crates. El core language (.ky) está completo al 100%. Quedan 3 features sin implementar (sin prioridad) y los backends de UI están rotos (Desktop SDL2, iOS SwiftUI, WASM).
+**El compilador está escrito en Rust** y está organizado en 11 crates. El core language (.by) está completo al 100%. Quedan 3 features sin implementar (sin prioridad) y los backends de UI están rotos (Desktop SDL2, iOS SwiftUI, WASM).
 
 | Métrica | Valor |
 |---------|-------|
-| **Core language (.ky) features** | ✅ **243/243 confirmados funcionando** |
+| **Core language (.by) features** | ✅ **243/243 confirmados funcionando** |
 | Runtime-issues | **0** |
 | Syntax tests | **13/13 PASS** |
 | Rust tests (workspace) | **182+ PASS** |
-| Packages (ky check) | http, sqlite, postgres, env, ui — **todos OK** |
+| Packages (by check) | http, sqlite, postgres, env, ui — **todos OK** |
 
 ---
 
@@ -48,20 +48,20 @@ Kyle es un lenguaje de programación compilado, estáticamente tipado, con sinta
 ### 2.1 unsafe block (as_ptr)
 
 **Archivos involucrados:**
-- `crates/kyc_frontend/src/parser/stmt.rs` — parseo del bloque unsafe
-- `crates/kyc_semantic/src/type_checker/mod.rs` — type checking
-- `crates/kyc_mir/src/lower/expr.rs` — lowering de `as_ptr`
-- `crates/kyc_backend/src/codegen/expr.rs` — codegen de ptr operations
+- `crates/byc_frontend/src/parser/stmt.rs` — parseo del bloque unsafe
+- `crates/byc_semantic/src/type_checker/mod.rs` — type checking
+- `crates/byc_mir/src/lower/expr.rs` — lowering de `as_ptr`
+- `crates/byc_backend/src/codegen/expr.rs` — codegen de ptr operations
 
 **Descripción:** El parser ya reconoce `unsafe:` como keyword y parsea el bloque. Pero la expresión `as_ptr` (para convertir `&T` a ptr raw) no está implementada en el type checker ni en el MIR lowering.
 
 **Documentación de sintaxis:**
-- `docs/15-kyle-syntax-reference.md` (sección 7: Punteros)
+- `docs/15-byle-syntax-reference.md` (sección 7: Punteros)
 - `docs/03-language/syntax/expressions.md`
 - `docs/03-language/types/pointers.md`
 
 **Sintaxis esperada:**
-```ky
+```by
 unsafe:
     ptr = &val as ptr    # convertir &T a ptr raw
     byte = ptr[0]        # leer byte en dirección de memoria
@@ -70,7 +70,7 @@ unsafe:
 
 **Lo que ya funciona:**
 - `unsafe:` es parseado como keyword
-- `ptr[N]` indexing ya funciona vía `ky_ptr_read_i32` / `ky_ptr_write_i32`
+- `ptr[N]` indexing ya funciona vía `by_ptr_read_i32` / `by_ptr_write_i32`
 - `p + N` pointer arithmetic ya funciona
 
 **Lo que falta:**
@@ -83,11 +83,11 @@ unsafe:
 ### 2.2 Macros
 
 **Archivos involucrados:** Todo el pipeline
-- `crates/kyc_frontend/src/parser/expr.rs` — `macro_rules!` syntax
-- `crates/kyc_frontend/src/parser/decl.rs` — `#[derive]` attribute handling
-- `crates/kyc_driver/src/pipeline/mod.rs` — macro expansion step
-- `crates/kyc_semantic/src/type_checker/mod.rs` — derive expansion
-- `crates/kyc_hir/src/lib.rs` — macro desugaring
+- `crates/byc_frontend/src/parser/expr.rs` — `macro_rules!` syntax
+- `crates/byc_frontend/src/parser/decl.rs` — `#[derive]` attribute handling
+- `crates/byc_driver/src/pipeline/mod.rs` — macro expansion step
+- `crates/byc_semantic/src/type_checker/mod.rs` — derive expansion
+- `crates/byc_hir/src/lib.rs` — macro desugaring
 
 **Documentación de sintaxis:**
 - `docs/03-language/syntax/macros.md`
@@ -105,25 +105,25 @@ unsafe:
 ### 2.3 Async/Await
 
 **Archivos involucrados:**
-- `crates/kyc_frontend/src/parser/expr.rs` — `await` expression parsing
-- `crates/kyc_frontend/src/parser/decl.rs` — `async fn` parsing
-- `crates/kyc_semantic/src/type_checker/mod.rs` — async type checking
-- `crates/kyc_mir/src/lower/expr.rs` — await lowering
-- `crates/kyc_mir/src/lower/stmt.rs` — async fn lowering
-- `crates/kyc_backend/src/codegen/function.rs` — async codegen
-- `crates/kyc_runtime/src/` — runtime support
+- `crates/byc_frontend/src/parser/expr.rs` — `await` expression parsing
+- `crates/byc_frontend/src/parser/decl.rs` — `async fn` parsing
+- `crates/byc_semantic/src/type_checker/mod.rs` — async type checking
+- `crates/byc_mir/src/lower/expr.rs` — await lowering
+- `crates/byc_mir/src/lower/stmt.rs` — async fn lowering
+- `crates/byc_backend/src/codegen/function.rs` — async codegen
+- `crates/byc_runtime/src/` — runtime support
 
 **Documentación de sintaxis:**
 - `docs/03-language/concurrency/async-await.md`
 - `docs/03-language/concurrency/channels.md`
 - `docs/03-language/concurrency/threads.md`
 - `docs/09-specification/concurrency-model.md`
-- `docs/15-kyle-syntax-reference.md` (sección 12: Async)
+- `docs/15-byle-syntax-reference.md` (sección 12: Async)
 
-**Runtime existe:** El runtime en Rust ya tiene soporte (`crates/kyc_runtime/src/task.rs`, `async_.rs`, `thread.rs`). **El compilador no tiene lowering** para `async fn` / `await`.
+**Runtime existe:** El runtime en Rust ya tiene soporte (`crates/byc_runtime/src/task.rs`, `async_.rs`, `thread.rs`). **El compilador no tiene lowering** para `async fn` / `await`.
 
 **Sintaxis esperada:**
-```ky
+```by
 async fn fetch_data(url: &str) str:
     return http.get(url)
 
@@ -140,8 +140,8 @@ async fn producer(ch: chan<i32>):
 
 **Lo que ya funciona:**
 - `async` keyword es parseada
-- Runtime de channels (`ky_channel_new`, `ky_channel_send`, `ky_channel_recv`) existe
-- Thread spawning (`ky_spawn_thread`, `ky_join_thread`) existe
+- Runtime de channels (`by_channel_new`, `by_channel_send`, `by_channel_recv`) existe
+- Thread spawning (`by_spawn_thread`, `by_join_thread`) existe
 
 **Lo que falta:**
 1. Lowering de `async fn` a state machine + coroutines
@@ -157,7 +157,7 @@ async fn producer(ch: chan<i32>):
 
 | Aspecto | Detalle |
 |---------|---------|
-| **Archivo** | `crates/kyc_ui/src/backend/desktop.rs` |
+| **Archivo** | `crates/byc_ui/src/backend/desktop.rs` |
 | **Problema principal** | Sin `SDL_PollEvent`, sin eventos, ventana no responsive |
 | **Documentación** | `docs/03-language/ui/` (14 docs), `docs/10-design/rfc/0005-ui-rearchitecture-plan.md` |
 
@@ -172,7 +172,7 @@ async fn producer(ch: chan<i32>):
 
 | Aspecto | Detalle |
 |---------|---------|
-| **Archivo** | `crates/kyc_ui/src/backend/ios.rs` |
+| **Archivo** | `crates/byc_ui/src/backend/ios.rs` |
 | **Problema principal** | Swift inválido generado |
 
 **Fixes necesarios:**
@@ -187,7 +187,7 @@ async fn producer(ch: chan<i32>):
 
 | Aspecto | Detalle |
 |---------|---------|
-| **Archivo** | `crates/kyc_ui/src/backend/web.rs` |
+| **Archivo** | `crates/byc_ui/src/backend/web.rs` |
 | **Estado** | No probado — compila pero no hay pruebas |
 
 ---
@@ -268,9 +268,9 @@ docs/
     └── versioned tarballs + deps
 ```
 
-### 4.2 Referencia de Sintaxis (docs/15-kyle-syntax-reference.md)
+### 4.2 Referencia de Sintaxis (docs/15-byle-syntax-reference.md)
 
-El archivo más importante (663 líneas). Contiene ejemplos de código Kyle válido para TODO el lenguaje. Cubre:
+El archivo más importante (663 líneas). Contiene ejemplos de código Byle válido para TODO el lenguaje. Cubre:
 
 1. **Variables** — Inmutables por defecto, `^T` mutable, tipos ortogonales (`?` `!` `&` `^`)
 2. **Funciones** — `fn`, default params, multi-return tuples, `extern fn`, `@link`
@@ -289,7 +289,7 @@ El archivo más importante (663 líneas). Contiene ejemplos de código Kyle vál
 
 | Feature | Docs a leer |
 |---------|-------------|
-| **unsafe block** | `docs/03-language/types/pointers.md`, `docs/03-language/syntax/expressions.md`, `docs/15-kyle-syntax-reference.md` §7 |
+| **unsafe block** | `docs/03-language/types/pointers.md`, `docs/03-language/syntax/expressions.md`, `docs/15-byle-syntax-reference.md` §7 |
 | **Macros** | `docs/03-language/syntax/macros.md`, `docs/03-language/syntax/attributes.md`, `docs/03-language/types/traits.md` |
 | **Async/await** | `docs/03-language/concurrency/async-await.md`, `docs/03-language/concurrency/channels.md`, `docs/09-specification/concurrency-model.md` |
 | **Desktop UI** | `docs/03-language/ui/` (14 docs), `docs/10-design/rfc/0005-ui-rearchitecture-plan.md` |
@@ -303,13 +303,13 @@ El archivo más importante (663 líneas). Contiene ejemplos de código Kyle vál
 ### 5.1 Pipeline
 
 ```
-Source (.ky)
-  → kyc_frontend (lexer → parser → AST)
-  → kyc_hir (desugaring → HIR)
-  → kyc_semantic (type checker + borrow analysis)
-  → kyc_mir/lower (AST→MIR lowering)
-  → kyc_mir/ssa (SSA construction + optimizations)
-  → kyc_backend (LLVM IR codegen)
+Source (.by)
+  → byc_frontend (lexer → parser → AST)
+  → byc_hir (desugaring → HIR)
+  → byc_semantic (type checker + borrow analysis)
+  → byc_mir/lower (AST→MIR lowering)
+  → byc_mir/ssa (SSA construction + optimizations)
+  → byc_backend (LLVM IR codegen)
   → linker → binary
 ```
 
@@ -317,24 +317,24 @@ Source (.ky)
 
 | Crate | Líneas | Propósito |
 |-------|--------|-----------|
-| `kyc_core` | ~800 | AST types, diagnostics, spans (`ast/mod.rs`) |
-| `kyc_frontend` | ~3,500 | Lexer + parser (`parser/mod.rs`, `parser/expr.rs`, `parser/stmt.rs`, `parser/decl.rs`) |
-| `kyc_hir` | ~420 | HIR desugaring (`lib.rs`) |
-| `kyc_semantic` | ~2,200 | Type checker, scope, borrows (`type_checker/mod.rs`, `scope/mod.rs`) |
-| `kyc_mir` | ~10,500 | MIR lowering + SSA + optimize (`lower/expr.rs`, `lower/stmt.rs`, `lower/ctx.rs`, `ssa/mod.rs`) |
-| `kyc_backend` | ~3,200 | LLVM codegen (`codegen/function.rs`, `codegen/ssa.rs`, `codegen/runtime.rs`, `codegen/expr.rs`) |
-| `kyc_driver` | ~570 | Pipeline orchestration + prelude (`pipeline/mod.rs`) |
-| `kyc_cli` | ~1,533 | CLI binary (`main.rs`) |
-| `kyc_runtime` | ~3,500 | Runtime library (`src/lib.rs`, `src/string.rs`, `src/platform.rs`, `src/net.rs`) |
-| `kyc_tools` | ~5,000 | LSP, formatter, package manager |
-| `kyc_platform` | ~500 | Platform API (fs, time, tcp) |
-| `kyc_ui` | ~3,000 | .kyx parser + UI backends |
+| `byc_core` | ~800 | AST types, diagnostics, spans (`ast/mod.rs`) |
+| `byc_frontend` | ~3,500 | Lexer + parser (`parser/mod.rs`, `parser/expr.rs`, `parser/stmt.rs`, `parser/decl.rs`) |
+| `byc_hir` | ~420 | HIR desugaring (`lib.rs`) |
+| `byc_semantic` | ~2,200 | Type checker, scope, borrows (`type_checker/mod.rs`, `scope/mod.rs`) |
+| `byc_mir` | ~10,500 | MIR lowering + SSA + optimize (`lower/expr.rs`, `lower/stmt.rs`, `lower/ctx.rs`, `ssa/mod.rs`) |
+| `byc_backend` | ~3,200 | LLVM codegen (`codegen/function.rs`, `codegen/ssa.rs`, `codegen/runtime.rs`, `codegen/expr.rs`) |
+| `byc_driver` | ~570 | Pipeline orchestration + prelude (`pipeline/mod.rs`) |
+| `byc_cli` | ~1,533 | CLI binary (`main.rs`) |
+| `byc_runtime` | ~3,500 | Runtime library (`src/lib.rs`, `src/string.rs`, `src/platform.rs`, `src/net.rs`) |
+| `byc_tools` | ~5,000 | LSP, formatter, package manager |
+| `byc_platform` | ~500 | Platform API (fs, time, tcp) |
+| `byc_ui` | ~3,000 | .byx parser + UI backends |
 
 ### 5.3 Archivos por Fase
 
 **Lexer + Parser:**
 ```
-crates/kyc_frontend/src/
+crates/byc_frontend/src/
 ├── lexer/mod.rs         ← tokenizer
 ├── token.rs             ← TokenKind enum
 ├── parser/mod.rs        ← Parser base, current_is_expr_start()
@@ -348,7 +348,7 @@ crates/kyc_frontend/src/
 
 **Type Checker:**
 ```
-crates/kyc_semantic/src/
+crates/byc_semantic/src/
 ├── type_checker/mod.rs  ← infer_expr, check_stmt
 ├── scope/mod.rs         ← SymbolTable, lookup
 └── module_resolver.rs   ← import resolution
@@ -356,7 +356,7 @@ crates/kyc_semantic/src/
 
 **MIR Lowering:**
 ```
-crates/kyc_mir/src/
+crates/byc_mir/src/
 ├── lower/mod.rs         ← Lowerer, lower_program, lower_function
 ├── lower/expr.rs        ← lower_expr (Expression → Vec<MirInst>)
 ├── lower/stmt.rs        ← lower_stmt (Statement → Vec<MirInst>)
@@ -370,7 +370,7 @@ crates/kyc_mir/src/
 
 **LLVM Backend:**
 ```
-crates/kyc_backend/src/
+crates/byc_backend/src/
 ├── codegen/mod.rs       ← Codegen, llvm_type, tbaa
 ├── codegen/function.rs  ← compile_function (Load, Store, FieldPtr, SliceMake, Call)
 ├── codegen/ssa.rs       ← SSA→LLVM
@@ -383,7 +383,7 @@ crates/kyc_backend/src/
 
 ## 6. Patrones de Diseño del Código
 
-### 6.1 AST (kyc_core/src/ast/mod.rs)
+### 6.1 AST (byc_core/src/ast/mod.rs)
 
 ```rust
 // Enum para cada categoría de nodo. Cada variante lleva span.
@@ -539,36 +539,36 @@ MirInst::Call     → build_call (direct or indirect)
 MirInst::SliceMake → build_struct + insert_value {ptr, i64}
 ```
 
-### 6.6 Runtime (kyc_runtime)
+### 6.6 Runtime (byc_runtime)
 
 ```rust
 // Todas las funciones runtime se exportan con:
 #[unsafe(no_mangle)]
-pub extern "C" fn ky_*(...) -> ... { ... }
+pub extern "C" fn by_*(...) -> ... { ... }
 
-// Strings: ky_clone_str, ky_strlen, ky_str_cmp, ky_clone_substr
-// Lists: ky_list_new, ky_list_push, ky_list_pop, ky_list_get, ky_list_set, etc.
-// Dicts: ky_dict_new, ky_dict_set, ky_dict_get, ky_dict_has, etc.
-// FS: ky_fs_exists, ky_fs_is_dir, ky_fs_read_to_string, etc.
-// Net: ky_tcp_listen, ky_tcp_accept, ky_tcp_read, ky_tcp_write
-// Ptr: ky_ptr_read_i32, ky_ptr_read_ptr, ky_ptr_write_i32, ky_ptr_write_ptr
-// Thread: ky_spawn_thread, ky_join_thread
-// Channel: ky_channel_new, ky_channel_send, ky_channel_recv
+// Strings: by_clone_str, by_strlen, by_str_cmp, by_clone_substr
+// Lists: by_list_new, by_list_push, by_list_pop, by_list_get, by_list_set, etc.
+// Dicts: by_dict_new, by_dict_set, by_dict_get, by_dict_has, etc.
+// FS: by_fs_exists, by_fs_is_dir, by_fs_read_to_string, etc.
+// Net: by_tcp_listen, by_tcp_accept, by_tcp_read, by_tcp_write
+// Ptr: by_ptr_read_i32, by_ptr_read_ptr, by_ptr_write_i32, by_ptr_write_ptr
+// Thread: by_spawn_thread, by_join_thread
+// Channel: by_channel_new, by_channel_send, by_channel_recv
 ```
 
-### 6.7 Prelude (kyc_driver/src/pipeline/mod.rs)
+### 6.7 Prelude (byc_driver/src/pipeline/mod.rs)
 
-```ky
-# Código Kyle inyectado en cada compilación.
-# Patrón: extern fn + wrapper Kyle
+```by
+# Código Byle inyectado en cada compilación.
+# Patrón: extern fn + wrapper Byle
 
-extern fn ky_fs_exists(ptr) i32
+extern fn by_fs_exists(ptr) i32
 
 fn fs_exists(path: &str) i32:
-    ky_fs_exists(path as ptr)    # ← NO usar ky_ptr_read_ptr
+    by_fs_exists(path as ptr)    # ← NO usar by_ptr_read_ptr
 ```
 
-**⚠️ Importante:** Las funciones del prelude con `&str` params deben usar `path as ptr` directamente. El backend LLVM ya hace la doble indirección para parámetros `&T`. Usar `ky_ptr_read_ptr` causa SIGSEGV (doble dereferencia).
+**⚠️ Importante:** Las funciones del prelude con `&str` params deben usar `path as ptr` directamente. El backend LLVM ya hace la doble indirección para parámetros `&T`. Usar `by_ptr_read_ptr` causa SIGSEGV (doble dereferencia).
 
 ---
 
@@ -576,31 +576,31 @@ fn fs_exists(path: &str) i32:
 
 ```bash
 # Compilar
-cargo build --release --bin ky
+cargo build --release --bin by
 
 # Syntax tests (13 archivos)
-for f in tests/syntax/*.ky; do
-    ky run "$f" && echo "PASS: $f" || echo "FAIL: $f"
+for f in tests/syntax/*.by; do
+    by run "$f" && echo "PASS: $f" || echo "FAIL: $f"
 done
 
 # Rust tests
-cargo test --workspace --exclude kyc_runtime_wasm
+cargo test --workspace --exclude byc_runtime_wasm
 
 # Package tests
-ky check packages/http/src/lib.ky
-ky check packages/sqlite/src/lib.ky
-ky check packages/postgres/src/lib.ky
-ky check packages/env/src/lib.ky
-ky check packages/ui/src/lib.kyx
+by check packages/http/src/lib.by
+by check packages/sqlite/src/lib.by
+by check packages/postgres/src/lib.by
+by check packages/env/src/lib.by
+by check packages/ui/src/lib.byx
 
 # UI build
-ky build examples/counter.kyx
+by build examples/counter.byx
 
 # Debugging
-ky parse file.ky          # AST dump
-ky check file.ky          # type-check only
-ky mir file.ky            # MIR dump
-ky build --emit-llvm file.ky   # LLVM IR → .ll
+by parse file.by          # AST dump
+by check file.by          # type-check only
+by mir file.by            # MIR dump
+by build --emit-llvm file.by   # LLVM IR → .ll
 ```
 
 ---
@@ -617,12 +617,12 @@ ky build --emit-llvm file.ky   # LLVM IR → .ll
 | `&[T]` param type mismatch | Array ptr vs `{ptr,i64}` struct | Auto coercion | `lower/expr.rs` |
 | Field access `i32` truncation | Tipo incorrecto en codegen | Tipo real respetado | `codegen/expr.rs` |
 | `_call` SSA (str_builder) | str_builder_* sin declaración | Declaraciones explícitas | `codegen/runtime.rs:541` |
-| `&str` prelude SIGSEGV | `ref_param_locals` + `ky_ptr_read_ptr` en str | Carga directa | `lower/expr.rs:192` |
+| `&str` prelude SIGSEGV | `ref_param_locals` + `by_ptr_read_ptr` en str | Carga directa | `lower/expr.rs:192` |
 | `^[str].pop()` garbage | Falta i64→Str cast | Added cast | `lower/expr.rs` |
-| String comparison wrong | No había `ky_str_cmp` | Added runtime+lowering | `runtime/string.rs` |
+| String comparison wrong | No había `by_str_cmp` | Added runtime+lowering | `runtime/string.rs` |
 | `.find()` link error | `find` no era alias | Added alias | `lower/expr.rs` |
-| `.split()` wrong substrings | `ky_clone_substr` faltaba | Added by-length clone | `runtime/string.rs` |
-| `ky_clone_str` crash | `#[unsafe(no_mangle)]` faltaba | Restored | `runtime/string.rs` |
+| `.split()` wrong substrings | `by_clone_substr` faltaba | Added by-length clone | `runtime/string.rs` |
+| `by_clone_str` crash | `#[unsafe(no_mangle)]` faltaba | Restored | `runtime/string.rs` |
 | `_name`/`__name` scope | Scope no manejaba `_` prefix | Added lookup | `scope/mod.rs` |
 
 ---
@@ -633,7 +633,7 @@ Descubiertos al implementar los módulos `std.*`. Workarounds ya aplicados en `p
 
 | Bug | Síntoma | Workaround/aplicado | Nota |
 |-----|---------|---------------------|------|
-| Clase **sin campos** + método estático `new` | SSA: `ret %Foo` ≠ i64 (collisiona con el constructor default auto-sintetizado `Foo::new()` en `parser/decl.rs:459`) | `std/sync.ky` usa `create` en vez de `new` | Fix real: no sintetizar ctor `new()` si hay `static fn new`; o manejar struct vacío en `ret` |
+| Clase **sin campos** + método estático `new` | SSA: `ret %Foo` ≠ i64 (collisiona con el constructor default auto-sintetizado `Foo::new()` en `parser/decl.rs:459`) | `std/sync.by` usa `create` en vez de `new` | Fix real: no sintetizar ctor `new()` si hay `static fn new`; o manejar struct vacío en `ret` |
 | Clases con campo `str` **dentro de listas** | Leer el campo `str` de `list[i]` crashea/pierde el puntero (slot `i64` de 8 bytes) | `std::csv` usa API handle-based en vez de `[Row]` | Codemic `arr` de elementos; struct >8 B no cabe en slot `i64` |
 | Literal `[]` vacío en binding local | Infiere `list<i32>` aunque se anote `: [str]` | `out := src[0..0]` (slice vacío tipado) | Inferencia ignora la anotación de binding local |
 | `i32 as str` | Crashea en runtime | Usar `.to_str()` | `as str` es cast de puntero, no de dígito |

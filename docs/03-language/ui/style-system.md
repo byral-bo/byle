@@ -3,23 +3,23 @@
 **Status:** Draft v2.0
 **Date:** 2026-07-12
 **Documentación relacionada:**
-- [ui-syntax.md](../syntax/ui-syntax.md) — Sintaxis .kyx
+- [ui-syntax.md](../syntax/ui-syntax.md) — Sintaxis .byx
 - [RFC-0003](../../10-design/rfc/0003-ui-translation.md) — Traducción multi-target
 
 ---
 
 ## 1. Filosofía
 
-Kyle NO usa CSS. Los estilos son **tipos Kyle** con propiedades fuertemente tipadas,
+Byle NO usa CSS. Los estilos son **tipos Byle** con propiedades fuertemente tipadas,
 verificadas en tiempo de compilación. No hay strings mágicos, no hay selectores CSS,
 no hay hojas de estilo externas.
 
 Todo es **snake_case**: funciones, tipos, constructores, propiedades.
 
-| Aspecto | CSS | Kyle Style |
+| Aspecto | CSS | Byle Style |
 |---------|:---:|:-----------:|
 | Sintaxis | `.clase { prop: val }` | `style<comp> Name: prop = val` |
-| Tipado | ❌ Strings | ✅ Tipos Kyle verificados |
+| Tipado | ❌ Strings | ✅ Tipos Byle verificados |
 | Scope | Global (cascade) | Local al componente |
 | Compilación | Texto | AST → target nativo |
 | Variables | `--var` (custom props) | `theme.Name` (tipado) |
@@ -30,7 +30,7 @@ Todo es **snake_case**: funciones, tipos, constructores, propiedades.
 
 ### 2.1 color
 
-```kyle
+```byle
 final class color:
     r: u8
     g: u8
@@ -57,7 +57,7 @@ final class color:
 
 Uso:
 
-```kyx
+```byx
 color("#0066FF")
 color.from_rgba(0, 102, 255, 1.0)
 color.black()
@@ -66,7 +66,7 @@ color.transparent()
 
 ### 2.2 spacing
 
-```kyle
+```byle
 final class spacing:
     top: f32
     right: f32
@@ -80,7 +80,7 @@ final class spacing:
 
 ### 2.3 length
 
-```kyle
+```byle
 enum length:
     px(f32)          # píxeles
     percent(f32)     # porcentaje del contenedor (0.0-100.0)
@@ -92,7 +92,7 @@ enum length:
 
 ### 2.4 border
 
-```kyle
+```byle
 final class border:
     width: f32
     color: color
@@ -108,7 +108,7 @@ final class shadow:
 
 ### 2.5 Tipografía
 
-```kyle
+```byle
 enum font_weight:
     thin       # 100
     light      # 300
@@ -137,7 +137,7 @@ final class text_style:
 
 ### 2.6 Layout
 
-```kyle
+```byle
 enum display:
     flex
     grid
@@ -178,7 +178,7 @@ final class absolute_position:
 
 ### 2.7 Transform
 
-```kyle
+```byle
 final class transform:
     translate_x: f32
     translate_y: f32
@@ -197,7 +197,7 @@ final class transition:
 
 ### 2.8 Style class completo
 
-```kyle
+```byle
 final class style:
     background: color?
     background_image: str?
@@ -252,7 +252,7 @@ final class style:
 
 ### 3.1 Styles
 
-```kyle
+```byle
 style<button> Primary:
     background = color("#0066FF")
     color = color("#FFFFFF")
@@ -277,7 +277,7 @@ style<button> Secondary:
 
 Los layouts se definen inline con props de flex en cada componente:
 
-```kyx
+```byx
 <vstack alignment=alignment.center spacing=16>
     <text value="Centrado" />
 </vstack>
@@ -292,7 +292,7 @@ No hay `layout<>` nombrados — se usa directamente `alignment=`, `spacing=`, `g
 
 ### 3.4 Themes
 
-```kyle
+```byle
 theme LightTheme:
     primary = color("#0066FF")
     on_primary = color("#FFFFFF")
@@ -343,7 +343,7 @@ theme DarkTheme: LightTheme:
 
 ### 4.1 Aplicar estilo
 
-```kyx
+```byx
 <button style=Primary text="Ingresar" />
 <button style=Secondary text="Cancelar" />
 <card style=Elevated>
@@ -353,7 +353,7 @@ theme DarkTheme: LightTheme:
 
 ### 4.2 Estilos inline (casos específicos)
 
-```kyx
+```byx
 <text
     style=style(color: color("#FF0000"), font_size: 16)
     value="Error"
@@ -362,7 +362,7 @@ theme DarkTheme: LightTheme:
 
 ### 4.3 Combinar estilos
 
-```kyx
+```byx
 <button
     style=style.combine(Primary, style(margin: spacing.all(8)))
     text="Combinado"
@@ -384,11 +384,11 @@ button { cursor: pointer; }
 a { color: inherit; text-decoration: none; }
 ```
 
-Esto asegura que los componentes Kyle se vean igual en todos los navegadores, sin margenes, paddings, ni bordes predeterminados.
+Esto asegura que los componentes Byle se vean igual en todos los navegadores, sin margenes, paddings, ni bordes predeterminados.
 
 ### 5.1 Web target
 
-```kyle
+```byle
 style<button> Primary:
     background = color("#0066FF")
     color = color("#FFFFFF")
@@ -410,15 +410,15 @@ const styles = {
 
 ### 5.2 Desktop target (Skia)
 
-```kyle
+```byle
 style<button> Primary:
     background = color("#0066FF")
     border_radius = 8
     padding = spacing.all(12)
 ```
 
-→ Código Kyle generado:
-```kyle
+→ Código Byle generado:
+```byle
 fn render_primary_button(x: f32, y: f32, w: f32, h: f32):
     skia_draw_rounded_rect(x, y, w, h, 8.0, color("#0066FF"))
 ```
@@ -445,9 +445,9 @@ btn.contentEdgeInsets = UIEdgeInsets(12, 24, 12, 24)
 
 ## 6. Responsive
 
-### 6.1 Media queries en Kyle
+### 6.1 Media queries en Byle
 
-```kyle
+```byle
 style<view> Card:
     width = length.percent(100)
     padding = spacing.all(8)
@@ -475,7 +475,7 @@ const styles = {
 ```
 
 Desktop target:
-```kyle
+```byle
 fn render_card(viewport_w: f32):
     style = if viewport_w >= 1024:
         card_desktop_style
@@ -489,7 +489,7 @@ fn render_card(viewport_w: f32):
 
 ## 7. Modo oscuro
 
-```kyx
+```byx
 <view>
     @(theme = current_theme())
     <text value=if theme == DarkTheme: "Modo oscuro" else: "Modo claro" />
@@ -501,7 +501,7 @@ fn render_card(viewport_w: f32):
 
 ## 8. Referencias
 
-- [ui-syntax.md](../syntax/ui-syntax.md) — Sintaxis .kyx
+- [ui-syntax.md](../syntax/ui-syntax.md) — Sintaxis .byx
 - [RFC-0003](../../10-design/rfc/0003-ui-translation.md) — Traducción multi-target
 - [state-events.md](state-events.md) — Estado y eventos
 - [animation.md](animation.md) — Animaciones

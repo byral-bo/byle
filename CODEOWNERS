@@ -6,22 +6,22 @@
 *                       @kyal-bo
 
 # Compilador (core)
-/crates/kyc_frontend/   @kyal-bo
-/crates/kyc_hir/        @kyal-bo
-/crates/kyc_semantic/   @kyal-bo
-/crates/kyc_mir/        @kyal-bo
-/crates/kyc_backend/    @kyal-bo
-/crates/kyc_driver/     @kyal-bo
+/crates/byc_frontend/   @kyal-bo
+/crates/byc_hir/        @kyal-bo
+/crates/byc_semantic/   @kyal-bo
+/crates/byc_mir/        @kyal-bo
+/crates/byc_backend/    @kyal-bo
+/crates/byc_driver/     @kyal-bo
 
 # CLI y herramientas
-/crates/kyc_cli/        @kyal-bo
-/crates/kyc_tools/      @kyal-bo
+/crates/byc_cli/        @kyal-bo
+/crates/byc_tools/      @kyal-bo
 
 # Runtime y std
-/crates/kyc_runtime/    @kyal-bo
+/crates/byc_runtime/    @kyal-bo
 
 # UI
-/crates/kyc_ui/         @kyal-bo
+/crates/byc_ui/         @kyal-bo
 
 # Paquetes
 /packages/              @kyal-bo

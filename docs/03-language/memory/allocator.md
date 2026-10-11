@@ -1,19 +1,19 @@
 # Allocator
 
-> El runtime de Kyle delega en `malloc`/`free` del sistema for management de heap.
+> El runtime de Byle delega en `malloc`/`free` del sistema for management de heap.
 > No there is allocator personalizado — cada allocation va al allocator de Rust/libc.
 
 ## Estrategia current
 
 ```rust
 // memory.rs — simplified
- extern "C" fn ky_alloc(size: i64) -> *mut u8 {
+ extern "C" fn by_alloc(size: i64) -> *mut u8 {
  let layout = Layout::from_size_align(size as usize, 8).unwrap();
  std::alloc::alloc(layout)
 }
 ```
 
-Toda allocation de heap (str, list, dict) pasa by `ky_alloc`, que llama a
+Toda allocation de heap (str, list, dict) pasa by `by_alloc`, que llama a
 `std::alloc::alloc` de Rust (que usa `malloc`/`mmap` del SO).
 
 ## Estrategia de lists
@@ -23,9 +23,9 @@ Las lists `{T}` usan crecimiento exponencial (×2) for push:
 ```rust
 fn grow(list: *mut KlList) {
  let new_cap = (*list).cap * 2;
- let new_data = ky_alloc(new_cap * 8) as *mut i64;
+ let new_data = by_alloc(new_cap * 8) as *mut i64;
  std::ptr::copy_nonoverlapping((*list).data, new_data, (*list).len as usize);
- ky_free((*list).data as *mut u8);
+ by_free((*list).data as *mut u8);
  (*list).data = new_data;
  (*list).cap = new_cap;
 }

@@ -7,7 +7,7 @@
 
 ## 1. Qué operadores se pueden sobrecargar
 
-Kyle permite sobrecargar operadores implementando métodos con nombres
+Byle permite sobrecargar operadores implementando métodos con nombres
 específicos en una clase.
 
 ### 1.1 Operadores aritméticos
@@ -60,7 +60,7 @@ específicos en una clase.
 
 ## 2. Ejemplo: Vector 2D
 
-```kyle
+```byle
 final class Vec2:
     x: f32
     y: f32
@@ -84,7 +84,7 @@ final class Vec2:
         Vec2(x: -this.x, y: -this.y)
 ```
 
-```kyle
+```byle
 a = Vec2(x: 1.0, y: 2.0)
 b = Vec2(x: 3.0, y: 4.0)
 
@@ -99,7 +99,7 @@ g = a == b       # false
 
 ## 3. Ejemplo: Número complejo
 
-```kyle
+```byle
 final class Complex:
     real: f64
     imag: f64
@@ -124,7 +124,7 @@ final class Complex:
 
 ## 4. Ejemplo: Matriz
 
-```kyle
+```byle
 final class Mat2:
     data: [f32, 4]  # 2x2 matrix en row-major
 
@@ -135,7 +135,7 @@ final class Mat2:
         this.data[row * 2 + col] = value
 ```
 
-```kyle
+```byle
 m = Mat2(data: [1.0, 2.0, 3.0, 4.0])
 val = m[0, 1]       # 2.0
 m[1, 0] = 5.0       # set

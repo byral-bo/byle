@@ -4,7 +4,7 @@
 
 ## Generic classes
 
-```ky
+```by
 final class Stack<T>:
  items: {T} # list dynamic interna
 
@@ -17,21 +17,21 @@ final class Stack<T>:
 
 ## Usage
 
-```ky
+```by
 int_stack = Stack<i32> { items: {} }
 int_stack.push(5)
 ```
 
 ## Generic functions
 
-```ky
+```by
 fn identity<T>(value: T) T:
  value
 ```
 
 ## Type parameter constraints
 
-```ky
+```by
 class box<T>:
  value: T
 ```

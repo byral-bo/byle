@@ -5,9 +5,9 @@
 
 ---
 
-## Tipo Kyle
+## Tipo Byle
 
-```kyle
+```byle
 final class button:
     # Contenido
     text: str?                      # Texto del botón
@@ -36,31 +36,31 @@ final class button:
 
 ### Botón simple
 
-```kyx
+```byx
 <button text="Guardar" click=@handle_save />
 ```
 
 ### Con estilo
 
-```kyx
+```byx
 <button text="Eliminar" style=Danger click=@handle_delete />
 ```
 
 ### Con ícono
 
-```kyx
+```byx
 <button icon="plus" text="Nuevo" click=@handle_new />
 ```
 
 ### Deshabilitado
 
-```kyx
+```byx
 <button text="Enviar" disabled=@!form_valid click=@handle_submit />
 ```
 
 ### Loading
 
-```kyx
+```byx
 <button text="Guardar" loading=@is_saving click=@handle_save />
 ```
 
@@ -85,7 +85,7 @@ final class button:
 
 ### button_variant
 
-```kyle
+```byle
 enum button_variant:
     filled          # Fondo sólido (default)
     outlined        # Solo borde
@@ -95,7 +95,7 @@ enum button_variant:
 
 ### size
 
-```kyle
+```byle
 enum size:
     xs              # Extra small (24px height)
     sm              # Small (32px height)
@@ -108,7 +108,7 @@ enum size:
 
 ## Estilos Predefinidos
 
-```kyle
+```byle
 style<button> Primary:
     background = color("#0066FF")
     color = color("#FFFFFF")
@@ -141,7 +141,7 @@ style<button> Ghost:
 
 ### Grupo de botones
 
-```kyx
+```byx
 <hstack spacing=8>
     <button text="Cancelar" style=Secondary click=@cancel />
     <button text="Guardar" style=Primary click=@save />
@@ -150,25 +150,25 @@ style<button> Ghost:
 
 ### Botón con ícono y texto
 
-```kyx
+```byx
 <button icon="download" text="Descargar" style=Primary click=@download />
 ```
 
 ### Botón de solo ícono
 
-```kyx
+```byx
 <button icon="close" variant=button_variant.icon click=@close />
 ```
 
 ### Botón full width
 
-```kyx
+```byx
 <button text="Ingresar" style=Primary style=style(width: length.fill) click=@login />
 ```
 
 ### Botón con confirmación
 
-```kyx
+```byx
 <view>
     @(
         fn handle_delete():
@@ -192,7 +192,7 @@ style<button> Ghost:
 
 ### Desktop (SDL2/Skia)
 
-```kyle
+```byle
 fn render_button(x: f32, y: f32, w: f32, h: f32):
     skia_fill_rounded_rect(x, y, w, h, 8.0, color("#0066FF"))
     skia_draw_text(x + w/2, y + h/2, "Guardar", color("#FFFFFF"))
@@ -235,7 +235,7 @@ Button(
 
 ### ❌ Malo: Mezclar lógica en el click
 
-```kyx
+```byx
 <button text="Guardar" click=@() => {
     if form_valid:
         save()
@@ -247,7 +247,7 @@ Button(
 
 ### ✅ Bueno: Función separada
 
-```kyx
+```byx
 <view>
     @(
         fn handle_save():
@@ -262,7 +262,7 @@ Button(
 
 ### ❌ Malo: No manejar loading state
 
-```kyx
+```byx
 <button text="Guardar" click=@save />
 ```
 
@@ -270,7 +270,7 @@ Button(
 
 ### ✅ Bueno: Mostrar loading
 
-```kyx
+```byx
 <button text="Guardar" loading=@is_saving disabled=@is_saving click=@save />
 ```
 

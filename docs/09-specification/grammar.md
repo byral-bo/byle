@@ -1,8 +1,8 @@
 # Grammar
 
-> Grammar de Kyle en formato EBNF simplificado.
+> Grammar de Byle en formato EBNF simplificado.
 > **Note:** Esta is una grammar de alto nivel. La grammar formal completa
-> is en code source del parbe (`kyc_frontend/src/parser.rs`, 2628 lines).
+> is en code source del parbe (`byc_frontend/src/parser.rs`, 2628 lines).
 
 ## Programa
 

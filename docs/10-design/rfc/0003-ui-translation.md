@@ -1,36 +1,36 @@
-# RFC-0003: Traducción Multi-Target de Kyle UI
+# RFC-0003: Traducción Multi-Target de Byle UI
 
 **Status:** Implementado (IR+Backend layer) — Actualizado 2026-07-11
 **Date:** 2026-07-10 (creado)
 **Documentaci&oacute;n relacionada:**
 - [`0002-ui-architecture.md`](0002-ui-architecture.md) — Arquitectura general del framework UI
 - [`0005-ui-rearchitecture-plan.md`](0005-ui-rearchitecture-plan.md) — Plan de readaptaci&oacute;n
-- [`../../03-language/syntax/ui-syntax.md`](../../03-language/syntax/ui-syntax.md) — Sintaxis .kyx
+- [`../../03-language/syntax/ui-syntax.md`](../../03-language/syntax/ui-syntax.md) — Sintaxis .byx
 - [`../../06-compiler/wasm.md`](../../06-compiler/wasm.md) — Target WASM
 
 ---
 
 ## 1. Visión General
 
-El framework Kyle UI debe traducir el código del usuario a **múltiples targets**
+El framework Byle UI debe traducir el código del usuario a **múltiples targets**
 sin que el usuario tenga que escribir HTML, CSS o JavaScript. Un solo código fuente
-(`.ky` + `.kyx`) se compila a diferentes plataformas.
+(`.by` + `.byx`) se compila a diferentes plataformas.
 
 ### 1.1 Principios
 
 | Principio | Implicación |
 |-----------|-------------|
-| **Zero JS/HTML/CSS** | El usuario nunca escribe JS, HTML o CSS. Todo es Kyle. |
-| **Traducción, no wrapper** | El framework traduce código Kyle a código nativo de cada plataforma, no solo envuelve APIs. |
+| **Zero JS/HTML/CSS** | El usuario nunca escribe JS, HTML o CSS. Todo es Byle. |
+| **Traducción, no wrapper** | El framework traduce código Byle a código nativo de cada plataforma, no solo envuelve APIs. |
 | **Un código, N targets** | La misma app se compila para web, desktop y mobile sin cambios. |
-| **Tipado en todas las capas** | Los estilos, layouts y temas son tipos Kyle, no strings. |
+| **Tipado en todas las capas** | Los estilos, layouts y temas son tipos Byle, no strings. |
 
 ### 1.2 Qué se traduce
 
 | Qué | Origen | Web | Desktop | Mobile |
 |-----|--------|:---:|:-------:|:------:|
-| Lógica de negocio | `.ky` | WASM | Nativo | Nativo |
-| Declaración UI | `.kyx` | JS/DOM | Skia | Native UI |
+| Lógica de negocio | `.by` | WASM | Nativo | Nativo |
+| Declaración UI | `.byx` | JS/DOM | Skia | Native UI |
 | Estilos | `style<>` | Inline styles | Skia paint | Native style |
 | Eventos | `click=@fn` | addEventListener | Event loop | Touch/click |
 | Estado | `bind=@var` | Reactive JS | State mgr | State mgr |
@@ -45,7 +45,7 @@ Para el target web, el pipeline ahora tiene una **capa intermedia agnóstica (UI
 
 ```
 ┌──────────────────────────────────────────────────────┐
-│                    source.kyx                        │
+│                    source.byx                        │
 │  <view>                                              │
 │    @(count: i32)                                     │
 │    <button text=@count.to_str() click=@incr />      │
@@ -54,7 +54,7 @@ Para el target web, el pipeline ahora tiene una **capa intermedia agnóstica (UI
                        │
                        ▼
 ┌──────────────────────────────────────────────────────┐
-│              kyc_ui (parser .kyx)                    │
+│              byc_ui (parser .byx)                    │
 │  Transforma XML a UI-IR (ir.rs)                     │
 └──────────────────────┬───────────────────────────────┘
                        │
@@ -68,7 +68,7 @@ Para el target web, el pipeline ahora tiene una **capa intermedia agnóstica (UI
               ▼                 ▼
 ┌───────────────────┐  ┌───────────────────┐
 │  VÍA 1: LÓGICA   │  │  VÍA 2: UI       │
-│  (código Kyle)   │  │  (UI-IR)          │
+│  (código Byle)   │  │  (UI-IR)          │
 ├───────────────────┤  ├───────────────────┤
 │  Semantic + HIR   │  │  Web Backend     │
 │  + MIR + SSA      │  │  (backend/web)   │
@@ -96,7 +96,7 @@ Para el target web, el pipeline ahora tiene una **capa intermedia agnóstica (UI
 
 El WASM contiene la lógica de negocio. El JS contiene la UI. Se comunican vía FFI:
 
-```kyle
+```byle
 # Generado automáticamente por el compilador
 @link "js"
 extern fn dom_create_element(tag: ptr) ptr
@@ -134,19 +134,19 @@ const env = {
 };
 ```
 
-### 2.3 Traductor .kyx → JS (no WASM)
+### 2.3 Traductor .byx → JS (no WASM)
 
 Para el target web, el compilador genera un **segundo archivo** además del `.wasm`:
 `ui-runtime.js`. Este archivo contiene:
 
-1. **Declaración de componentes** — Cada componente .kyx se traduce a una función JS
+1. **Declaración de componentes** — Cada componente .byx se traduce a una función JS
 2. **Sistema de estilos** — Los `style<>` se compilan a objetos de estilo inline
 3. **Event handlers** — Los eventos se conectan a funciones exportadas por WASM
 4. **Reactivity** — El binding bidireccional se implementa con setters/getters JS
 
 ```javascript
 // ui-runtime.js generado automáticamente
-// Componente: button.kyx
+// Componente: button.byx
 function Button(props) {
   const el = document.createElement('button');
   el.textContent = props.text;
@@ -170,11 +170,11 @@ function Button(props) {
 
 ## 3. Sistema de Estilos Tipado (sin CSS)
 
-### 3.1 Tipos de estilo en Kyle
+### 3.1 Tipos de estilo en Byle
 
-Los estilos NO son CSS. Son **tipos Kyle** con propiedades fuertemente tipadas:
+Los estilos NO son CSS. Son **tipos Byle** con propiedades fuertemente tipadas:
 
-```kyle
+```byle
 final class Style:
     background: Color
     color: Color
@@ -209,7 +209,7 @@ final class Style:
 
 ### 3.2 Declaración de estilos
 
-```kyle
+```byle
 style<button> Primary:
     background = Color("#0066FF")
     color = Color("#FFFFFF")
@@ -229,7 +229,7 @@ style<button> PrimaryDisabled: Primary:
 
 ### 3.3 Compilación de estilos por target
 
-```kyle
+```byle
 style<button> Primary:
     background = Color("#0066FF")
     border_radius = 8
@@ -244,7 +244,7 @@ style<button> Primary:
 
 ### 3.4 Theme system
 
-```kyle
+```byle
 theme AppTheme:
     # Colores semánticos
     primary = Color("#0066FF")
@@ -279,7 +279,7 @@ theme AppTheme:
 
 ### 3.5 Responsive
 
-```kyle
+```byle
 style<view> ResponsiveCard:
     # Mobile first: columna
     flex_direction = FlexDirection.Column
@@ -324,7 +324,7 @@ style<view> ResponsiveCard:
 
 ### 4.2 Hooks
 
-```kyle
+```byle
 final class Counter:
     count: i32 = 0
 
@@ -436,10 +436,10 @@ el.textContent = userInput;  // automáticamente escapado
 
 ### 6.2 Validación de tipos
 
-Los estilos y props son tipados en Kyle. El compilador verifica en tiempo de
+Los estilos y props son tipados en Byle. El compilador verifica en tiempo de
 compilación que los valores sean válidos:
 
-```kyle
+```byle
 # ❌ Error de compilación: "rojo" no es un Color
 style<button> Invalid:
     background = "rojo"
@@ -455,10 +455,10 @@ style<button> Valid:
 
 | Término | Significado |
 |---------|-------------|
-| Traductor JS | Generador de código JavaScript a partir de AST Kyle (solo para target web) |
+| Traductor JS | Generador de código JavaScript a partir de AST Byle (solo para target web) |
 | JS glue | Código JS que conecta WASM con el DOM |
 | ui-runtime.js | Archivo JS generado que contiene los componentes UI traducidos |
-| Style type | Tipo Kyle que define propiedades de estilo (no CSS) |
+| Style type | Tipo Byle que define propiedades de estilo (no CSS) |
 | Reactive binding | Actualización automática de la UI cuando cambia el estado |
 | FFI bridge | Comunicación entre WASM (lógica) y JS (UI) |
 
@@ -466,7 +466,7 @@ style<button> Valid:
 
 ## 8. Referencias
 
-- [RFC-0002: Kyle UI Framework](0002-ui-architecture.md) — Arquitectura general
-- [UI Syntax](../03-language/syntax/ui-syntax.md) — Sintaxis .kyx
+- [RFC-0002: Byle UI Framework](0002-ui-architecture.md) — Arquitectura general
+- [UI Syntax](../03-language/syntax/ui-syntax.md) — Sintaxis .byx
 - [WASM Target](../../06-compiler/wasm.md) — Especificación WASM
 - [FFI ABI](../../03-language/ffi/abi.md) — extern fn + @link

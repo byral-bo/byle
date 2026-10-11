@@ -1,0 +1,10 @@
+fn main():
+    person = Person()
+    println("Hello, {person.name}! you have {person.age} years old.")
+
+class Person:
+    name : str
+    age : i32
+    Person():
+        this.name = "albert"
+        this.age = 30

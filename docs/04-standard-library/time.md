@@ -7,7 +7,7 @@
 
 Full date and time with second precision.
 
-```ky
+```by
 use std.time
 
 now: datetime = datetime.now()
@@ -45,7 +45,7 @@ second: i32 = dt.second()
 | `.format(fmt)` | `str` | Format with pattern |
 | `.to_str()` | `str` | ISO 8601 string |
 
-```ky
+```by
 start: datetime = datetime.now()
 # ... some work ...
 end: datetime = datetime.now()
@@ -57,7 +57,7 @@ println("took " + elapsed.total_milliseconds().to_str() + "ms")
 
 Calendar date without time.
 
-```ky
+```by
 today: date = date.today()
 d: date = date.from_ymd(2024, 1, 1)
 d = date.parse("2024-01-01")
@@ -89,7 +89,7 @@ next_week: date = d.add_days(7)
 
 Time of day without date.
 
-```ky
+```by
 now: time = time.now()
 t: time = time.from_hms(12, 30, 0)
 t = time.parse("12:30:00")
@@ -115,7 +115,7 @@ second: i32 = t.second()
 
 Time interval between two points in time.
 
-```ky
+```by
 d: duration = duration.from_seconds(60)
 d = duration.from_milliseconds(1000)
 d = duration.from_hours(1)
@@ -144,13 +144,13 @@ text: str = d.to_str()   # "1h 0m 0s"
 
 Pause execution for a given number of milliseconds.
 
-```ky
+```by
 sleep(1000)  # pause for 1 second
 ```
 
 ## Example
 
-```ky
+```by
 use std.time
 
 today: date = date.today()

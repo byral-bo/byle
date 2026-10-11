@@ -1,10 +1,10 @@
 # C Interop
 
-> Llamar functions C from Kyle using `extern fn` y `@link`.
+> Llamar functions C from Byle using `extern fn` y `@link`.
 
 ## Declaration
 
-```ky
+```by
 @link "c" # linkear with libc
 extern fn strlen(s: ptr) i32
 extern fn malloc(size: i64) ptr
@@ -19,7 +19,7 @@ fn main() i32:
 
 ## Typis equivalentes
 
-| C | Kyle |
+| C | Byle |
 |---|------|
 | `int` | `i32` |
 | `long` | `i64` |
@@ -33,7 +33,7 @@ fn main() i32:
 
 ## Linkear libraries
 
-```ky
+```by
 @link "m" # libm (math)
 extern fn sqrt(x: f64) f64
 
@@ -45,7 +45,7 @@ extern fn curl_easy_init() ptr
 
 Las llamadas `extern fn` must ir inside de `unsafe`:
 
-```ky
+```by
 unsafe:
  buf: ptr = malloc(1024)
  # usar buf...

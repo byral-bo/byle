@@ -1,32 +1,32 @@
 # Package Manager
 
-> Gestor de paquetis de Kyle: `ky add`, `ky remove`, `ky install`.
+> Gestor de paquetis de Byle: `by add`, `by remove`, `by install`.
 
 ## Comandos
 
 ### Agregar dependency
 
 ```bash
-ky add http # agrega http from registry
-ky add http@1.0.0 # version especifica
+by add http # agrega http from registry
+by add http@1.0.0 # version especifica
 ```
 
 ### Instalar dependencies
 
 ```bash
-ky install # instala todas dependencies de ky.lock
+by install # instala todas dependencies de by.lock
 ```
 
 ### Eliminar dependency
 
 ```bash
-ky remove http # elimina http
+by remove http # elimina http
 ```
 
 ### Publicar package
 
 ```bash
-ky publish # publica en registry local
+by publish # publica en registry local
 ```
 
 ## Registry
@@ -34,7 +34,7 @@ ky publish # publica en registry local
 Los paquetis se distribuyen via GitHub Pages:
 
 ```text
-https://IT-KYNERA.github.io/KYLE/docs
+https://IT-KYNERA.github.io/BYLE/docs
 ```
 
 ## Paquetis oficiales
@@ -45,9 +45,9 @@ https://IT-KYNERA.github.io/KYLE/docs
 | `json` | Parseo y serializacion JSON |
 | `sqlite` | Base de data SQLite |
 
-## ky.lock
+## by.lock
 
-El file `ky.lock` se genera automaticamente al instalar dependencies.
+El file `by.lock` se genera automaticamente al instalar dependencies.
 No se must modificar manualmente.
 
 ## See also

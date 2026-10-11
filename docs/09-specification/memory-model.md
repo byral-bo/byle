@@ -1,6 +1,6 @@
 # Memory Model
 
-> El modelo de memory de Kyle is especificado en `03-language/memory/`.
+> El modelo de memory de Byle is especificado en `03-language/memory/`.
 > Este documento is un index que referencia filis relevantes.
 
 | Aspecto | Documento |

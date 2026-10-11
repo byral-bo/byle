@@ -1,27 +1,27 @@
 # Primer Programa
 
-> Crear y execute tu primer program Kyle.
+> Crear y execute tu primer program Byle.
 
 ## Hola Mundo
 
-Crear un file `hola.ky`:
+Crear un file `hola.by`:
 
-```ky
+```by
 fn main() i32:
- println("Hola, Kyle!")
+ println("Hola, Byle!")
  0
 ```
 
 Ejecutar:
 
 ```bash
-ky run hola.ky
+by run hola.by
 ```
 
 Salida:
 
 ```
-Hola, Kyle!
+Hola, Byle!
 ```
 
 ## Explanation
@@ -35,13 +35,13 @@ Hola, Kyle!
 ## Compilar without execute
 
 ```bash
-ky build hola.ky
+by build hola.by
 ./hola # execute binary
 ```
 
 ## Variables
 
-```ky
+```by
 fn main() i32:
  name: str = "Mundo"
  println("Hola, " + name + "!")
@@ -50,7 +50,7 @@ fn main() i32:
 
 ## Entrada del usuario
 
-```ky
+```by
 fn main() i32:
  name: str = input("What is your name? ")
  println("Hola, " + name + "!")
@@ -61,4 +61,4 @@ fn main() i32:
 
 - `build.md` — Compilar proyectos
 - `project-layout.md` — Estructura de proyectos
-- `03-language/syntax/variables.md` — Variablis en Kyle
+- `03-language/syntax/variables.md` — Variablis en Byle

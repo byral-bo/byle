@@ -1,10 +1,10 @@
 # Functions
 
-> Declaration y uso de functions en Kyle.
+> Declaration y uso de functions en Byle.
 
 ## Declaration basica
 
-```ky
+```by
 fn add(a: i32, b: i32) i32:
  a + b
 ```
@@ -17,7 +17,7 @@ fn add(a: i32, b: i32) i32:
 
 ## Parameters (Move by defecto)
 
-```ky
+```by
 fn consume(s: str): # MOVE: caller pierde ownership
  println(s)
 
@@ -36,7 +36,7 @@ fn fill(s: ^&str): # MUT BORROW: caller presta mutable
 
 ## Return type
 
-```ky
+```by
 fn add(a: i32, b: i32) i32: # returns i32
  a + b
 
@@ -54,7 +54,7 @@ fn divide(a: i32, b: i32) i32!: # returns fallible
 
 ## Default parameters
 
-```ky
+```by
 fn connect(host: str = "localhost", port: i32 = 8080):
  println("conectando a " + host + ":" + port.to_str())
 
@@ -67,7 +67,7 @@ connect("example.com", 80) # example.com:80
 
 Los punteros a función se declaran con tipo `fn(params) return_type` (sin `->`).
 
-```ky
+```by
 fn double(n: i64) i64:
  n * 2
 
@@ -95,7 +95,7 @@ Sintaxis de tipos función:
 
 Ejemplo con múltiples parámetros:
 
-```ky
+```by
 fn process(id: i32, name: str, active: bool) str:
  "ok"
 
@@ -110,7 +110,7 @@ fn main():
 ⚠️ **Inline closures `fn(x: i32): x * 2` no funcionan dentro de function bodies.**
 Usar named functions con `&` como workaround:
 
-```ky
+```by
 fn double(x: i32) i32:
     x * 2
 
@@ -121,7 +121,7 @@ fn main():
 
 ### Closure como parámetro
 
-```ky
+```by
 fn apply_twice(value: i32, f: fn(i32) i32) i32:
     f(f(value))
 
@@ -131,7 +131,7 @@ fn main():
 
 ## async fn
 
-```ky
+```by
 async fn fetch(url: &str) str:
  "response"
 
@@ -143,7 +143,7 @@ fn main() i32:
 
 ## static fn
 
-```ky
+```by
 class MathUtils:
  static fn square(x: i32) i32:
  x * x

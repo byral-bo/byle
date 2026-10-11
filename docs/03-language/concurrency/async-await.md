@@ -7,7 +7,7 @@
 
 ## async fn / await [x]
 
-```ky
+```by
 async fn double(n: i64) i64:
  n * 2
 
@@ -20,7 +20,7 @@ fn main() i32:
 
 ## async: block [x]
 
-```ky
+```by
 fn main() i32:
  task = async:
  sleep(100)
@@ -32,7 +32,7 @@ fn main() i32:
 
 ## parallel.for [x]
 
-```ky
+```by
 fn heavy(n: i64) i64:
  s: ^i64 = 0
  j: ^i64 = 0
@@ -49,7 +49,7 @@ fn main() i32:
 
 ## Threads [x]
 
-```ky
+```by
 fn worker(n: i64) i64:
  n * 2
 
@@ -64,7 +64,7 @@ fn main() i32:
 
 ## future: `future<T>` [ ]
 
-```ky
+```by
 task: future<str> = async:
  "response"
 val = await task
@@ -72,7 +72,7 @@ val = await task
 
 ## channel: `channel<T>` [x]
 
-```ky
+```by
 ch: channel<i32> = channel(16) # buffer 16
 ch.send(42)
 val = ch.recv()
@@ -82,7 +82,7 @@ ch.close()
 
 ## select [ ]
 
-```ky
+```by
 select:
  &msg -> ch1:
  println("got: " + msg)
@@ -94,7 +94,7 @@ select:
 
 ## mutex: `mutex<T>` [x]
 
-```ky
+```by
 m: mutex<i32> = mutex(0)
 lock(m):
  *val += 1 # operation segura
@@ -102,7 +102,7 @@ lock(m):
 
 ## Atomic typis [x]
 
-```ky
+```by
 counter: atomic_i64 = atomic_i64(0)
 counter.fetch_add(1)
 counter.load() # → 1
@@ -116,7 +116,7 @@ flag.load() # → true
 
 ## iterator [x]
 
-```ky
+```by
 iter = list.iter()
 doubled = iter.map(fn(x): x * 2)
 filtered = iter.filter(fn(x): x > 5)

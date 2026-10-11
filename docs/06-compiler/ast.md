@@ -1,7 +1,7 @@
 # AST (Abstract Syntax Tree)
 
 > Representation estructurada del program after del parsing.
-> Crate: `kyc_core/src/ast.rs` (~1372 lines).
+> Crate: `byc_core/src/ast.rs` (~1372 lines).
 
 ## Responsabilidad
 
@@ -68,7 +68,7 @@ Los spans are fundamentalis for reportar errors with ubicacion precisa.
 
 ## Example
 
-```ky
+```by
 # Code source
 fn add(a: i32, b: i32) i32:
  a + b

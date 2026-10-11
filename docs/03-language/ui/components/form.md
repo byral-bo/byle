@@ -5,12 +5,12 @@
 
 ---
 
-## Tipo Kyle
+## Tipo Byle
 
-```kyle
+```byle
 final class form:
     # Modelo
-    model: ^any?                      # Modelo de datos (clase Kyle)
+    model: ^any?                      # Modelo de datos (clase Byle)
     
     # Validación
     validate: fn() -> {str: str}?     # Función de validación personalizada
@@ -29,7 +29,7 @@ final class form:
 
 ### Con modelo (recomendado)
 
-```kyx
+```byx
 <view>
     @(
         form: ^UserForm = UserForm()
@@ -51,7 +51,7 @@ final class form:
 
 ### Sin modelo (bind directo)
 
-```kyx
+```byx
 <view>
     @(
         email: ^str = ""
@@ -89,7 +89,7 @@ final class form:
 
 ### Definición del modelo
 
-```kyle
+```byle
 final class UserForm:
     name: str = ""
     email: str = ""
@@ -122,7 +122,7 @@ final class UserForm:
 
 ### Uso del modelo
 
-```kyx
+```byx
 <view>
     @(
         form: ^UserForm = UserForm()
@@ -155,7 +155,7 @@ final class UserForm:
 
 ### Ejemplo comparativo
 
-```kyx
+```byx
 # Sin modelo (bind)
 <text_field label="Email" bind=@email />
 
@@ -171,7 +171,7 @@ final class UserForm:
 
 ### Formulario con validación en tiempo real
 
-```kyx
+```byx
 <view>
     @(
         form: ^RegisterForm = RegisterForm()
@@ -198,7 +198,7 @@ final class UserForm:
 
 ### Formulario con file upload
 
-```kyx
+```byx
 <view>
     @(
         form: ^ProfileForm = ProfileForm()
@@ -218,7 +218,7 @@ final class UserForm:
 
 ### Formulario con pasos (wizard)
 
-```kyx
+```byx
 <view>
     @(
         step: ^i32 = 1
@@ -273,7 +273,7 @@ final class UserForm:
 
 ### Desktop (SDL2/Skia)
 
-```kyle
+```byle
 # Form es un contenedor lógico, no visual
 # Los inputs se renderizan individualmente
 fn render_form():
@@ -308,7 +308,7 @@ Column {
 
 ### ❌ Malo: Validar solo al enviar
 
-```kyx
+```byx
 <form submit=@handle_submit>
     <text_field field="email" />
     <button text="Enviar" />
@@ -319,7 +319,7 @@ Column {
 
 ### ✅ Bueno: Validación en tiempo real
 
-```kyx
+```byx
 <form model=@form auto_validate=true>
     <text_field field="email" />
     <button text="Enviar" disabled=@!form.is_valid />
@@ -328,7 +328,7 @@ Column {
 
 ### ❌ Malo: Mezclar lógica de negocio en el form
 
-```kyx
+```byx
 <form submit=@() => {
     # Lógica de API aquí
     http.post("/api/users", form.to_json())
@@ -339,7 +339,7 @@ Column {
 
 ### ✅ Bueno: Separar lógica
 
-```kyx
+```byx
 <view>
     @(
         fn handle_submit():

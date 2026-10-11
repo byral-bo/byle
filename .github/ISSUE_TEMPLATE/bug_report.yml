@@ -1,5 +1,5 @@
 name: Bug report
-description: Reporta un comportamiento incorrecto de Kyle
+description: Reporta un comportamiento incorrecto de Byle
 title: "bug: "
 labels: ["bug", "needs triage"]
 body:
@@ -14,8 +14,8 @@ body:
     id: reproduce
     attributes:
       label: Pasos para reproducir
-      description: Código .ky y comandos exactos.
-      render: ky
+      description: Código .by y comandos exactos.
+      render: by
     validations:
       required: true
   - type: textarea
@@ -34,8 +34,8 @@ body:
   - type: input
     id: version
     attributes:
-      label: Versión de Kyle
-      description: "Salida de `ky --version`."
+      label: Versión de Byle
+      description: "Salida de `by --version`."
     validations:
       required: true
   - type: dropdown

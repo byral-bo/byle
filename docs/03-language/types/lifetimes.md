@@ -1,6 +1,6 @@
 # Lifetimes
 
-> Kyle **no has lifetimis explicitos** as Rust. Los borrows se validan
+> Byle **no has lifetimis explicitos** as Rust. Los borrows se validan
 > using borrow checker en tiempo de compilation, pero without anotaciones
 > de lifetime en code source.
 
@@ -12,16 +12,16 @@ En Rust, referencias llevan anotacionis de lifetime:
 fn get_first<'a>(s: &'a str) -> &'a str { &s[0..1] }
 ```
 
-En Kyle, no there is `'a`:
+En Byle, no there is `'a`:
 
-```ky
+```by
 fn get_first(s: &str) &str: # ❌ PROHIBIDO
  s.substr(0, 1)
 ```
 
-Kyle **prohibe** devolver referencias. Solo se can devolver valueis owned:
+Byle **prohibe** devolver referencias. Solo se can devolver valueis owned:
 
-```ky
+```by
 fn get_first(s: &str) str: # ✅ OWNED, correcto
  s.substr(0, 1)
 ```
@@ -30,7 +30,7 @@ fn get_first(s: &str) str: # ✅ OWNED, correcto
 
 Los borrows solo can be parameters entrantes, nunca valueis de retorno:
 
-```ky
+```by
 fn read(s: &str): # ✅ borrow as parameter
  println(s)
 

@@ -1,34 +1,34 @@
 # Build
 
-> Compilar proyectos Kyle with CLI `ky`.
+> Compilar proyectos Byle with CLI `by`.
 
 ## Compilar un file
 
 ```bash
-ky build file.ky # compile (debug)
-ky build --release file.ky # compile with optimizaciones
-ky build file.ky -o output # especificar name de output
+by build file.by # compile (debug)
+by build --release file.by # compile with optimizaciones
+by build file.by -o output # especificar name de output
 ```
 
 ## Compilar y execute
 
 ```bash
-ky run file.ky # compila y ejecuta
-ky run --release file.ky # compila optimizado y ejecuta
+by run file.by # compila y ejecuta
+by run --release file.by # compila optimizado y ejecuta
 ```
 
 ## Type-check rapido
 
 ```bash
-ky check file.ky # solo type checking, without code objeto
+by check file.by # solo type checking, without code objeto
 ```
 
 ## Proyectos
 
 ```bash
-ky build # compile proyecto current
-ky build --release # compile en release
-ky check # type-check del proyecto
+by build # compile proyecto current
+by build --release # compile en release
+by check # type-check del proyecto
 ```
 
 ## Flags
@@ -41,6 +41,6 @@ ky check # type-check del proyecto
 
 ## See also
 
-- `installation.md` — Instalar Kyle
+- `installation.md` — Instalar Byle
 - `first-program.md` — Primer program
 - `06-compiler/pipeline.md` — Pipeline de compilation

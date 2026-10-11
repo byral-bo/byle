@@ -5,9 +5,9 @@
 
 ---
 
-## Tipo Kyle
+## Tipo Byle
 
-```kyle
+```byle
 final class modal:
     # Estado
     open: ^bool                       # Controla si está abierto
@@ -30,7 +30,7 @@ final class modal:
 
 ### Modal simple
 
-```kyx
+```byx
 <view>
     @(
         show_modal: ^bool = false
@@ -68,7 +68,7 @@ final class modal:
 
 ### modal_size
 
-```kyle
+```byle
 enum modal_size:
     sm          # Small (400px width)
     md          # Medium (600px width)
@@ -83,7 +83,7 @@ enum modal_size:
 
 ### Modal de confirmación
 
-```kyx
+```byx
 <view>
     @(
         show_confirm: ^bool = false
@@ -118,7 +118,7 @@ enum modal_size:
 
 ### Modal de formulario
 
-```kyx
+```byx
 <view>
     @(
         show_edit: ^bool = false
@@ -155,7 +155,7 @@ enum modal_size:
 
 ### Modal con tabs
 
-```kyx
+```byx
 <modal open=@show_settings on_close=@() => show_settings = false title="Configuración" size=modal_size.lg>
     <vstack spacing=16>
         <tab_bar>
@@ -187,7 +187,7 @@ enum modal_size:
 
 Variante de modal que se desliza desde abajo (mobile-first):
 
-```kyx
+```byx
 <view>
     @(
         show_sheet: ^bool = false
@@ -238,7 +238,7 @@ Variante de modal que se desliza desde abajo (mobile-first):
 
 ### Desktop (SDL2/Skia)
 
-```kyle
+```byle
 fn render_modal(open: bool):
     if open:
         # Backdrop
@@ -297,7 +297,7 @@ if (showModal) {
 
 ### ❌ Malo: Modal sin on_close
 
-```kyx
+```byx
 <modal open=@show_modal>
     <text value="Contenido" />
 </modal>
@@ -307,7 +307,7 @@ if (showModal) {
 
 ### ✅ Bueno: Siempre proporcionar on_close
 
-```kyx
+```byx
 <modal open=@show_modal on_close=@() => show_modal = false>
     <text value="Contenido" />
 </modal>
@@ -315,7 +315,7 @@ if (showModal) {
 
 ### ❌ Malo: Modal muy grande en mobile
 
-```kyx
+```byx
 <modal open=@show_modal size=modal_size.xl>
     <text value="Contenido" />
 </modal>
@@ -325,7 +325,7 @@ if (showModal) {
 
 ### ✅ Bueno: Usar sheet en mobile
 
-```kyx
+```byx
 <view>
     @if current_breakpoint() == breakpoint.mobile:
         <sheet open=@show_modal on_close=@() => show_modal = false>

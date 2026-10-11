@@ -1,11 +1,11 @@
 # Traits / Contracts
 
-> Interfacis en Kyle using `contract`. Definen comportamiento que clases
+> Interfacis en Byle using `contract`. Definen comportamiento que clases
 > can implementar.
 
 ## Declaration
 
-```ky
+```by
 contract Drawable:
  fn draw()
  fn get_size() (i32, i32)
@@ -17,7 +17,7 @@ contract Serializable:
 
 ## Implementation
 
-```ky
+```by
 class Circle :: Drawable, Serializable:
  radius: i32
 
@@ -36,7 +36,7 @@ class Circle :: Drawable, Serializable:
 
 ## Herencia simple
 
-```ky
+```by
 class Animal:
  name: str
 

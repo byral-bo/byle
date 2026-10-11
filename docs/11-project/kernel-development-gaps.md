@@ -1,8 +1,8 @@
-# Kyle — Estado frente a Desarrollo de Kernels Nativos
+# Byle — Estado frente a Desarrollo de Kernels Nativos
 
 **Versión:** 1.0
 **Fecha:** 2026-08-01
-**Objetivo:** Inventario completo de lo que Kyle **ya tiene implementado**, lo que está **a medias** y lo que **falta por completo**, con prioridad en que Kyle pueda desarrollar **kernels nativos, hipervisores, drivers, firmware y software de sistemas**.
+**Objetivo:** Inventario completo de lo que Byle **ya tiene implementado**, lo que está **a medias** y lo que **falta por completo**, con prioridad en que Byle pueda desarrollar **kernels nativos, hipervisores, drivers, firmware y software de sistemas**.
 
 > Leyenda: ✅ Implementado · 🟡 Parcial / a medias · ❌ No implementado
 
@@ -10,7 +10,7 @@
 
 ## 1. Estado General
 
-Kyle compila a código máquina nativo vía **LLVM** (AOT, sin JIT), sin Garbage Collector y con runtime libremente enlazable. La base del lenguaje es sólida, pero para alcanzar un desarrollo real de kernels faltan piezas fundamentales: **inline assembly, memoria física/MMIO, interrupciones, no_std formal y varios tipos primitivos**.
+Byle compila a código máquina nativo vía **LLVM** (AOT, sin JIT), sin Garbage Collector y con runtime libremente enlazable. La base del lenguaje es sólida, pero para alcanzar un desarrollo real de kernels faltan piezas fundamentales: **inline assembly, memoria física/MMIO, interrupciones, no_std formal y varios tipos primitivos**.
 
 La columna vertebral que YA funciona:
 - Frontend (lexer, parser, HIR), type checker, borrow checker básico, MIR, codegen LLVM.
@@ -42,20 +42,20 @@ Orden recomendado de implementación para llegar a un kernel real:
 
 | Feature | Estado | Detalle |
 |---------|--------|---------|
-| Compilación AOT nativa | ✅ | `ky run`/`ky build` → binario nativo |
-| Backend LLVM | ✅ | `kyc_backend` completo |
+| Compilación AOT nativa | ✅ | `by run`/`by build` → binario nativo |
+| Backend LLVM | ✅ | `byc_backend` completo |
 | Sin JIT | ✅ | Compila y ejecuta el binario |
 | Optimización múltiples niveles | ✅ | debug/release, opt via TargetMachine |
 | LTO (ThinLTO) | ✅ | En modo release |
 | Inlining (MIR + LLVM) | ✅ | `inline_small_functions` |
-| DCE, loop unrolling, vectorización | 🟡 | Vía LLVM; no control explícito desde Kyle |
+| DCE, loop unrolling, vectorización | 🟡 | Vía LLVM; no control explícito desde Byle |
 | PGO | ❌ | No existe |
 | SIMD explícito | ❌ | No hay intrinsics ni types vectoriales |
 | Inline Assembly (`asm!`) | ❌ | No existe en lexer/parser/MIR/codegen |
 | DWARF / debug info | ❌ | No se emite información de depuración |
 | Cross-compilation (ARM64, ARMv9, RISC-V) | 🟡 | Soporte por triple (`Codegen::new_with_target`, `<triple>-gcc`); sin targets oficiales |
 | x86_64 host | ✅ | Target nativo actual |
-| WebAssembly | ✅ | `wasm32` + `kyc_runtime_wasm` |
+| WebAssembly | ✅ | `wasm32` + `byc_runtime_wasm` |
 
 ---
 
@@ -92,9 +92,9 @@ Orden recomendado de implementación para llegar a un kernel real:
 | Lifetimes (inferidos o explícitos) | ❌ | No existen |
 | Move semantics | ✅ | `is_move_type` para tipos heap |
 | Copy semantics | ✅ | Tipos valor |
-| RAII / liberación automática | ❌ | Liberación manual (`ky_*_free`) |
+| RAII / liberación automática | ❌ | Liberación manual (`by_*_free`) |
 | Stack allocation | ✅ | Allocas |
-| Heap allocation | ✅ | `ky_alloc` |
+| Heap allocation | ✅ | `by_alloc` |
 | Placement allocation | ❌ | — |
 | Arena allocators | ❌ | — |
 | Custom allocators | ❌ | — |
@@ -110,11 +110,11 @@ Orden recomendado de implementación para llegar a un kernel real:
 
 | Feature | Estado | Detalle |
 |---------|--------|---------|
-| Threads nativos | ✅ | `ky_spawn_thread` |
-| Atomics | ✅ | `ky_atomic_*` (i64) |
-| Mutex | ✅ | `ky_mutex_*` |
-| Channels | ✅ | `ky_channel_*` + `chan<T>` |
-| Async / Await | ✅ | `async fn`, `ky_spawn_task`, `ky_await_task`, `ky_yield`, `ky_parallel_for` |
+| Threads nativos | ✅ | `by_spawn_thread` |
+| Atomics | ✅ | `by_atomic_*` (i64) |
+| Mutex | ✅ | `by_mutex_*` |
+| Channels | ✅ | `by_channel_*` + `chan<T>` |
+| Async / Await | ✅ | `async fn`, `by_spawn_task`, `by_await_task`, `by_yield`, `by_parallel_for` |
 | Executors | 🟡 | Task pool, no executor formal |
 | Spinlock | ❌ | — |
 | RWLock | ❌ | — |
@@ -174,7 +174,7 @@ Orden recomendado de implementación para llegar a un kernel real:
 
 | Feature | Estado | Detalle |
 |---------|--------|---------|
-| Target `freestanding` | ✅ | `ky build --target freestanding`, `ky new bare` |
+| Target `freestanding` | ✅ | `by build --target freestanding`, `by new bare` |
 | Compilar sin runtime | ✅ | `freestanding` omite el runtime |
 | `no_std` / `no_runtime` | 🟡 | Vía target; no hay atributo formal en el lenguaje |
 | `no_allocator` | 🟡 | Posible, no formalizado |
@@ -208,15 +208,15 @@ Orden recomendado de implementación para llegar a un kernel real:
 |-------------|--------|---------|
 | Compilador | ✅ | — |
 | Linker | ✅ | clang/LLD |
-| Formatter | ✅ | `ky fmt` |
+| Formatter | ✅ | `by fmt` |
 | Linter | ❌ | — |
-| Package Manager | ✅ | `ky add`, semver, lockfile, registry |
+| Package Manager | ✅ | `by add`, semver, lockfile, registry |
 | Workspaces | ❌ | — |
-| Build System integrado | ✅ | `ky build` |
-| Test Runner | ✅ | `ky test` |
+| Build System integrado | ✅ | `by build` |
+| Test Runner | ✅ | `by test` |
 | Benchmark Runner | ❌ | — |
 | Doc Generator | ❌ | — |
-| LSP | ✅ | `ky lsp` |
+| LSP | ✅ | `by lsp` |
 | Debugger integration | ❌ | — |
 | Cross Compiler | 🟡 | Triple genérico |
 
@@ -249,7 +249,7 @@ Orden recomendado de implementación para llegar a un kernel real:
 | `std.cli` | ❌ | Solo documentado |
 | `std.csv` | ❌ | Solo documentado |
 | `std.bytes` | 🟡 | Wrapper listo; falta cerrar una línea de test residual |
-| `std.log` | ✅ | Runtime `ky_log_*` + `log.ky` |
+| `std.log` | ✅ | Runtime `by_log_*` + `log.by` |
 
 ---
 

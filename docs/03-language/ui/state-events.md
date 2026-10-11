@@ -3,7 +3,7 @@
 **Status:** Draft v2.0
 **Date:** 2026-07-12
 **Documentación relacionada:**
-- [ui-syntax.md](../syntax/ui-syntax.md) — Sintaxis .kyx
+- [ui-syntax.md](../syntax/ui-syntax.md) — Sintaxis .byx
 - [style-system.md](style-system.md) — Sistema de estilos
 - [RFC-0003](../../10-design/rfc/0003-ui-translation.md) — Traducción multi-target
 
@@ -13,9 +13,9 @@
 
 ### 1.1 Estado local
 
-Todo el código Kyle va dentro del bloque `@(...)`:
+Todo el código Byle va dentro del bloque `@(...)`:
 
-```kyx
+```byx
 <view>
     @(
         count: ^i32 = 0
@@ -31,7 +31,7 @@ Todo el código Kyle va dentro del bloque `@(...)`:
 
 ### 1.2 Estado derivado
 
-```kyx
+```byx
 <view>
     @(
         items: ^{str} = {}
@@ -56,8 +56,8 @@ Los props son variables **públicas** dentro de `@(...)`. Lo interno se marca co
 | `__cache: [i32]` | ❌ No | Privado del módulo |
 | `fn on_click(this)` | ✅ Sí | Callback |
 
-```kyx
-<!-- Definición en UserCard.kyx -->
+```byx
+<!-- Definición en UserCard.byx -->
 <view>
     @(
         name: str                      # prop requerido
@@ -70,7 +70,7 @@ Los props son variables **públicas** dentro de `@(...)`. Lo interno se marca co
 </view>
 ```
 
-```kyx
+```byx
 <!-- Uso desde padre -->
 <user_card name="Juan" age=30 on_click=@handle_click />
 ```
@@ -79,7 +79,7 @@ Los props son variables **públicas** dentro de `@(...)`. Lo interno se marca co
 
 Para estado compartido entre componentes:
 
-```kyx
+```byx
 <view>
     @(
         context AuthContext:
@@ -93,7 +93,7 @@ Para estado compartido entre componentes:
 
 Consumir contexto:
 
-```kyx
+```byx
 <view>
     @(
         auth = use_context(AuthContext)
@@ -111,20 +111,20 @@ Consumir contexto:
 
 ### 2.1 One-way binding (estado → UI)
 
-```kyx
+```byx
 <text value=@name />               # se actualiza cuando name cambia
 ```
 
 ### 2.2 Two-way binding (estado ↔ UI)
 
-```kyx
+```byx
 <text_field bind=@email />          # email se actualiza al escribir
 <checkbox bind=@accept_terms />
 ```
 
 ### 2.3 Binding a props de componentes
 
-```kyx
+```byx
 <child_component prop=@parent_var />
 ```
 
@@ -148,7 +148,7 @@ input.addEventListener('input', () => {
 
 ### 3.1 Eventos de UI
 
-```kyx
+```byx
 <button click=@handle_click />
 <text_field change=@handle_change />
 <text_field input=@on_input />
@@ -165,7 +165,7 @@ input.addEventListener('input', () => {
 
 ### 3.2 Parámetros de evento
 
-```kyx
+```byx
 <view>
     @(
         fn handle_click(event: MouseEvent):
@@ -182,7 +182,7 @@ input.addEventListener('input', () => {
 
 Los componentes pueden emitir eventos personalizados via callbacks:
 
-```kyx
+```byx
 <!-- Definición -->
 <view>
     on_save: ^&(fn (data: str))
@@ -198,7 +198,7 @@ Los componentes pueden emitir eventos personalizados via callbacks:
 </view>
 ```
 
-```kyx
+```byx
 <!-- Uso -->
 <my_form on_save=@handle_save />
 ```
@@ -207,7 +207,7 @@ Los componentes pueden emitir eventos personalizados via callbacks:
 
 Por defecto, los eventos burbujean hacia el padre:
 
-```kyx
+```byx
 <view>
     @(
         fn handle_click(event: MouseEvent):
@@ -251,7 +251,7 @@ function createState(initial) {
 }
 ```
 
-**Desktop:** Runtime Kyle maneja reactive updates vía diff del árbol de componentes.
+**Desktop:** Runtime Byle maneja reactive updates vía diff del árbol de componentes.
 
 ### 4.3 Optimización
 
@@ -268,19 +268,19 @@ count ───→ CounterView (depende de count)
 
 ### 5.1 Padre → Hijo (props)
 
-```kyx
+```byx
 <child_component title="Mi Título" items=@data_list />
 ```
 
 ### 5.2 Hijo → Padre (callbacks)
 
-```kyx
+```byx
 <child_component on_delete=@handle_delete on_select=@handle_select />
 ```
 
 ### 5.3 Entre hermanos (vía padre)
 
-```kyx
+```byx
 <view>
     @(
         selected_id: ^i32 = -1
@@ -296,7 +296,7 @@ count ───→ CounterView (depende de count)
 
 ### 5.4 Entre componentes no relacionados (vía context)
 
-```kyx
+```byx
 <view>
     @(
         context AppState:
@@ -325,10 +325,10 @@ Evento nativo (click del browser / touch / mouse)
 [iOS] UIControl action
      │
      ▼
-Traduce a evento Kyle (MouseEvent, KeyboardEvent)
+Traduce a evento Byle (MouseEvent, KeyboardEvent)
      │
      ▼
-Ejecuta el callback Kyle
+Ejecuta el callback Byle
      │
      ▼
 Callback modifica estado
@@ -348,7 +348,7 @@ Runtime detecta cambios → re-renderiza
 
 ### 7.1 Form básico
 
-```kyx
+```byx
 <view>
     @(
         email: ^str = ""
@@ -390,7 +390,7 @@ Runtime detecta cambios → re-renderiza
 
 Sin form models, cada campo requiere una variable separada:
 
-```kyx
+```byx
 <view>
     @(
         name: ^str = ""
@@ -407,8 +407,8 @@ Sin form models, cada campo requiere una variable separada:
 
 Se declara una clase como **modelo** y el `<form>` la usa automáticamente:
 
-```kyx
-# models/user.ky
+```byx
+# models/user.by
 final class UserForm:
     name: str = ""
     email: str = ""
@@ -431,8 +431,8 @@ final class UserForm:
         }
 ```
 
-```kyx
-# views/register.kyx
+```byx
+# views/register.byx
 <view>
     @(
         form: ^UserForm = UserForm()
@@ -462,7 +462,7 @@ final class UserForm:
 
 ### 8.4 Validación automática
 
-```kyx
+```byx
 # Los errores se muestran automáticamente
 <text_field field="email" label="Email" />
 # Si form.errors tiene "email", se muestra el error debajo del campo
@@ -470,7 +470,7 @@ final class UserForm:
 
 ### 8.5 Validaciones declarativas (post-MVP)
 
-```kyx
+```byx
 final class UserForm:
     @required name: str
     @email email: str
@@ -484,7 +484,7 @@ Estas anotaciones generarían automáticamente las reglas de validación sin esc
 
 ## 9. Referencias
 
-- [ui-syntax.md](../syntax/ui-syntax.md) — Sintaxis .kyx
+- [ui-syntax.md](../syntax/ui-syntax.md) — Sintaxis .byx
 - [RFC-0003](../../10-design/rfc/0003-ui-translation.md) — Traducción multi-target
 - [style-system.md](style-system.md) — Sistema de estilos
 - [routing.md](routing.md) — Routing/Navegación

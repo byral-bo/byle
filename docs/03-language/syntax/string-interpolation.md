@@ -7,10 +7,10 @@
 
 ## 1. Sintaxis
 
-Kyle soporta interpolación de strings con la sintaxis `{expresión}` dentro
+Byle soporta interpolación de strings con la sintaxis `{expresión}` dentro
 de strings delimitados por comillas dobles:
 
-```kyle
+```byle
 name = "Juan"
 age = 30
 greeting = "Hola, {name}, tienes {age} años"
@@ -19,9 +19,9 @@ greeting = "Hola, {name}, tienes {age} años"
 
 ### 1.1 Expresiones arbitrarias
 
-Se puede interpolar cualquier expresión Kyle:
+Se puede interpolar cualquier expresión Byle:
 
-```kyle
+```byle
 "El total es {price * 1.21}"
 "Usuario: {user.name} (ID: {user.id})"
 "Resultado: {if ok: "OK" else: "ERROR"}"
@@ -30,7 +30,7 @@ Se puede interpolar cualquier expresión Kyle:
 
 ### 1.2 Anidamiento
 
-```kyle
+```byle
 "Prefijo {fn(nested())} sufijo"
 ```
 
@@ -44,7 +44,7 @@ Se puede interpolar cualquier expresión Kyle:
 | `\}` | `}` literal |
 | `\\` | `\` literal |
 
-```kyle
+```byle
 "Llaves: \{esto no se interpola\}"
 # → "Llaves: {esto no se interpola}"
 ```
@@ -56,7 +56,7 @@ Se puede interpolar cualquier expresión Kyle:
 Las expresiones interpoladas se convierten automáticamente a `str` llamando
 al método `.to_str()` del tipo:
 
-```kyle
+```byle
 count = 42
 "Valor: {count}"     # llama count.to_str() automáticamente
 ```
@@ -67,7 +67,7 @@ Si el tipo no tiene `.to_str()`, es **error de compilación**.
 
 ## 4. Ejemplos
 
-```kyle
+```byle
 # Variables simples
 name = "Ana"
 "Hola, {name}"
@@ -99,13 +99,13 @@ message = """
 La interpolación se compila a concatenación de strings en tiempo de
 compilación:
 
-```kyle
+```byle
 "Hola, {name}, tienes {age} años"
 ```
 
 → Se compila a:
 
-```kyle
+```byle
 "Hola, " + name.to_str() + ", tienes " + age.to_str() + " años"
 ```
 

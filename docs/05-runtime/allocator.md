@@ -1,20 +1,20 @@
 # Allocator
 
-> El runtime de Kyle delega allocation de memory en allocator de Rust/libc.
+> El runtime de Byle delega allocation de memory en allocator de Rust/libc.
 > No there is un allocator personalizado — se usa `malloc`/`free` del sistema.
 
 ## Estrategia current
 
-Kyle usa `std::alloc::alloc` / `std::alloc::dealloc` de Rust (que a su vez usa `malloc`/`free` de libc o allocator del sistema operativo).
+Byle usa `std::alloc::alloc` / `std::alloc::dealloc` de Rust (que a su vez usa `malloc`/`free` de libc o allocator del sistema operativo).
 
 ```rust
 // memory.rs
- unsafe extern "C" fn ky_alloc(size: i64) -> *mut u8 {
+ unsafe extern "C" fn by_alloc(size: i64) -> *mut u8 {
  let layout = Layout::from_size_align(size as usize, 8).unwrap();
  std::alloc::alloc(layout)
 }
 
- unsafe extern "C" fn ky_free(ptr: *mut u8) {
+ unsafe extern "C" fn by_free(ptr: *mut u8) {
  if ptr.is_null() { return; }
  let layout = Layout::from_size_align(0, 8).unwrap();
  std::alloc::dealloc(ptr, layout)
@@ -25,7 +25,7 @@ Kyle usa `std::alloc::alloc` / `std::alloc::dealloc` de Rust (que a su vez usa `
 
 - No there is pool/arena allocator
 - Strings pequenos (< 16 bytes) no have small string optimization (SSO)
-- Cada `ky_concat` does una nueva allocacion + copia
+- Cada `by_concat` does una nueva allocacion + copia
 - No there is asignador regional (arena) for operacionis temporales
 
 ## Futuro

@@ -1,7 +1,7 @@
 # Types
 
 > **Leyenda:** `[x]` = implemented y funcional. `[x]` = All types implemented and tested.
-> La syntax mostrada is syntax FINAL de Kyle. Lo que is `[ ]` aun no compila.
+> La syntax mostrada is syntax FINAL de Byle. Lo que is `[ ]` aun no compila.
 
 ---
 
@@ -12,7 +12,7 @@
 | **Copy** (automatic en `y = x`) | `i8..u64`, `f32..f64`, `bool`, `char`, `ptr` |
 | **Move** (ownership transfer en `y = x`) | `str`, `{T}`, `{K:V}`, `[T, N]`, classes, structs, enums |
 
-```ky
+```by
 x = 42; y = x # ambos vivos (Copy)
 s = "hola"; t = s # s invalido (Move)
 t = s.clone() # ambos vivos (copia explicita)
@@ -43,7 +43,7 @@ Ver `ownership.md` for detail completo.
 | `void` | — | 0 | No value (return only) |
 | `never` | — | 0 | Diverging functions |
 
-```ky
+```by
 x = 42 # i32
 x: i64 = 42 # i64 explicito
 x = 3.14 # f64
@@ -62,7 +62,7 @@ p = 0 as ptr # ptr
 Stack array, size fijo en compile-time. GEP directo, cero runtime calls.
 Soporta multidimensional via anidamiento `[[T, N], M]`.
 
-```ky
+```by
 # Unidimensional
 a = [1, 2, 3] # → [i32, 3]
 b = [0; 100] # → [i32, 100], repetido
@@ -79,7 +79,7 @@ x = matriz[1][2] # → 7
 
 Heap list dynamic.
 
-```ky
+```by
 v = {1, 2, 3} # → {i32}
 v.push(4)
 v.reserve(100) # pre-asigna capacidad
@@ -93,8 +93,8 @@ v.len() # list_len (runtime)
 
 Heap dictionary (hash map).
 
-```ky
-d = {"name": "Kyle", "age": 30} # → {str: i32}
+```by
+d = {"name": "Byle", "age": 30} # → {str: i32}
 d["city"] = "NYC"
 name = d["name"]
 d.len()
@@ -104,7 +104,7 @@ d.len()
 
 Fixed-size heterogeneous.
 
-```ky
+```by
 t = (1, "hello", 3.14) # → (i32, str, f64)
 x = t.0 # → 1
 y = t.1 # → "hello"
@@ -114,7 +114,7 @@ y = t.1 # → "hello"
 
 Hash set. Construction via `set{...}` o constructor.
 
-```ky
+```by
 s: set<i32> = set{1, 2, 3} # set literal
 s.add(4)
 s.contains(1) # → true
@@ -127,7 +127,7 @@ for val in s:
 
 No there is type `Queue<T>` dedicado. Usar `{T}` with `.push()` / `.pop_first()`:
 
-```ky
+```by
 q = list_new()
 q.push(10) # enqueue
 q.push(20)
@@ -139,7 +139,7 @@ q.len()
 
 No there is type `Stack<T>` dedicado. Usar `{T}` with `.push()` / `.pop()` — ya funciona:
 
-```ky
+```by
 st = list_new()
 st.push(10) # push
 st.push(20)
@@ -155,7 +155,7 @@ st.len()
 
 > Vista de secuencia contigua. Un fat pointer (ptr + len), Copy semantics.
 
-```ky
+```by
 arr: [i32, 5] = [10, 20, 30, 40, 50]
 s: &[i32] = arr[1..4]    # slice: [20, 30, 40]
 println(s.len().to_str()) # → 3
@@ -181,7 +181,7 @@ s2: &[i32] = arr[..]      # full slice: [10, 20, 30, 40, 50]
 
 ### Optional: `T?` [x]
 
-```ky
+```by
 name: str? = None
 if value = get_name(): # pattern matching
  println(value)
@@ -189,7 +189,7 @@ if value = get_name(): # pattern matching
 
 ### Fallible: `T!` [x]
 
-```ky
+```by
 fn divide(a: i32, b: i32) i32!:
  if b == 0:
  return error("division by zero")
@@ -207,26 +207,26 @@ match result:
 
 ### Mutable: `^T` [x]
 
-```ky
+```by
 x: ^i32 = 0 # mutable
 x = x + 1 # reallocation permitida
 ```
 
 ### Borrow: `&T` [x]
 
-```ky
+```by
 fn read(s: &str): # parameter: borrow
  println(s)
 
 fn main():
- name = "Kyle"
+ name = "Byle"
  read(&name) # name prestado
  println(name) # ✅ name sigue vivo
 ```
 
 ### Mutable borrow: `^&T` [x]
 
-```ky
+```by
 fn fill(buf: ^&str):
  buf = "data"
 
@@ -238,9 +238,9 @@ fn main():
 
 ### box: `box<T>` [x]
 
-Heap allocation explicita. Move semantics (ky_free al salir de scope).
+Heap allocation explicita. Move semantics (by_free al salir de scope).
 
-```ky
+```by
 b: box<i32> = box(42)
 println(b.to_str()) # → addr del heap (ptr value)
 ```
@@ -249,7 +249,7 @@ println(b.to_str()) # → addr del heap (ptr value)
 
 Reference counting (single-thread).
 
-```ky
+```by
 r: rc<str> = rc("hello")
 r2 = r.clone() # incrementa refcount
 println(*r) # deref
@@ -259,7 +259,7 @@ println(*r) # deref
 
 Atomic reference counting (multi-thread).
 
-```ky
+```by
 a: arc<i64> = arc(0)
 ```
 
@@ -269,7 +269,7 @@ a: arc<i64> = arc(0)
 
 ### async fn / await [x]
 
-```ky
+```by
 async fn fetch(url: &str) str:
  "response"
 
@@ -280,7 +280,7 @@ fn main():
 
 ### future: `future<T>` [ ]
 
-```ky
+```by
 task: future<str> = async:
  "result"
 val = await task
@@ -288,7 +288,7 @@ val = await task
 
 ### channel: `channel<T>` [x]
 
-```ky
+```by
 ch: channel<i32> = channel(16) # buffer 16
 ch.send(42)
 val = ch.recv()
@@ -298,7 +298,7 @@ ch.close()
 
 ### select [ ]
 
-```ky
+```by
 select:
  &msg -> ch1:
  println("got: " + msg)
@@ -310,7 +310,7 @@ select:
 
 ### mutex: `mutex<T>` [x]
 
-```ky
+```by
 m: mutex<i32> = mutex(0)
 lock(m):
  *val += 1 # operation segura
@@ -318,7 +318,7 @@ lock(m):
 
 ### atomic: `atomic_i64` / `atomic_bool` [x]
 
-```ky
+```by
 counter: atomic_i64 = atomic_i64(0)
 counter.fetch_add(1)
 counter.load() # → 1
@@ -330,7 +330,7 @@ flag.load() # → true
 
 ### iterator [x]
 
-```ky
+```by
 iter = list.iter()
 doubled = iter.map(fn(x): x * 2)
 filtered = iter.filter(fn(x): x > 5)
@@ -341,12 +341,12 @@ result = doubled.collect() # → {i32}
 
 ## Specialized typis (NATIVOS)
 
-> Todos estos are nativos de Kyle (no requieren `use X.Y`).
+> Todos estos are nativos de Byle (no requieren `use X.Y`).
 > Estan disponiblis globalmente as typis built-in del language.
 
 ### date_time [x]
 
-```ky
+```by
 dt = date_time.now()
 dt = date_time.parse("2024-01-01T00:00:00")
 dt = date_time.from_ymdhms(2024, 1, 1, 0, 0, 0)
@@ -363,7 +363,7 @@ diff = dt.diff(dt2)
 
 ### duration [x]
 
-```ky
+```by
 d = duration.from_secs(60)
 d = duration.from_millis(1000)
 d = duration.from_hours(1)
@@ -373,7 +373,7 @@ d.to_str() # → "1h 0m 0s"
 
 ### date [x]
 
-```ky
+```by
 d = date.today()
 d = date.from_ymd(2024, 1, 1)
 d = date.parse("2024-01-01")
@@ -385,7 +385,7 @@ d2 = d.add_days(7)
 
 ### time [x]
 
-```ky
+```by
 t = time.now()
 t = time.from_hms(12, 30, 0)
 t = time.parse("12:30:00")
@@ -396,7 +396,7 @@ second = t.second()
 
 ### bytis [x]
 
-```ky
+```by
 b = bytes.new(1024)
 b = bytes.from_hex("deadbeef")
 b = bytes.from_base64("SGVsbG8=")
@@ -409,7 +409,7 @@ b64 = b.to_base64()
 
 ### decimal [x]
 
-```ky
+```by
 d = decimal.from_str("3.14")
 d = decimal.from_i64(314, 2) # 3.14
 d.round(1) # → 3.1
@@ -419,7 +419,7 @@ d.to_str() # → "3.14"
 
 ### uuid [x]
 
-```ky
+```by
 id = uuid.v4()
 id = uuid.parse("550e8400-e29b-41d4-a716-446655440000")
 id.to_str()
@@ -427,7 +427,7 @@ id.to_str()
 
 ### url [x]
 
-```ky
+```by
 u = url.parse("https://user:pass@host:8080/path?q=1#frag")
 u.scheme() # → "https"
 u.host() # → "host"
@@ -438,7 +438,7 @@ u.query() # → "q=1"
 
 ### regex [x]
 
-```ky
+```by
 re = regex("[0-9]+")
 re.is_match("abc123") # → true
 m = re.find("abc123") # → "123"
@@ -447,15 +447,15 @@ result = re.replace("abc123", "X") # → "abcX"
 
 ### env [x]
 
-```ky
+```by
 val = env("PATH")
 env("MY_VAR", "value") # set
 ```
 
 ### jare [x]
 
-```ky
-j = json.parse('{"name": "Kyle", "age": 30}')
+```by
+j = json.parse('{"name": "Byle", "age": 30}')
 name = j["name"] # access field
 j["city"] = "NYC" # set field
 str = j.stringify() # serialize
@@ -464,7 +464,7 @@ str = j.pretty() # pretty-print
 
 ### file [x]
 
-```ky
+```by
 f = file.open("/tmp/test.txt", "w")
 f.write("hello world")
 f.close()
@@ -477,7 +477,7 @@ f.exists() # → true
 
 ### socket [x]
 
-```ky
+```by
 server = socket.tcp_listen(8080)
 client = server.accept()
 data = client.read(1024)
@@ -494,7 +494,7 @@ conn.close()
 
 ### path [x]
 
-```ky
+```by
 p = path("/home/user/file.txt")
 p.dirname() # → "/home/user"
 p.basename() # → "file.txt"
@@ -507,7 +507,7 @@ p.join("subdir") # → "/home/user/file.txt/subdir"
 
 ### big_int [x]
 
-```ky
+```by
 n = big_int("123456789012345678901234567890")
 n2 = big_int.from_i64(42)
 n3 = n + n2
@@ -517,7 +517,7 @@ n.to_str()
 
 ### str_builder [x]
 
-```ky
+```by
 sb = str_builder(50000)
 sb.append("x")
 sb.append("hello")

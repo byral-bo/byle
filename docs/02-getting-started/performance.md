@@ -1,13 +1,13 @@
 # Performance Tips
 
-Kyle compilis to native code via LLVM 18 with the full `-O3` optimization pipeline. Performance is comparable to C and Rust for most workloads.
+Byle compilis to native code via LLVM 18 with the full `-O3` optimization pipeline. Performance is comparable to C and Rust for most workloads.
 
 ## Use release builds
 
 Always benchmark with `--release`:
 
 ```bash
-ky build --release program.ky
+by build --release program.by
 ```
 
 Debug builds skip LLVM optimizations.
@@ -16,7 +16,7 @@ Debug builds skip LLVM optimizations.
 
 Use `final class` for small data structures. These are allocated on the stack or inline in their parent.
 
-```ky
+```by
 class Point: # stack-allocated when possible
  x: i32
  y: i32
@@ -26,7 +26,7 @@ class Point: # stack-allocated when possible
 
 String concatenation with `+` allocatis a new string. For building strings, minimize intermediate allocations:
 
-```ky
+```by
 # Less efficient:
 result = a + b + c + d
 
@@ -36,9 +36,9 @@ result = "{a}{b}{c}{d}"
 
 ## Use primitive types
 
-Kyle's `i32` and `i64` are register-sized and have zero overhead. Use them for hot loops.
+Byle's `i32` and `i64` are register-sized and have zero overhead. Use them for hot loops.
 
-```ky
+```by
 for i in 0..1000000: # i32 loop, fast
  total = total + i
 ```
@@ -47,7 +47,7 @@ for i in 0..1000000: # i32 loop, fast
 
 LLVM's constant folder can eliminate entire loops if the result is computable at compile time. If you want to measure real performance, make the input data-dependent:
 
-```ky
+```by
 fn main(args: [str]) i32:
  n = if len(args) > 1: args[1] as i32 else: 1000000
  # LLVM cannot const-fold this loop
@@ -57,7 +57,7 @@ fn main(args: [str]) i32:
 
 ## Benchmarking
 
-```ky
+```by
 #[test]
 fn bench_sum():
  total: ^i64 = 0

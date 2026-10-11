@@ -1,12 +1,12 @@
 # compress — Gzip compression
 
 > Compress and decompress data using gzip.
-> Installation: `ky add compress`
+> Installation: `by add compress`
 > Import: `use compress`
 
 ## Compress string
 
-```ky
+```by
 use compress
 
 data: str = "hello world hello world hello world "
@@ -17,35 +17,35 @@ println("compressed: " + compressed.len().to_str())
 
 ## Decompress
 
-```ky
+```by
 original: str = compress.gunzip(compressed)!
 println(original)  # "hello world hello world hello world "
 ```
 
 ## Compress bytes
 
-```ky
+```by
 raw: bytes = bytes.from_str("hello world")
 compressed: bytes = compress.gzip_bytes(raw)!
 ```
 
 ## File compression
 
-```ky
+```by
 compress.gzip_file("data.txt", "data.txt.gz")!
 compress.gunzip_file("data.txt.gz", "data.txt")!
 ```
 
 ## HTTP response compression
 
-```ky
+```by
 use http.server
 use compress
 
 app: http.router = http.router()
 
 app.get("/data", fn(req: http.request, res: http.response):
-    data: str = """{"users": [{"name": "Kyle"}, {"name": "Ana"}]}"""
+    data: str = """{"users": [{"name": "Byle"}, {"name": "Ana"}]}"""
     if req.header("Accept-Encoding").contains("gzip"):
         compressed: bytes = compress.gzip(data)!
         res.set_header("Content-Encoding", "gzip")
@@ -72,7 +72,7 @@ app.listen(8080)
 
 ## Example
 
-```ky
+```by
 use compress
 use std.fs
 

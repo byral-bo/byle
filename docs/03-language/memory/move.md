@@ -12,7 +12,7 @@
 
 ## Comportamiento
 
-```ky
+```by
 s: str = "hola"
 t: str = s # MOVE: s ya no is valido
 println(s) # ERROR: use-after-move
@@ -24,12 +24,12 @@ println(s) # ✅ "hola"
 
 ## En parameters de funcion
 
-```ky
+```by
 fn consumir(s: str): # MOVE: caller pierde ownership
  println(s)
 
 fn main() i32:
- name: str = "Kyle"
+ name: str = "Byle"
  consumir(name) # name se mueve a consumir
  println(name) # ERROR: use-after-move
  0
@@ -37,7 +37,7 @@ fn main() i32:
 
 ## En retorno de funcion
 
-```ky
+```by
 fn create() str:
  s: str = "hola"
  s # se mueve al caller
@@ -52,10 +52,10 @@ fn main() i32:
 
 El compiler detecta use-after-move automaticamente:
 
-```ky
+```by
 a: str = "x"
 b: str = a
-println(a) # ❌ KL-E0013: use-after-move
+println(a) # ❌ BYLE-E0013: use-after-move
 ```
 
 ## See also

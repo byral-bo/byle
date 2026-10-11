@@ -1,16 +1,16 @@
 # 02-getting-started
 
-> Guides de inicio rapido for Kyle. Installation, primeros pasos, testing, debugging.
+> Guides de inicio rapido for Byle. Installation, primeros pasos, testing, debugging.
 
 ## Files
 
 | Documento | Description |
 |-----------|-------------|
-| `installation.md` | Instalar compiler Kyle |
+| `installation.md` | Instalar compiler Byle |
 | `first-program.md` | Crear y execute primer program |
 | `build.md` | Compilar proyectos |
 | `testing.md` | Escribir y execute tests |
-| `debugging.md` | Depurar programs Kyle |
+| `debugging.md` | Depurar programs Byle |
 | `performance.md` | Consejos de rendimiento |
 | `project-layout.md` | Estructura de proyectos |
 | `package-manager.md` | Gestor de paquetis |

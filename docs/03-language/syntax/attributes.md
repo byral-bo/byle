@@ -11,7 +11,7 @@
 
 ## #[test]
 
-```ky
+```by
 #[test]
 fn test_addition():
  assert.eq(2 + 2, 4)
@@ -24,12 +24,12 @@ fn test_string():
 Ejecutar:
 
 ```bash
-ky test
+by test
 ```
 
 ## #[bench]
 
-```ky
+```by
 #[bench]
 fn bench_fib():
  fib(1000000)
@@ -37,7 +37,7 @@ fn bench_fib():
 
 ## Attributis en modulis (import)
 
-```ky
+```by
 use jare.json
 use http.client
 ```

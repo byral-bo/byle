@@ -1,13 +1,13 @@
 # Stack vs Heap
 
-> How Kyle organiza memory: stack for valueis locales, heap for data dynamics.
+> How Byle organiza memory: stack for valueis locales, heap for data dynamics.
 
 ## Stack
 
 El stack almacena variablis locales, parameters de funcion y valueis temporales.
 Es rapido (solo mover un pointer) y automatic.
 
-```ky
+```by
 fn example() i32:
  x: i32 = 42 # stack
  y: f64 = 3.14 # stack
@@ -33,7 +33,7 @@ fn example() i32:
 El heap almacena data de size dynamic o que must persistir more alla de 
 funcion current. Los strings, lists y dictionarys viven en heap.
 
-```ky
+```by
 fn example() str:
  s: str = "Hola, mundo!" # data en heap, pointer en stack
  v: {i32} = {1, 2, 3} # data en heap, pointer en stack

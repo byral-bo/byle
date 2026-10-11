@@ -1,0 +1,20 @@
+[package]
+name = "byc_cli"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "by"
+path = "src/main.rs"
+
+[dependencies]
+byc_core = { path = "../byc_core" }
+byc_ui = { path = "../byc_ui" }
+byc_driver = { path = "../byc_driver" }
+byc_tools = { path = "../byc_tools" }
+ureq = { version = "3", features = ["json"] }
+flate2 = "1"
+tar = "0.4"
+

@@ -1,6 +1,6 @@
 # Distribution — Multi-Platform Install
 
-**Status:** Implementation Plan (Fase 0)
+**Status:** Release procedure
 **Date:** 2026-07-09
 **Documentaci&oacute;n relacionada:**
 - [`docs/10-design/rfc/0002-ui-architecture.md`](../10-design/rfc/0002-ui-architecture.md) — UI framework roadmap
@@ -10,11 +10,11 @@
 
 ## 1. Objetivo
 
-Que cualquier persona pueda instalar Kyle en **cualquier sistema operativo y arquitectura**
+Que cualquier persona pueda instalar Byle en **cualquier sistema operativo y arquitectura**
 con **un solo comando**, y que al hacerlo reciba:
 
-- El compilador `ky` (o `ky.exe`) para su plataforma
-- El runtime `libkyc_runtime.a` para su plataforma
+- El compilador `by` (o `by.exe`) para su plataforma
+- El runtime `libbyc_runtime.a` para su plataforma
 - Configuraci&oacute;n autom&aacute;tica del PATH
 
 Sin necesidad de tener Rust, LLVM, ni ning&uacute;n otro requisito previo instalado.
@@ -23,10 +23,10 @@ Sin necesidad de tener Rust, LLVM, ni ning&uacute;n otro requisito previo instal
 
 | Plataforma | Arquitectura | Triplete LLVM | Bundle |
 |------------|-------------|---------------|--------|
-| macOS | ARM64 (Apple Silicon) | `aarch64-apple-darwin` | `ky-macos-arm64.tar.gz` |
-| Linux | ARM64 | `aarch64-unknown-linux-gnu` | `ky-linux-arm64.tar.gz` |
-| Linux | x86_64 | `x86_64-unknown-linux-gnu` | `ky-linux-x64.tar.gz` |
-| Windows | x86_64 | `x86_64-pc-windows-gnu` | `ky-windows-x64.zip` |
+| macOS | ARM64 (Apple Silicon) | `aarch64-apple-darwin` | `by-macos-arm64.tar.gz` |
+| Linux | ARM64 | `aarch64-unknown-linux-gnu` | `by-linux-arm64.tar.gz` |
+| Linux | x86_64 | `x86_64-unknown-linux-gnu` | `by-linux-x64.tar.gz` |
+| Windows | x86_64 | `x86_64-pc-windows-gnu` | `by-windows-x64.zip` |
 
 ---
 
@@ -37,36 +37,36 @@ Sin necesidad de tener Rust, LLVM, ni ning&uacute;n otro requisito previo instal
 El usuario ejecuta un solo comando:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/kyal-tech/kyle/main/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/kyal-tech/byle/main/scripts/install.sh | sh
 ```
 
 El script:
 
 1. Detecta SO y arquitectura (`uname -s` + `uname -m`)
 2. Descarga el bundle correcto desde GitHub Releases
-3. Extrae `ky` y `libkyc_runtime.a`
-4. Instala en `~/.ky/bin/ky` + `~/.ky/lib/libkyc_runtime.a`
+3. Extrae `by` y `libbyc_runtime.a`
+4. Instala en `~/.by/bin/by` + `~/.by/lib/libbyc_runtime.a`
 5. Si hay permisos de sudo, pregunta y puede instalar en `/usr/local/`
-6. Agrega `~/.ky/bin` al PATH en `.zshrc` / `.bashrc`
+6. Agrega `~/.by/bin` al PATH en `.zshrc` / `.bashrc`
 7. Muestra mensaje de &eacute;xito
 
-Si el usuario ya tiene Kyle, el script detecta la versi&oacute;n actual y pregunta si desea actualizar.
+Si el usuario ya tiene Byle, el script detecta la versi&oacute;n actual y pregunta si desea actualizar.
 
 ### 2.2 Windows
 
 El usuario ejecuta en PowerShell:
 
 ```powershell
-iwr -Uri "https://raw.githubusercontent.com/kyal-tech/kyle/main/install.ps1" | iex
+iwr -Uri "https://raw.githubusercontent.com/kyal-tech/byle/main/scripts/install.ps1" | iex
 ```
 
 El script:
 
 1. Detecta arquitectura (x64 o ARM64)
 2. Descarga el ZIP correcto desde GitHub Releases
-3. Extrae `ky.exe` y `libkyc_runtime.a`
-4. Instala en `%USERPROFILE%\.ky\bin\ky.exe` + `%USERPROFILE%\.ky\lib\libkyc_runtime.a`
-5. Agrega `%USERPROFILE%\.ky\bin` al PATH de usuario
+3. Extrae `by.exe` y `libbyc_runtime.a`
+4. Instala en `%USERPROFILE%\.by\bin\by.exe` + `%USERPROFILE%\.by\lib\libbyc_runtime.a`
+5. Agrega `%USERPROFILE%\.by\bin` al PATH de usuario
 6. Muestra mensaje de &eacute;xito
 
 ### 2.3 Descarga directa (avanzado)
@@ -74,8 +74,8 @@ El script:
 Usuarios avanzados pueden descargar manualmente desde GitHub Releases:
 
 ```
-https://github.com/kyal-tech/kyle/releases/download/v0.6.0/ky-macos-arm64.tar.gz
-https://github.com/kyal-tech/kyle/releases/download/v0.6.0/ky-windows-x64.zip
+https://github.com/kyal-tech/byle/releases/download/v0.8.9/by-macos-arm64.tar.gz
+https://github.com/kyal-tech/byle/releases/download/v0.8.9/by-windows-x64.zip
 ...
 ```
 
@@ -86,20 +86,18 @@ https://github.com/kyal-tech/kyle/releases/download/v0.6.0/ky-windows-x64.zip
 ### 3.1 macOS / Linux (.tar.gz)
 
 ```
-ky-macos-arm64.tar.gz
-  ky                    # Binario compilado (executable)
-  libkyc_runtime.a      # Runtime est&aacute;tico
-  ky.toml               # Template opcional de proyecto
+by-macos-arm64.tar.gz
+  by                    # Binario compilado (executable)
+  libbyc_runtime.a      # Runtime est&aacute;tico
   LICENSE               # Licencia MIT
 ```
 
 ### 3.2 Windows (.zip)
 
 ```
-ky-windows-x64.zip
-  ky.exe                # Binario compilado (executable)
-  libkyc_runtime.a      # Runtime est&aacute;tico
-  ky.toml               # Template opcional de proyecto
+by-windows-x64.zip
+  by.exe                # Binario compilado (executable)
+  libbyc_runtime.a      # Runtime est&aacute;tico
   LICENSE               # Licencia MIT
 ```
 
@@ -135,8 +133,8 @@ detect_platform() {
 #!/bin/bash
 set -eu
 
-REPO="kyal-tech/kyle"
-VERSION="v0.6.0"
+REPO="kyal-tech/byle"
+VERSION="v0.8.9"
 PLATFORM=$(detect_platform)
 
 # Preguntar si requiere sudo (solo para /usr/local/)
@@ -145,10 +143,10 @@ if [ -w /usr/local/bin ]; then
     USE_SUDO=false
 else
     echo "Install to /usr/local requires sudo."
-    echo "Install to ~/.ky/ instead? [Y/n]"
+    echo "Install to ~/.by/ instead? [Y/n]"
     read -r answer
     if [ "$answer" != "n" ]; then
-        INSTALL_PREFIX="$HOME/.ky"
+        INSTALL_PREFIX="$HOME/.by"
         USE_SUDO=false
     else
         echo "Please run with sudo or install manually."
@@ -157,34 +155,34 @@ else
 fi
 
 # Descargar bundle
-BUNDLE="ky-${PLATFORM}.tar.gz"
+BUNDLE="by-${PLATFORM}.tar.gz"
 URL="https://github.com/$REPO/releases/download/$VERSION/$BUNDLE"
 
-echo "Downloading Kyle $VERSION for $PLATFORM..."
+echo "Downloading Byle $VERSION for $PLATFORM..."
 curl -fsSL "$URL" -o "/tmp/$BUNDLE"
 
 # Extraer
 tar xzf "/tmp/$BUNDLE" -C /tmp/
 
 # Instalar
-mkdir -p "$INSTALL_PREFIX/bin" "$INSTALL_PREFIX/lib/ky"
-cp /tmp/ky "$INSTALL_PREFIX/bin/ky"
-cp /tmp/libkyc_runtime.a "$INSTALL_PREFIX/lib/ky/libkyc_runtime.a"
-chmod +x "$INSTALL_PREFIX/bin/ky"
+mkdir -p "$INSTALL_PREFIX/bin" "$INSTALL_PREFIX/lib/by"
+cp /tmp/by "$INSTALL_PREFIX/bin/by"
+cp /tmp/libbyc_runtime.a "$INSTALL_PREFIX/lib/by/libbyc_runtime.a"
+chmod +x "$INSTALL_PREFIX/bin/by"
 
 # Agregar al PATH
 # ...
 
-echo "✅ Kyle $VERSION installed to $INSTALL_PREFIX"
+echo "✅ Byle $VERSION installed to $INSTALL_PREFIX"
 ```
 
 ### 4.3 Parámetros adicionales
 
 | Variable | Efecto |
 |----------|--------|
-| `KY_VERSION=v0.7.0` | Instalar versión específica |
-| `KY_PREFIX=/custom/path` | Directorio de instalación |
-| `KY_NO_MODIFY_PATH=1` | No modificar PATH automáticamente |
+| `BY_VERSION=v0.8.9` | Instalar versión específica |
+| `BY_PREFIX=/custom/path` | Directorio de instalación |
+| `BY_NO_MODIFY_PATH=1` | No modificar PATH automáticamente |
 
 ---
 
@@ -193,15 +191,15 @@ echo "✅ Kyle $VERSION installed to $INSTALL_PREFIX"
 ```powershell
 # install.ps1
 param(
-    [string]$Version = "v0.6.0",
-    [string]$Prefix = "$env:USERPROFILE\.ky"
+    [string]$Version = "v0.8.9",
+    [string]$Prefix = "$env:USERPROFILE\.by"
 )
 
 $arch = if ([Environment]::Is64BitOperatingSystem) { "x64" } else { "arm64" }
-$bundle = "ky-windows-$arch.zip"
-$url = "https://github.com/kyal-tech/kyle/releases/download/$Version/$bundle"
+$bundle = "by-windows-$arch.zip"
+$url = "https://github.com/kyal-tech/byle/releases/download/$Version/$bundle"
 
-Write-Host "Downloading Kyle $Version for Windows..."
+Write-Host "Downloading Byle $Version for Windows..."
 Invoke-WebRequest -Uri $url -OutFile "$env:TEMP\$bundle"
 
 Expand-Archive "$env:TEMP\$bundle" -DestinationPath $Prefix
@@ -214,7 +212,7 @@ if ($userPath -notlike "*$Prefix\bin*") {
     )
 }
 
-Write-Host "✅ Kyle $Version installed to $Prefix"
+Write-Host "✅ Byle $Version installed to $Prefix"
 ```
 
 ---
@@ -223,53 +221,20 @@ Write-Host "✅ Kyle $Version installed to $Prefix"
 
 ### 6.1 Cross-compilación
 
-Cada release ejecuta:
+`scripts/build-release.sh` usa `Cargo.lock` y distingue tres casos:
+
+- En el host nativo compila `by` y `byc_runtime`, crea el bundle y verifica su SHA-256.
+- En targets no nativos puede compilar el runtime con `cargo-zigbuild`, pero omite el bundle completo porque `by` depende de las librerías LLVM nativas del host.
+- Un fallo real de compilación termina el script con error; los targets no instalados se reportan como omitidos.
+
+La forma recomendada de generar releases completos es el workflow nativo de GitHub Actions (`.github/workflows/release.yml`). El script local se ejecuta así:
 
 ```bash
-#!/bin/bash
-set -eu
-
-VERSION="v0.6.0"
-TARGETS=(
-    "aarch64-apple-darwin"
-    "x86_64-apple-darwin"
-    "x86_64-unknown-linux-gnu"
-    "aarch64-unknown-linux-gnu"
-    "x86_64-pc-windows-gnu"
-)
-
-for target in "${TARGETS[@]}"; do
-    echo "Building for $target..."
-
-    # 1. Compilar kyc_runtime para $target
-    cargo build --release --target "$target" -p kyc_runtime
-
-    # 2. Compilar ky para $target
-    cargo build --release --target "$target" --bin ky
-
-    # 3. Empaquetar
-    local bundle_name
-    case "$target" in
-        aarch64-apple-darwin)       bundle_name="ky-macos-arm64" ;;
-        x86_64-unknown-linux-gnu)   bundle_name="ky-linux-x64" ;;
-        aarch64-unknown-linux-gnu)  bundle_name="ky-linux-arm64" ;;
-        x86_64-pc-windows-gnu)      bundle_name="ky-windows-x64" ;;  # or msvc
-    esac
-
-    mkdir -p "dist/$bundle_name"
-    cp "target/$target/release/ky" "dist/$bundle_name/ky"
-    cp "target/$target/release/libkyc_runtime.a" "dist/$bundle_name/"
-    cp LICENSE "dist/$bundle_name/"
-
-    if [[ "$target" == *"windows"* ]]; then
-        (cd dist && zip -r "$bundle_name.zip" "$bundle_name/")
-    else
-        (cd dist && tar czf "$bundle_name.tar.gz" "$bundle_name/")
-    fi
-done
-
-echo "✅ All bundles built in dist/"
+./scripts/build-release.sh
 ```
+
+Los bundles publicados contienen `by`, `libbyc_runtime.a`, `LICENSE` y su
+archivo `.sha256`. El instalador rechaza bundles que no tengan checksum.
 
 ### 6.2 Toolchains necesarias
 
@@ -277,34 +242,38 @@ echo "✅ All bundles built in dist/"
 |--------|-----------|-------------|
 | `aarch64-apple-darwin` | Nativo (macOS ARM64) | — |
 | `x86_64-apple-darwin` | Rust target | `rustup target add x86_64-apple-darwin` |
-| `x86_64-unknown-linux-gnu` | Rust target + cross-linker | `rustup target add ...` + `brew install x86_64-linux-gnu-gcc` |
-| `aarch64-unknown-linux-gnu` | Rust target + cross-linker | `rustup target add ...` + `brew install aarch64-linux-gnu-gcc` |
-| `x86_64-pc-windows-gnu` | Rust target + mingw | `rustup target add ...` + `brew install mingw-w64` |
+| `x86_64-unknown-linux-gnu` | Rust target + Zig | `rustup target add ...` + `cargo install cargo-zigbuild` + Zig |
+| `aarch64-unknown-linux-gnu` | Rust target + Zig | `rustup target add ...` + `cargo install cargo-zigbuild` + Zig |
+| `x86_64-pc-windows-gnu` | Rust target + Zig | `rustup target add ...` + `cargo install cargo-zigbuild` + Zig |
 
 ---
 
-## 7. Cambios necesarios en el compilador
+## 7. Target triples del compilador
 
-### 7.1 Flag `--target` en `ky build`
+El soporte de target explícito está implementado en el backend, pipeline y CLI.
+Esta sección documenta el diseño vigente y las limitaciones de distribución;
+los bundles completos no nativos se construyen en CI con runners nativos.
+
+### 7.1 Flag `--target` en `by build`
 
 El compilador debe aceptar un target triple opcional:
 
 ```bash
-ky build app.ky                          # usa target del host
-ky build --target wasm32 app.ky          # WebAssembly
-ky build --target x86_64-pc-windows-gnu  # Windows cross
+by build app.by                          # usa target del host
+by build --target wasm32 app.by          # WebAssembly
+by build --target x86_64-pc-windows-gnu  # Windows cross
 ```
 
 ### 7.2 codegen.rs — Target triple configurable
 
-Actualmente:
+Implementación por defecto:
 
 ```rust
 let triple = inkwell::targets::TargetMachine::get_default_triple();
 module.set_triple(&triple);
 ```
 
-Debe cambiar a:
+Cuando se proporciona un target explícito se usa:
 
 ```rust
 let triple = self.target_triple.clone()
@@ -314,8 +283,7 @@ module.set_triple(&triple);
 
 ### 7.3 linker.rs — Linker por target
 
-Actualmente usa `cfg!(target_os)` para elegir linker.
-Debe seleccionar el linker según el target triple:
+El linker selecciona la estrategia según el target triple:
 
 | Triplete | Linker |
 |----------|--------|
@@ -328,11 +296,13 @@ Debe seleccionar el linker según el target triple:
 
 ### 7.4 linker.rs — Búsqueda de runtime
 
-Actualmente busca `libkyc_runtime.a` en varias ubicaciones. Para soportar
-múltiples targets, debe buscar también en:
+El compilador busca el runtime del host en las ubicaciones instaladas (`/usr/local/lib`,
+`~/.by/lib` y rutas relativas al binario). Los bundles de CI son autocontenidos;
+no se instala una colección de runtimes cruzados en el host. Para añadir soporte
+de runtimes por target en una futura instalación multi-target, la ruta prevista es:
 
 ```
-~/.ky/lib/targets/<triple>/libkyc_runtime.a
+~/.by/lib/targets/<triple>/libbyc_runtime.a
 ```
 
 ---
@@ -340,24 +310,11 @@ múltiples targets, debe buscar también en:
 ## 8. Estructura de directorios instalada
 
 ```
-~/.ky/                          # (o /usr/local/lib/ky/)
+~/.by/                          # (o /usr/local/lib/by/)
   bin/
-    ky                          # Compilador
+    by                          # Compilador
   lib/
-    libkyc_runtime.a            # Runtime para el host
-    targets/
-      aarch64-apple-darwin/
-        libkyc_runtime.a
-      x86_64-apple-darwin/
-        libkyc_runtime.a
-      x86_64-unknown-linux-gnu/
-        libkyc_runtime.a
-      aarch64-unknown-linux-gnu/
-        libkyc_runtime.a
-      x86_64-pc-windows-gnu/
-        libkyc_runtime.a
-      wasm32-unknown-unknown/
-        libkyc_runtime.a
+    libbyc_runtime.a            # Runtime de la plataforma
 ```
 
 ---
@@ -368,8 +325,8 @@ múltiples targets, debe buscar también en:
 |--------|-------------|
 | **HTTPS** | Todas las descargas via HTTPS desde GitHub |
 | **Checksums** | Cada release incluye SHA-256 del bundle |
-| **GPG** | Opcional: firma GPG del install.sh |
-| **Verificación** | `install.sh` verifica checksum después de descargar |
+| **Firma macOS** | Firma ad-hoc del binario y dylibs cuando aplica |
+| **Verificación** | `install.sh` exige y verifica el checksum antes de instalar |
 | **Minimal** | Solo se descarga lo necesario para la plataforma |
 
 ---
@@ -378,9 +335,10 @@ múltiples targets, debe buscar también en:
 
 ### Por release
 
-1. Ejecutar `scripts/build-release.sh` para generar los 4 bundles
-2. Subir bundles a GitHub Releases
-3. (Opcional) Actualizar install.sh si cambia la URL base
+1. Ejecutar CI para generar los cuatro bundles oficiales (Linux ARM64/x64, macOS ARM64 y Windows x64)
+2. Verificar checksums y contenido de cada bundle
+3. Subir bundles a GitHub Releases
+4. (Opcional) Actualizar install.sh si cambia la URL base
 
 ### Nueva plataforma
 

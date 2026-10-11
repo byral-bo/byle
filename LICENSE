@@ -3,8 +3,8 @@ MIT License
 Copyright (c) 2026 Kynera (IT-KYNERA)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Kyle Programming
-Language" and "ky" compiler), to deal in the Software without restriction,
+of this software and associated documentation files (the "Byle Programming
+Language" and "by" compiler), to deal in the Software without restriction,
 including without limitation the rights to use, copy, modify, merge, publish,
 distribute, sublicense, and/or sell copies of the Software, and to permit
 persons to whom the Software is furnished to do so, subject to the following
@@ -23,11 +23,11 @@ SOFTWARE.
 
 ---
 
-Kyle is a programming language created by Kynera.
+Byle is a programming language created by Kynera.
 Copyright (c) 2026 Kynera — https://github.com/IT-KYNERA
 
-The Kyle name, logo, and related assets are trademarks of Kynera.
+The Byle name, logo, and related assets are trademarks of Kynera.
 This license covers the compiler, runtime, standard library, and tooling.
 
 Third-party dependencies may be covered by their own licenses (MIT, Apache 2.0, BSD).
-See Cargo.lock and vscode-ky/node_modules/ for details.
+See Cargo.lock for dependency details.

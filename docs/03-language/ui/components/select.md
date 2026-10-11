@@ -5,9 +5,9 @@
 
 ---
 
-## Tipo Kyle
+## Tipo Byle
 
-```kyle
+```byle
 final class select:
     # Valor
     bind: ^str?                     # Binding al valor seleccionado
@@ -35,7 +35,7 @@ final class select:
 
 ### Con opciones estáticas
 
-```kyx
+```byx
 <view>
     @(
         country: ^str = ""
@@ -53,7 +53,7 @@ final class select:
 
 ### Con option explícitos
 
-```kyx
+```byx
 <select bind=@country label="País">
     <option value="pe" label="Perú" />
     <option value="cl" label="Chile" />
@@ -84,7 +84,7 @@ final class select:
 
 ### select_option
 
-```kyle
+```byle
 final class select_option:
     value: str                      # Valor
     label: str                      # Etiqueta mostrada
@@ -98,7 +98,7 @@ final class select_option:
 
 ### Con grupos
 
-```kyx
+```byx
 <select bind=@product label="Producto">
     <option_group label="Frutas">
         <option value="apple" label="Manzana" />
@@ -113,11 +113,11 @@ final class select_option:
 
 ### Selección múltiple
 
-```kyx
+```byx
 <view>
     @(
         skills: ^{str} = {}
-        skill_options = {"Kyle", "Rust", "Python", "JavaScript"}
+        skill_options = {"Byle", "Rust", "Python", "JavaScript"}
     )
     
     <select 
@@ -131,7 +131,7 @@ final class select_option:
 
 ### Con búsqueda
 
-```kyx
+```byx
 <select 
     bind=@user_id 
     label="Usuario"

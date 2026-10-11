@@ -1,6 +1,6 @@
 # 06-compiler
 
-> Documentation del compiler de Kyle: pipeline completo, from code source hasta binary.
+> Documentation del compiler de Byle: pipeline completo, from code source hasta binary.
 
 ## Files
 

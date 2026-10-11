@@ -3,7 +3,7 @@
 **Status:** Draft v3.0
 **Date:** 2026-07-12
 **Documentación relacionada:**
-- [ui-syntax.md](../syntax/ui-syntax.md) — Sintaxis .kyx
+- [ui-syntax.md](../syntax/ui-syntax.md) — Sintaxis .byx
 - [state-events.md](state-events.md) — Estado y eventos
 - [composition.md](composition.md) — Layouts y slots
 - [animation.md](animation.md) — Transiciones
@@ -12,7 +12,7 @@
 
 ## 0. Target tipo
 
-```kyle
+```byle
 enum Target:
     web
     macos
@@ -67,10 +67,10 @@ Cada backend traduce los tipos nativos según la plataforma. El lenguaje NO expo
 
 ### 2.1 Sintaxis básica
 
-Las rutas se declaran en el `<router>` con `<route>`. NO hay `view()` en los archivos `.kyx`.
+Las rutas se declaran en el `<router>` con `<route>`. NO hay `view()` en los archivos `.byx`.
 
-```kyx
-# app.kyx — Entry point con rutas centralizadas
+```byx
+# app.byx — Entry point con rutas centralizadas
 use views.home
 use views.login
 use views.user_profile
@@ -91,18 +91,18 @@ use layouts.main
 
 ### 2.2 Archivos de vista — sin `view()`
 
-Cada `.kyx` es solo un componente. Sin declaración de ruta:
+Cada `.byx` es solo un componente. Sin declaración de ruta:
 
-```kyx
-# views/home.kyx — NO tiene view("/")
+```byx
+# views/home.byx — NO tiene view("/")
 <view>
-    <text value="Bienvenido a Kyle!" />
+    <text value="Bienvenido a Byle!" />
     <button text="Ir a Login" click=@fn (): navigate("/login") />
 </view>
 ```
 
-```kyx
-# views/login.kyx
+```byx
+# views/login.byx
 <view>
     <text_field bind=@email />
     <password_field bind=@password />
@@ -112,7 +112,7 @@ Cada `.kyx` es solo un componente. Sin declaración de ruta:
 
 ### 2.3 `<route>` — struct tipado
 
-```kyle
+```byle
 struct RouteConfig:
     path: str                          # "/users/{id}"
     component: ^Component              # qué renderizar (obligatorio)
@@ -135,9 +135,9 @@ struct RouteConfig:
         meta_description = "Descripción SEO"
 ```
 
-Uso en `.kyx`:
+Uso en `.byx`:
 
-```kyx
+```byx
 <route path="/admin" component=admin_panel layout=admin
     guard=@auth_guard title="Admin Panel"
     target(Target.web):
@@ -155,8 +155,8 @@ Uso en `.kyx`:
 
 ### 3.1 Definición de layout
 
-```kyx
-# layouts/main.kyx
+```byx
+# layouts/main.byx
 <layout>
     <navbar title="Mi App" />
     <hstack>
@@ -169,8 +169,8 @@ Uso en `.kyx`:
 </layout>
 ```
 
-```kyx
-# layouts/blank.kyx — sin navbar, sidebar, ni footer
+```byx
+# layouts/blank.byx — sin navbar, sidebar, ni footer
 <layout>
     <slot />
 </layout>
@@ -200,7 +200,7 @@ El layout se monta UNA VEZ. Solo el `<slot />` se re-renderiza al navegar.
 
 ### 3.3 Multi-ruta con layouts diferentes
 
-```kyx
+```byx
 <router>
     <route path="/" component=home layout=main title="Home" />
     <route path="/login" component=login layout=blank title="Login" />
@@ -222,7 +222,7 @@ El layout se monta UNA VEZ. Solo el `<slot />` se re-renderiza al navegar.
 
 ### 4.1 Programática
 
-```kyle
+```byle
 fn go_to_login():
     navigate("/login")
 
@@ -238,7 +238,7 @@ fn replace_current(path: str):
 
 ### 4.2 `<link>` (declarativa)
 
-```kyx
+```byx
 <link to="/dashboard">Ir al Dashboard</link>
 
 <link to=@"'/users/' + user.id.to_str()">Ver Usuario</link>
@@ -248,18 +248,18 @@ fn replace_current(path: str):
 
 ### 4.3 Título dinámico
 
-```kyx
+```byx
 # Desde el código
 set_title("Login - Mi App")
 set_meta("description", "Página de inicio de sesión")
 ```
 
-```kyx
+```byx
 # Desde la ruta (parámetro title del <route>)
 <route path="/profile" component=profile title="Mi Perfil" />
 ```
 
-```kyx
+```byx
 # Desde la vista (prop title dinámico)
 <view title=@"'Bienvenido, ' + user.name">
     <text value="Contenido" />
@@ -272,14 +272,14 @@ set_meta("description", "Página de inicio de sesión")
 
 ### 5.1 Sintaxis `{param}`
 
-```kyx
+```byx
 <route path="/users/{id}" component=user layout=main
     title=@"'Perfil de ' + params.get('id')"
 />
 ```
 
-```kyx
-# user.kyx
+```byx
+# user.byx
 <view>
     params: {str: str} = route_params()
     id: str = params.get("id") ?? ""
@@ -292,11 +292,11 @@ set_meta("description", "Página de inicio de sesión")
 
 ### 5.2 Múltiples parámetros
 
-```kyx
+```byx
 <route path="/posts/{year}/{slug}" component=post />
 ```
 
-```kyx
+```byx
 <view>
     params = route_params()
     year: str = params.get("year") ?? ""
@@ -306,7 +306,7 @@ set_meta("description", "Página de inicio de sesión")
 
 ### 5.3 Parámetros opcionales
 
-```kyx
+```byx
 <route path="/search/{query?}" component=search />
 # /search/foo → params.query = "foo"
 # /search     → params.query = None
@@ -318,7 +318,7 @@ set_meta("description", "Página de inicio de sesión")
 
 ### 6.1 Protección de rutas
 
-```kyx
+```byx
 <router>
     <route path="/dashboard" component=dashboard layout=main
         guard=@auth_guard title="Dashboard"
@@ -331,7 +331,7 @@ set_meta("description", "Página de inicio de sesión")
 
 ### 6.2 Definición de guard
 
-```kyx
+```byx
 fn auth_guard(ctx: NavCtx) bool:
     if !is_authenticated():
         navigate("/login")
@@ -354,7 +354,7 @@ fn admin_guard(ctx: NavCtx) bool:
 | `guard` | Antes de entrar | Auth checks |
 | `before_leave` | Antes de salir | Confirmar cambios no guardados |
 
-```kyx
+```byx
 <route path="/edit" component=edit_form
     before_leave=@fn (): has_unsaved_changes() ? confirm("¿Descartar?") : true
 />
@@ -364,12 +364,12 @@ fn admin_guard(ctx: NavCtx) bool:
 
 ## 7. 404 / Catch-all
 
-```kyx
+```byx
 <route path="*" component=not_found layout=main title="No Encontrado" />
 ```
 
-```kyx
-# not_found.kyx
+```byx
+# not_found.byx
 <view>
     <text value="404 — Página no encontrada" />
     <link to="/">Volver al inicio</link>
@@ -380,7 +380,7 @@ fn admin_guard(ctx: NavCtx) bool:
 
 ## 8. Lazy Loading
 
-```kyx
+```byx
 <router>
     <route path="/" component=home />         # eager
     <route path="/heavy" component=heavy
@@ -401,7 +401,7 @@ const routes = {
 
 ## 9. Transiciones
 
-```kyx
+```byx
 <router transition=PageSlide transition_duration=300>
     <route path="/" component=home />
     <route path="/login" component=login />
@@ -416,7 +416,7 @@ Ver [animation.md](animation.md) para tipos de transición.
 
 ### 10.1 Por ruta
 
-```kyx
+```byx
 <route path="/profile" component=profile layout=main
     target(Target.ios):
         large_title = true
@@ -432,8 +432,8 @@ Ver [animation.md](animation.md) para tipos de transición.
 
 Se puede modificar title, icon y configuración nativa desde el `@(...)` de cualquier vista:
 
-```kyx
-# views/profile.kyx
+```byx
+# views/profile.byx
 <view>
     @(
         set_title(@"Perfil de " + user.name)
@@ -466,9 +466,9 @@ Funciones built-in disponibles:
 | `set_meta(key, value)` | Setea meta tags (web: `<meta>`, iOS: info.plist) |
 | `target(Target.X):` | Config específica por plataforma |
 
-### 10.3 Global en app.kyx
+### 10.3 Global en app.byx
 
-```kyx
+```byx
 <app title=@"Mi App">
     config:
         target(Target.web):
@@ -514,7 +514,7 @@ Funciones built-in disponibles:
 
 ## 13. Referencias
 
-- [ui-syntax.md](../syntax/ui-syntax.md) — Sintaxis .kyx
+- [ui-syntax.md](../syntax/ui-syntax.md) — Sintaxis .byx
 - [state-events.md](state-events.md) — Estado y eventos
 - [composition.md](composition.md) — Layouts y slots
 - [animation.md](animation.md) — Page transitions

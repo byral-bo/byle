@@ -5,9 +5,9 @@
 
 ---
 
-## Tipo Kyle
+## Tipo Byle
 
-```kyle
+```byle
 final class list:
     # Datos
     data: ^{any}                      # Colección de items
@@ -40,7 +40,7 @@ final class list:
 
 ### Lista simple
 
-```kyx
+```byx
 <view>
     @(
         items: ^{str} = {"Manzana", "Banana", "Naranja"}
@@ -56,7 +56,7 @@ final class list:
 
 ### Lista con objetos
 
-```kyx
+```byx
 <view>
     @(
         users: ^{User} = {}
@@ -100,7 +100,7 @@ final class list:
 
 ### Lista virtualizada (miles de items)
 
-```kyx
+```byx
 <view>
     @(
         big_list: ^{Item} = load_thousand_items()
@@ -116,7 +116,7 @@ final class list:
 
 ### Lista con paginación
 
-```kyx
+```byx
 <view>
     @(
         items: ^{Item} = {}
@@ -139,7 +139,7 @@ final class list:
 
 ### Lista seleccionable
 
-```kyx
+```byx
 <view>
     @(
         items: ^{Item} = {}
@@ -162,7 +162,7 @@ final class list:
 
 ### Lista con acciones
 
-```kyx
+```byx
 <view>
     @(
         items: ^{Item} = {}
@@ -190,7 +190,7 @@ final class list:
 
 ### Lista vacía
 
-```kyx
+```byx
 <view>
     @(
         items: ^{Item} = {}
@@ -231,7 +231,7 @@ final class list:
 
 ### Desktop (SDL2/Skia)
 
-```kyle
+```byle
 fn render_list(items: {Item}, scroll_y: f32):
     for i, item in items:
         y = i * item_height - scroll_y
@@ -281,7 +281,7 @@ LazyColumn {
 
 ### ❌ Malo: Lista sin virtualizar con muchos items
 
-```kyx
+```byx
 <list data=@thousand_items>
     <item>...</item>
 </list>
@@ -291,7 +291,7 @@ LazyColumn {
 
 ### ✅ Bueno: Virtualizar listas grandes
 
-```kyx
+```byx
 <list data=@thousand_items virtual=true item_height=48>
     <item>...</item>
 </list>
@@ -299,7 +299,7 @@ LazyColumn {
 
 ### ❌ Malo: Lógica compleja en el render
 
-```kyx
+```byx
 <list data=@items>
     <item>
         @if item.type == "special":
@@ -314,7 +314,7 @@ LazyColumn {
 
 ### ✅ Bueno: Componente separado
 
-```kyx
+```byx
 <list data=@items>
     <item>
         <item_renderer item=@item />

@@ -1,3 +1,0 @@
-fn main():
-    name = "Kyle"
-    println("Hello, {name}!")

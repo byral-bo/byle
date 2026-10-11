@@ -3,7 +3,7 @@
 **Status:** Draft v1.0
 **Date:** 2026-07-10
 **Documentación relacionada:**
-- [ui-syntax.md](../syntax/ui-syntax.md) — Sintaxis .kyx
+- [ui-syntax.md](../syntax/ui-syntax.md) — Sintaxis .byx
 - [state-events.md](state-events.md) — Estado y eventos
 - [routing.md](routing.md) — Routing
 
@@ -11,14 +11,14 @@
 
 ## 1. Filosofía
 
-Los tests de UI en Kyle se escriben en **Kyle puro**, no en JavaScript ni en un
+Los tests de UI en Byle se escriben en **Byle puro**, no en JavaScript ni en un
 DSL separado. El framework de testing está integrado en el compilador:
 
 ```bash
-ky test              # todos los tests
-ky test ui/          # tests de UI
-ky test --watch      # watch mode
-ky test --coverage   # cobertura
+by test              # todos los tests
+by test ui/          # tests de UI
+by test --watch      # watch mode
+by test --coverage   # cobertura
 ```
 
 ---
@@ -39,8 +39,8 @@ ky test --coverage   # cobertura
 
 ### 3.1 Renderizar un componente
 
-```kyle
-# tests/button_test.ky
+```byle
+# tests/button_test.by
 use ~lib.{test, expect, render}
 
 test("Button renders with text"):
@@ -56,7 +56,7 @@ test("Button renders with text"):
 
 ### 3.2 Test con props
 
-```kyle
+```byle
 test("Button with disabled state"):
     btn = render("<button disabled=true text="OK" />")
 
@@ -66,7 +66,7 @@ test("Button with disabled state"):
 
 ### 3.3 Test de slots
 
-```kyle
+```byle
 test("Card renders slot content"):
     card = render("""
         <card style=Elevated>
@@ -84,7 +84,7 @@ test("Card renders slot content"):
 
 ### 4.1 Eventos
 
-```kyle
+```byle
 test("Button fires click event"):
     clicked = false
 
@@ -101,7 +101,7 @@ test("Button fires click event"):
 
 ### 4.2 Binding bidireccional
 
-```kyle
+```byle
 test("TextField updates state on input"):
     state = { "email": "" }
 
@@ -115,7 +115,7 @@ test("TextField updates state on input"):
 
 ### 4.3 Estado del componente
 
-```kyle
+```byle
 test("Counter increments on click"):
     counter = render("""
         @(count: ^i32 = 0)
@@ -134,7 +134,7 @@ test("Counter increments on click"):
 
 ## 5. Testing con Context
 
-```kyle
+```byle
 test("Component uses context"):
     mock_auth = {
         "user": User(name: "Test"),
@@ -155,7 +155,7 @@ test("Component uses context"):
 
 ## 6. Async Tests
 
-```kyle
+```byle
 test("Async data loading"):
     loader = render("""
         @(data: ^str? = None)
@@ -185,7 +185,7 @@ test("Async data loading"):
 
 ### 7.1 Snapshot básico
 
-```kyle
+```byle
 test("Button snapshot"):
     btn = render("""
         <button text="OK" style=Primary />
@@ -197,12 +197,12 @@ test("Button snapshot"):
 ### 7.2 Actualizar snapshots
 
 ```bash
-ky test --update-snapshots
+by test --update-snapshots
 ```
 
 ### 7.3 Snapshots por target
 
-```kyle
+```byle
 test("Button renders correctly on all targets"):
     btn = render("<button text="OK" />")
 
@@ -217,7 +217,7 @@ test("Button renders correctly on all targets"):
 
 ### 8.1 Múltiples componentes
 
-```kyle
+```byle
 test("Form with validation"):
     form = render("""
         @(
@@ -251,7 +251,7 @@ test("Form with validation"):
 
 ### 8.2 Con routing
 
-```kyle
+```byle
 test("Navigation between views"):
     app = render_with_router("""
         <router>
@@ -273,8 +273,8 @@ test("Navigation between views"):
 
 Para tests end-to-end en browser/dispositivo:
 
-```kyle
-# tests/e2e/login_e2e.ky
+```byle
+# tests/e2e/login_e2e.by
 use ~lib.{e2e, browser}
 
 e2e("Login flow"):
@@ -296,7 +296,7 @@ e2e("Login flow"):
 
 ### 10.1 Mock de componente
 
-```kyle
+```byle
 test("Parent with mocked child"):
     # Reemplaza un componente hijo por un mock
     profile = render("""
@@ -310,7 +310,7 @@ test("Parent with mocked child"):
 
 ### 10.2 Mock de contexto
 
-```kyle
+```byle
 test("Component with mocked API"):
     mock_api = MockAPI()
     mock_api.when("fetch_user", fn(id):
@@ -330,13 +330,13 @@ test("Component with mocked API"):
 ## 11. Coverage
 
 ```bash
-$ ky test --coverage
+$ by test --coverage
 
 File                          %    Lines  Missed  Coverage
 ─────────────────────────────────────────────────────────
-components/button.kyx       100       42       0   ✅
-components/login.kyx         85      120      18   ⚠️
-components/user_card.kyx     92       65       5   ✅
+components/button.byx       100       42       0   ✅
+components/login.byx         85      120      18   ⚠️
+components/user_card.byx     92       65       5   ✅
 ─────────────────────────────────────────────────────────
 Total                        89      227      23   ✅
 ```
@@ -358,6 +358,6 @@ Total                        89      227      23   ✅
 
 ## 13. Referencias
 
-- [ui-syntax.md](../syntax/ui-syntax.md) — Sintaxis .kyx
+- [ui-syntax.md](../syntax/ui-syntax.md) — Sintaxis .byx
 - [state-events.md](state-events.md) — Estado y eventos
 - [routing.md](routing.md) — Routing en tests de integración

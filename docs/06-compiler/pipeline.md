@@ -1,7 +1,7 @@
 # Pipeline
 
 > Orchestrador que conecta todas fasis del compiler.
-> Crate: `kyc_driver/src/pipeline.rs` (566 lines).
+> Crate: `byc_driver/src/pipeline.rs` (566 lines).
 
 ## Responsabilidad
 
@@ -76,7 +76,7 @@ fn compile(source: &str) -> Result<MirOutput, String> {
 ## CLI integration
 
 ```rust
-// kyc_cli/src/main.rs
+// byc_cli/src/main.rs
 fn main() {
  let args = parse_args();
  let source = read_file(&args.file);
@@ -98,9 +98,9 @@ fn main() {
 
 | Mode | Command | Optimization | LTO | Uso |
 |------|---------|-------------|-----|-----|
-| Debug | `ky build` | Default (-O0) | No | Desarrollo |
-| Release | `ky build --release` | Aggressive (-O3) | Si | Production |
-| Check | `ky check` | Only analysis | No | Type-check rapido |
+| Debug | `by build` | Default (-O0) | No | Desarrollo |
+| Release | `by build --release` | Aggressive (-O3) | Si | Production |
+| Check | `by check` | Only analysis | No | Type-check rapido |
 
 ## See also
 

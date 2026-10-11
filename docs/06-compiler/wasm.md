@@ -7,11 +7,11 @@
 
 ## 1. What is it?
 
-Kyle compila a WebAssembly via LLVM (`wasm32-unknown-unknown`).
-Esto allows execute code Kyle en navegador.
+Byle compila a WebAssembly via LLVM (`wasm32-unknown-unknown`).
+Esto allows execute code Byle en navegador.
 
 ```
-.ky → LLVM IR → wasm32 → .wasm → navegador
+.by → LLVM IR → wasm32 → .wasm → navegador
 ```
 
 ---
@@ -20,10 +20,10 @@ Esto allows execute code Kyle en navegador.
 
 ```bash
 # Compilar a WASM
-ky build --target wasm32-unknown-unknown app.ky
+by build --target wasm32-unknown-unknown app.by
 
 # Optimizado for size
-ky build --target wasm32-unknown-unknown -O3 app.ky
+by build --target wasm32-unknown-unknown -O3 app.by
 ```
 
 ### Limitacionis del target WASM
@@ -43,19 +43,19 @@ ky build --target wasm32-unknown-unknown -O3 app.ky
 
 ## 3. web — Browbe API bindings
 
-El package `web` expone APIs del navegador a Kyle compilado a WASM.
+El package `web` expone APIs del navegador a Byle compilado a WASM.
 
-```kyle
+```byle
 use web.{document, console, fetch}
 ```
 
 ### DOM
 
-```kyle
+```byle
 use web.document
 
 div = document.get_element_by_id("app")
-div.text_content = "Hola from Kyle!"
+div.text_content = "Hola from Byle!"
 
 # Crear elements
 btn = document.create_element("button")
@@ -67,7 +67,7 @@ div.append_child(btn)
 
 ### Fetch (HTTP from browser)
 
-```kyle
+```byle
 use web.{fetch, response}
 
 ris = fetch("/api/users")
@@ -79,16 +79,16 @@ if res.ok:
 
 ### Console
 
-```kyle
+```byle
 use web.console
 
-console.log("hello from Kyle")
+console.log("hello from Byle")
 console.error("something went wrong")
 ```
 
 ### Canvas 2D
 
-```kyle
+```byle
 use web.{document, canvas}
 
 canvas = document.get_element_by_id("game")
@@ -99,7 +99,7 @@ ctx.fill_rect(10, 10, 100, 50)
 
 ctx.fill_style = "blue"
 ctx.font = "20px sans-serif"
-ctx.fill_text("Kyle!", 20, 80)
+ctx.fill_text("Byle!", 20, 80)
 ```
 
 ---
@@ -108,21 +108,21 @@ ctx.fill_text("Kyle!", 20, 80)
 
 ```
 packages/web/
-├── ky.toml
+├── by.toml
 └── src/
- ├── lib.ky # Exportacionis principales
- ├── dom.ky # DOM API (get_element_by_id, create_element, etc.)
- ├── fetch.ky # Fetch API
- ├── canvas.ky # Canvas 2D
- ├── console.ky # Console API
- └── events.ky # Event listeners
+ ├── lib.by # Exportacionis principales
+ ├── dom.by # DOM API (get_element_by_id, create_element, etc.)
+ ├── fetch.by # Fetch API
+ ├── canvas.by # Canvas 2D
+ ├── console.by # Console API
+ └── events.by # Event listeners
 ```
 
 ### Implementation
 
 Las APIs del navegador se exponen via `extern fn` with `@link "js"`:
 
-```kyle
+```byle
 @link "js"
 
 extern fn js_getElementById(id: ptr) ptr
@@ -139,8 +139,8 @@ Un runtime de JS glue traduce llamadas a APIs realis del navegador.
 ## 5. Flujo de trabajo
 
 ```bash
-# 1. Compilar Kyle a WASM
-ky build --target wasm32-unknown-unknown app.ky -o app.wasm
+# 1. Compilar Byle a WASM
+by build --target wasm32-unknown-unknown app.by -o app.wasm
 
 # 2. Crear HTML with JS glue
 cat > index.html << 'HTML'

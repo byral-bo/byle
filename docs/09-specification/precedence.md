@@ -1,6 +1,6 @@
 # Operator Precedence
 
-> Tabla de precedencia de operadoris en Kyle.
+> Tabla de precedencia de operadoris en Byle.
 > De mayor a menor precedencia.
 
 | Nivel | Operadoris | Description |

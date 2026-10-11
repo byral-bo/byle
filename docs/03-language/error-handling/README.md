@@ -1,6 +1,6 @@
 # Error Handling
 
-> Manejo de errors en Kyle: opcionales, resultados, panics, diagnosticos.
+> Manejo de errors en Byle: opcionales, resultados, panics, diagnosticos.
 
 | File | Description |
 |---------|-------------|

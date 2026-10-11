@@ -1,6 +1,6 @@
 # Changelog
 
-> Registro de cambios del language Kyle.
+> Registro de cambios del language Byle.
 
 ## v0.5.3 (2026-07-06)
 
@@ -28,8 +28,8 @@
 | Área | Cambio |
 |------|---------|
 | LSP | Completed, hover, diagnostics |
-| Formatter | `ky fmt` implemented |
-| Packagis | `ky add/remove/install/publish` |
+| Formatter | `by fmt` implemented |
+| Packagis | `by add/remove/install/publish` |
 
 ## v0.5.0
 
@@ -45,8 +45,8 @@
 | Área | Cambio |
 |------|---------|
 | Ownership | Borrow by defecto, `^T` for move |
-| Runtime | `libkyc_runtime.a` with 88 functions |
-| CLI | `ky build`, `ky run`, `ky check` |
+| Runtime | `libbyc_runtime.a` with 88 functions |
+| CLI | `by build`, `by run`, `by check` |
 
 ## v0.3.0
 
